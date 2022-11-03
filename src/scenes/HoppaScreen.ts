@@ -1,9 +1,13 @@
 import Phaser from "phaser";
 import * as SceneFactory from '../scripts/SceneFactory';
+
+declare global {
+    var dramaticIntro: boolean;
+}
+
 export default class HoppaScreen extends Phaser.Scene {
 
     private rotate!: Phaser.GameObjects.BitmapText;
-    private goFS: boolean = false;
 
     private continueLabel!: Phaser.GameObjects.BitmapText;
     private optionsLabel!: Phaser.GameObjects.BitmapText;
@@ -14,10 +18,7 @@ export default class HoppaScreen extends Phaser.Scene {
     }
 
     init() {
-
-        if (this.sys.game.device.fullscreen.available) {
-            this.goFS = true;
-        }
+        
     }
 
     preload() {
@@ -27,25 +28,29 @@ export default class HoppaScreen extends Phaser.Scene {
     create() {
         const { width, height } = this.scale;
 
-        this.add.image(width / 2, height / 2 - 96, 'logo').setDisplaySize(306, 131).setOrigin(0.5, 0.5);
+        this.add.image(width / 2, height / 2 - 128, 'logo').setDisplaySize(460, 196).setOrigin(0.5, 0.5);
 
-        this.add.bitmapText(width * 0.5, height / 2, 'press_start', 'A Ra8bits Production', 22)
-            .setTint(0xffffff)
+        this.add.bitmapText(width * 0.5, height / 2, 'press_start', 'A Ra8bits Production', 48)
+            .setTint(0xc0c0c0)
             .setOrigin(0.5);
 
-        this.time.delayedCall(3000, () => {
-            this.continueLabel = this.add.bitmapText(width * 0.5, height / 2 + 48, 'press_start', 'Continue', 18)
+        let delay = 3000;
+        if( globalThis.dramaticIntro ) {
+            delay = 500;
+        }
+
+        this.time.delayedCall(delay, () => {
+            this.continueLabel = this.add.bitmapText(width * 0.5, height / 2 + 108, 'press_start', 'Continue', 48)
                 .setTint(0xffffff)
                 .setOrigin(0.5);
 
-            this.optionsLabel = this.add.bitmapText(width * 0.5, height / 2 + 96, 'press_start', 'Options', 18)
+            this.optionsLabel = this.add.bitmapText(width * 0.5, height / 2 + 176, 'press_start', 'Options', 48)
                 .setTint(0xffffff)
                 .setOrigin(0.5);
 
-            this.helpLabel = this.add.bitmapText(width * 0.5, height / 2 + 144, 'press_start', 'Help', 18)
+            this.helpLabel = this.add.bitmapText(width * 0.5, height / 2 + 234, 'press_start', 'Help', 48)
                 .setTint(0xffffff)
                 .setOrigin(0.5);
-
 
             this.continueLabel.setInteractive({ cursor: 'pointer' })
                 .on('pointerup', () => {
@@ -59,8 +64,8 @@ export default class HoppaScreen extends Phaser.Scene {
             this.optionsLabel.setInteractive({ cursor: 'pointer' })
                 .on('pointerup', () => {
                     this.optionsLabel.setTint(0x222b5c);
-                    this.scene.setVisible(false);
-                    this.scene.launch('options');
+                    this.scene.stop();
+                    this.scene.start('options');
                 })
                 .on('pointerdown', () => {
                     this.optionsLabel.setTint(0x99b0be);
@@ -69,19 +74,19 @@ export default class HoppaScreen extends Phaser.Scene {
             this.helpLabel.setInteractive({ cursor: 'pointer' })
                 .on('pointerup', () => {
                     this.helpLabel.setTint(0x222b5c);
-                    this.scene.launch('help');
-                    this.scene.setVisible(false);
+                    this.scene.stop();
+                    this.scene.start('help');
                 })
                 .on('pointerdown', () => {
                     this.helpLabel.setTint(0x99b0be);
                 });
 
-
             if (this.scale.orientation !== Phaser.Scale.Orientation.LANDSCAPE) {
                 this.printWarning(width, height);
             }
-        });
 
+            globalThis.dramaticIntro = true;
+        });
 
     }
 
@@ -92,7 +97,7 @@ export default class HoppaScreen extends Phaser.Scene {
     }
 
     private printWarning(width, height) {
-        this.rotate = this.add.bitmapText(width * 0.5, height / 2 + 192, 'press_start', '!rotate your device!', 18)
+        this.rotate = this.add.bitmapText(width * 0.5, height / 2 + 240, 'press_start', '!rotate your device!', 18)
             .setTint(0xff7300)
             .setOrigin(0.5);
     }

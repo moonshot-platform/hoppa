@@ -25,7 +25,6 @@ export default class Start extends Phaser.Scene {
         super({ key: 'start' });
     }
 
-    private introMusic;
     private obstaclesController!: ObstaclesController;
     private flowers: FlowerController[] = [];
     private monsters: MonsterController[] = [];
@@ -47,10 +46,13 @@ export default class Start extends Phaser.Scene {
     private hsv;
     private shoutout !: Phaser.GameObjects.BitmapText;
     private credits !: Phaser.GameObjects.BitmapText;
-
     private goFS: boolean = false;
 
     init() {
+
+        if (this.sys.game.device.fullscreen.available) {
+            this.goFS = true;
+        }
 
         this.obstaclesController = new ObstaclesController();
         this.monsters = [];
@@ -95,6 +97,11 @@ export default class Start extends Phaser.Scene {
 
     create() {
 
+        if(this.goFS && !this.scale.isFullscreen) {
+          try {
+            this.scale.startFullscreen();
+          } catch(e) { }       
+        }
 
         this.hsv = Phaser.Display.Color.HSVColorWheel();
 
@@ -142,7 +149,7 @@ export default class Start extends Phaser.Scene {
             }
         });
 
-        this.introMusic = SceneFactory.playRepeatMusic(this, 'theme');
+        SceneFactory.playRepeatMusic(this, 'theme');
 
         this.tweens.timeline({
             tweens: [
@@ -201,7 +208,7 @@ export default class Start extends Phaser.Scene {
     }
 
     private continueGame() {
-        this.introMusic.stop();
+        this.game.sound.stopAll();
         this.scene.start('level1');
     }
 
@@ -210,7 +217,6 @@ export default class Start extends Phaser.Scene {
         this.input.off('pointerdown', () => { this.continueGame(); });
         this.input.off('keydown', () => { this.continueGame(); });
 
-        this.introMusic.destroy();
         this.monsters.forEach(monster => monster.destroy());
         this.fires.forEach(fire => fire.destroy());
         this.plants.forEach(plant => plant.destroy());

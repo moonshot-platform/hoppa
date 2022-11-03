@@ -78,13 +78,13 @@ export default class GameSettingsMenu extends Phaser.Scene {
         this.soundVolume = new Slider(this, {
             x: width / 2,
             y: 300,
-            width: 300,
-            height: 24,
+            width: 500,
+            height: 48,
             orientation: 'x',
             value: globalThis.soundVolume,
             background: this.add.rectangle(0, 0, 200, 20, 0x222b5c),
             track: this.add.rectangle(0, 0, 180, 16, 0x004fa0),
-            thumb: this.add.rectangle(100, 0, 32, 32, 0x99b0be),
+            thumb: this.add.rectangle(100, 0, 64, 64, 0x99b0be),
             valuechangeCallback: function (value) {
                 globalThis.soundVolume = value;
 
@@ -98,20 +98,20 @@ export default class GameSettingsMenu extends Phaser.Scene {
         }).layout();
 
         this.add.existing(this.soundVolume);
-        this.soundLabel = this.add.bitmapText(width / 2, 250, 'press_start', 'Sound Volume', 24)
+        this.soundLabel = this.add.bitmapText(width / 2, 240, 'press_start', 'Sound Volume', 24)
             .setTint(0xff7300)
             .setOrigin(0.5, 0.1);
 
         this.musicVolume = new Slider(this, {
             x: width / 2,
-            y: 450,
-            width: 300,
-            height: 24,
+            y: 500,
+            width: 500,
+            height: 48,
             orientation: 'x',
             value: globalThis.musicVolume,
             background: this.add.rectangle(0, 0, 200, 20, 0x222b5c),
             track: this.add.rectangle(0, 0, 180, 16, 0x004fa0),
-            thumb: this.add.rectangle(100, 0, 32, 32, 0x99b0be),
+            thumb: this.add.rectangle(100, 0, 64, 64, 0x99b0be),
             valuechangeCallback: function (value) {
                 globalThis.musicVolume = value;
             },
@@ -122,13 +122,13 @@ export default class GameSettingsMenu extends Phaser.Scene {
             enable: true,
             input: 'drag',
         }).layout();
-        this.musicLabel = this.add.bitmapText(width / 2, 500, 'press_start', 'Music Volume', 24)
+        this.musicLabel = this.add.bitmapText(width / 2, 440, 'press_start', 'Music Volume', 24)
             .setTint(0xff7300)
             .setOrigin(0.5, 0.1);
 
         this.add.existing(this.musicVolume);
 
-        this.backLabel = this.add.bitmapText(width / 2, 620, 'press_start', 'Back', 24).setOrigin(0.5);
+        this.backLabel = this.add.bitmapText(width / 2, 620, 'press_start', 'Back', 32).setOrigin(0.5);
         this.backLabel.setInteractive({ cursor: 'pointer' })
             .on('pointerup', () => {
                 this.backLabel.setTint(0x222b5c);
@@ -168,6 +168,6 @@ export default class GameSettingsMenu extends Phaser.Scene {
         this.musicSample.stop();
         this.soundSample.stop();
         this.scene.stop();
-        this.scene.setVisible(true, 'hoppa');
+        this.scene.start('hoppa');
     }
 }

@@ -14,7 +14,7 @@ export default class Loader extends Phaser.Scene {
     preload() {
         let width = this.game.canvas.width;
         let height = this.game.canvas.height;
-
+        
         let d = ~~(width / 12);
 
         this.cameras.main.setBackgroundColor(0x000000);
@@ -28,7 +28,7 @@ export default class Loader extends Phaser.Scene {
             y: d,
             text: 'RA8BIT BASIC version 22.0',
             style: {
-                font: "20px 'Press Start 2P'",
+                font: "48px 'Press Start 2P'",
                 color: "#ffffff",
             }
         });
@@ -37,10 +37,10 @@ export default class Loader extends Phaser.Scene {
 
         let status = this.make.text({
             x: d + (d / 2),
-            y: d + 24,
+            y: d + 64,
             text: '4GB RAM SYSTEM    4294958080 Bytes free',
             style: {
-                font: "20px 'Press Start 2P'",
+                font: "48px 'Press Start 2P'",
                 color: "#ffffff",
             }
         });
@@ -48,10 +48,10 @@ export default class Loader extends Phaser.Scene {
 
         let info = this.make.text({
             x: d + (d / 2),
-            y: d + 48,
+            y: d + 64 + 64,
             text: '(C) RA8BITS & MOONSHOT',
             style: {
-                font: "20px 'Press Start 2P'",
+                font: "48px 'Press Start 2P'",
                 color: "#ffffff",
             }
         });
@@ -60,19 +60,19 @@ export default class Loader extends Phaser.Scene {
 
         this.ready = this.make.text({
             x: d + 2,
-            y: d + 48 + 48 + 24 + 24,
+            y: d + 64 + 64 + 64 + 64,
             text: '',
             style: {
-                font: "20px 'Press Start 2P'",
+                font: "48px 'Press Start 2P'",
                 color: "#ffffff",
             }
         });
         status.setOrigin(0, 0);
 
 
-        this.commandline = this.add.text(2 + d, d + 48 + 48 + 48 + 24, '');
+        this.commandline = this.add.text(2 + d, d + 256 + 64, '');
         this.commandline.setColor("#ffffff");
-        this.commandline.setFontSize(20);
+        this.commandline.setFontSize(48);
 
         var progressBar = this.add.graphics();
         var progressBox = this.add.graphics();
@@ -80,22 +80,14 @@ export default class Loader extends Phaser.Scene {
 
         var percentText = this.make.text({
             x: 4 + d + 128,
-            y: d + 48 + 48,
+            y: d + 256,
             text: '0%',
             style: {
-                font: "20px 'Press Start 2P'",
+                font: "48px 'Press Start 2P'",
             }
         });
 
-        var assetText = this.make.text({
-            x: d + 128 + 64,
-            y: d + 48 + 48,
-            text: '',
-            style: {
-                font: "20px 'Press Start 2P'",
-            }
-        });
-
+        
         this.load.on('progress', function (value: string) {
             let p1 = parseFloat(value);
             let p = ~~(p1 * 100);
@@ -103,12 +95,7 @@ export default class Loader extends Phaser.Scene {
             percentText.setColor('#ffffff');
             progressBar.clear();
             progressBar.fillStyle(0xffffff, 1);
-            progressBox.fillRect(4 + d, d + 48 + 48, 128 * p1, 20);
-        });
-
-        this.load.on('fileprogress', function (file) {
-            assetText.setText(' ' + file.key + "]");
-            assetText.setColor('#ffffff');
+            progressBox.fillRect(4 + d, d + 256, 128 * p1, 48);
         });
 
         this.load.on('complete', (e) => {
@@ -116,10 +103,9 @@ export default class Loader extends Phaser.Scene {
             progressBar.destroy();
             progressBox.destroy();
             percentText.destroy();
-            assetText.destroy();
+            
 
         }, this);
-
 
         SceneFactory.preload(this);
     }
