@@ -1,0 +1,209 @@
+{
+	"textures": [
+		{
+			"image": "bgtiles.png",
+			"format": "RGBA8888",
+			"size": {
+				"w": 1464,
+				"h": 3030
+			},
+			"scale": 1,
+			"frames": [
+				{
+					"filename": "Arrow.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 231,
+						"h": 161
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 231,
+						"h": 161
+					},
+					"frame": {
+						"x": 0,
+						"y": 0,
+						"w": 231,
+						"h": 161
+					}
+				},
+				{
+					"filename": "Cocoon1.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 488,
+						"h": 1010
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 488,
+						"h": 1010
+					},
+					"frame": {
+						"x": 488,
+						"y": 0,
+						"w": 488,
+						"h": 1010
+					}
+				},
+				{
+					"filename": "Cocoon2.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 488,
+						"h": 1010
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 488,
+						"h": 1010
+					},
+					"frame": {
+						"x": 976,
+						"y": 0,
+						"w": 488,
+						"h": 1010
+					}
+				},
+				{
+					"filename": "Cocoon3.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 488,
+						"h": 1010
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 488,
+						"h": 1010
+					},
+					"frame": {
+						"x": 0,
+						"y": 1010,
+						"w": 488,
+						"h": 1010
+					}
+				},
+				{
+					"filename": "Detour.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 209,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 209,
+						"h": 64
+					},
+					"frame": {
+						"x": 488,
+						"y": 1010,
+						"w": 209,
+						"h": 64
+					}
+				},
+				{
+					"filename": "Machine.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 380,
+						"h": 772
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 380,
+						"h": 772
+					},
+					"frame": {
+						"x": 976,
+						"y": 1010,
+						"w": 380,
+						"h": 772
+					}
+				},
+				{
+					"filename": "Ra8bithole.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 308,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 308,
+						"h": 64
+					},
+					"frame": {
+						"x": 0,
+						"y": 2020,
+						"w": 308,
+						"h": 64
+					}
+				},
+				{
+					"filename": "Weed.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 332,
+						"h": 401
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 332,
+						"h": 401
+					},
+					"frame": {
+						"x": 488,
+						"y": 2020,
+						"w": 332,
+						"h": 401
+					}
+				},
+				{
+					"filename": "XXX.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 172,
+						"h": 411
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 172,
+						"h": 411
+					},
+					"frame": {
+						"x": 976,
+						"y": 2020,
+						"w": 172,
+						"h": 411
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "https://www.codeandweb.com/texturepacker",
+		"version": "3.0",
+		"smartupdate": "$TexturePacker:SmartUpdate:6b0dea81580e451b414aae72bc27d052:2ac082a7a35c5b077fd46dd1e8a1b8d3:c62db9241ae4bc2c3370b3a1788ae1bb$"
+	}
+}

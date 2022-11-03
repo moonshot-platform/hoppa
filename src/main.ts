@@ -1,0 +1,47 @@
+import Phaser from 'phaser'
+
+import Start from './scenes/Start'
+import Level1 from './scenes/Level1'
+import Level2 from './scenes/Level2'
+import Level3 from './scenes/Level3'
+import LogoScreen from './scenes/LogoScreen'
+import HoppaScreen from './scenes/HoppaScreen'
+import UI from './scenes/UI'
+import GameOver from './scenes/GameOver'
+import Win from './scenes/Win'
+import Loader from './scenes/Loader'
+import Bonus from './scenes/Bonus'
+import Pause from './scenes/Pause'
+import GameSettingsMenu from './scenes/GameSettingsMenu'
+import Help from './scenes/Help'
+
+const config: Phaser.Types.Core.GameConfig = {
+	type: Phaser.WEBGL,
+	scale: {
+		mode: Phaser.Scale.FIT,
+		autoCenter: Phaser.Scale.CENTER_BOTH,
+	},
+	width: 1280,
+	height: 720,
+	render: {
+		pixelArt: true,
+		antialias: false,
+		antialiasGL: false,
+	},
+	physics: {
+		default: 'matter',
+		matter: {
+			gravity: { y: 2 },
+			debug: true
+		}
+	},
+	
+	input: {
+		activePointers: 4,
+	},
+	scene: [ Loader,LogoScreen, HoppaScreen, GameSettingsMenu,Help, Start, Level1,Level2,Level3, UI, Bonus, Win, Pause, GameOver],	
+}
+
+
+export default new Phaser.Game(config);
+ 

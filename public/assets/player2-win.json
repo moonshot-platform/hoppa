@@ -1,0 +1,146 @@
+{
+	"textures": [
+		{
+			"image": "player2-win.png",
+			"format": "RGBA8888",
+			"size": {
+				"w": 1536,
+				"h": 167
+			},
+			"scale": 1,
+			"frames": [
+				{
+					"filename": "AWinnerFemale1.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 256,
+						"h": 167
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 256,
+						"h": 167
+					},
+					"frame": {
+						"x": 0,
+						"y": 0,
+						"w": 256,
+						"h": 167
+					}
+				},
+				{
+					"filename": "AWinnerFemale2.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 256,
+						"h": 167
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 256,
+						"h": 167
+					},
+					"frame": {
+						"x": 256,
+						"y": 0,
+						"w": 256,
+						"h": 167
+					}
+				},
+				{
+					"filename": "AWinnerFemale3.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 256,
+						"h": 167
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 256,
+						"h": 167
+					},
+					"frame": {
+						"x": 512,
+						"y": 0,
+						"w": 256,
+						"h": 167
+					}
+				},
+				{
+					"filename": "AWinnerFemale4.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 256,
+						"h": 167
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 256,
+						"h": 167
+					},
+					"frame": {
+						"x": 768,
+						"y": 0,
+						"w": 256,
+						"h": 167
+					}
+				},
+				{
+					"filename": "AWinnerFemale5.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 256,
+						"h": 167
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 256,
+						"h": 167
+					},
+					"frame": {
+						"x": 1024,
+						"y": 0,
+						"w": 256,
+						"h": 167
+					}
+				},
+				{
+					"filename": "AWinnerFemale6.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 256,
+						"h": 167
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 256,
+						"h": 167
+					},
+					"frame": {
+						"x": 1280,
+						"y": 0,
+						"w": 256,
+						"h": 167
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "https://www.codeandweb.com/texturepacker",
+		"version": "3.0",
+		"smartupdate": "$TexturePacker:SmartUpdate:12dec1eb523db4e52816f0b2373c09c7:07d400995e4d7b638261476b4daa63d6:e7ffd5a9362c1f2ef5684baaa42c5c22$"
+	}
+}

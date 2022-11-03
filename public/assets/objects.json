@@ -1,0 +1,377 @@
+{
+	"textures": [
+		{
+			"image": "objects.png",
+			"format": "RGBA8888",
+			"size": {
+				"w": 484,
+				"h": 135
+			},
+			"scale": 1,
+			"frames": [
+				{
+					"filename": "Dropping.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 17,
+						"h": 18
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 17,
+						"h": 18
+					},
+					"frame": {
+						"x": 1,
+						"y": 1,
+						"w": 17,
+						"h": 18
+					}
+				},
+				{
+					"filename": "Spikes.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 64,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 3,
+						"y": 31,
+						"w": 58,
+						"h": 33
+					},
+					"frame": {
+						"x": 20,
+						"y": 1,
+						"w": 58,
+						"h": 33
+					}
+				},
+				{
+					"filename": "Barrel.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 64,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 13,
+						"y": 21,
+						"w": 39,
+						"h": 43
+					},
+					"frame": {
+						"x": 80,
+						"y": 1,
+						"w": 39,
+						"h": 43
+					}
+				},
+				{
+					"filename": "Barrels.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 64,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 21,
+						"w": 64,
+						"h": 43
+					},
+					"frame": {
+						"x": 121,
+						"y": 1,
+						"w": 64,
+						"h": 43
+					}
+				},
+				{
+					"filename": "Box.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 64,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 6,
+						"y": 20,
+						"w": 53,
+						"h": 44
+					},
+					"frame": {
+						"x": 187,
+						"y": 1,
+						"w": 53,
+						"h": 44
+					}
+				},
+				{
+					"filename": "Heart.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 64,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 3,
+						"y": 15,
+						"w": 61,
+						"h": 49
+					},
+					"frame": {
+						"x": 242,
+						"y": 1,
+						"w": 61,
+						"h": 49
+					}
+				},
+				{
+					"filename": "Berry.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 64,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 3,
+						"y": 7,
+						"w": 58,
+						"h": 57
+					},
+					"frame": {
+						"x": 305,
+						"y": 1,
+						"w": 58,
+						"h": 57
+					}
+				},
+				{
+					"filename": "Rubber_1.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 64,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 15,
+						"y": 7,
+						"w": 38,
+						"h": 57
+					},
+					"frame": {
+						"x": 365,
+						"y": 1,
+						"w": 38,
+						"h": 57
+					}
+				},
+				{
+					"filename": "Rubber_2.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 64,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 15,
+						"y": 7,
+						"w": 38,
+						"h": 57
+					},
+					"frame": {
+						"x": 405,
+						"y": 1,
+						"w": 38,
+						"h": 57
+					}
+				},
+				{
+					"filename": "Rubber_3.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 64,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 15,
+						"y": 7,
+						"w": 38,
+						"h": 57
+					},
+					"frame": {
+						"x": 445,
+						"y": 1,
+						"w": 38,
+						"h": 57
+					}
+				},
+				{
+					"filename": "Carrot.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 64,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 3,
+						"w": 64,
+						"h": 61
+					},
+					"frame": {
+						"x": 1,
+						"y": 60,
+						"w": 64,
+						"h": 61
+					}
+				},
+				{
+					"filename": "Coin.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 64,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 3,
+						"y": 0,
+						"w": 58,
+						"h": 64
+					},
+					"frame": {
+						"x": 67,
+						"y": 60,
+						"w": 58,
+						"h": 64
+					}
+				},
+				{
+					"filename": "POW.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 64,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 64,
+						"h": 64
+					},
+					"frame": {
+						"x": 127,
+						"y": 60,
+						"w": 64,
+						"h": 64
+					}
+				},
+				{
+					"filename": "Plant.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 64,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 64,
+						"h": 64
+					},
+					"frame": {
+						"x": 193,
+						"y": 60,
+						"w": 64,
+						"h": 64
+					}
+				},
+				{
+					"filename": "Star.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 64,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 64,
+						"h": 64
+					},
+					"frame": {
+						"x": 259,
+						"y": 60,
+						"w": 64,
+						"h": 64
+					}
+				},
+				{
+					"filename": "Toad.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 64,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 64,
+						"h": 64
+					},
+					"frame": {
+						"x": 325,
+						"y": 60,
+						"w": 64,
+						"h": 64
+					}
+				},
+				{
+					"filename": "Ape.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 64,
+						"h": 77
+					},
+					"spriteSourceSize": {
+						"x": 3,
+						"y": 3,
+						"w": 59,
+						"h": 74
+					},
+					"frame": {
+						"x": 391,
+						"y": 60,
+						"w": 59,
+						"h": 74
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "https://www.codeandweb.com/texturepacker",
+		"version": "3.0",
+		"smartupdate": "$TexturePacker:SmartUpdate:9409501db91a9f56a370835aadb77ab9:b2fa717cff8f27f857bca31923ac81a8:8d6d12ff4d5234f2a4b19e0a906dbf52$"
+	}
+}

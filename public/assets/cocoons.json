@@ -1,0 +1,104 @@
+{
+	"textures": [
+		{
+			"image": "cocoons.png",
+			"format": "RGBA8888",
+			"size": {
+				"w": 512,
+				"h": 814
+			},
+			"scale": 1,
+			"frames": [
+				{
+					"filename": "Cocoon1.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 196,
+						"h": 406
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 196,
+						"h": 406
+					},
+					"frame": {
+						"x": 0,
+						"y": 0,
+						"w": 196,
+						"h": 406
+					}
+				},
+				{
+					"filename": "Cocoon2.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 196,
+						"h": 406
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 196,
+						"h": 406
+					},
+					"frame": {
+						"x": 198,
+						"y": 0,
+						"w": 196,
+						"h": 406
+					}
+				},
+				{
+					"filename": "Cocoon3.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 196,
+						"h": 406
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 196,
+						"h": 406
+					},
+					"frame": {
+						"x": 0,
+						"y": 408,
+						"w": 196,
+						"h": 406
+					}
+				},
+				{
+					"filename": "Machine.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 196,
+						"h": 398
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 196,
+						"h": 398
+					},
+					"frame": {
+						"x": 198,
+						"y": 408,
+						"w": 196,
+						"h": 398
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "https://www.codeandweb.com/texturepacker",
+		"version": "3.0",
+		"smartupdate": "$TexturePacker:SmartUpdate:0e6ccc630c7ea31649971d5b9c31252d:a232497dc660f36f76d8a779070ba2f6:4171530b35e2e9323c2a835e2f378c5b$"
+	}
+}
