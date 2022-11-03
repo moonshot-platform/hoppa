@@ -1,34 +1,34 @@
+![Logo](public/assets/logo.png)
 
- .----------------.  .----------------.  .----------------.  .----------------.  .----------------. 
-| .--------------. || .--------------. || .--------------. || .--------------. || .--------------. |
-| |  ____  ____  | || |     ____     | || |   ______     | || |   ______     | || |      __      | |
-| | |_   ||   _| | || |   .'    `.   | || |  |_   __ \   | || |  |_   __ \   | || |     /  \     | |
-| |   | |__| |   | || |  /  .--.  \  | || |    | |__) |  | || |    | |__) |  | || |    / /\ \    | |
-| |   |  __  |   | || |  | |    | |  | || |    |  ___/   | || |    |  ___/   | || |   / ____ \   | |
-| |  _| |  | |_  | || |  \  `--'  /  | || |   _| |_      | || |   _| |_      | || | _/ /    \ \_ | |
-| | |____||____| | || |   `.____.'   | || |  |_____|     | || |  |_____|     | || ||____|  |____|| |
-| |              | || |              | || |              | || |              | || |              | |
-| '--------------' || '--------------' || '--------------' || '--------------' || '--------------' |
- '----------------'  '----------------'  '----------------'  '----------------'  '----------------' 
+# Introduction 
+
+A 2D Classic Platform game by Moonshot & Ra8bits
 
 
-A 2D Classic Platform game
-
-By Moonshot & Ra8bits
-
-Using phaser3 and typescript
+# License
 
 All media released as CC BY-SA 4.0
 All sources released as MIT open source 
+
+# Join us!
+
 Contributions welcome!
+
+# Getting started
 
 Usage:
 
+```
+$ npm install
 $ npm run start
 
 $ npm run build
+```
 
 
+# Screenshots:
 
-
-Modify package.json for a different webapp dir
+![Screenshot 1](public/assets/screenshot.jpg)
+![Screenshot 2](public/assets/screenshot2.jpg)
+![Screenshot 3](public/assets/screenshot3.jpg)
+![Screenshot 4](public/assets/screenshot4.jpg)
