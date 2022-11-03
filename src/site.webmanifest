@@ -16,6 +16,32 @@
         }
     ],
     "theme_color": "#8d93fc",
-    "background_color": "#8d93fc"
+    "background_color": "#8d93fc",
+    "start_url": "/hoppa/",
+    "scope": "/hoppa",
+
+    "description": "2D Classic Platform Game",
+    "screenshots": [
+        {
+            "src": "assets/screenshot.jpg",
+            "type": "image/jpg",
+            "sizes": "1280x720"
+        },
+        {
+            "src": "assets/screenshot2.jpg",
+            "type": "image/jpg",
+            "sizes": "1280x720"
+        },
+        {
+            "src": "assets/screenshot3.jpg",
+            "type": "image/jpg",
+            "sizes": "1280x720"
+        },
+        {
+            "src": "assets/screenshot4.jpg",
+            "type": "image/jpg",
+            "sizes": "1280x720"
+        }
+    ]
 }
   
