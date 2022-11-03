@@ -108,9 +108,6 @@ export function playRepeatMusic(ctx: Phaser.Scene, choice: string): Phaser.Sound
         globalThis.musicTune = false;
     });
 
-    console.log("Play repeat tune " + globalThis.musicTitle);
-
-
     return m;
 }
 
