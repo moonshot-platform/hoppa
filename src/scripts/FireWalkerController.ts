@@ -8,7 +8,7 @@ export default class FireWalkerController {
     private stateMachine: StateMachine;
     private garbage: boolean = false;
     private moveTime = 0;
-    private velocityX = 5;
+    private velocityX;
     private name;
     private myMoveTime = 0;
 
@@ -41,7 +41,7 @@ export default class FireWalkerController {
             .setState('idle');
 
         this.myMoveTime = Phaser.Math.Between(12000, 18000);
-
+        this.velocityX = Phaser.Math.FloatBetween( 4.5 , 5.5 );
 
         events.on(this.name + '-stomped', this.handleStomped, this);
         events.on(this.name + '-blocked', this.handleBlocked, this);
