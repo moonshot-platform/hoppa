@@ -117,6 +117,7 @@ export default class Win extends Phaser.Scene {
             "Mega Pixel Music Lab",
             "Christovix",
             "Kim Lightyear",
+            "3xBlast",
             "",
             "",
             "Special thanks to",
