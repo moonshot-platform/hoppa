@@ -1,8 +1,10 @@
 import Phaser from "phaser";
 import * as SceneFactory from '../scripts/SceneFactory';
+import * as WalletHelper from '../scripts/WalletHelper'
 
 declare global {
     var dramaticIntro: boolean;
+  
 }
 
 export default class HoppaScreen extends Phaser.Scene {
@@ -14,12 +16,13 @@ export default class HoppaScreen extends Phaser.Scene {
     private helpLabel!: Phaser.GameObjects.BitmapText;
 
     constructor() {
-        super('hoppa')
+        super('hoppa');
     }
 
     init() {
         
     }
+   
 
     preload() {
         SceneFactory.preload(this);
@@ -40,7 +43,7 @@ export default class HoppaScreen extends Phaser.Scene {
         }
 
         this.time.delayedCall(delay, () => {
-            this.continueLabel = this.add.bitmapText(width * 0.5, height / 2 + 108, 'press_start', 'Continue', 48)
+            this.continueLabel = this.add.bitmapText(width * 0.5, height / 2 + 108, 'press_start', 'Connect', 48)
                 .setTint(0xffffff)
                 .setOrigin(0.5);
 
@@ -103,8 +106,10 @@ export default class HoppaScreen extends Phaser.Scene {
     }
 
     private continueGame() {
+        WalletHelper.init();
+        WalletHelper.getCurrentAccount();
         this.scene.stop();
-        this.scene.start('start');
+        this.scene.start('story');
     }
 
 }
