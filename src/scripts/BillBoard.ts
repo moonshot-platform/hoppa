@@ -1,4 +1,4 @@
-import Phaser, { Tilemaps } from 'phaser'
+import Phaser from 'phaser'
 
 export default class BillBoard {
 
@@ -8,7 +8,7 @@ export default class BillBoard {
     constructor(scene: Phaser.Scene, sprite: Phaser.Physics.Matter.Sprite) {
         this.sprite = sprite;
 
-        this.frame = Phaser.Math.Between(0, 14);
+        this.frame = Phaser.Math.Between(0, 34);
 
         this.sprite.setData('type', 'billboard');
 
@@ -18,7 +18,7 @@ export default class BillBoard {
     }
 
     public rotateBillBoard() {
-        this.sprite.setFrame((this.frame + 1) % 14);
+        this.sprite.setFrame((this.frame + 1) % 34);
     }
 
 }
