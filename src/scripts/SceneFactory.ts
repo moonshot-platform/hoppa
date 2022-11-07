@@ -79,8 +79,6 @@ export function playMusic(ctx: Phaser.Scene, choice: string): Phaser.Sound.BaseS
         globalThis.musicTune = false;
     });
 
-    console.log("Play tune " + globalThis.musicTitle);
-
     return m;
 }
 
@@ -171,6 +169,7 @@ export function setupSounds(ctx: Phaser.Scene): Map<string, Phaser.Sound.BaseSou
         'click',
         'lightswitch',
         'changeskin',
+        '100coins',
     ];
 
     sounds.forEach(s => m.set(s, ctx.sound.add(s, { loop: false })));
@@ -188,7 +187,6 @@ export function setupHandlers(ctx: Phaser.Scene) {
 
     ctx.game.events.on(Phaser.Core.Events.FOCUS, () => {
         if (!globalThis.musicTune && globalThis.musicTitle !== undefined) {
-            console.log("Should play " + globalThis.musicTitle);
             playMusic(ctx, globalThis.musicTitle);
         }
     });
@@ -205,17 +203,12 @@ export function handleLoseFocus(ctx: Phaser.Scene) {
         return;
     }
 
-    console.log("Stop all music");
-
     ctx.game.sound.stopAll();
     globalThis.musicTune = false;
 
     ctx.scene.run('paused', {
         onResume: () => {
             ctx.scene.stop();
-
-            // Resume music
-            console.log("Resume");
         }
     });
 }
@@ -304,7 +297,7 @@ export function preload(ctx) {
     ctx.load.spritesheet('coin', 'assets/coin.png', { frameWidth: 64, frameHeight: 64, startFrame: 0, endFrame: 5 });
     ctx.load.spritesheet('carrot', 'assets/carrot.png', { frameWidth: 64, frameHeight: 64, startFrame: 0, endFrame: 5 });
     ctx.load.spritesheet('lab', 'assets/lab.png', { frameWidth: 64, frameHeight: 136, startFrame: 0, endFrame: 3 });
-    ctx.load.spritesheet('billboards', 'assets/billboards.png', { frameWidth: 192, frameHeight: 220, startFrame: 0, endFrame: 14 });
+    ctx.load.spritesheet('billboards', 'assets/billboards.png', { frameWidth: 192, frameHeight: 220, startFrame: 0, endFrame: 34 });
     ctx.load.spritesheet('lightswitch', 'assets/lightswitch.png', { frameWidth: 64, frameHeight: 64, startFrame: 0, endFrame: 1 });
     ctx.load.spritesheet('fireball', 'assets/fireball.png', { frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 3 });
 
@@ -361,13 +354,14 @@ export function preload(ctx) {
     ctx.load.audio('boss', ['assets/boss.mp3', 'assets/boss.m4a']);
 
     ctx.load.audio('changeskin', ['assets/changeskin.mp3', 'assets/changeskin.m4a']);
+    ctx.load.audio('spectacle', [ 'assets/spectacle.mp3', 'assets/spectacle.m4a']);
     ctx.load.audio('theme', ['assets/start.mp3', 'assets/start.m4a']);
+    ctx.load.audio('100coins', ['assets/100coins.mp3', 'assets/100coins.m4a']);
 
     // font
     ctx.load.bitmapFont('press_start', 'assets/press_start_2p.png', 'assets/press_start_2p.fnt');
 
     ctx.load.audio('angel-eyes', ['assets/angel-eyes.mp3', 'assets/angel-eyes.m4a']);
-
     ctx.load.audio('01_main_screen_trailer', ['assets/01_main_screen_trailer.mp3', 'assets/01_main_screen_trailer.m4a']);
     ctx.load.audio('02_level_grass', ['assets/02_level_grass.mp3', 'assets/02_level_grass.m4a']);
     ctx.load.audio('03_level_forest', ['assets/03_level_forest.mp3', 'assets/03_level_forest.m4a']);
@@ -388,7 +382,7 @@ export function preload(ctx) {
     ctx.load.audio('onmyway', ['assets/onmyway.mp3', 'assets/onmyway.m4a']);
     ctx.load.audio('spy', ['assets/spy.mp3', 'assets/spy.m4a']);
     ctx.load.audio('thevillage', ['assets/thevillage.mp3', 'assets/thevillage.m4a']);
-
+    
 
 
     setupHandlers(ctx);
