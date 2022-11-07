@@ -1204,6 +1204,91 @@
                  "width":64,
                  "x":4864,
                  "y":512
+                }, 
+                {
+                 "height":64,
+                 "id":528,
+                 "name":"coinbrick",
+                 "properties":[
+                        {
+                         "name":"hits",
+                         "type":"int",
+                         "value":3
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":64,
+                 "x":2496,
+                 "y":384
+                }, 
+                {
+                 "height":64,
+                 "id":529,
+                 "name":"coinbrick",
+                 "properties":[
+                        {
+                         "name":"hits",
+                         "type":"int",
+                         "value":3
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":64,
+                 "x":2816,
+                 "y":384
+                }, 
+                {
+                 "height":64,
+                 "id":530,
+                 "name":"coinbrick",
+                 "properties":[
+                        {
+                         "name":"hits",
+                         "type":"int",
+                         "value":3
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":64,
+                 "x":3136,
+                 "y":384
+                }, 
+                {
+                 "height":64,
+                 "id":531,
+                 "name":"coinbrick",
+                 "properties":[
+                        {
+                         "name":"hits",
+                         "type":"int",
+                         "value":3
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":64,
+                 "x":1024,
+                 "y":448
+                }, 
+                {
+                 "height":64,
+                 "id":532,
+                 "name":"coinbrick",
+                 "properties":[
+                        {
+                         "name":"hits",
+                         "type":"int",
+                         "value":3
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":64,
+                 "x":1216,
+                 "y":448
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -1248,7 +1333,7 @@
          "y":0
         }],
  "nextlayerid":18,
- "nextobjectid":528,
+ "nextobjectid":533,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.7.2",
