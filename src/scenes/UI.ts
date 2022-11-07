@@ -30,35 +30,33 @@ export default class UI extends Phaser.Scene {
     }
 
     init() {
-        this.info = {
-            'lastHealth': 100,
-            'coinsCollected': 0,
-            'carrotsCollected': 0,
-            'currLevel': 1,
-            'scorePoints': 0,
-            'livesRemaining': 3
-        };
-
+       
         let data = window.localStorage.getItem( 'ra8bit.stats' );
         if( data != null ) {
             let obj = JSON.parse(data);
             this.info = obj as PlayerStats;
         }
-
+        else {
+            this.info = {
+                'lastHealth': 100,
+                'coinsCollected': 0,
+                'carrotsCollected': 0,
+                'currLevel': 1,
+                'scorePoints': 0,
+                'livesRemaining': 3
+            };
+        }
     }
 
     preload() {
         SceneFactory.preload(this);
     }
  
-
     create() {
         this.graphics = this.add.graphics();
         this.setHealthBar(100);
 
         this.add.image( 0,640,'bg-ui').setDisplaySize(this.cameras.main.width,80). setOrigin(0, 0);
-
-
         this.levelLabel = this.add.bitmapText( 16,676, 'press_start',
         `Level ${this.info.currLevel}`, 24 ).setTint(0xff7300); //0x7c9f4d);
         this.levelLabel.setDropShadow(0,2,0xff0000, 0.5);
@@ -75,7 +73,6 @@ export default class UI extends Phaser.Scene {
 
         this.scoreLabel = this.add.bitmapText( 448, 676 , 'press_start', `${this.info.scorePoints}`, 24).setTint(0xffffff);
         this.scoreLabel.setDropShadow(0,2,0xff0000, 0.5);
-
         
         this.pwrPoop = this.add.sprite( 760, 670 + (32 * 0.5), 'berry' ).setDisplaySize(32,32);
         this.pwrSpeed = this.add.sprite( 760 + 48, 670 + (32 * 0.5), 'star' ).setDisplaySize(32,32);
@@ -86,7 +83,6 @@ export default class UI extends Phaser.Scene {
         this.pwrSpeed.setAlpha(0.1);
         this.pwrPower.setAlpha(0.1);
         this.pwrInvincible.setAlpha(0.1);
-        
 
         this.health = this.add.sprite( 1230, 678, 'health', 4 );
         this.lives = [];
@@ -152,9 +148,31 @@ export default class UI extends Phaser.Scene {
         const percent = Phaser.Math.Clamp(value, 0, 100);
         const heart   = ~~ ( percent / 20  );
         this.info.lastHealth = value;
-        console.log("last Health = " + this.info.lastHealth + ", heart=" + heart);
         this.health?.setFrame(heart);
     }
+
+    private handleLivesChanged(value: number ) {
+        for( let i = 0; i < 3; i ++ ) {
+            this.lives[i].setFrame( value < i ? 0 : 4 );
+        }
+        this.info.livesRemaining = value;
+        this.save();
+    }
+    
+    private handleHealthChanged(value: number) {
+        /* this.tweens.addCounter( {
+             from: this.info.lastHealth,
+             to: value,
+             duration: 200,
+             ease: Phaser.Math.Easing.Sine.InOut,
+             onUpdate: tween => {
+                 const value = tween.getValue();
+                 this.setHealthBar(value);
+             }
+         }); */
+        this.setHealthBar(value);
+       
+     }
 
     private handleEnemyKilled(value: number) {
         this.updateScore(value);
@@ -166,18 +184,21 @@ export default class UI extends Phaser.Scene {
             this.updateScore(1000);
         }
     }
+    
     private handleSpeed(value: boolean) {
         this.pwrSpeed?.setAlpha(value ? 1: 0.1);
         if(value) {
             this.updateScore(1000);
         }
     }
+    
     private handlePoop(value: boolean) {
         this.pwrPoop?.setAlpha(value ? 1: 0.1);
         if(value) {
             this.updateScore(1000);
         }
     }
+
     private handlePower(value: boolean) {
         this.pwrPower?.setAlpha(value ? 1: 0.1);
         if(value) {
@@ -185,34 +206,8 @@ export default class UI extends Phaser.Scene {
         }
     }
 
-    private handleLivesChanged(value: number ) {
-        for( let i = 0; i < 3; i ++ ) {
-            this.lives[i].setFrame( value < i ? 0 : 4 );
-        }
-        this.info.livesRemaining = value;
-  
-        let data = JSON.stringify(this.info);
-        window.localStorage.setItem( 'ra8bit.stats', data );
-    }
-
     private handleChangeScore(value: number) {
         this.updateScore(value);
-    }
-
-    private handleHealthChanged(value: number) {
-       /* this.tweens.addCounter( {
-            from: this.info.lastHealth,
-            to: value,
-            duration: 200,
-            ease: Phaser.Math.Easing.Sine.InOut,
-            onUpdate: tween => {
-                const value = tween.getValue();
-                this.setHealthBar(value);
-            }
-        }); */
-       this.setHealthBar(value);
-       // this.info.lastHealth = value;
-       console.log("trigger health changed");
     }
 
     private handleCarrotCollected() {
@@ -222,8 +217,10 @@ export default class UI extends Phaser.Scene {
     }
 
     private handleSceneSwitch() {
-        let data = JSON.stringify(this.info);
-        window.localStorage.setItem( 'ra8bit.stats', data );
+        this.save();
+
+        this.time_start = 0;
+        
         this.resetSpawnPoint();
         this.game.sound.stopAll();
         this.scene.stop(); // stop UI
@@ -245,6 +242,12 @@ export default class UI extends Phaser.Scene {
         this.coinsLabel.text = `x ${this.info.coinsCollected}`;
 
         this.updateScore(10);
+
+        if( this.info.coinsCollected == 100  ) {
+            SceneFactory.addSound(this, '100coins', false, true );
+            this.handleLivesChanged(this.info.livesRemaining + 1);
+            this.info.coinsCollected = 0;
+        } 
     }
 
     private handleReset() {
@@ -256,6 +259,9 @@ export default class UI extends Phaser.Scene {
         this.info.currLevel = 1;
         this.info.lastHealth = 100;
         this.info.livesRemaining = 3;
+
+        this.save();
+
         this.resetSpawnPoint();
         this.game.sound.stopAll();
         this.scene.stop();
@@ -269,6 +275,11 @@ export default class UI extends Phaser.Scene {
     private updateScore(value: number) {
         this.info.scorePoints += value;
         this.scoreLabel.text = `${this.info.scorePoints}`;
+    }
+
+    private save() {
+        let data = JSON.stringify(this.info);
+        window.localStorage.setItem( 'ra8bit.stats', data );
     }
 
 }
