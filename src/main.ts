@@ -14,6 +14,8 @@ import Bonus from './scenes/Bonus'
 import Pause from './scenes/Pause'
 import GameSettingsMenu from './scenes/GameSettingsMenu'
 import Help from './scenes/Help'
+import Story from './scenes/Story'
+import Wallet from './scenes/Wallet'
 
 const config: Phaser.Types.Core.GameConfig = {
 	type: Phaser.WEBGL,
@@ -39,9 +41,25 @@ const config: Phaser.Types.Core.GameConfig = {
 	input: {
 		activePointers: 4,
 	},
-	scene: [ Loader,LogoScreen, HoppaScreen, GameSettingsMenu,Help, Start, Level1,Level2,Level3, UI, Bonus, Win, Pause, GameOver],	
+	scene: [ Loader,LogoScreen, HoppaScreen,Story, Wallet, GameSettingsMenu,Help, Start, Level1,Level2,Level3,Bonus, UI,  Win, Pause, GameOver],	
 }
 
+window.addEventListener('load', () => {
+	window.setTimeout(() => {
+	  
+	  if( 'serviceWorker' in navigator ) {
+		navigator.serviceWorker.register('sw.js')
+			.then( function(r) {
+				console.log("Registered service worker ", r.scope);
+			})
+			.catch(function(e) {
+				console.log("Service worker failed registration: ", e);
+			});
+	   }
 
-export default new Phaser.Game(config);
+	   new Phaser.Game(config);
+	}, 2000)
+  });
+
+//export default new Phaser.Game(config);
  
