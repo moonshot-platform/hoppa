@@ -3,6 +3,7 @@
 		"target": "es2016",
 		"module": "es6",
 		"strict": true,
+		"resolveJsonModule": true,
 		"noImplicitAny": false,
 		"noEmit": true,
 		"allowJs": true,
@@ -14,6 +15,7 @@
 		"esModuleInterop": true,
 		"allowSyntheticDefaultImports": true,
 		"sourceMap": true,
+		"isolatedModules": true,
 		"baseUrl": "./src",
 		"paths": {
 		  "~/*": ["./*"]
