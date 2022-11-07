@@ -24,7 +24,7 @@ export default class PlayerController {
     private playerSpeed = 5;
     private playerJump = 15;
 
-    private lastBeeHit?: Phaser.Physics.Matter.Sprite;
+    private lastHitBy?: Phaser.Physics.Matter.Sprite;
     public sensors_bottom;
     public sensors_left;
     public sensors_right;
@@ -284,7 +284,7 @@ export default class PlayerController {
                 let v = this.obstacles.getValues('bonus', body);
                 if (v.use > 0 && (player.position.y > body.position.y)) {
                     SceneFactory.playSound(this.sounds, 'bonustile');
-                    let idx = ~~(Math.random() * this.bonusObjects.length);
+                    let idx = (v.use == 3 ? 1 :  ~~(Math.random() * this.bonusObjects.length)); // first bonus is always POWER , followed by random bonus drop
                     while (v.last == idx) {
                         idx = ~~(Math.random() * this.bonusObjects.length);
                     }
@@ -348,7 +348,7 @@ export default class PlayerController {
                 this.obstacles.isType('crow', body) ||
                 this.obstacles.isType('tnt', body) ||
                 this.obstacles.isType('fire', body)) {
-                this.lastBeeHit = body.gameObject;
+                this.lastHitBy = body.gameObject;
 
                 let bh = this.sprite.height * body.centerOfMass.y;
                 let ph = 96 * player.centerOfMass.y;
@@ -505,7 +505,7 @@ export default class PlayerController {
                 }
                 case 'billboard': {
                     SceneFactory.playSound(this.sounds, 'click');
-                    sprite.setFrame(Phaser.Math.Between(0, 14));
+                    sprite.setFrame(Phaser.Math.Between(0, 34));
                     break;
                 }
                 case 'lightswitch': {
@@ -658,7 +658,6 @@ export default class PlayerController {
 
         if (this.sprite.body.position.y > (
             this.tilemap.heightInPixels - 32)) {
-            console.log("World hit change state: " + this.sprite.body.position.y);
             this.stateMachine.setState('world-hit');
         }
 
@@ -990,10 +989,8 @@ export default class PlayerController {
 
         this.scene.time.delayedCall(100, () => {
             this.stateMachine.setState('dead');
-            console.log("Player dies");
         });
 
-        console.log("World hit taken");
     }
 
     private spikeHitOnEnter() {
@@ -1046,8 +1043,8 @@ export default class PlayerController {
 
         this.stateMachine.setState('idle');
 
-        if (this.lastBeeHit) {
-            if (this.sprite.x < this.lastBeeHit.x) {
+        if (this.lastHitBy !== undefined) {
+            if (this.sprite.x < this.lastHitBy.x) {
                 this.sprite.setVelocityX(-40);
             }
             else {
@@ -1062,8 +1059,8 @@ export default class PlayerController {
 
     private beeStompOnEnter() {
         this.sprite.setVelocityY(-10);
-        if (this.lastBeeHit !== undefined) {
-            let body = this.lastBeeHit.body;
+        if (this.lastHitBy !== undefined) {
+            let body = this.lastHitBy.body;
             let score = 100;
             let b = this.scene.add.bitmapText(body.position.x, body.position.y, 'press_start',
                 '+100', 24).setTint(0xffffff);
@@ -1083,7 +1080,7 @@ export default class PlayerController {
             events.emit('enemy-killed', score);
         }
 
-        events.emit(this.lastBeeHit?.name + '-stomped', this.lastBeeHit);
+        events.emit(this.lastHitBy?.name + '-stomped', this.lastHitBy);
         SceneFactory.playSound(this.sounds, 'stomped');
         this.scene.cameras.main.shake(100, 0.025);
 
@@ -1251,17 +1248,24 @@ export default class PlayerController {
 
     private bounceSprite(sprite: Phaser.Physics.Matter.Sprite) {
         let oldY: number = sprite.body.position.y;
-        this.scene.tweens.add({
+        let t1: Phaser.Tweens.Tween = sprite.getData( 'tween' );
+        if( t1 !== undefined) {
+            return; // tween running
+        }
+
+        let tw: Phaser.Tweens.Tween = this.scene.tweens.add({
             targets: sprite,
             y: sprite.body.position.y - 32,
             duration: 100,
             ease: 'Bounce',
             onComplete: () => {
                 sprite.setY(oldY);
+                sprite.setData( 'tween', undefined);
             },
             repeat: 0,
             yoyo: true,
         });
+        sprite.setData( 'tween', tw );
     }
 
     private bounceSpriteAndDestroy(sprite: Phaser.Physics.Matter.Sprite) {
