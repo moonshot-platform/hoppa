@@ -23,22 +23,22 @@
     "description": "2D Classic Platform Game",
     "screenshots": [
         {
-            "src": "assets/screenshot.jpg",
+            "src": "../public/assets/screenshot.jpg",
             "type": "image/jpg",
             "sizes": "1280x720"
         },
         {
-            "src": "assets/screenshot2.jpg",
+            "src": "../public/assets/screenshot2.jpg",
             "type": "image/jpg",
             "sizes": "1280x720"
         },
         {
-            "src": "assets/screenshot3.jpg",
+            "src": "../public/assets/screenshot3.jpg",
             "type": "image/jpg",
             "sizes": "1280x720"
         },
         {
-            "src": "assets/screenshot4.jpg",
+            "src": "../public/assets/screenshot4.jpg",
             "type": "image/jpg",
             "sizes": "1280x720"
         }
