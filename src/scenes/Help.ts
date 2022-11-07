@@ -24,7 +24,7 @@ export default class Help extends Phaser.Scene {
 
         this.add.image(width / 2, height / 2 - 128, 'logo').setDisplaySize(460, 196).setOrigin(0.5, 0.5);
 
-        this.line1 = this.add.bitmapText(width * 0.5, height / 2, 'press_start', 'Use CURSOR or WASD keys to move.', 32)
+        this.line1 = this.add.bitmapText(width * 0.5, height / 2, 'press_start', 'Use CURSOR or WASD keys to move', 32)
             .setTint(0xffffff)
             .setOrigin(0.5);
 
