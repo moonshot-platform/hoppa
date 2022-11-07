@@ -85,7 +85,7 @@ export default class Start extends Phaser.Scene {
             'livesRemaining': 3,
         };
         let data = JSON.stringify(info);
-        window.localStorage.setItem('ra8bit.stats', data);
+        window.localStorage.setItem('ra8bit.stats', data); 
 
     }
 
@@ -209,7 +209,10 @@ export default class Start extends Phaser.Scene {
 
     private continueGame() {
         this.game.sound.stopAll();
-        this.scene.start('level1');
+        if(globalThis.noWallet || (globalThis.moonshotBalance == 0 && globalThis.ra8bitBalance == 0) )
+            this.scene.start('wallet');
+        else
+            this.scene.start('level1');
     }
 
     destroy() {
