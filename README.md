@@ -25,6 +25,10 @@ The reward is greater than the risk here!
 
 Find the Ra8bithole, Ra8bits very own breedingroom!
 
+# Running
+
+You can install this game as PWA or play it in a modern browser
+
 # License
 
 All media released as CC BY-SA 4.0
