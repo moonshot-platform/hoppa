@@ -59,7 +59,4 @@ window.addEventListener('load', () => {
 
 	   new Phaser.Game(config);
 	}, 2000)
-  });
-
-//export default new Phaser.Game(config);
- 
+});
