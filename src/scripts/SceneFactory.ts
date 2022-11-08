@@ -584,11 +584,11 @@ export function basicCreate(ctx, name, x, y, width, height, rotation, enemyCat, 
             break;
         }
         case 'sink': {
-            // groups a set of tiles and move them down FIXME
+            //FIXME: groups a set of tiles and move them down 
             break;
         }
         case 'trap': {
-            //FIXME: deadly object that moves down x tiles in time y
+            //FIXME: deadly object that moves down x tiles in time t
             break;
         }
         case 'brick': {
