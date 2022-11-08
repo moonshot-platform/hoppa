@@ -135,7 +135,14 @@ export function playRandomMusic(ctx: Phaser.Scene) {
         'junglegroove',
         'onmyway',
         'spy',
-        'thevillage'
+        'thevillage',
+        'heroimmortal',
+        'juhanijunkala',
+        'juhanjunkala2',
+        'thecreeper',
+        'redheels', 
+        'freejump'
+
     ];
 
     let choice = tracks[Phaser.Math.Between(0, tracks.length - 1)];
@@ -382,6 +389,13 @@ export function preload(ctx) {
     ctx.load.audio('onmyway', ['assets/onmyway.mp3', 'assets/onmyway.m4a']);
     ctx.load.audio('spy', ['assets/spy.mp3', 'assets/spy.m4a']);
     ctx.load.audio('thevillage', ['assets/thevillage.mp3', 'assets/thevillage.m4a']);
+    ctx.load.audio('heroimmortal', [ 'assets/heroimmortal.mp3', 'assets/heroimmortal.m4a']);
+    ctx.load.audio('juhanijunkala', [ 'assets/juhanijunkala.mp3', 'assets/juhanijunkala.m4a']);
+    ctx.load.audio('juhanjunkala2', [ 'assets/juhanjunkala2.mp3', 'assets/juhanjunkala2.m4a']);
+    ctx.load.audio('thecreeper', [ 'assets/thecreeper.mp3', 'assets/thecreeper.m4a'] );
+    ctx.load.audio('redheels', [ 'assets/redheels.mp3', 'assets/redheels.m4a']);
+    ctx.load.audio('freejump', [ 'assets/freejump.mp3', 'assets/freejump.m4a']);
+    
     
 
 
@@ -657,15 +671,11 @@ export function basicCreate(ctx, name, x, y, width, height, rotation, enemyCat, 
         }
         case 'billboard': {
             const billboard = ctx.matter.add.sprite(x + (width * 0.5), y + (height * 0.5), 'billboards', undefined, {
-                // + (height * 0.5)
                 isStatic: true,
                 label: 'billboard',
                 vertices: [{ x: 0, y: -60 }, { x: 192, y: -60 }, { x: 192, y: 48 }, { x: 0, y: 48 }],
                 render: { sprite: { yOffset: 64 } },
-                //   vertices: [{ x: 0, y: -160 }, { x: 192, y: -160 }, { x: 192, y: 32 }, { x: 0, y: 32 }]
-
             }).setOrigin(0.5, 0.33);
-            //  billboard.bringToTop();
             new BillBoard(ctx, billboard);
             controller.add('billboard', billboard.body as MatterJS.BodyType);
             break;
@@ -680,7 +690,6 @@ export function basicCreate(ctx, name, x, y, width, height, rotation, enemyCat, 
             });
             new ChangeSkin(ctx, skin, 'changeskin');
             controller.addWithValues('changeskin', skin.body as MatterJS.BodyType, { "use": use });
-            //controller.add( 'changeskin', skin.body as MatterJS.BodyType);
             break;
         }
         default:
