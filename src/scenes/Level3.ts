@@ -94,7 +94,6 @@ export default class Level3 extends Phaser.Scene {
         }
 
         this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
-
             this.destroy();
         });
 

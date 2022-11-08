@@ -1207,6 +1207,9 @@ export default class PlayerController {
     }
 
     public updateSpawnlocation() {
+        if(this.sprite === undefined || this.sprite.body === undefined)
+            return;
+            
         let nx = ~~(this.sprite.body.position.x / 64) * 64;
         let ny = ~~((this.sprite.body.position.y + 48) / 64) * 64;
         let nny = ~~((this.sprite.body.position.y) / 64) * 64;
