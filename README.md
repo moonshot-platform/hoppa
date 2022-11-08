@@ -36,8 +36,8 @@ Contributions welcome!
 
 Have a chat!
 
-https://t.me/MoonShotChat
-https://t.me/ra8bits
+- https://t.me/MoonShotChat
+- https://t.me/ra8bits
 
 
 # Getting started
@@ -53,11 +53,11 @@ $ npm run build
 
 # Way of the code
 
-Refactor when needed
-Try out things first
-Discover what you need
-Iterate often
-Throw things away and replace
+- Refactor when needed
+- Try out things first
+- Discover what you need
+- Iterate often
+- Throw things away and replace
 
 # Metamask integration
 
@@ -70,7 +70,14 @@ To create levels, you need Tiled ( https://www.mapeditor.org )
 
 # Screenshots:
 
+Level 1
 ![Screenshot 1](public/assets/screenshot.jpg)
+
+Bonus Level
 ![Screenshot 2](public/assets/screenshot2.jpg)
+
+Level 1
 ![Screenshot 3](public/assets/screenshot3.jpg)
+
+Secret Room
 ![Screenshot 4](public/assets/screenshot4.jpg)
