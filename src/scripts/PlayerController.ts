@@ -217,7 +217,12 @@ export default class PlayerController {
                 this.scene.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (c, e) => {
                     events.emit(next.event);
                     this.scene.scene.stop();
-                    this.scene.scene.start(next.room);
+                    if( globalThis.noWallet || (globalThis.moonshotBalance == 0 && globalThis.ra8bitBalance == 0) && next.room !== 'bonus' ) {
+                        this.scene.scene.start( 'level1');
+                    }
+                    else {
+                        this.scene.scene.start(next.room);
+                    }
                 });
             }
 
