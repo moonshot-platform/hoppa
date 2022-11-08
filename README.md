@@ -2,8 +2,7 @@
 
 # Introduction 
 
-A 2D Classic Platform game by Moonshot & Ra8bits
-
+Hoppa is a 2D Classic Platform game in arcade style developed and published by Moonshot & Ra8bits. 
 
 # License
 
@@ -24,6 +23,14 @@ $ npm run start
 
 $ npm run build
 ```
+
+# Metamask integration
+
+If you have Metamask installed, the game will attempt to check your Moonshot and Ra8it balance and allow you access to Level 2 and above if you have more than 0 tokens.
+
+# Dependencies
+
+To create levels, you need Tiled ( https://www.mapeditor.org ) 
 
 
 # Screenshots:
