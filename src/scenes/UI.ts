@@ -146,7 +146,7 @@ export default class UI extends Phaser.Scene {
 
     private setHealthBar(value: number) {
         const percent = Phaser.Math.Clamp(value, 0, 100);
-        const heart   = ~~ ( percent / 20  );
+        const heart   = ~~ ( percent / 25  );
         this.info.lastHealth = value;
         this.health?.setFrame(heart);
     }
