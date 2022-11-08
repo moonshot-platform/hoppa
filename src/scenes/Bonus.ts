@@ -84,9 +84,21 @@ export default class Bonus extends Phaser.Scene {
         this.lightswitches = [];
         this.sounds = new Map<string, Phaser.Sound.BaseSound>();
 
-/*        this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
-            this.destroy();
-        }); */
+        this.info = {
+            'lastHealth': 100,
+            'coinsCollected': 0,
+            'carrotsCollected': 0,
+            'currLevel': 1,
+            'scorePoints': 0,
+            'livesRemaining': 3,
+        };
+
+        let data = window.localStorage.getItem('ra8bit.stats');
+        if (data != null) {
+            let obj = JSON.parse(data);
+            this.info = obj as PlayerStats;
+        }
+
     }
 
     preload() {
