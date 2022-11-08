@@ -14,7 +14,6 @@ export default class PowerUps {
         this.player = player;
     }
 
-
     public reset() {
         this.hasInvincibility = false;
         this.hasSpeedUp = false;
@@ -40,7 +39,6 @@ export default class PowerUps {
 
     public setPower(scene: Phaser.Scene) {
         this.hasPower = true;
-        scene.time.delayedCall(30 * 1000, this.restorePower, undefined, this);
         events.emit('power-power', this.hasPower);
     }
 
@@ -61,7 +59,7 @@ export default class PowerUps {
     public setSpeed(scene: Phaser.Scene) {
         this.hasSpeedUp = true;
         this.player.setSpeed(6);
-        scene.time.delayedCall(30 * 1000, this.restoreSpeed, undefined, this);
+        scene.time.delayedCall(45 * 1000, this.restoreSpeed, undefined, this);
         events.emit('power-speed', this.hasSpeedUp);
     }
 
