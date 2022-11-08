@@ -213,7 +213,7 @@ export default class Level2 extends Phaser.Scene {
         this.matter.world.setBounds(0,0,this.map.widthInPixels, this.map.heightInPixels);
 
         this.matter.world.drawDebug = false;
-        this.input.keyboard.on("keydown-D", (event) => {
+        this.input.keyboard.on("keydown-I", (event) => {
           this.matter.world.drawDebug = !this.matter.world.drawDebug;
           this.matter.world.debugGraphic.clear();
         });
