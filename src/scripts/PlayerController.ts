@@ -128,7 +128,7 @@ export default class PlayerController {
                 onEnter: this.playerHitOnEnter
             })
             .addState('stomped', {
-                onEnter: this.beeStompOnEnter
+                onEnter: this.creatureStompOnEnter
             })
             .addState('dead', {
                 onEnter: this.deadOnEnter
@@ -167,7 +167,6 @@ export default class PlayerController {
                 this.handlePlatform(body);
 
                 if (player.position.x < body.position.x || (player.position.x >= (body.position.x + 127))) {
-                    // if colliding left or right, make the player fall down
                     player.gameObject?.setVelocityY(10);
                 }
             }
@@ -243,7 +242,6 @@ export default class PlayerController {
             if (this.obstacles.isType('goto', body) && this.isDown()) {
                 this.scene.matter.world.pause();
                 let v = this.obstacles.getValues('goto', body);
-                //this.sprite.setX(x).setY(y);
                 this.sprite.scene.tweens.add({
                     targets: this.sprite,
                     y: this.sprite.y + this.sprite.height,
@@ -294,15 +292,15 @@ export default class PlayerController {
                         idx = ~~(Math.random() * this.bonusObjects.length);
                     }
                     let name = this.bonusObjects[idx];
-                    const bee = this.scene.matter.add.sprite(body.position.x, body.position.y - 64, name, undefined, {
+                    const pwrup = this.scene.matter.add.sprite(body.position.x, body.position.y - 64, name, undefined, {
                         vertices: [{ x: 0, y: 0 }, { x: 64, y: 0 }, { x: 64, y: 64 }, { x: 0, y: 64 }],
                         label: 'bonus'
                     });
-                    bee.setName(name);
-                    bee.setData('type', 'bonus');
-                    bee.setBounce(0.2);
-                    bee.setFriction(0.03);
-                    bee.setMass(0.1);
+                    pwrup.setName(name);
+                    pwrup.setData('type', 'bonus');
+                    pwrup.setBounce(0.2);
+                    pwrup.setFriction(0.03);
+                    pwrup.setMass(0.1);
                     const startColor = Phaser.Display.Color.ValueToColor(0xffffff);
                     const endColor = Phaser.Display.Color.ValueToColor(0xc22caf);
                     this.scene.tweens.addCounter({
@@ -327,7 +325,7 @@ export default class PlayerController {
                                 colorObject.b
                             );
 
-                            bee.setTint(color);
+                            pwrup.setTint(color);
                         }
                     })
 
@@ -473,7 +471,7 @@ export default class PlayerController {
                 }
                 case 'dropping': {
                     SceneFactory.playSound(this.sounds, 'pickupdropping');
-                    this.collectPoop(sprite); //FIXME ??
+                    this.collectPoop(sprite);
                     break;
                 }
                 case 'coin': {
@@ -491,14 +489,9 @@ export default class PlayerController {
                     break;
                 }
                 case 'heart': {
-                    const value = sprite.getData('healthPoints') ?? 25;
-                    let vnew = (this.health + value);
                     SceneFactory.playSound(this.sounds, 'pickuphealth');
-                    if (vnew > 100) {
-                        events.emit('lives-changed', (this.stats.livesRemaining + 1));
-                        vnew = 100 - vnew;
-                    }
-                    this.health = Phaser.Math.Clamp(vnew, 0, 100);
+                    events.emit('lives-changed', (this.stats.livesRemaining + 1));
+                    this.health = 100;
                     events.emit('health-changed', this.health);
                     events.emit('score-changed', 100);
                     sprite.destroy();
@@ -617,7 +610,6 @@ export default class PlayerController {
 
         this.trashcan.forEach((value, key) => {
             this.poopbag.delete(key);
-            //value.destroy();
             value.setActive(false);
             value.setStatic(true);
             value.setOnCollide(() => { });
@@ -625,7 +617,6 @@ export default class PlayerController {
             value.setCollisionGroup(8);
             value.setCollisionCategory(16);
             value.setAlpha(0);
-            //FIXME
             value.destroy();
         });
 
@@ -1013,8 +1004,15 @@ export default class PlayerController {
     }
 
     private playerHitOnEnter() {
+
+        if( this.lasthit > (this.scene.time.now + 1000))
+            return;
+
+        this.lasthit = this.scene.time.now;
+
         const startColor = Phaser.Display.Color.ValueToColor(0xffffff);
         const endColor = Phaser.Display.Color.ValueToColor(0xff0000);
+
         this.scene.tweens.addCounter({
             from: 0,
             to: 100,
@@ -1040,11 +1038,9 @@ export default class PlayerController {
                 this.sprite.setTint(color);
             }
         })
-
-        this.setHealth(this.health - 25);
-        this.lasthit = this.scene.time.now;
-
+        
         SceneFactory.playSound(this.sounds, 'hit');
+        this.setHealth(this.health - 25);
 
         this.stateMachine.setState('idle');
 
@@ -1062,7 +1058,7 @@ export default class PlayerController {
 
     }
 
-    private beeStompOnEnter() {
+    private creatureStompOnEnter() {
         this.sprite.setVelocityY(-10);
         if (this.lastHitBy !== undefined) {
             let body = this.lastHitBy.body;
@@ -1195,9 +1191,11 @@ export default class PlayerController {
 
         if (tile != null) {
             if (tile.canCollide && tile.visible && tile.collides) {
-                let dmg = tile.properties?.damage;
-                let bt = tile.properties?.breakable;
-                if ((dmg === undefined || dmg <= 0) && (bt === undefined || bt == false)) {
+                let dmg = tile.properties?.damage || 0;
+                let bt = tile.properties?.breakable || false;
+                let hits = tile.properties?.hits || 0;
+                 
+                if ((dmg === undefined || dmg <= 0) && (bt === undefined || bt == false) && (hits == 0)) {
                     //tile.tint = 0xff0000;//debug
                     return true;
                 }
@@ -1209,8 +1207,8 @@ export default class PlayerController {
     public updateSpawnlocation() {
         if(this.sprite === undefined || this.sprite.body === undefined)
             return;
-            
-        let nx = ~~(this.sprite.body.position.x / 64) * 64;
+        
+            let nx = ~~(this.sprite.body.position.x / 64) * 64;
         let ny = ~~((this.sprite.body.position.y + 48) / 64) * 64;
         let nny = ~~((this.sprite.body.position.y) / 64) * 64;
         if (
@@ -1220,7 +1218,6 @@ export default class PlayerController {
             )) {
             this.scene.game.registry.set('playerX', nx);
             this.scene.game.registry.set('playerY', nny);
-            //FIXME: call this less often
         }
     }
 
