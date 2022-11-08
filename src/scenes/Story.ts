@@ -1,12 +1,25 @@
 import Phaser from "phaser";
 import * as SceneFactory from '../scripts/SceneFactory';
-export default class Story extends Phaser.Scene {
+import CreditScene from "./CreditScene";
+export default class Story extends CreditScene {
     
     private chapter: number = 1;
     private image!: Phaser.GameObjects.Image;
-    
+    private scroller!: Phaser.GameObjects.DynamicBitmapText;
+    private scrollText: string[] = [];
+    private spacing: string[] = [
+      "",
+      "",
+      "",
+      "",      
+      "",
+      "",
+     
+
+    ];
+
     constructor() {
-        super('story')
+        super('story');
     }
 
     preload() {
@@ -29,7 +42,16 @@ export default class Story extends Phaser.Scene {
         this.chapter = 1;
         
         this.nextStory();
-        
+
+        this.scrollText = this.spacing.concat( this.content );
+
+        this.scroller = this.add.dynamicBitmapText(width/2, 0, 'press_start',this.scrollText, 22);
+        this.scroller.setCenterAlign();
+        this.scroller.setOrigin(0.5,0.5);
+        this.scroller.setTint(0xffffff);
+        this.scroller.setVisible(false);
+        this.scroller.scrollY = -1900;
+
         this.input.on('pointerdown', () => { this.startGame(); });
         this.input.on('keydown', () => { this.startGame(); });
     }
@@ -53,19 +75,39 @@ export default class Story extends Phaser.Scene {
                     }); 
                 }
                 else {
-                    this.startGame();
+                    this.cameras.main.fadeIn( 100,0,0,0 );
+                    this.scroller.setVisible(true);
                 }
-                
-            
             });
         });
 
-
     }
 
+    update(time,delta) {
+        if(this.scroller.visible) {
+            this.scroller.scrollY += 0.05 * delta;
+            console.log(this.scroller.scrollY);
+            if (this.scroller.scrollY > 2100) { 
+                this.startGame();
+            }
+        }
+    }
+
+
     startGame() {
-        this.game.sound.stopAll();
-        this.scene.stop();
-        this.scene.start('start');
+
+        let sound: Phaser.Sound.BaseSound = this.sound.get('spectacle');
+        this.tweens.add({
+            targets:  sound,
+            volume:   0,
+            duration: 500,
+            onComplete: () => {
+                this.game.sound.stopAll();
+                this.scene.stop();
+                this.scene.start('start');
+            }
+        });
+
+        
     }
 }
