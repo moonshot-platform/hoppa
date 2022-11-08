@@ -4,7 +4,7 @@
 	"description": "A typescript template project for Phaser 3 using Parceljs",
 	"scripts": {
 		"start": "parcel src/index.html -p 8000",
-		"build": "parcel build src/index.html --out-dir dist --public-url /010101",
+		"build": "parcel build src/index.html --no-minify --out-dir dist --public-url /hoppa",
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"lint": "eslint ./src --ext .js,.jsx,.ts,.tsx"
 	},
@@ -20,11 +20,11 @@
 		"@typescript-eslint/parser": "^2.29.0",
 		"cssnano": "^5.1.14",
 		"eslint": "^8.3.0",
-		"minimist": ">=1.2.2",
+		"minimist": ">=1.2.7",
 		"parcel-plugin-clean-easy": "^1.0.2",
-		"parcel-plugin-static-files-copy": "^2.4.3",
+		"parcel-plugin-static-files-copy": "^2.6.0",
 		"postcss": "^8.4.17",
-		"typescript": "^3.8.3"
+		"typescript": "^4.8.4"
 	},
 	"dependencies": {
 		"ethers": "^5.7.2",
