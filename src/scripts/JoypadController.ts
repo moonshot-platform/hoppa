@@ -10,15 +10,15 @@ export default class JoypadController {
     private outer: number = 0x888888;
     private inner: number = 0xcccccc;
 
-    private alphaOn: number = 0.5;
-    private alphaOff: number = 0.2;
+    private alphaOn: number = 0.66;
+    private alphaOff: number = 0.33;
 
     private A: Phaser.GameObjects.Arc;
     private B: Phaser.GameObjects.Arc;
 
     private scene: Phaser.Scene;
     private stickRadius: number = 160;
-    private buttonRadius: number = 78;
+    private buttonRadius: number = 88;
     private started: boolean = false;
 
     constructor(scene: Phaser.Scene, width: number) {
@@ -26,7 +26,7 @@ export default class JoypadController {
         this.scene = scene;
 
         this.B = scene.add
-            .circle(width - 96, 548, this.buttonRadius, this.outer)
+            .circle(width - 96, 500, this.buttonRadius, this.outer)
             .setScrollFactor(0)
             .setAlpha(this.alphaOn)
             .setOrigin(0.5, 1)
@@ -34,7 +34,7 @@ export default class JoypadController {
             .setDepth(99);
 
         this.A = scene.add
-            .circle(width - 248, 624, this.buttonRadius, this.outer)
+            .circle(width - 248, 600, this.buttonRadius, this.outer)
             .setScrollFactor(0)
             .setAlpha(this.alphaOn)
             .setOrigin(0.5, 1)
@@ -46,7 +46,7 @@ export default class JoypadController {
             y: 512,
             radius: this.stickRadius,
             base: scene.add.circle(0, 0, 160, this.outer, this.alphaOn).setDepth(99),
-            thumb: scene.add.circle(0, 0, 64, this.inner, this.alphaOn).setDepth(99),
+            thumb: scene.add.circle(0, 0, 72, this.inner, this.alphaOn).setDepth(99),
             forceMin: 20,
         });
 
