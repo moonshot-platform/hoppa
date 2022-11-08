@@ -128,7 +128,7 @@ export default class Start extends Phaser.Scene {
 
 
         this.matter.world.setBounds(0, 0, map1.widthInPixels, map1.heightInPixels);
-        this.cameras.main.setBounds(0, -208, map1.widthInPixels, map1.heightInPixels);
+        this.cameras.main.setBounds(0, -308, map1.widthInPixels, map1.heightInPixels);
         this.cameras.main.setAlpha(1);
         this.cameras.main.setZoom(0.5);
         this.cameras.main.roundPixels = true;
@@ -175,11 +175,11 @@ export default class Start extends Phaser.Scene {
         let cam = this.cameras.add(0, 0, width, 128);
 
         const layer = this.add.layer();
-
-        this.shoutout = this.add.bitmapText(width / 2, -256, 'press_start',
+// -256, -220, 216
+        this.shoutout = this.add.bitmapText(width / 2, -400, 'press_start',
             'PRESS SPACE TO PLAY', 24).setTint(0xff7300).setOrigin(0.5, 0.5);
 
-        this.credits = this.add.bitmapText(320 + 640, -220, 'press_start',
+        this.credits = this.add.bitmapText(320 + 640, -350, 'press_start',
             'Written by c0ntrol zero, Artwork by Pixel8it, Storyline by Dandybanger, C 2022 Ra8bits, C 2022 Moonshot', 12).setTint(0xff7300).setOrigin(0.5, 0.5);
         this.credits.setDropShadow(0, 2, 0xff0000, 0.5);
 
