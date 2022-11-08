@@ -231,7 +231,12 @@ export default class UI extends Phaser.Scene {
     }
 
     private handleNextLevel() {
-        this.info.currLevel ++;
+        if( (globalThis.moonshotBalance == 0 && globalThis.ra8bitBalance == 0) || globalThis.noWallet ) {
+            this.info.currLevel = 1;
+        }
+        else {
+           this.info.currLevel ++;
+        }
 
         this.handleSceneSwitch();
     }
@@ -244,7 +249,7 @@ export default class UI extends Phaser.Scene {
         this.updateScore(10);
 
         if( this.info.coinsCollected == 100  ) {
-            SceneFactory.addSound(this, '100coins', false, true );
+          //  SceneFactory.addSound(this, '100coins', false, true );
             this.handleLivesChanged(this.info.livesRemaining + 1);
             this.info.coinsCollected = 0;
         } 
