@@ -24,8 +24,10 @@ export function init() {
     globalThis.provider = new ethers.providers.Web3Provider(window.ethereum);
         
     (window.ethereum as any).on( 'accountsChanged', function(accounts) {
-      globalThis.selectedAddress = accounts[0];
-      getCurrentAccount();
+      if( accounts.length > 0 ) {
+        globalThis.selectedAddress = accounts[0];
+        getCurrentAccount();
+      }
     });
 
     globalThis.moonshotBalance = 0;
@@ -40,9 +42,7 @@ export async function getCurrentAccount() {
         return;
 
     await globalThis.provider.send("eth_requestAccounts", []);
-    console.log("requested accounts");
     globalThis.signer = globalThis.provider.getSigner();
-    console.log("requested signer");
     // save the currently connected address
     globalThis.selectedAddress = await globalThis.signer.getAddress();
     
