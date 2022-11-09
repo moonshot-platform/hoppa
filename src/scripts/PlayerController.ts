@@ -490,7 +490,8 @@ export default class PlayerController {
                 }
                 case 'heart': {
                     SceneFactory.playSound(this.sounds, 'pickuphealth');
-                    events.emit('lives-changed', (this.stats.livesRemaining + 1));
+                    this.stats.livesRemaining += 1;
+                    events.emit('lives-changed', this.stats.livesRemaining);
                     this.health = 100;
                     events.emit('health-changed', this.health);
                     events.emit('score-changed', 100);
