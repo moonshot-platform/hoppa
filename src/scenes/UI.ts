@@ -1,7 +1,7 @@
 import Phaser, { Tilemaps } from "phaser";
 import { sharedInstance as events } from "../scripts/EventManager";
 import * as SceneFactory from '../scripts/SceneFactory';
-
+import * as WalletHelper from '../scripts/WalletHelper';
 
 export default class UI extends Phaser.Scene {
     
@@ -231,7 +231,7 @@ export default class UI extends Phaser.Scene {
     }
 
     private handleNextLevel() {
-        if( (globalThis.moonshotBalance == 0 && globalThis.ra8bitBalance == 0) || globalThis.noWallet ) {
+        if( WalletHelper.isNotEligible()) {
             this.info.currLevel = 1;
         }
         else {
