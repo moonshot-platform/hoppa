@@ -1,5 +1,6 @@
 import Phaser from "phaser";
 import * as SceneFactory from '../scripts/SceneFactory';
+import * as WalletHelper from '../scripts/WalletHelper';
 export default class Wallet extends Phaser.Scene {
     
     private image!: Phaser.GameObjects.Image;
@@ -22,7 +23,7 @@ export default class Wallet extends Phaser.Scene {
                 .setTint(0xffffff)
                 .setOrigin(0.5);
         }
-        else if(globalThis.moonshotBalance == 0 && globalThis.ra8bitBalance == 0 ) {
+        else if(WalletHelper.isNotEligible() ) {
             this.add.bitmapText(width * 0.5, height / 2 + 160, 'press_start', 'You are allowed access Level 1', 22)
                 .setTint(0xffffff)
                 .setOrigin(0.5);
