@@ -100,7 +100,7 @@ export default class Start extends Phaser.Scene {
 
         if(this.goFS && !this.scale.isFullscreen) {
           try {
-       //     this.scale.startFullscreen();
+            this.scale.startFullscreen();
           } catch(e) { }       
         }
 
