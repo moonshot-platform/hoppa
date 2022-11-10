@@ -19,6 +19,7 @@ import CrowController from '~/scripts/CrowController';
 import FlyController from '~/scripts/FlyController';
 import SawController from "~/scripts/SawController";
 import * as AlignmentHelper from '../scripts/AlignmentHelper';
+import * as WalletHelper from '../scripts/WalletHelper';
 
 export default class Start extends Phaser.Scene {
     constructor() {
@@ -99,7 +100,7 @@ export default class Start extends Phaser.Scene {
 
         if(this.goFS && !this.scale.isFullscreen) {
           try {
-            this.scale.startFullscreen();
+       //     this.scale.startFullscreen();
           } catch(e) { }       
         }
 
@@ -175,7 +176,7 @@ export default class Start extends Phaser.Scene {
         let cam = this.cameras.add(0, 0, width, 128);
 
         const layer = this.add.layer();
-// -256, -220, 216
+
         this.shoutout = this.add.bitmapText(width / 2, -400, 'press_start',
             'PRESS SPACE TO PLAY', 24).setTint(0xff7300).setOrigin(0.5, 0.5);
 
@@ -209,7 +210,7 @@ export default class Start extends Phaser.Scene {
 
     private continueGame() {
         this.game.sound.stopAll();
-        if(globalThis.noWallet || (globalThis.moonshotBalance == 0 && globalThis.ra8bitBalance == 0) )
+        if(WalletHelper.isNotEligible())
             this.scene.start('wallet');
         else
             this.scene.start('level1');
