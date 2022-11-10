@@ -3,6 +3,7 @@ import { ethers } from "ethers";
 declare global {
     var moonshotBalance: number;
     var ra8bitBalance: number;
+    var hasNFT: boolean;
     var selectedAddress: string;
     var provider: ethers.providers.Web3Provider;
     var signer: ethers.providers.JsonRpcSigner;
@@ -57,4 +58,66 @@ export async function getCurrentAccount() {
     let ra8bitContract = new ethers.Contract("0x27424eE307488cA414f430b84A10483344E6d80a", abi , globalThis.signer );    
     globalThis.ra8bitBalance = await ra8bitContract.balanceOf( globalThis.selectedAddress );
 
+    getMyNFTCollections();
 }
+
+export function isNotEligible(): boolean {
+    return globalThis.noWallet || (globalThis.moonshotBalance == 0 && globalThis.ra8bitBalance == 0 && !globalThis.hasNFT );
+}
+
+export async function getMyNFTCollections() {
+  let numCollections = 0;
+  let nftAddress = [
+    '0x82A3E038048CF02C19e60856564bE209899d4F12',
+    '0x0CBd80abc67d403E4258894E62235DbaF93F2779',
+    '0xa552F4c1eD2115779c19B835dCF5A895Cdc25624',
+    '0xa8e67efd3DDAD234947d8BC80F36aa8F9eb35dF0',
+    '0x8004d73663F03Bc6dDB84d316ba0929240F6a8BA',
+    '0x67af3a5765299a3E2F869C3002204c749BD185E9',
+    '0xa15803a167A94E5d19F320c7F3b421be4C5CA1B5',
+  ];
+
+  newRequest().then( data => { 
+    if( data == null ) {
+      console.log("Server Error. Please try again later.");
+      return;
+    }
+    let arr = data.data;
+   
+    for( const d of arr.data ) {
+
+        if( nftAddress.includes( d.ArtistNFTAddress ) )
+          numCollections ++;
+    }
+  });
+
+  if(numCollections > 0)
+    globalThis.hasNFT = true;
+}
+
+export async function newRequest() {
+    let url = 'https://moonboxes.io/api/api/userData?NSFW=undefined&userAddress=' + globalThis.selectedAddress;
+    const { chainId }  = await provider.getNetwork();
+    const response = await fetch( url, {
+      method: 'GET',
+      mode: 'cors',
+      cache: 'no-cache',
+      headers: {
+        'APPKEY': 'mTb+T!5!crBEQEL2!$PJ9&JSjeT3M6Hs*RytA-eaDSBS5UU@8-fCJHu6F?kp@s+JTu2-_-V8L#?5',
+        'blockchainId': ""  + chainId,
+      },
+      redirect: 'follow',
+    }).then( (response) => {
+      if( response.status >= 400 && response.status < 600) {
+        console.log("Oops try again later ", response);
+        return null;
+      }
+      return response;
+    }).then( (returnedResponse) => {
+      return returnedResponse?.json();
+    }).catch( (error) => {
+       console.log("Oops try again much later:",error);
+    });
+    return response;
+  }
+  
