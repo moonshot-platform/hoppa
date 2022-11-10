@@ -206,7 +206,7 @@ export default class Level1 extends Phaser.Scene {
 
         this.matter.world.convertTilemapLayer(ground, { label: 'ground', friction: 0, frictionStatic: 0 });
         this.matter.world.drawDebug = false;
-        this.input.keyboard.on("keydown-D", (event) => {
+        this.input.keyboard.on("keydown-I", (event) => {
             this.matter.world.drawDebug = !this.matter.world.drawDebug;
             this.matter.world.debugGraphic.clear();
         });
