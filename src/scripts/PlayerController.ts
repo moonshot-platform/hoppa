@@ -1009,6 +1009,7 @@ export default class PlayerController {
         if( this.lasthit > (this.scene.time.now + 1000))
             return;
 
+      
         this.lasthit = this.scene.time.now;
 
         const startColor = Phaser.Display.Color.ValueToColor(0xffffff);
@@ -1045,7 +1046,7 @@ export default class PlayerController {
 
         this.stateMachine.setState('idle');
 
-        if (this.lastHitBy !== undefined) {
+        if (this.lastHitBy !== undefined && this.sprite !== undefined) {
             if (this.sprite.x < this.lastHitBy.x) {
                 this.sprite.setVelocityX(-40);
             }
