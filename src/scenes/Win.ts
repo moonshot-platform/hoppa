@@ -112,8 +112,7 @@ export default class Win extends CreditScene {
             .setTint(0xff7300)
             .setOrigin(0.5, 0.1);
 
-        this.scroller = this.add.dynamicBitmapText(384, 150, 'press_start', this.content, 22);
-        this.scroller.setSize(512, 512);
+        this.scroller = this.add.dynamicBitmapText(640, 360, 'press_start', this.content, 22).setOrigin(0.5,0.5);
         this.scroller.setCenterAlign();
        
         this.input.on('pointerdown', () => { this.continueGame(); });
