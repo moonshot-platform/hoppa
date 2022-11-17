@@ -98,11 +98,11 @@ export default class Start extends Phaser.Scene {
 
     create() {
 
-        if(this.goFS && !this.scale.isFullscreen) {
+       /* if(this.goFS && !this.scale.isFullscreen) {
           try {
             this.scale.startFullscreen();
           } catch(e) { }       
-        }
+        } */
 
         this.hsv = Phaser.Display.Color.HSVColorWheel();
 
