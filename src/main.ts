@@ -41,7 +41,7 @@ const config: Phaser.Types.Core.GameConfig = {
 	input: {
 		activePointers: 4,
 	},
-	scene: [ Loader,LogoScreen, HoppaScreen,Story, Wallet, GameSettingsMenu,Help, Start, Level1,Level2,Level3,Bonus, UI,  Win, Pause, GameOver],	
+	scene: [ Loader,LogoScreen, HoppaScreen,Story, Wallet, GameSettingsMenu,Help, Start, Level1,Level2,Level3,Bonus, Win, UI,  Pause, GameOver],	
 }
 
 window.addEventListener('load', () => {
