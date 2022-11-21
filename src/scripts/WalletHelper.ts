@@ -103,7 +103,6 @@ export async function newRequest() {
       mode: 'cors',
       cache: 'no-cache',
       headers: {
-        'APPKEY': 'mTb+T!5!crBEQEL2!$PJ9&JSjeT3M6Hs*RytA-eaDSBS5UU@8-fCJHu6F?kp@s+JTu2-_-V8L#?5',
         'blockchainId': ""  + chainId,
       },
       redirect: 'follow',
