@@ -18,7 +18,7 @@
     "theme_color": "#8d93fc",
     "background_color": "#8d93fc",
     "start_url": "/hoppa/index.html",
-    "scope": "/hoppa",
+    "scope": "/hoppa/",
 
     "description": "2D Classic Platform Game",
     "screenshots": [
