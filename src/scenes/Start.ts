@@ -133,7 +133,7 @@ export default class Start extends Phaser.Scene {
         this.cameras.main.setAlpha(1);
         this.cameras.main.setZoom(0.5);
         this.cameras.main.roundPixels = true;
-        this.matter.world.drawDebug = false;
+      //  this.matter.world.drawDebug = false;
 
         this.matter.world.on("collisionstart", (e: { pairs: any; }, o1: any, o2: any) => {
             var pairs = e.pairs;
