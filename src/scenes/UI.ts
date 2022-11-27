@@ -141,7 +141,7 @@ export default class UI extends Phaser.Scene {
     }
 
     private startGame() {
-        this.time_start = this.time.now;
+        this.time_start = (this.time_start == 0 ? this.time.now: this.time_start);
     }
 
     private setHealthBar(value: number) {
@@ -270,6 +270,7 @@ export default class UI extends Phaser.Scene {
         this.resetSpawnPoint();
         this.game.sound.stopAll();
         this.scene.stop();
+        this.time_start = 0;
     }
 
     private resetSpawnPoint() {
