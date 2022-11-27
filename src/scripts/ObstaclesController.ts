@@ -1,5 +1,5 @@
 const createKey = (name: string, id: number) => {
-    return `${name}-${id}`;
+    return name + id;
 }
 
 export default class ObstaclesController {
@@ -40,10 +40,7 @@ export default class ObstaclesController {
 
     isType(name: string, body: MatterJS.BodyType) {
         const key = createKey(name, body.id);
-        if (!this.obstacles.has(key)) {
-            return false;
-        }
-        return true;
+        return this.obstacles.has(key);
     }
 
     destroy() {
