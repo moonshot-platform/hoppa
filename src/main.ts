@@ -34,10 +34,13 @@ const config: Phaser.Types.Core.GameConfig = {
 		default: 'matter',
 		matter: {
 			gravity: { y: 2 },
-			debug: true
+			debug: false
 		}
 	},
-	
+	fps: {
+		target: 30,
+		forceSetTimeOut: false
+	},
 	input: {
 		activePointers: 4,
 	},
@@ -48,7 +51,7 @@ window.addEventListener('load', () => {
 	window.setTimeout(() => {
 	  
 	  if( 'serviceWorker' in navigator ) {
-		navigator.serviceWorker.register('sw.js',  { scope: "/hoppa" } )
+		navigator.serviceWorker.register('sw.js',  { scope: "/hoppa/" } )
 			.then( function(r) {
 				console.log("Registered service worker ", r.scope);
 			})
