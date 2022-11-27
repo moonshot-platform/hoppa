@@ -205,12 +205,13 @@ export default class Level1 extends Phaser.Scene {
         });
 
         this.matter.world.convertTilemapLayer(ground, { label: 'ground', friction: 0, frictionStatic: 0 });
+/*
         this.matter.world.drawDebug = false;
         this.input.keyboard.on("keydown-I", (event) => {
             this.matter.world.drawDebug = !this.matter.world.drawDebug;
             this.matter.world.debugGraphic.clear();
         });
-
+*/
         this.matter.world.on("collisionstart", (e: { pairs: any; }, o1: any, o2: any) => {
             var pairs = e.pairs;
             for (var i = 0; i < pairs.length; i++) {
