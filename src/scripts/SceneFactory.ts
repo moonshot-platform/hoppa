@@ -11,6 +11,7 @@ declare global {
     var musicTitle: string;
     var musicVolume: number;
     var soundVolume: number;
+    var krasota: boolean;
 }
 
 export function playSound(sounds: Map<string, Phaser.Sound.BaseSound>, sound: string) {
@@ -19,6 +20,23 @@ export function playSound(sounds: Map<string, Phaser.Sound.BaseSound>, sound: st
         s.play({ volume: globalThis.soundVolume });
     else
         console.log("Sound " + sound + " is undefined");
+}
+export function playKrasota(sounds: Map<string, Phaser.Sound.BaseSound>, sound: string) {
+    if(globalThis.krasota == false ) {
+        krasotaLock();
+        let s = sounds.get(sound);
+        s?.on( 'complete', () => {
+            krasotaUnlock();
+        });
+        playSound(sounds,sound);
+        
+    }
+}
+export function krasotaLock() {
+    globalThis.krasota = true;
+}
+export function krasotaUnlock() {
+    globalThis.krasota = false;
 }
 
 export function playRandomSound(sounds: Map<string, Phaser.Sound.BaseSound>, sound: string, min: number, max: number) {
@@ -180,8 +198,50 @@ export function setupSounds(ctx: Phaser.Scene): Map<string, Phaser.Sound.BaseSou
     ];
 
     sounds.forEach(s => m.set(s, ctx.sound.add(s, { loop: false })));
+
+    let flirts = [
+        'breakmybed', 'donttellmewhattodo', 'imsothirsty', 'titanic', 'todo', 'uber', 'underneath', 'youcanstaybut'
+    ];
+    flirts.forEach(s => m.set(s, ctx.sound.add(s, { loop: false })));
+
+    let gameovers = [
+        'mymomcandothattoo', 'strongboysnevergiveup', 'takeitslow', 'whatareyou', 'wrongbutton', 'youcametooquick', 'yourfaceyourass'
+    ];
+    gameovers.forEach(s => m.set(s, ctx.sound.add(s, { loop: false })));
+
+    let wise = [
+        'beginatthebeginning', 'blowitoutofyourass', 'equalopportunity', 'hailtotheking', 'offtoday', 'therightmaninthewrong', 'timetokickass', 'wishtogoanywhere'
+    ]
+    wise.forEach(s => m.set(s, ctx.sound.add(s, { loop: false })));
+
+
+
     return m;
 }
+
+export function krasotaSays(selector: number, text: string ): string {
+    if(selector == 0 ) {
+        let options= [
+            'breakmybed', 'donttellmewhattodo', 'imsothirsty', 'titanic', 'todo', 'uber', 'underneath', 'youcanstaybut'
+        ];
+        return options[ Phaser.Math.Between(0, options.length - 1)];
+    }
+    else if(selector == 1 ) {
+        let options= [
+            'mymomcandothattoo', 'strongboysnevergiveup', 'takeitslow', 'whatareyou', 'wrongbutton', 'youcametooquick', 'yourfaceyourass'
+        ];
+        return options[ Phaser.Math.Between(0, options.length - 1)];
+    }
+    else if(selector == 2 ) {
+        let options= [
+            'beginatthebeginning', 'offtoday', 'therightmaninthewrong', 'timetokickass', 'wishtogoanywhere'
+        ];
+        return options[ Phaser.Math.Between(0, options.length - 1)];
+    }
+
+    return text;
+}
+
 
 export function setupHandlers(ctx: Phaser.Scene) {
 
@@ -226,6 +286,7 @@ export function loadSettings() {
 
     globalThis.musicVolume = 0.5;
     globalThis.soundVolume = 1.0;
+    globalThis.krasota = false;
 
     if (data != null) {
         let obj = JSON.parse(data);
@@ -244,6 +305,8 @@ export function loadSettings() {
 }
 
 export function preload(ctx) {
+
+    ctx.matter.set30Hz();
 
     loadSettings();
 
@@ -396,7 +459,32 @@ export function preload(ctx) {
     ctx.load.audio('redheels', [ 'assets/redheels.mp3', 'assets/redheels.m4a']);
     ctx.load.audio('freejump', [ 'assets/freejump.mp3', 'assets/freejump.m4a']);
     
-    
+    ctx.load.audio('beginatthebeginning', [ 'assets/beginatthebeginning.mp3', 'assets/beginatthebeginning.m4a']);
+    ctx.load.audio('blowitoutofyourass', [ 'assets/blowitoutofyourass.mp3', 'assets/blowitoutofyourass.m4a']);
+    ctx.load.audio('breakmybed', [ 'assets/breakmybed.mp3', 'assets/breakmybed.m4a']);
+    ctx.load.audio('donttellmewhattodo', [ 'assets/donttellmewhattodo.mp3', 'assets/donttellmewhattodo.m4a']);
+    ctx.load.audio('drunktoomuch', [ 'assets/drunktoomuch.mp3', 'assets/drunktoomuch.m4a']);
+    ctx.load.audio('equalopportunity', [ 'assets/equalopportunity.mp3', 'assets/equalopportunity.m4a']);
+    ctx.load.audio('hailtotheking', [ 'assets/hailtotheking.mp3', 'assets/hailtotheking.m4a']);
+    ctx.load.audio('idontseehow', [ 'assets/idontseehow.mp3', 'assets/idontseehow.m4a']);
+    ctx.load.audio('imsothirsty', [ 'assets/imsothirsty.mp3', 'assets/imsothirsty.m4a']);
+    ctx.load.audio('mymomcandothattoo', [ 'assets/mymomcandothattoo.mp3', 'assets/mymomcandothattoo.m4a']);
+    ctx.load.audio('offtoday', [ 'assets/offtoday.mp3', 'assets/offtoday.m4a']);
+    ctx.load.audio('strongboysnevergiveup', [ 'assets/strongboysnevergiveup.mp3', 'assets/strongboysnevergiveup.m4a']);
+    ctx.load.audio('takeitslow', [ 'assets/takeitslow.mp3', 'assets/takeitslow.m4a']);
+    ctx.load.audio('therightmaninthewrong', [ 'assets/therightmaninthewrong.mp3', 'assets/therightmaninthewrong.m4a']);
+    ctx.load.audio('timetokickass', [ 'assets/timetokickass.mp3', 'assets/timetokickass.m4a']);
+    ctx.load.audio('titanic', [ 'assets/titanic.mp3', 'assets/titanic.m4a']);
+    ctx.load.audio('todo', [ 'assets/todo.mp3', 'assets/todo.m4a']);
+    ctx.load.audio('uber', [ 'assets/uber.mp3', 'assets/uber.m4a']);
+    ctx.load.audio('underneath', [ 'assets/underneath.mp3', 'assets/underneath.m4a']);
+    ctx.load.audio('weareallmadhere', [ 'assets/weareallmadhere.mp3', 'assets/weareallmadhere.m4a']);
+    ctx.load.audio('whatareyou', [ 'assets/whatareyou.mp3', 'assets/whatareyou.m4a']);
+    ctx.load.audio('wishtogoanywhere', [ 'assets/wishtogoanywhere.mp3', 'assets/wishtogoanywhere.m4a']);
+    ctx.load.audio('wrongbutton', [ 'assets/wrongbutton.mp3', 'assets/wrongbutton.m4a']);
+    ctx.load.audio('youcametooquick', [ 'assets/youcametooquick.mp3', 'assets/youcametooquick.m4a']);
+    ctx.load.audio('youcanstaybut', [ 'assets/youcanstaybut.mp3', 'assets/youcanstaybut.m4a']);
+    ctx.load.audio('yourfaceyourass', [ 'assets/yourfaceyourass.mp3', 'assets/yourfaceyourass.m4a']);
 
 
     setupHandlers(ctx);
@@ -544,6 +632,7 @@ export function basicCreate(ctx, name, x, y, width, height, rotation, enemyCat, 
             ObjectHelper.createLab(ctx, x, y, width, height);
             break;
         }
+        case 'health':
         case 'heart': {
             ObjectHelper.createHealth(ctx, x, y, width, height);
             break;
@@ -693,7 +782,7 @@ export function basicCreate(ctx, name, x, y, width, height, rotation, enemyCat, 
             break;
         }
         default:
-            console.log("Creature unknown " + name);
+            console.log("Creature unknown '" + name + "'");
             break;
     }
 
