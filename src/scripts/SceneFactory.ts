@@ -28,8 +28,7 @@ export function playKrasota(sounds: Map<string, Phaser.Sound.BaseSound>, sound: 
         s?.on( 'complete', () => {
             krasotaUnlock();
         });
-        playSound(sounds,sound);
-        
+        s?.play({ volume: globalThis.soundVolume });
     }
 }
 export function krasotaLock() {

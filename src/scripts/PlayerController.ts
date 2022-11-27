@@ -1121,7 +1121,7 @@ export default class PlayerController {
         if (this.stats.livesRemaining == 0) {
             let bite = SceneFactory.krasotaSays(2,"");
             let s = this.sounds.get(bite);
-            s?.on( 'complete', () => {
+            s!.on( 'complete', () => {
                 SceneFactory.krasotaUnlock();
                 events.emit('reset-game');
                 this.scene.scene.start('game-over');
@@ -1131,7 +1131,7 @@ export default class PlayerController {
         else {
             let bite = SceneFactory.krasotaSays(1,"");
             let s = this.sounds.get(bite);
-            s?.on( 'complete', () => {
+            s!.on( 'complete', () => {
                 SceneFactory.krasotaUnlock();
                 this.scene.scene.restart();
             });
