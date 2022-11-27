@@ -57,6 +57,7 @@ export default class HoppaScreen extends Phaser.Scene {
 
             this.continueLabel.setInteractive({ cursor: 'pointer' })
                 .on('pointerup', () => {
+                    this.hideInstaller();
                     this.continueLabel.setTint(0x222b5c);
                     this.continueGame();
                 })
@@ -67,6 +68,7 @@ export default class HoppaScreen extends Phaser.Scene {
             this.optionsLabel.setInteractive({ cursor: 'pointer' })
                 .on('pointerup', () => {
                     this.optionsLabel.setTint(0x222b5c);
+                    this.hideInstaller();
                     this.scene.stop();
                     this.scene.start('options');
                 })
@@ -77,6 +79,7 @@ export default class HoppaScreen extends Phaser.Scene {
             this.helpLabel.setInteractive({ cursor: 'pointer' })
                 .on('pointerup', () => {
                     this.helpLabel.setTint(0x222b5c);
+                    this.hideInstaller();
                     this.scene.stop();
                     this.scene.start('help');
                 })
@@ -110,6 +113,13 @@ export default class HoppaScreen extends Phaser.Scene {
         WalletHelper.getCurrentAccount();
         this.scene.stop();
         this.scene.start('story');
+    }
+
+    private hideInstaller() {
+        let button = document.querySelector('.add-button') as HTMLElement;
+        if(button != null ) {
+            button.style.display='none';
+        }
     }
 
 }
