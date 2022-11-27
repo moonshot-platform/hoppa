@@ -65,7 +65,8 @@ $ npm run build
 
 # Metamask integration
 
-If you have Metamask installed, the game will attempt to check your Moonshot and Ra8it balances and allow you access to Level 2 and above if you have more than 0 tokens.
+If you have Metamask installed, the game will attempt to check your Moonshot and Ra8it balances and allow you access to Level 2 and above if you have more than 0 tokens or more than 0 NFTs.
+
 
 # Dependencies
 
