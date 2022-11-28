@@ -12,6 +12,7 @@ declare global {
     var musicVolume: number;
     var soundVolume: number;
     var krasota: boolean;
+    var krasotaPlayStarted: boolean;
 }
 
 export function playSound(sounds: Map<string, Phaser.Sound.BaseSound>, sound: string) {
@@ -25,7 +26,11 @@ export function playKrasota(sounds: Map<string, Phaser.Sound.BaseSound>, sound: 
     if(globalThis.krasota == false ) {
         krasotaLock();
         let s = sounds.get(sound);
+        s?.on( 'play', () => {
+            globalThis.krasotaPlayStarted = true;
+        });
         s?.on( 'complete', () => {
+            globalThis.krasotaPlayStarted = false;
             krasotaUnlock();
         });
         s?.play({ volume: globalThis.soundVolume });
@@ -36,6 +41,9 @@ export function krasotaLock() {
 }
 export function krasotaUnlock() {
     globalThis.krasota = false;
+}
+export function krasotaPlayStarted() {
+    return globalThis.krasotaPlayStarted;
 }
 
 export function playRandomSound(sounds: Map<string, Phaser.Sound.BaseSound>, sound: string, min: number, max: number) {
@@ -304,8 +312,6 @@ export function loadSettings() {
 }
 
 export function preload(ctx) {
-
-    ctx.matter.set30Hz();
 
     loadSettings();
 
