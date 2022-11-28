@@ -97,8 +97,9 @@ export function playMusic(ctx: Phaser.Scene, choice: string): Phaser.Sound.BaseS
     m.once(Phaser.Sound.Events.COMPLETE, () => {
         globalThis.musicTune = false;
         m.stop();
-
-        playRandomMusic(ctx);
+        ctx.time.delayedCall(2000, () => {
+            playRandomMusic(ctx);
+        });
     });
     m.once(Phaser.Sound.Events.STOP, () => {
         globalThis.musicTune = false;
@@ -166,8 +167,12 @@ export function playRandomMusic(ctx: Phaser.Scene) {
         'juhanjunkala2',
         'thecreeper',
         'redheels', 
-        'freejump'
-
+        'freejump',
+        'longawayhome',
+        'swinginglevel',
+        'happylevel', 
+        '8bitmetal',
+        'catchy',
     ];
 
     let choice = tracks[Phaser.Math.Between(0, tracks.length - 1)];
@@ -463,7 +468,13 @@ export function preload(ctx) {
     ctx.load.audio('thecreeper', [ 'assets/thecreeper.mp3', 'assets/thecreeper.m4a'] );
     ctx.load.audio('redheels', [ 'assets/redheels.mp3', 'assets/redheels.m4a']);
     ctx.load.audio('freejump', [ 'assets/freejump.mp3', 'assets/freejump.m4a']);
+    ctx.load.audio('longawayhome', [ 'assets/longawayhome.mp3', 'assets/longawayhome.m4a']);
+    ctx.load.audio('swinginglevel', [ 'assets/swinginglevel.mp3', 'assets/swinginglevel.m4a']);
+    ctx.load.audio('happylevel', [ 'assets/happylevel.mp3', 'assets/happylevel.m4a']);
+    ctx.load.audio('8bitmetal', [ 'assets/8bitlevel.mp3', 'assets/8bitmetal.m4a']);
+    ctx.load.audio('catchy', [ 'assets/catchy.mp3', 'assets/catchy.m4a']);
     
+
     ctx.load.audio('beginatthebeginning', [ 'assets/beginatthebeginning.mp3', 'assets/beginatthebeginning.m4a']);
     ctx.load.audio('blowitoutofyourass', [ 'assets/blowitoutofyourass.mp3', 'assets/blowitoutofyourass.m4a']);
     ctx.load.audio('breakmybed', [ 'assets/breakmybed.mp3', 'assets/breakmybed.m4a']);
