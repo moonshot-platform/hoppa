@@ -1,3 +1,5 @@
+import Phaser, { Physics } from 'phaser'
+
 export default class BaseScene extends Phaser.Scene {
     
     private frameTime: number = 0;

@@ -149,22 +149,24 @@ export default class Start extends BaseScene {
 
         SceneFactory.playRepeatMusic(this, 'theme');
 
-        this.tweens.timeline({
+    
+        this.tweens.chain({
+            targets: this.cameras.main,
             tweens: [
                 {
-                    targets: this.cameras.main,
-                    scrollX: 80 * 64,
-                    delay: 0,
-                    ease: 'Sine.easeInOut',
-                    duration: 5000,
-                    yoyo: true,
-                    repeat: -1,
-                    loop: -1,
-                    repeatDelay: 0,
-                    hold: 500,
-                    offset: 0, //1279,
+                scrollX: 80 * 64,
+                delay: 0,
+                ease: 'Sine.easeInOut',
+                duration: 5000,
+                yoyo: true,
+                repeat: -1,
+                loop: -1,
+                repeatDelay: 0,
+                hold: 500,
                 }
-            ]
+
+            ],
+            loop: -1
         });
 
         this.input.on('pointerdown', () => { this.continueGame(); });
@@ -187,10 +189,10 @@ export default class Start extends BaseScene {
 
         cam.roundPixels = true;
 
-        this.tweens.timeline({
+        this.tweens.chain({
+            targets: this.credits,
             tweens: [
                 {
-                    targets: this.credits,
                     x: 320,
                     delay: 0,
                     ease: 'Sine.easeInOut',
@@ -199,8 +201,11 @@ export default class Start extends BaseScene {
                     yoyo: true,
                     offset: 0
                 }
-            ]
+
+            ],
+            loop: -1
         });
+
 
         localStorage.removeItem('player-position');
     }
