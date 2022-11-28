@@ -22,15 +22,15 @@ export function playSound(sounds: Map<string, Phaser.Sound.BaseSound>, sound: st
     else
         console.log("Sound " + sound + " is undefined");
 }
-export function playKrasota(sounds: Map<string, Phaser.Sound.BaseSound>, sound: string) {
+export function playKrasota(sounds: Map<string, Phaser.Sound.BaseSound>, sound: string, kps: boolean = false) {
     if(globalThis.krasota == false ) {
         krasotaLock();
         let s = sounds.get(sound);
         s?.on( 'play', () => {
-            globalThis.krasotaPlayStarted = true;
+            if(kps) globalThis.krasotaPlayStarted = true;
         });
         s?.on( 'complete', () => {
-            globalThis.krasotaPlayStarted = false;
+             globalThis.krasotaPlayStarted = false;
             krasotaUnlock();
         });
         s?.play({ volume: globalThis.soundVolume });
@@ -471,10 +471,9 @@ export function preload(ctx) {
     ctx.load.audio('longawayhome', [ 'assets/longawayhome.mp3', 'assets/longawayhome.m4a']);
     ctx.load.audio('swinginglevel', [ 'assets/swinginglevel.mp3', 'assets/swinginglevel.m4a']);
     ctx.load.audio('happylevel', [ 'assets/happylevel.mp3', 'assets/happylevel.m4a']);
-    ctx.load.audio('8bitmetal', [ 'assets/8bitlevel.mp3', 'assets/8bitmetal.m4a']);
+    ctx.load.audio('8bitmetal', [ 'assets/8bitmetal.mp3', 'assets/8bitmetal.m4a']);
     ctx.load.audio('catchy', [ 'assets/catchy.mp3', 'assets/catchy.m4a']);
     
-
     ctx.load.audio('beginatthebeginning', [ 'assets/beginatthebeginning.mp3', 'assets/beginatthebeginning.m4a']);
     ctx.load.audio('blowitoutofyourass', [ 'assets/blowitoutofyourass.mp3', 'assets/blowitoutofyourass.m4a']);
     ctx.load.audio('breakmybed', [ 'assets/breakmybed.mp3', 'assets/breakmybed.m4a']);
@@ -635,7 +634,7 @@ export function basicCreate(ctx, name, x, y, width, height, rotation, enemyCat, 
             break;
         }
         case 'bear': {
-            ctx.bears.push(CreatureHelper.createCreatureBear(ctx, x, y, width, height, enemyCat, collideWith, controller));
+            ctx.bears.push(CreatureHelper.createCreatureBear(ctx, x, y, width, height, enemyCat, collideWith, controller, player));
             break;
         }
         case 'crow': {

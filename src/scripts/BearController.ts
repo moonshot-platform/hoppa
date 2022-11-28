@@ -1,6 +1,7 @@
 import { Physics } from "phaser";
 import StateMachine from "./StateMachine";
 import { sharedInstance as events } from './EventManager';
+import PlayerController from "./PlayerController";
 
 export default class BearController {
     private scene: Phaser.Scene;
@@ -8,11 +9,13 @@ export default class BearController {
     private stateMachine: StateMachine;
     private garbage: boolean = false;
     private name: string;
+    private player: Phaser.Physics.Matter.Sprite = null;
 
     constructor(
         scene: Phaser.Scene,
         sprite: Phaser.Physics.Matter.Sprite,
-        name: string
+        name: string,
+        playerController: PlayerController,
     ) {
         this.scene = scene;
         this.sprite = sprite;
@@ -20,7 +23,7 @@ export default class BearController {
         this.createAnims();
         this.garbage = false;
         this.stateMachine = new StateMachine(this);
-
+        this.player = playerController?.getSprite();
         this.stateMachine.addState('idle', {
             onEnter: this.idleOnEnter
         })
@@ -37,6 +40,13 @@ export default class BearController {
 
     update(deltaTime: number) {
         this.stateMachine.update(deltaTime);
+
+        if( this.player !== undefined && this.player.body.position.x > this.sprite.body.position.x ) {
+            this.sprite.flipX = true;
+        }
+        else {
+            this.sprite.flipX = false;
+        }
     }
 
     public getSprite() {

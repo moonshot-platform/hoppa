@@ -12,6 +12,7 @@ import FlyController from "./FlyController";
 import LightSwitchController from "./LightSwitchController";
 import MonsterController from "./MonsterController";
 import PlantController from "./PlantController";
+import PlayerController from "./PlayerController";
 import SawController from "./SawController";
 import TNTController from "./TNTController";
 import ZeppelinController from "./ZeppelinController";
@@ -253,7 +254,7 @@ export function createCreaturePlant(ctx, x, y, width, height, enemyCat, collideW
     return new PlantController(ctx, plant, plant.name);
 }
 
-export function createCreatureBear(ctx, x, y, width, height, enemyCat, collideWith, controller) {
+export function createCreatureBear(ctx, x, y, width, height, enemyCat, collideWith, controller, playerController: PlayerController ) {
     const bear = ctx.matter.add.sprite(x + (width * 0.5), y + (height * 0.5), 'bear', undefined, {
         vertices: [{ x: 0, y: 0 }, { x: 68, y: 0 }, { x: 64, y: 68 }, { x: 0, y: 68 }],
         label: 'bear'
@@ -266,7 +267,7 @@ export function createCreatureBear(ctx, x, y, width, height, enemyCat, collideWi
 
     controller.add('bear', bear.body as MatterJS.BodyType);
 
-    return new BearController(ctx, bear, bear.name);
+    return new BearController(ctx, bear, bear.name, playerController);
 }
 
 

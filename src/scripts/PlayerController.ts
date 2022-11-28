@@ -1126,7 +1126,7 @@ export default class PlayerController {
                 events.emit('reset-game');
                 this.scene.scene.start('game-over');
             });
-            SceneFactory.playKrasota(this.sounds, bite );
+            SceneFactory.playKrasota(this.sounds, bite,true );
         }
         else {
             let bite = SceneFactory.krasotaSays(1,"");
@@ -1135,11 +1135,11 @@ export default class PlayerController {
                 SceneFactory.krasotaUnlock();
                 this.scene.scene.restart();
             });
-            SceneFactory.playKrasota(this.sounds, bite );
+            SceneFactory.playKrasota(this.sounds, bite,true );
         }
 
-        this.scene.time.delayedCall(250, () => {
-            if(!SceneFactory.krasotaPlayStarted) {
+        this.scene.time.delayedCall(2000, () => {
+            if(!SceneFactory.krasotaPlayStarted()) {
                 if(this.stats.livesRemaining == 0 ) {
                     events.emit('reset-game');
                     this.scene.scene.start('game-over');
