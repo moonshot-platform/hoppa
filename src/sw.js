@@ -323,7 +323,18 @@ var filesToCache = [
 '/hoppa/assets/wrongbutton.mp3',
 '/hoppa/assets/youcametooquick.mp3',
 '/hoppa/assets/youcanstaybut.mp3',
-'/hoppa/assets/yourfaceyourass.mp3'
+'/hoppa/assets/yourfaceyourass.mp3',
+'/hoppa/assets/catchy.mp3',
+'/hoppa/assets/catchy.m4a',
+'/hoppa/assets/swinginglevel.m4a',
+'/hoppa/assets/swinginglevel.mp3',
+'/hoppa/assets/happylevel.m4a',
+'/hoppa/assets/happylevel.mp3',
+'/hoppa/assets/8bitmetal.m4a',
+'/hoppa/assets/8bitmetal.mp3',
+'/hoppa/assets/longawayhome.m4a',
+'/hoppa/assets/longawayhome.mp3',
+
 ];
 
 self.addEventListener('install', function(e) {
