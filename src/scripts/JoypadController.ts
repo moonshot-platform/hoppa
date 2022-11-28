@@ -127,10 +127,10 @@ export default class JoypadController {
 
     // dampening
     dampenVelocityX(velocityX: number): number {
-        let v = Phaser.Math.Clamp(this.joystick.force, 0, 80);
+        let v = Phaser.Math.Clamp(this.joystick.force, 0, this.stickRadius);
         if (v == 0)
             return 0;
-        let f = (velocityX / 80) * v;
+        let f = (velocityX / this.stickRadius) * v;
         return f;
     }
 
