@@ -604,8 +604,8 @@
                  "type":"",
                  "visible":true,
                  "width":64,
-                 "x":2272,
-                 "y":2811
+                 "x":2273,
+                 "y":2812
                 }, 
                 {
                  "height":64,
@@ -736,7 +736,7 @@
                  "type":"",
                  "visible":true,
                  "width":64,
-                 "x":9472,
+                 "x":9473,
                  "y":2688
                 }, 
                 {
@@ -1673,17 +1673,6 @@
                  "y":2816
                 }, 
                 {
-                 "height":78,
-                 "id":460,
-                 "name":"player-spawn",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":64,
-                 "x":480,
-                 "y":3033
-                }, 
-                {
                  "height":64,
                  "id":461,
                  "name":"coinbrick",
@@ -2218,6 +2207,17 @@
                  "width":60.7942,
                  "x":6464,
                  "y":2816
+                }, 
+                {
+                 "height":78,
+                 "id":502,
+                 "name":"player-spawn",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":64,
+                 "x":458.909,
+                 "y":2951.91
                 }],
          "opacity":1,
          "properties":[
@@ -2268,7 +2268,7 @@
          "y":0
         }],
  "nextlayerid":18,
- "nextobjectid":501,
+ "nextobjectid":503,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.7.2",
@@ -2277,7 +2277,7 @@
         {
          "columns":7,
          "firstgid":1,
-         "image":"terrainv3.png",
+         "image":"..\/..\/..\/hoppa-game\/public\/assets\/terrainv3.png",
          "imageheight":658,
          "imagewidth":512,
          "margin":0,
@@ -6165,7 +6165,7 @@
         {
          "columns":4,
          "firstgid":72,
-         "image":"spritesheet_props.png",
+         "image":"..\/..\/..\/hoppa-game\/public\/assets\/spritesheet_props.png",
          "imageheight":256,
          "imagewidth":256,
          "margin":0,
@@ -6178,7 +6178,7 @@
         {
          "columns":1,
          "firstgid":88,
-         "image":"sky.png",
+         "image":"..\/..\/..\/hoppa-game\/public\/assets\/sky.png",
          "imageheight":600,
          "imagewidth":800,
          "margin":0,
