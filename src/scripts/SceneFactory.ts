@@ -528,10 +528,28 @@ export function createPlayer(ctx, x: number, y: number, width: number, height: n
         'rabbit',
         undefined, {
         vertices: [
-            { x: 0, y: 0 },
-            { x: 64, y: 0 },
-            { x: 64, y: 96 },
-            { x: 0, y: 96 },],
+            {x: 9, y: 95 },
+            {x: 1, y: 79 },
+            {x: 7, y: 53 },
+            {x: 11,y: 45 },
+            {x: 0, y: 25 },
+            {x: 0, y: 7 },
+            {x: 8, y: 1 },
+            {x: 19,y: 12},
+            {x: 23,y: 37},
+            {x: 33,y: 35},
+            {x: 33,y: 8},
+            {x: 40,y: 1},
+            {x: 46,y: 1},
+            {x: 54,y: 7},
+            {x: 55,y: 29},
+            {x: 49,y: 43},
+            {x: 59,y: 50},
+            {x: 59,y: 82},
+            {x: 62,y: 81},
+            {x: 62,y: 96},
+            {x: 9,y: 96 }
+        ],
         restitution: 0.05, frictionAir: 0, mass: 1.0, label: 'player'
     })
         .setFixedRotation(); //.setDisplaySize(64,78);
