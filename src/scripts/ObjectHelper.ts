@@ -4,14 +4,14 @@ export function createCarrot(ctx, x, y, width, height) {
     ctx.anims.create({
         key: 'carrot',
         frameRate: 5,
-        frames: ctx.anims.generateFrameNumbers('carrot', { start: 0, end: 5, first: 0 }),
+        frames: ctx.anims.generateFrameNumbers('carrot', { start: 0, end: 5 }),
         repeat: -1
     });
     const carrot = ctx.matter.add.sprite(x + (width * 0.5), y + (height * 0.5), 'carrot', undefined, {
         vertices: [{ x: 0, y: 0 }, { x: 64, y: 0 }, { x: 64, y: 64 }, { x: 0, y: 64 }],
         isStatic: true,
         isSensor: true, label: 'carrot'
-    }).play('carrot');
+    }).play({key: 'carrot', startFrame: Phaser.Math.Between(0,5) }, true);
     carrot.setData('type', 'carrot');
 }
 
@@ -19,14 +19,16 @@ export function createCoin(ctx, x, y, width, height) {
     ctx.anims.create({
         key: 'coin',
         frameRate: 5,
-        frames: ctx.anims.generateFrameNumbers('coin', { start: 0, end: 4, first: 0 }),
+        frames: ctx.anims.generateFrameNumbers('coin', { start: 0, end: 4 }),
         repeat: -1
     });
+    
     const coin = ctx.matter.add.sprite(x + (width * 0.5), y + (height * 0.5), 'coin', undefined, {
         vertices: [{ x: 0, y: 0 }, { x: 64, y: 0 }, { x: 64, y: 64 }, { x: 0, y: 64 }],
         isStatic: true,
         isSensor: true, label: 'coin'
-    }).play('coin');
+    }).play({key: 'coin', startFrame: Phaser.Math.Between(0,4) }, true);
+    
     coin.setData('type', 'coin');
 }
 
