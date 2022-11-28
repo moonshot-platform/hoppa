@@ -20,8 +20,9 @@ import FlyController from '~/scripts/FlyController';
 import SawController from "~/scripts/SawController";
 import * as AlignmentHelper from '../scripts/AlignmentHelper';
 import * as WalletHelper from '../scripts/WalletHelper';
+import BaseScene from "./BaseScene";
 
-export default class Start extends Phaser.Scene {
+export default class Start extends BaseScene {
     constructor() {
         super({ key: 'start' });
     }
@@ -98,11 +99,7 @@ export default class Start extends Phaser.Scene {
 
     create() {
 
-       /* if(this.goFS && !this.scale.isFullscreen) {
-          try {
-            this.scale.startFullscreen();
-          } catch(e) { }       
-        } */
+        super.create();
 
         this.hsv = Phaser.Display.Color.HSVColorWheel();
 
@@ -244,6 +241,12 @@ export default class Start extends Phaser.Scene {
     }
 
     update(time: number, deltaTime: number) {
+
+        super.update(time,deltaTime);
+
+        if(!super.doStep())
+            return;
+        
         this.monsters.forEach(monster => monster.update(deltaTime));
         this.fires.forEach(fire => fire.update(deltaTime));
         this.flowers.forEach(flower => flower.update(deltaTime));

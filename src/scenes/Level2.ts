@@ -20,8 +20,9 @@ import CrowController from '~/scripts/CrowController';
 import FlyController from '~/scripts/FlyController';
 import SawController from '~/scripts/SawController';
 import { sharedInstance as events} from '../scripts/EventManager';
+import BaseScene from './BaseScene';
 
-export default class Level2 extends Phaser.Scene {
+export default class Level2 extends BaseScene {
 
     private info!: PlayerStats;
     private map!: Phaser.Tilemaps.Tilemap;
@@ -93,7 +94,6 @@ export default class Level2 extends Phaser.Scene {
         }
 
         this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
-
             this.destroy();
         });
 
@@ -106,6 +106,8 @@ export default class Level2 extends Phaser.Scene {
     }
 
     create() {
+
+        super.create();
 
         this.sounds = SceneFactory.setupSounds(this);
 
@@ -267,6 +269,11 @@ export default class Level2 extends Phaser.Scene {
     }
 
     update(time: number, deltaTime: number) {
+
+        super.update(time,deltaTime);
+
+        if(!super.doStep())
+            return;
 
         this.bombs = this.bombs.filter( e => e.keepObject()  );
         this.monsters = this.monsters.filter( e => e.keepObject() );
