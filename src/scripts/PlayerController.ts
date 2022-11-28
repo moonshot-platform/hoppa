@@ -1137,6 +1137,19 @@ export default class PlayerController {
             });
             SceneFactory.playKrasota(this.sounds, bite );
         }
+
+        this.scene.time.delayedCall(250, () => {
+            if(!SceneFactory.krasotaPlayStarted) {
+                if(this.stats.livesRemaining == 0 ) {
+                    events.emit('reset-game');
+                    this.scene.scene.start('game-over');
+                }
+                else {
+                    this.scene.scene.restart();
+                }
+            }
+        });
+        
     }
 
     public changeAction() {
@@ -1244,14 +1257,17 @@ export default class PlayerController {
     private handlePlatform(body: MatterJS.BodyType) {
         let vec = body.gameObject?.getData('relpos');
         this.sprite.setPosition(
-            this.sprite.body.position.x + vec.x,
-            this.sprite.body.position.y + vec.y
+            Phaser.Math.RoundTo(this.sprite.body.position.x + vec.x),
+            Phaser.Math.RoundTo(this.sprite.body.position.y + vec.y)
         );
 
-        this.sprite.body.velocity.x = vec.x;
-        this.sprite.body.velocity.y = vec.y;
-        this.standingOnPlatform = true;
+     //   this.sprite.body.velocity.x -= vec.x;
+     //   this.sprite.body.velocity.y -= vec.y;
+       
+     //this.sprite.setVelocity(this.sprite.body.velocity.x + vec.x, this.sprite.body.velocity.y + vec.y);
 
+     this.standingOnPlatform = true;
+        
     }
 
     private bounceTile(body: MatterJS.BodyType) {
