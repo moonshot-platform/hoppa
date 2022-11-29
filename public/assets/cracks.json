@@ -1,7 +1,7 @@
 {
 	"textures": [
 		{
-			"image": "cracks.png",
+			"image": "cracks.webp",
 			"format": "RGBA8888",
 			"size": {
 				"w": 512,
@@ -10,7 +10,7 @@
 			"scale": 1,
 			"frames": [
 				{
-					"filename": "Floor_1.0_Idle0.png",
+					"filename": "Floor_1.0_Idle0.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -31,7 +31,7 @@
 					}
 				},
 				{
-					"filename": "Floor_1.0_Idle1.png",
+					"filename": "Floor_1.0_Idle1.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -52,7 +52,7 @@
 					}
 				},
 				{
-					"filename": "Floor_2.0_Idle0.png",
+					"filename": "Floor_2.0_Idle0.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -73,7 +73,7 @@
 					}
 				},
 				{
-					"filename": "Floor_2.0_Idle1.png",
+					"filename": "Floor_2.0_Idle1.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -94,7 +94,7 @@
 					}
 				},
 				{
-					"filename": "Floor_Crack1.png",
+					"filename": "Floor_Crack1.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -115,7 +115,7 @@
 					}
 				},
 				{
-					"filename": "Floor_Crack2.png",
+					"filename": "Floor_Crack2.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -136,7 +136,7 @@
 					}
 				},
 				{
-					"filename": "Floor_Crack3.png",
+					"filename": "Floor_Crack3.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -157,7 +157,7 @@
 					}
 				},
 				{
-					"filename": "Floor_Crack4.png",
+					"filename": "Floor_Crack4.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {

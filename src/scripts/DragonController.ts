@@ -232,7 +232,7 @@ export default class DragonController {
                 start: 0,
                 end: 0,
                 prefix: '0_Idle',
-                suffix: '.png'
+                suffix: '.webp'
             })
         });
 
@@ -244,7 +244,7 @@ export default class DragonController {
                 start: 0,
                 end: 2,
                 prefix: '0_Idle',
-                suffix: '.png'
+                suffix: '.webp'
             })
         });
 
@@ -256,7 +256,7 @@ export default class DragonController {
                 start: 0,
                 end: 2,
                 prefix: '1_Dead',
-                suffix: '.png'
+                suffix: '.webp'
             })
         });
     }

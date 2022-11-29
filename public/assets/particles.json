@@ -1,7 +1,7 @@
 {
 	"textures": [
 		{
-			"image": "particles.png",
+			"image": "particles.webp",
 			"format": "RGBA8888",
 			"size": {
 				"w": 384,
@@ -10,7 +10,7 @@
 			"scale": 1,
 			"frames": [
 				{
-					"filename": "brick1-1.png",
+					"filename": "brick1-1.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -31,7 +31,7 @@
 					}
 				},
 				{
-					"filename": "brick1-2.png",
+					"filename": "brick1-2.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -52,7 +52,7 @@
 					}
 				},
 				{
-					"filename": "brick1-3.png",
+					"filename": "brick1-3.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -73,7 +73,7 @@
 					}
 				},
 				{
-					"filename": "brick2-1.png",
+					"filename": "brick2-1.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -94,7 +94,7 @@
 					}
 				},
 				{
-					"filename": "brick2-2.png",
+					"filename": "brick2-2.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -115,7 +115,7 @@
 					}
 				},
 				{
-					"filename": "brick2-3.png",
+					"filename": "brick2-3.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -136,7 +136,7 @@
 					}
 				},
 				{
-					"filename": "valve.png",
+					"filename": "valve.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {

@@ -1,7 +1,7 @@
 {
 	"textures": [
 		{
-			"image": "lightswitch.png",
+			"image": "lightswitch.webp",
 			"format": "RGBA8888",
 			"size": {
 				"w": 128,
@@ -10,7 +10,7 @@
 			"scale": 1,
 			"frames": [
 				{
-					"filename": "Light0.png",
+					"filename": "Light0.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -31,7 +31,7 @@
 					}
 				},
 				{
-					"filename": "Light1.png",
+					"filename": "Light1.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {

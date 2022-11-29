@@ -1,7 +1,7 @@
 {
 	"textures": [
 		{
-			"image": "gras.png",
+			"image": "gras.webp",
 			"format": "RGBA8888",
 			"size": {
 				"w": 262,
@@ -10,7 +10,7 @@
 			"scale": 1,
 			"frames": [
 				{
-					"filename": "Gras4.png",
+					"filename": "Gras4.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -31,7 +31,7 @@
 					}
 				},
 				{
-					"filename": "Gras5.png",
+					"filename": "Gras5.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -52,7 +52,7 @@
 					}
 				},
 				{
-					"filename": "Gras6.png",
+					"filename": "Gras6.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -73,7 +73,7 @@
 					}
 				},
 				{
-					"filename": "Gras7.png",
+					"filename": "Gras7.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -94,7 +94,7 @@
 					}
 				},
 				{
-					"filename": "Gras8.png",
+					"filename": "Gras8.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -115,7 +115,7 @@
 					}
 				},
 				{
-					"filename": "Gras9.png",
+					"filename": "Gras9.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -136,7 +136,7 @@
 					}
 				},
 				{
-					"filename": "Gras10.png",
+					"filename": "Gras10.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -157,7 +157,7 @@
 					}
 				},
 				{
-					"filename": "Gras11.png",
+					"filename": "Gras11.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -178,7 +178,7 @@
 					}
 				},
 				{
-					"filename": "Gras12.png",
+					"filename": "Gras12.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -199,7 +199,7 @@
 					}
 				},
 				{
-					"filename": "Gras13.png",
+					"filename": "Gras13.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -220,7 +220,7 @@
 					}
 				},
 				{
-					"filename": "Gras14.png",
+					"filename": "Gras14.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -241,7 +241,7 @@
 					}
 				},
 				{
-					"filename": "Gras15.png",
+					"filename": "Gras15.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -262,7 +262,7 @@
 					}
 				},
 				{
-					"filename": "Gras16.png",
+					"filename": "Gras16.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {

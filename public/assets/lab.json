@@ -1,7 +1,7 @@
 {
 	"textures": [
 		{
-			"image": "lab.png",
+			"image": "lab.webp",
 			"format": "RGBA8888",
 			"size": {
 				"w": 256,
@@ -10,7 +10,7 @@
 			"scale": 1,
 			"frames": [
 				{
-					"filename": "Lab1.png",
+					"filename": "Lab1.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -31,7 +31,7 @@
 					}
 				},
 				{
-					"filename": "Lab2.png",
+					"filename": "Lab2.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -52,7 +52,7 @@
 					}
 				},
 				{
-					"filename": "Lab3.png",
+					"filename": "Lab3.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -73,7 +73,7 @@
 					}
 				},
 				{
-					"filename": "Lab4.png",
+					"filename": "Lab4.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {

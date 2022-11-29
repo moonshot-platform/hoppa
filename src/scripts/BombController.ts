@@ -172,7 +172,7 @@ export default class BombController {
                 start: 0,
                 end: 1,
                 prefix: '0_Idle',
-                suffix: '.png'
+                suffix: '.webp'
             })
         });
         this.sprite.anims.create({
@@ -183,7 +183,7 @@ export default class BombController {
                 start: 0,
                 end: 0,
                 prefix: '1_Move',
-                suffix: '.png'
+                suffix: '.webp'
             })
         });
         this.sprite.anims.create({
@@ -194,7 +194,7 @@ export default class BombController {
                 start: 2,
                 end: 0,
                 prefix: '2_Count',
-                suffix: '.png'
+                suffix: '.webp'
             })
         });
         this.sprite.anims.create({
@@ -205,7 +205,7 @@ export default class BombController {
                 start: 0,
                 end: 2,
                 prefix: '3_Dead',
-                suffix: '.png'
+                suffix: '.webp'
             })
         });
     }

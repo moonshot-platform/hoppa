@@ -532,7 +532,7 @@
         {
          "columns":15,
          "firstgid":1,
-         "image":"minira8bits.png",
+         "image":"minira8bits.webp",
          "imageheight":856,
          "imagewidth":1024,
          "margin":0,
@@ -545,7 +545,7 @@
         {
          "columns":7,
          "firstgid":196,
-         "image":"terrainv3.png",
+         "image":"terrainv3.webp",
          "imageheight":658,
          "imagewidth":512,
          "margin":0,

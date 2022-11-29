@@ -946,7 +946,7 @@ export default class PlayerController {
                 start: 1,
                 end: 3,
                 prefix: 'Splash',
-                suffix: '.png'
+                suffix: '.webp'
             }),
             repeat: 0
         });
@@ -1335,7 +1335,7 @@ export default class PlayerController {
                 start: 1,
                 end: 2,
                 prefix: '5_Turn',
-                suffix: '.png'
+                suffix: '.webp'
             }),
             repeat: -1
         });
@@ -1348,7 +1348,7 @@ export default class PlayerController {
                 start: 0,
                 end: 3,
                 prefix: '3_Walk',
-                suffix: '.png'
+                suffix: '.webp'
             }),
             repeat: -1
         });
@@ -1360,7 +1360,7 @@ export default class PlayerController {
                 start: 0,
                 end: 1,
                 prefix: '5_Turn',
-                suffix: '.png'
+                suffix: '.webp'
             }),
             repeat: -1
         });
@@ -1372,7 +1372,7 @@ export default class PlayerController {
                 start: 0,
                 end: 4,
                 prefix: '1_Jump',
-                suffix: '.png'
+                suffix: '.webp'
             })
         });
 
@@ -1384,7 +1384,7 @@ export default class PlayerController {
                     start: 0,
                     end: 3,
                     prefix: '4_Dead',
-                    suffix: '.png'
+                    suffix: '.webp'
                 })
         });
 
@@ -1396,7 +1396,7 @@ export default class PlayerController {
                     start: 0,
                     end: 4,
                     prefix: '2_Throw',
-                    suffix: '.png'
+                    suffix: '.webp'
                 })
         });
 
@@ -1408,7 +1408,7 @@ export default class PlayerController {
                 start: 1,
                 end: 2,
                 prefix: '5_FemTurn',
-                suffix: '.png'
+                suffix: '.webp'
             }),
             repeat: -1
         });
@@ -1421,7 +1421,7 @@ export default class PlayerController {
                 start: 0,
                 end: 3,
                 prefix: '3_FemWalk',
-                suffix: '.png'
+                suffix: '.webp'
             }),
             repeat: -1
         });
@@ -1433,7 +1433,7 @@ export default class PlayerController {
                 start: 0,
                 end: 1,
                 prefix: '5_FemTurn',
-                suffix: '.png'
+                suffix: '.webp'
             }),
             repeat: -1
         });
@@ -1445,7 +1445,7 @@ export default class PlayerController {
                 start: 0,
                 end: 3,
                 prefix: '1_FemJump',
-                suffix: '.png'
+                suffix: '.webp'
             })
         });
 
@@ -1457,7 +1457,7 @@ export default class PlayerController {
                     start: 0,
                     end: 3,
                     prefix: '4_FemDead',
-                    suffix: '.png'
+                    suffix: '.webp'
                 })
         });
 
@@ -1469,7 +1469,7 @@ export default class PlayerController {
                     start: 0,
                     end: 4,
                     prefix: '2_FemThrow',
-                    suffix: '.png'
+                    suffix: '.webp'
                 })
         });
     }

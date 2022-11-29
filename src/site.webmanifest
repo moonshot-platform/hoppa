@@ -5,14 +5,14 @@
 	"orientation": "landscape",
     "icons": [
         {
-            "src": "/android-chrome-192x192.png",
+            "src": "/android-chrome-192x192.webp",
             "sizes": "192x192",
-            "type": "image/png"
+            "type": "image/webp"
         },
         {
-            "src": "/android-chrome-384x384.png",
+            "src": "/android-chrome-384x384.webp",
             "sizes": "384x384",
-            "type": "image/png"
+            "type": "image/webp"
         }
     ],
     "theme_color": "#8d93fc",
@@ -23,23 +23,23 @@
     "description": "2D Classic Platform Game",
     "screenshots": [
         {
-            "src": "../public/assets/screenshot.jpg",
-            "type": "image/jpg",
+            "src": "../public/assets/screenshot.webp",
+            "type": "image/webp",
             "sizes": "1280x720"
         },
         {
-            "src": "../public/assets/screenshot2.jpg",
-            "type": "image/jpg",
+            "src": "../public/assets/screenshot2.webp",
+            "type": "image/webp",
             "sizes": "1280x720"
         },
         {
-            "src": "../public/assets/screenshot3.jpg",
-            "type": "image/jpg",
+            "src": "../public/assets/screenshot3.webp",
+            "type": "image/webp",
             "sizes": "1280x720"
         },
         {
-            "src": "../public/assets/screenshot4.jpg",
-            "type": "image/jpg",
+            "src": "../public/assets/screenshot4.webp",
+            "type": "image/webp",
             "sizes": "1280x720"
         }
     ]

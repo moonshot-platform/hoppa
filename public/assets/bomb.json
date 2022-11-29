@@ -1,7 +1,7 @@
 {
 	"textures": [
 		{
-			"image": "bomb.png",
+			"image": "bomb.webp",
 			"format": "RGBA8888",
 			"size": {
 				"w": 576,
@@ -10,7 +10,7 @@
 			"scale": 1,
 			"frames": [
 				{
-					"filename": "0_Idle0.png",
+					"filename": "0_Idle0.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -31,7 +31,7 @@
 					}
 				},
 				{
-					"filename": "0_Idle1.png",
+					"filename": "0_Idle1.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -52,7 +52,7 @@
 					}
 				},
 				{
-					"filename": "1_Move0.png",
+					"filename": "1_Move0.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -73,7 +73,7 @@
 					}
 				},
 				{
-					"filename": "2_Count0.png",
+					"filename": "2_Count0.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -94,7 +94,7 @@
 					}
 				},
 				{
-					"filename": "2_Count1.png",
+					"filename": "2_Count1.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -115,7 +115,7 @@
 					}
 				},
 				{
-					"filename": "2_Count2.png",
+					"filename": "2_Count2.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -136,7 +136,7 @@
 					}
 				},
 				{
-					"filename": "3_Dead0.png",
+					"filename": "3_Dead0.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -157,7 +157,7 @@
 					}
 				},
 				{
-					"filename": "3_Dead1.png",
+					"filename": "3_Dead1.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -178,7 +178,7 @@
 					}
 				},
 				{
-					"filename": "3_Dead2.png",
+					"filename": "3_Dead2.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {

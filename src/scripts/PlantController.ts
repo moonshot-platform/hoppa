@@ -76,7 +76,7 @@ export default class PlantController {
                 start: 1,
                 end: 2,
                 prefix: '0_Idle',
-                suffix: '.png'
+                suffix: '.webp'
             })
         });
         this.sprite.anims.create({
@@ -87,7 +87,7 @@ export default class PlantController {
                 start: 1,
                 end: 3,
                 prefix: '1_Dead',
-                suffix: '.png'
+                suffix: '.webp'
             })
         });
     }

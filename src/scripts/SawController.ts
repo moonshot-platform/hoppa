@@ -134,7 +134,7 @@ export default class SawController {
                 start: 2,
                 end: 0,
                 prefix: '0_Idle',
-                suffix: '.png'
+                suffix: '.webp'
             })
         });
     }

@@ -1,7 +1,7 @@
 {
 	"textures": [
 		{
-			"image": "fireball.png",
+			"image": "fireball.webp",
 			"format": "RGBA8888",
 			"size": {
 				"w": 128,
@@ -10,7 +10,7 @@
 			"scale": 1,
 			"frames": [
 				{
-					"filename": "Fireball0.png",
+					"filename": "Fireball0.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -31,7 +31,7 @@
 					}
 				},
 				{
-					"filename": "Fireball1.png",
+					"filename": "Fireball1.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -52,7 +52,7 @@
 					}
 				},
 				{
-					"filename": "Fireball2.png",
+					"filename": "Fireball2.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -73,7 +73,7 @@
 					}
 				},
 				{
-					"filename": "Fireball3.png",
+					"filename": "Fireball3.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {

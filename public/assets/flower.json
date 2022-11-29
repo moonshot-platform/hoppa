@@ -1,7 +1,7 @@
 {
 	"textures": [
 		{
-			"image": "flower.png",
+			"image": "flower.webp",
 			"format": "RGBA8888",
 			"size": {
 				"w": 896,
@@ -10,7 +10,7 @@
 			"scale": 1,
 			"frames": [
 				{
-					"filename": "0_Idle1.png",
+					"filename": "0_Idle1.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -31,7 +31,7 @@
 					}
 				},
 				{
-					"filename": "0_Idle2.png",
+					"filename": "0_Idle2.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -52,7 +52,7 @@
 					}
 				},
 				{
-					"filename": "0_Idle3.png",
+					"filename": "0_Idle3.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -73,7 +73,7 @@
 					}
 				},
 				{
-					"filename": "0_Idle4.png",
+					"filename": "0_Idle4.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -94,7 +94,7 @@
 					}
 				},
 				{
-					"filename": "1_Dead1.png",
+					"filename": "1_Dead1.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -115,7 +115,7 @@
 					}
 				},
 				{
-					"filename": "1_Dead2.png",
+					"filename": "1_Dead2.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -136,7 +136,7 @@
 					}
 				},
 				{
-					"filename": "1_Dead3.png",
+					"filename": "1_Dead3.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {

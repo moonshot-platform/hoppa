@@ -1,7 +1,7 @@
 {
 	"textures": [
 		{
-			"image": "player2-win.png",
+			"image": "player2-win.webp",
 			"format": "RGBA8888",
 			"size": {
 				"w": 1536,
@@ -10,7 +10,7 @@
 			"scale": 1,
 			"frames": [
 				{
-					"filename": "AWinnerFemale1.png",
+					"filename": "AWinnerFemale1.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -31,7 +31,7 @@
 					}
 				},
 				{
-					"filename": "AWinnerFemale2.png",
+					"filename": "AWinnerFemale2.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -52,7 +52,7 @@
 					}
 				},
 				{
-					"filename": "AWinnerFemale3.png",
+					"filename": "AWinnerFemale3.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -73,7 +73,7 @@
 					}
 				},
 				{
-					"filename": "AWinnerFemale4.png",
+					"filename": "AWinnerFemale4.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -94,7 +94,7 @@
 					}
 				},
 				{
-					"filename": "AWinnerFemale5.png",
+					"filename": "AWinnerFemale5.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -115,7 +115,7 @@
 					}
 				},
 				{
-					"filename": "AWinnerFemale6.png",
+					"filename": "AWinnerFemale6.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {

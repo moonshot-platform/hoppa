@@ -130,7 +130,7 @@ export default class FlyController {
                 start: 0,
                 end: 1,
                 prefix: '0_Idle',
-                suffix: '.png'
+                suffix: '.webp'
             })
         });
         this.sprite.anims.create({
@@ -141,7 +141,7 @@ export default class FlyController {
                 start: 0,
                 end: 2,
                 prefix: '1_Dead',
-                suffix: '.png'
+                suffix: '.webp'
             })
         });
     }

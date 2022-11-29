@@ -1,7 +1,7 @@
 {
 	"textures": [
 		{
-			"image": "trap.png",
+			"image": "trap.webp",
 			"format": "RGBA8888",
 			"size": {
 				"w": 256,
@@ -10,7 +10,7 @@
 			"scale": 1,
 			"frames": [
 				{
-					"filename": "Trap1.png",
+					"filename": "Trap1.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -31,7 +31,7 @@
 					}
 				},
 				{
-					"filename": "Trap2.png",
+					"filename": "Trap2.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -52,7 +52,7 @@
 					}
 				},
 				{
-					"filename": "Trap3.png",
+					"filename": "Trap3.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -73,7 +73,7 @@
 					}
 				},
 				{
-					"filename": "Trap4.png",
+					"filename": "Trap4.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {

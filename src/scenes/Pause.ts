@@ -7,7 +7,7 @@ export default class Pause extends Phaser.Scene {
     }
 
     preload() {
-        this.load.bitmapFont('press_start', 'assets/press_start_2p.png', 'assets/press_start_2p.fnt');
+        this.load.bitmapFont('press_start', 'assets/press_start_2p.webp', 'assets/press_start_2p.fnt');
     }
 
     create() {

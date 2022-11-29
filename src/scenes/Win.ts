@@ -22,9 +22,9 @@ export default class Win extends CreditScene {
     preload() {
         SceneFactory.preload(this);
 
-        this.load.spritesheet('player1-win', 'assets/player1-win.png', { frameWidth: 256, frameHeight: 167, startFrame: 0, endFrame: 5 });
-        this.load.spritesheet('player2-win', 'assets/player2-win.png', { frameWidth: 256, frameHeight: 167, startFrame: 0, endFrame: 5 });
-        this.load.atlas('flares', 'assets/flares.png', 'assets/flares.json');
+        this.load.spritesheet('player1-win', 'assets/player1-win.webp', { frameWidth: 256, frameHeight: 167, startFrame: 0, endFrame: 5 });
+        this.load.spritesheet('player2-win', 'assets/player2-win.webp', { frameWidth: 256, frameHeight: 167, startFrame: 0, endFrame: 5 });
+        this.load.atlas('flares', 'assets/flares.webp', 'assets/flares.json');
     }
 
     create() {

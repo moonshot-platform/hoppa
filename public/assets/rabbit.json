@@ -1,7 +1,7 @@
 {
 	"textures": [
 		{
-			"image": "rabbit.png",
+			"image": "rabbit.webp",
 			"format": "RGBA8888",
 			"size": {
 				"w": 832,
@@ -10,7 +10,7 @@
 			"scale": 1,
 			"frames": [
 				{
-					"filename": "0_FemIdle0.png",
+					"filename": "0_FemIdle0.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -31,7 +31,7 @@
 					}
 				},
 				{
-					"filename": "1_FemJump0.png",
+					"filename": "1_FemJump0.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -52,7 +52,7 @@
 					}
 				},
 				{
-					"filename": "1_FemJump2.png",
+					"filename": "1_FemJump2.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -73,7 +73,7 @@
 					}
 				},
 				{
-					"filename": "0_FemIdle1.png",
+					"filename": "0_FemIdle1.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -94,7 +94,7 @@
 					}
 				},
 				{
-					"filename": "0_FemIdle2.png",
+					"filename": "0_FemIdle2.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -115,7 +115,7 @@
 					}
 				},
 				{
-					"filename": "0_Idle0.png",
+					"filename": "0_Idle0.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -136,7 +136,7 @@
 					}
 				},
 				{
-					"filename": "3_Walk1.png",
+					"filename": "3_Walk1.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -157,7 +157,7 @@
 					}
 				},
 				{
-					"filename": "3_Walk3.png",
+					"filename": "3_Walk3.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -178,7 +178,7 @@
 					}
 				},
 				{
-					"filename": "0_Idle1.png",
+					"filename": "0_Idle1.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -199,7 +199,7 @@
 					}
 				},
 				{
-					"filename": "0_Idle2.png",
+					"filename": "0_Idle2.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -220,7 +220,7 @@
 					}
 				},
 				{
-					"filename": "1_FemJump1.png",
+					"filename": "1_FemJump1.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -241,7 +241,7 @@
 					}
 				},
 				{
-					"filename": "1_FemJump3.png",
+					"filename": "1_FemJump3.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -262,7 +262,7 @@
 					}
 				},
 				{
-					"filename": "1_Jump0.png",
+					"filename": "1_Jump0.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -283,7 +283,7 @@
 					}
 				},
 				{
-					"filename": "1_Jump4.png",
+					"filename": "1_Jump4.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -304,7 +304,7 @@
 					}
 				},
 				{
-					"filename": "1_Jump1.png",
+					"filename": "1_Jump1.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -325,7 +325,7 @@
 					}
 				},
 				{
-					"filename": "1_Jump3.png",
+					"filename": "1_Jump3.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -346,7 +346,7 @@
 					}
 				},
 				{
-					"filename": "1_Jump2.png",
+					"filename": "1_Jump2.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -367,7 +367,7 @@
 					}
 				},
 				{
-					"filename": "2_FemThrow0.png",
+					"filename": "2_FemThrow0.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -388,7 +388,7 @@
 					}
 				},
 				{
-					"filename": "2_FemThrow4.png",
+					"filename": "2_FemThrow4.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -409,7 +409,7 @@
 					}
 				},
 				{
-					"filename": "2_FemThrow1.png",
+					"filename": "2_FemThrow1.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -430,7 +430,7 @@
 					}
 				},
 				{
-					"filename": "2_FemThrow3.png",
+					"filename": "2_FemThrow3.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -451,7 +451,7 @@
 					}
 				},
 				{
-					"filename": "2_FemThrow2.png",
+					"filename": "2_FemThrow2.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -472,28 +472,7 @@
 					}
 				},
 				{
-					"filename": "2_Throw0.png",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 64,
-						"h": 96
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 64,
-						"h": 96
-					},
-					"frame": {
-						"x": 64,
-						"y": 96,
-						"w": 64,
-						"h": 96
-					}
-				},
-				{
-					"filename": "2_Throw4.png",
+					"filename": "2_Throw0.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -514,7 +493,28 @@
 					}
 				},
 				{
-					"filename": "2_Throw1.png",
+					"filename": "2_Throw4.webp",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 64,
+						"h": 96
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 64,
+						"h": 96
+					},
+					"frame": {
+						"x": 64,
+						"y": 96,
+						"w": 64,
+						"h": 96
+					}
+				},
+				{
+					"filename": "2_Throw1.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -535,7 +535,7 @@
 					}
 				},
 				{
-					"filename": "2_Throw3.png",
+					"filename": "2_Throw3.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -556,7 +556,7 @@
 					}
 				},
 				{
-					"filename": "2_Throw2.png",
+					"filename": "2_Throw2.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -577,7 +577,7 @@
 					}
 				},
 				{
-					"filename": "3_FemWalk0.png",
+					"filename": "3_FemWalk0.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -598,7 +598,7 @@
 					}
 				},
 				{
-					"filename": "3_FemWalk1.png",
+					"filename": "3_FemWalk1.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -619,7 +619,7 @@
 					}
 				},
 				{
-					"filename": "3_FemWalk3.png",
+					"filename": "3_FemWalk3.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -640,7 +640,7 @@
 					}
 				},
 				{
-					"filename": "3_FemWalk2.png",
+					"filename": "3_FemWalk2.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -661,7 +661,7 @@
 					}
 				},
 				{
-					"filename": "3_Walk0.png",
+					"filename": "3_Walk0.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -682,7 +682,7 @@
 					}
 				},
 				{
-					"filename": "3_Walk2.png",
+					"filename": "3_Walk2.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -703,7 +703,7 @@
 					}
 				},
 				{
-					"filename": "4_Dead0.png",
+					"filename": "4_Dead0.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -724,7 +724,7 @@
 					}
 				},
 				{
-					"filename": "4_Dead1.png",
+					"filename": "4_Dead1.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -745,7 +745,7 @@
 					}
 				},
 				{
-					"filename": "4_Dead2.png",
+					"filename": "4_Dead2.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -766,7 +766,7 @@
 					}
 				},
 				{
-					"filename": "4_FemDead2.png",
+					"filename": "4_FemDead2.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -787,7 +787,7 @@
 					}
 				},
 				{
-					"filename": "4_Dead3.png",
+					"filename": "4_Dead3.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -808,7 +808,7 @@
 					}
 				},
 				{
-					"filename": "4_FemDead3.png",
+					"filename": "4_FemDead3.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -829,7 +829,7 @@
 					}
 				},
 				{
-					"filename": "4_FemDead0.png",
+					"filename": "4_FemDead0.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -850,7 +850,7 @@
 					}
 				},
 				{
-					"filename": "4_FemDead1.png",
+					"filename": "4_FemDead1.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -871,7 +871,7 @@
 					}
 				},
 				{
-					"filename": "5_FemTurn0.png",
+					"filename": "5_FemTurn0.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -892,7 +892,7 @@
 					}
 				},
 				{
-					"filename": "5_FemTurn1.png",
+					"filename": "5_FemTurn1.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -913,7 +913,7 @@
 					}
 				},
 				{
-					"filename": "5_FemTurn2.png",
+					"filename": "5_FemTurn2.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -934,7 +934,7 @@
 					}
 				},
 				{
-					"filename": "5_FemTurn3.png",
+					"filename": "5_FemTurn3.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -955,7 +955,7 @@
 					}
 				},
 				{
-					"filename": "5_FemTurn4.png",
+					"filename": "5_FemTurn4.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -976,7 +976,7 @@
 					}
 				},
 				{
-					"filename": "5_Turn0.png",
+					"filename": "5_Turn0.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -997,7 +997,7 @@
 					}
 				},
 				{
-					"filename": "5_Turn1.png",
+					"filename": "5_Turn1.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -1018,7 +1018,7 @@
 					}
 				},
 				{
-					"filename": "5_Turn2.png",
+					"filename": "5_Turn2.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -1039,7 +1039,7 @@
 					}
 				},
 				{
-					"filename": "5_Turn3.png",
+					"filename": "5_Turn3.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -1060,7 +1060,7 @@
 					}
 				},
 				{
-					"filename": "5_Turn4.png",
+					"filename": "5_Turn4.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -1081,7 +1081,7 @@
 					}
 				},
 				{
-					"filename": "Empty.png",
+					"filename": "Empty.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {

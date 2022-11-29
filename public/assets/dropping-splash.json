@@ -1,7 +1,7 @@
 {
 	"textures": [
 		{
-			"image": "dropping-splash.png",
+			"image": "dropping-splash.webp",
 			"format": "RGBA8888",
 			"size": {
 				"w": 192,
@@ -10,7 +10,7 @@
 			"scale": 1,
 			"frames": [
 				{
-					"filename": "Splash1.png",
+					"filename": "Splash1.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -31,7 +31,7 @@
 					}
 				},
 				{
-					"filename": "Splash2.png",
+					"filename": "Splash2.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -52,7 +52,7 @@
 					}
 				},
 				{
-					"filename": "Splash3.png",
+					"filename": "Splash3.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {

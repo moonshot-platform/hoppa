@@ -1,7 +1,7 @@
 {
 	"textures": [
 		{
-			"image": "coin.png",
+			"image": "coin.webp",
 			"format": "RGBA8888",
 			"size": {
 				"w": 320,
@@ -10,7 +10,7 @@
 			"scale": 1,
 			"frames": [
 				{
-					"filename": "Coin1.png",
+					"filename": "Coin1.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -31,7 +31,7 @@
 					}
 				},
 				{
-					"filename": "Coin2.png",
+					"filename": "Coin2.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -52,7 +52,7 @@
 					}
 				},
 				{
-					"filename": "Coin3.png",
+					"filename": "Coin3.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -73,7 +73,7 @@
 					}
 				},
 				{
-					"filename": "Coin4.png",
+					"filename": "Coin4.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -94,7 +94,7 @@
 					}
 				},
 				{
-					"filename": "Coin5.png",
+					"filename": "Coin5.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {

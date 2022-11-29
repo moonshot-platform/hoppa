@@ -1,7 +1,7 @@
 {
 	"textures": [
 		{
-			"image": "player1-win.png",
+			"image": "player1-win.webp",
 			"format": "RGBA8888",
 			"size": {
 				"w": 1536,
@@ -10,7 +10,7 @@
 			"scale": 1,
 			"frames": [
 				{
-					"filename": "AWinnerMale1.png",
+					"filename": "AWinnerMale1.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -31,7 +31,7 @@
 					}
 				},
 				{
-					"filename": "AWinnerMale2.png",
+					"filename": "AWinnerMale2.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -52,7 +52,7 @@
 					}
 				},
 				{
-					"filename": "AWinnerMale3.png",
+					"filename": "AWinnerMale3.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -73,7 +73,7 @@
 					}
 				},
 				{
-					"filename": "AWinnerMale4.png",
+					"filename": "AWinnerMale4.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -94,7 +94,7 @@
 					}
 				},
 				{
-					"filename": "AWinnerMale5.png",
+					"filename": "AWinnerMale5.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -115,7 +115,7 @@
 					}
 				},
 				{
-					"filename": "AWinnerMale6.png",
+					"filename": "AWinnerMale6.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {

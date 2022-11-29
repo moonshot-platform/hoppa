@@ -84,7 +84,7 @@ export default class TNTController {
                 start: 0,
                 end: 0,
                 prefix: '0_Idle',
-                suffix: '.png'
+                suffix: '.webp'
             })
         });
         this.sprite.anims.create({
@@ -95,7 +95,7 @@ export default class TNTController {
                 start: 0,
                 end: 0,
                 prefix: '1_Pressed',
-                suffix: '.png'
+                suffix: '.webp'
             })
         });
         this.sprite.anims.create({
@@ -106,7 +106,7 @@ export default class TNTController {
                 start: 0,
                 end: 1,
                 prefix: '2_Dead',
-                suffix: '.png'
+                suffix: '.webp'
             })
         });
     }

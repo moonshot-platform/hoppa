@@ -1,7 +1,7 @@
 {
 	"textures": [
 		{
-			"image": "cocoons.png",
+			"image": "cocoons.webp",
 			"format": "RGBA8888",
 			"size": {
 				"w": 512,
@@ -10,7 +10,7 @@
 			"scale": 1,
 			"frames": [
 				{
-					"filename": "Cocoon1.png",
+					"filename": "Cocoon1.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -31,7 +31,7 @@
 					}
 				},
 				{
-					"filename": "Cocoon2.png",
+					"filename": "Cocoon2.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -52,7 +52,7 @@
 					}
 				},
 				{
-					"filename": "Cocoon3.png",
+					"filename": "Cocoon3.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -73,7 +73,7 @@
 					}
 				},
 				{
-					"filename": "Machine.png",
+					"filename": "Machine.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {

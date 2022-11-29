@@ -1,7 +1,7 @@
 {
 	"textures": [
 		{
-			"image": "heart.png",
+			"image": "heart.webp",
 			"format": "RGBA8888",
 			"size": {
 				"w": 320,
@@ -10,7 +10,7 @@
 			"scale": 1,
 			"frames": [
 				{
-					"filename": "Heart1.png",
+					"filename": "Heart1.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -31,7 +31,7 @@
 					}
 				},
 				{
-					"filename": "Heart2.png",
+					"filename": "Heart2.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -52,7 +52,7 @@
 					}
 				},
 				{
-					"filename": "Heart3.png",
+					"filename": "Heart3.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -73,7 +73,7 @@
 					}
 				},
 				{
-					"filename": "Heart4.png",
+					"filename": "Heart4.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -94,7 +94,7 @@
 					}
 				},
 				{
-					"filename": "Heart5.png",
+					"filename": "Heart5.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {

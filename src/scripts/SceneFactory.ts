@@ -320,22 +320,22 @@ export function preload(ctx) {
 
     loadSettings();
 
-    ctx.load.image('sky', 'assets/back1.png');
-    ctx.load.image('groundTiles', 'assets/terrainv3.png');
-    ctx.load.image('propTiles', 'assets/spritesheet_props_extruded.png');
-    ctx.load.image('grasTiles', 'assets/gras.png');
+    ctx.load.image('sky', 'assets/back1.webp');
+    ctx.load.image('groundTiles', 'assets/terrainv3.webp');
+    ctx.load.image('propTiles', 'assets/spritesheet_props_extruded.webp');
+    ctx.load.image('grasTiles', 'assets/gras.webp');
 
-    ctx.load.image('bg_1', 'assets/back2.png');
-    ctx.load.image('bg_2', 'assets/back3.png');
-    ctx.load.image('bg_3', 'assets/back4.png');
-    ctx.load.image('bg_4', 'assets/back5.png');
-    ctx.load.image('bg_5', 'assets/back6.png');
-    ctx.load.image('bg_6', 'assets/back7.png');
-    ctx.load.image('logo', 'assets/logo.png');
+    ctx.load.image('bg_1', 'assets/back2.webp');
+    ctx.load.image('bg_2', 'assets/back3.webp');
+    ctx.load.image('bg_3', 'assets/back4.webp');
+    ctx.load.image('bg_4', 'assets/back5.webp');
+    ctx.load.image('bg_5', 'assets/back6.webp');
+    ctx.load.image('bg_6', 'assets/back7.webp');
+    ctx.load.image('logo', 'assets/logo.webp');
 
 
-    ctx.load.image('bg_cocoons', 'assets/bg_cocoons.jpg');
-    ctx.load.image('ra8bitTiles', 'assets/minira8bits.png');
+    ctx.load.image('bg_cocoons', 'assets/bg_cocoons.webp');
+    ctx.load.image('ra8bitTiles', 'assets/minira8bits.webp');
     ctx.load.image('ra8bittiles128-bg', 'assets/ra8bittiles128-bg.webp');
 
 
@@ -343,60 +343,60 @@ export function preload(ctx) {
     ctx.load.image('ra8bits-64-tiles', 'assets/ra8bittiles64.webp');
 
     //ui
-    ctx.load.bitmapFont('press_start', 'assets/press_start_2p.png', 'assets/press_start_2p.fnt');
-    ctx.load.spritesheet('health', 'assets/health.png', { frameWidth: 64, frameHeight: 64, startFrame: 0, endFrame: 4 });
-    ctx.load.image('bg-ui', 'assets/bg-ui.png');
-    ctx.load.image('mushyroom', 'assets/label-mushyroom.png');
+    ctx.load.bitmapFont('press_start', 'assets/press_start_2p.webp', 'assets/press_start_2p.fnt');
+    ctx.load.spritesheet('health', 'assets/health.webp', { frameWidth: 64, frameHeight: 64, startFrame: 0, endFrame: 4 });
+    ctx.load.image('bg-ui', 'assets/bg-ui.webp');
+    ctx.load.image('mushyroom', 'assets/label-mushyroom.webp');
 
     //win
-    ctx.load.atlas('cocoon', 'assets/cocoons.png', 'assets/cocoons.json');
-    ctx.load.atlas('flares', 'assets/flares.png', 'assets/flares.json');
+    ctx.load.atlas('cocoon', 'assets/cocoons.webp', 'assets/cocoons.json');
+    ctx.load.atlas('flares', 'assets/flares.webp', 'assets/flares.json');
 
 
     // sprite atlases
-    ctx.load.atlas('rabbit', 'assets/rabbit.png', 'assets/rabbit.json');
-    ctx.load.atlas('bird', 'assets/bird.png', 'assets/bird.json');
-    ctx.load.atlas('crab', 'assets/crab.png', 'assets/crab.json');
-    ctx.load.atlas('firewalker', 'assets/firewalk.png', 'assets/firewalk.json');
-    ctx.load.atlas('bat', 'assets/bat.png', 'assets/bat.json');
-    ctx.load.atlas('monster', 'assets/monster.png', 'assets/monster.json');
-    ctx.load.atlas('plant', 'assets/plant.png', 'assets/plant.json');
-    ctx.load.atlas('flower', 'assets/flower.png', 'assets/flower.json');
-    ctx.load.atlas('fire', 'assets/fire.png', 'assets/fire.json');
-    ctx.load.atlas('dragon', 'assets/dragon.png', 'assets/dragon.json');
-    ctx.load.atlas('bomb', 'assets/bomb.png', 'assets/bomb.json');
-    ctx.load.atlas('dropping-splash', 'assets/dropping-splash.png', 'assets/dropping-splash.json');
+    ctx.load.atlas('rabbit', 'assets/rabbit.webp', 'assets/rabbit.json');
+    ctx.load.atlas('bird', 'assets/bird.webp', 'assets/bird.json');
+    ctx.load.atlas('crab', 'assets/crab.webp', 'assets/crab.json');
+    ctx.load.atlas('firewalker', 'assets/firewalk.webp', 'assets/firewalk.json');
+    ctx.load.atlas('bat', 'assets/bat.webp', 'assets/bat.json');
+    ctx.load.atlas('monster', 'assets/monster.webp', 'assets/monster.json');
+    ctx.load.atlas('plant', 'assets/plant.webp', 'assets/plant.json');
+    ctx.load.atlas('flower', 'assets/flower.webp', 'assets/flower.json');
+    ctx.load.atlas('fire', 'assets/fire.webp', 'assets/fire.json');
+    ctx.load.atlas('dragon', 'assets/dragon.webp', 'assets/dragon.json');
+    ctx.load.atlas('bomb', 'assets/bomb.webp', 'assets/bomb.json');
+    ctx.load.atlas('dropping-splash', 'assets/dropping-splash.webp', 'assets/dropping-splash.json');
 
-    ctx.load.atlas('cracks', 'assets/cracks.png', 'assets/cracks.json');
-    ctx.load.atlas('crow', 'assets/crow.png', 'assets/crow.json');
-    ctx.load.atlas('bear', 'assets/bear.png', 'assets/bear.json');
-    ctx.load.atlas('fly', 'assets/fly.png', 'assets/fly.json');
-    ctx.load.atlas('tnt', 'assets/tnt.png', 'assets/tnt.json');
-    ctx.load.atlas('saw', 'assets/saw.png', 'assets/saw.json');
+    ctx.load.atlas('cracks', 'assets/cracks.webp', 'assets/cracks.json');
+    ctx.load.atlas('crow', 'assets/crow.webp', 'assets/crow.json');
+    ctx.load.atlas('bear', 'assets/bear.webp', 'assets/bear.json');
+    ctx.load.atlas('fly', 'assets/fly.webp', 'assets/fly.json');
+    ctx.load.atlas('tnt', 'assets/tnt.webp', 'assets/tnt.json');
+    ctx.load.atlas('saw', 'assets/saw.webp', 'assets/saw.json');
 
-    ctx.load.spritesheet('coin', 'assets/coin.png', { frameWidth: 64, frameHeight: 64, startFrame: 0, endFrame: 5 });
-    ctx.load.spritesheet('carrot', 'assets/carrot.png', { frameWidth: 64, frameHeight: 64, startFrame: 0, endFrame: 5 });
-    ctx.load.spritesheet('lab', 'assets/lab.png', { frameWidth: 64, frameHeight: 136, startFrame: 0, endFrame: 3 });
-    ctx.load.spritesheet('billboards', 'assets/billboards.png', { frameWidth: 192, frameHeight: 220, startFrame: 0, endFrame: 34 });
-    ctx.load.spritesheet('lightswitch', 'assets/lightswitch.png', { frameWidth: 64, frameHeight: 64, startFrame: 0, endFrame: 1 });
-    ctx.load.spritesheet('fireball', 'assets/fireball.png', { frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 3 });
+    ctx.load.spritesheet('coin', 'assets/coin.webp', { frameWidth: 64, frameHeight: 64, startFrame: 0, endFrame: 5 });
+    ctx.load.spritesheet('carrot', 'assets/carrot.webp', { frameWidth: 64, frameHeight: 64, startFrame: 0, endFrame: 5 });
+    ctx.load.spritesheet('lab', 'assets/lab.webp', { frameWidth: 64, frameHeight: 136, startFrame: 0, endFrame: 3 });
+    ctx.load.spritesheet('billboards', 'assets/billboards.webp', { frameWidth: 192, frameHeight: 220, startFrame: 0, endFrame: 34 });
+    ctx.load.spritesheet('lightswitch', 'assets/lightswitch.webp', { frameWidth: 64, frameHeight: 64, startFrame: 0, endFrame: 1 });
+    ctx.load.spritesheet('fireball', 'assets/fireball.webp', { frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 3 });
 
 
 
     // images
-    ctx.load.image('heart', 'assets/heart.png');
-    ctx.load.image('berry', 'assets/berry.png');
-    ctx.load.image('pow', 'assets/pow.png');
-    ctx.load.image('star', 'assets/star.png');
-    ctx.load.image('toad', 'assets/toad.png');
-    ctx.load.image('rubber1', 'assets/rubber_1.png');
-    ctx.load.image('dropping', 'assets/dropping.png');
-    ctx.load.image('crate', 'assets/crate.png');
-    ctx.load.image('zeppelin1', 'assets/zeppelin1.png');
-    ctx.load.image('zeppelin2', 'assets/zeppelin2.png');
-    ctx.load.image('platform', 'assets/platform.png');
-    ctx.load.image('brick1-2', 'assets/brick1-2.png');
-    ctx.load.image('brick2-2', 'assets/brick2-2.png');
+    ctx.load.image('heart', 'assets/heart.webp');
+    ctx.load.image('berry', 'assets/berry.webp');
+    ctx.load.image('pow', 'assets/pow.webp');
+    ctx.load.image('star', 'assets/star.webp');
+    ctx.load.image('toad', 'assets/toad.webp');
+    ctx.load.image('rubber1', 'assets/rubber_1.webp');
+    ctx.load.image('dropping', 'assets/dropping.webp');
+    ctx.load.image('crate', 'assets/crate.webp');
+    ctx.load.image('zeppelin1', 'assets/zeppelin1.webp');
+    ctx.load.image('zeppelin2', 'assets/zeppelin2.webp');
+    ctx.load.image('platform', 'assets/platform.webp');
+    ctx.load.image('brick1-2', 'assets/brick1-2.webp');
+    ctx.load.image('brick2-2', 'assets/brick2-2.webp');
     ctx.load.image('changeskin', 'assets/changeskin.webp');
 
 
@@ -439,7 +439,7 @@ export function preload(ctx) {
     ctx.load.audio('100coins', ['assets/100coins.mp3', 'assets/100coins.m4a']);
 
     // font
-    ctx.load.bitmapFont('press_start', 'assets/press_start_2p.png', 'assets/press_start_2p.fnt');
+    ctx.load.bitmapFont('press_start', 'assets/press_start_2p.webp', 'assets/press_start_2p.fnt');
 
     ctx.load.audio('angel-eyes', ['assets/angel-eyes.mp3', 'assets/angel-eyes.m4a']);
     ctx.load.audio('01_main_screen_trailer', ['assets/01_main_screen_trailer.mp3', 'assets/01_main_screen_trailer.m4a']);

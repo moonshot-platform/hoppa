@@ -153,7 +153,7 @@ export default class MonsterController {
                 start: 1,
                 end: 3,
                 prefix: '0_Idle',
-                suffix: '.png'
+                suffix: '.webp'
             })
         });
         this.sprite.anims.create({
@@ -164,7 +164,7 @@ export default class MonsterController {
                 start: 1,
                 end: 3,
                 prefix: '1_Dead',
-                suffix: '.png'
+                suffix: '.webp'
             })
         });
     }

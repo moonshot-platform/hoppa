@@ -1342,7 +1342,7 @@
         {
          "columns":7,
          "firstgid":1,
-         "image":"terrainv3.png",
+         "image":"terrainv3.webp",
          "imageheight":658,
          "imagewidth":512,
          "margin":0,
@@ -5230,7 +5230,7 @@
         {
          "columns":4,
          "firstgid":72,
-         "image":"spritesheet_props.png",
+         "image":"spritesheet_props.webp",
          "imageheight":256,
          "imagewidth":256,
          "margin":0,
@@ -5243,7 +5243,7 @@
         {
          "columns":1,
          "firstgid":88,
-         "image":"sky.png",
+         "image":"sky.webp",
          "imageheight":600,
          "imagewidth":800,
          "margin":0,

@@ -1,7 +1,7 @@
 {
 	"textures": [
 		{
-			"image": "frog.png",
+			"image": "frog.webp",
 			"format": "RGBA8888",
 			"size": {
 				"w": 448,
@@ -10,7 +10,7 @@
 			"scale": 1,
 			"frames": [
 				{
-					"filename": "0_Idle.png",
+					"filename": "0_Idle.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -31,7 +31,7 @@
 					}
 				},
 				{
-					"filename": "1_Walk0.png",
+					"filename": "1_Walk0.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -52,7 +52,7 @@
 					}
 				},
 				{
-					"filename": "1_Walk1.png",
+					"filename": "1_Walk1.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -73,7 +73,7 @@
 					}
 				},
 				{
-					"filename": "1_Walk2.png",
+					"filename": "1_Walk2.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -94,7 +94,7 @@
 					}
 				},
 				{
-					"filename": "1_Walk3.png",
+					"filename": "1_Walk3.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -115,7 +115,7 @@
 					}
 				},
 				{
-					"filename": "2_Dead0.png",
+					"filename": "2_Dead0.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -136,7 +136,7 @@
 					}
 				},
 				{
-					"filename": "2_Dead1.png",
+					"filename": "2_Dead1.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -157,7 +157,7 @@
 					}
 				},
 				{
-					"filename": "2_Dead2.png",
+					"filename": "2_Dead2.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
