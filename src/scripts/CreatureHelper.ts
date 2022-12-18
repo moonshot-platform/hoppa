@@ -2,13 +2,16 @@ import BatController from "./BatController";
 import BearController from "./BearController";
 import BirdController from "./BirdController";
 import BombController from "./BombController";
+import BossController from "./BossController";
 import CrabController from "./CrabController";
 import CrowController from "./CrowController";
+import DoorController from "./DoorController";
 import DragonController from "./DragonController";
 import FireController from "./FireController";
 import FireWalkerController from "./FireWalkerController";
 import FlowerController from "./FlowerController";
 import FlyController from "./FlyController";
+import LavaController from "./LavaController";
 import LightSwitchController from "./LightSwitchController";
 import MonsterController from "./MonsterController";
 import PlantController from "./PlantController";
@@ -16,8 +19,6 @@ import PlayerController from "./PlayerController";
 import SawController from "./SawController";
 import TNTController from "./TNTController";
 import ZeppelinController from "./ZeppelinController";
-
-export let ra8bitSequence = 0;
 
 export function creatureCreateDragon(ctx, x, y, width, height, enemyCat, collideWith, controller, player) {
     const dragon = ctx.matter.add.sprite(x + (width * 0.5), y + (height * 0.5), 'dragon', undefined, {
@@ -254,6 +255,32 @@ export function createCreaturePlant(ctx, x, y, width, height, enemyCat, collideW
     return new PlantController(ctx, plant, plant.name);
 }
 
+export function createCreatureLava(ctx, name,x, y, width, height, enemyCat, collideWith, controller) {
+    const lava = ctx.matter.add.sprite(x + (width * 0.5), y + (height * 0.5), name, undefined, {
+        vertices: [{ x: 0, y: 0 }, { x: 64, y: 0 }, { x: 64, y: 64 }, { x: 0, y: 64 }],
+        label: name
+    })
+        .setFixedRotation();
+    lava.setStatic(true);
+    lava.setCollisionCategory(enemyCat);
+    
+    if( name === 'lava-center' )
+    {
+        lava.setCollidesWith(collideWith);
+    }  
+    else { // lava-top : fallthrough
+        lava.setDepth(10);
+        lava.setCollidesWith(6);
+    }
+
+    lava.setName(name);
+    lava.setData('type', name);
+
+    controller.add(name, lava.body as MatterJS.BodyType);
+
+    return new LavaController(ctx, lava, lava.name);
+}
+
 export function createCreatureBear(ctx, x, y, width, height, enemyCat, collideWith, controller, playerController: PlayerController ) {
     const bear = ctx.matter.add.sprite(x + (width * 0.5), y + (height * 0.5), 'bear', undefined, {
         vertices: [{ x: 0, y: 0 }, { x: 68, y: 0 }, { x: 64, y: 68 }, { x: 0, y: 68 }],
@@ -268,6 +295,22 @@ export function createCreatureBear(ctx, x, y, width, height, enemyCat, collideWi
     controller.add('bear', bear.body as MatterJS.BodyType);
 
     return new BearController(ctx, bear, bear.name, playerController);
+}
+
+export function createCreatureBoss(ctx, x, y, width, height, enemyCat, collideWith, controller, playerController: PlayerController ) {
+    const boss = ctx.matter.add.sprite(x + (width * 0.5), y + (height * 0.5), 'boss', undefined, {
+       vertices: [{x: 98, y: 92 }, {x: 190, y: 92}, {x: 190, y: 155 }, {x: 98 , y: 155 }],
+       label: 'boss'
+    })
+        .setFixedRotation();
+    boss.setStatic(true);
+    boss.setCollisionCategory(enemyCat);
+    boss.setCollidesWith(collideWith);
+    boss.setName('boss');
+
+    controller.add('boss', boss.body as MatterJS.BodyType);
+
+    return new BossController(ctx, boss, boss.name, enemyCat, collideWith, playerController, controller);
 }
 
 
@@ -342,3 +385,22 @@ export function createLightSwitch(ctx, x, y, width, height, rotation, enemyCat, 
 
     return new LightSwitchController(ctx, zelightswitch, player, zelightswitch.name);
 }
+
+export function createWindow(ctx,x,y,width,height,rotation,enemyCat, collideWith, controller, player) {
+    const win = ctx.matter.add.sprite( x + (width * 0.5), y + (height * 0.5),
+                 'doors', undefined, {
+        isStatic: true,
+        label: 'window',
+        vertices: [{ x:0 , y: 0} , { x: 132, y: 0 }, { x: 132, y: 148}, { x:0 , y: 148}]
+    }).setFixedRotation();
+    win.setData('type', 'window');
+    win.setName('window');
+    win.setCollisionCategory(enemyCat);
+    win.setCollidesWith([6]);
+
+    controller.add('window', win.body as MatterJS.BodyType);
+    
+    return new DoorController(ctx, win, 'window');
+}
+
+
