@@ -1,4 +1,4 @@
-import Phaser, { Tilemaps } from "phaser";
+import Phaser from "phaser";
 import { sharedInstance as events } from "../scripts/EventManager";
 import * as SceneFactory from '../scripts/SceneFactory';
 import * as WalletHelper from '../scripts/WalletHelper';
@@ -22,8 +22,8 @@ export default class UI extends Phaser.Scene {
     private pwrPower?: Phaser.GameObjects.Sprite;
     private pwrPoop?: Phaser.GameObjects.Sprite;
 
-    private time_start: number = 0;
-    private lasttick: number = 0;
+    private time_start = 0;
+    private lasttick = 0;
 
     constructor() {
         super('ui');        
@@ -31,9 +31,9 @@ export default class UI extends Phaser.Scene {
 
     init() {
        
-        let data = window.localStorage.getItem( 'ra8bit.stats' );
+        const data = window.localStorage.getItem( 'ra8bit.stats' );
         if( data != null ) {
-            let obj = JSON.parse(data);
+            const obj = JSON.parse(data);
             this.info = obj as PlayerStats;
         }
         else {
@@ -43,9 +43,15 @@ export default class UI extends Phaser.Scene {
                 'carrotsCollected': 0,
                 'currLevel': 1,
                 'scorePoints': 0,
-                'livesRemaining': 3
+                'livesRemaining': 3,
+                'invincibility': false,
+                'speedUp': false,
+                'powerUp': false,
+                'throw': false,
             };
         }
+        
+
     }
 
     preload() {
@@ -79,21 +85,22 @@ export default class UI extends Phaser.Scene {
         this.pwrPower = this.add.sprite( 760 + 48 + 48, 670 + (32 * 0.5), 'pow' ).setDisplaySize(32,32);
         this.pwrInvincible = this.add.sprite( 760 + (3 * 48), 670 + (32 * 0.5), 'rubber1' ).setDisplaySize(32,32);
         
-        this.pwrPoop.setAlpha(0.1);
-        this.pwrSpeed.setAlpha(0.1);
-        this.pwrPower.setAlpha(0.1);
-        this.pwrInvincible.setAlpha(0.1);
+        this.pwrSpeed.setAlpha(this.info.speedUp ? 1: 0.1);
+        this.pwrPoop.setAlpha(this.info.throw? 1: 0.1);
+        this.pwrInvincible.setAlpha(this.info.invincibility?1:0.1);
+        this.pwrPower.setAlpha(this.info.powerUp?1:0.1);
 
         this.health = this.add.sprite( 1230, 678, 'health', 4 );
         this.lives = [];
         let x = 1230 - 208;
-        let y = 678;
+        const y = 678;
 
         this.lives.push( this.add.sprite( x, y, 'health', this.info.livesRemaining > 0 ? 4 :0 ) ); x+= 64;
         this.lives.push( this.add.sprite( x, y, 'health', this.info.livesRemaining > 1 ? 4 :0 ) ); x+= 64;
         this.lives.push( this.add.sprite( x, y, 'health', this.info.livesRemaining > 2 ? 4 :0 ) );
         
         events.on('coin-collected', this.handleCoinCollected, this);
+        events.on('coin-taken', this.handleCoinTaken, this);
         events.on('enemy-killed', this.handleEnemyKilled,this);
         events.on('health-changed', this.handleHealthChanged, this);
         events.on('reset-game', this.handleReset, this);
@@ -110,9 +117,11 @@ export default class UI extends Phaser.Scene {
         events.on('lives-changed', this.handleLivesChanged, this); 
 
         events.on('level-start', this.startGame, this); 
+        events.on('restart', this.handleRestart, this);
 
         this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
             events.off('coin-collected', this.handleCoinCollected, this);
+            events.off('coin-taken', this.handleCoinTaken, this);
             events.off('enemy-killed', this.handleEnemyKilled,this);
             events.off('health-changed', this.handleHealthChanged, this);
             events.off('reset-game', this.handleReset, this);
@@ -129,11 +138,12 @@ export default class UI extends Phaser.Scene {
             events.off('carrot-collected', this.handleCarrotCollected, this );
             events.off('lives-changed', this.handleLivesChanged, this); 
         
-            events.off('level-start', this.startGame, this); 
+            events.off('level-start', this.startGame, this);
+            events.on( 'restart', this.handleRestart, this);
         });
     }
 
-    update(time, delta) {
+    update() {
         if(this.time_start > 0 && this.lasttick <= this.game.loop.frame) {
             this.timeLabel.text = `${(Phaser.Math.FloorTo( (this.time.now - this.time_start) * 0.001))}`;
             this.lasttick = this.game.loop.frame + 20;
@@ -160,18 +170,7 @@ export default class UI extends Phaser.Scene {
     }
     
     private handleHealthChanged(value: number) {
-        /* this.tweens.addCounter( {
-             from: this.info.lastHealth,
-             to: value,
-             duration: 200,
-             ease: Phaser.Math.Easing.Sine.InOut,
-             onUpdate: tween => {
-                 const value = tween.getValue();
-                 this.setHealthBar(value);
-             }
-         }); */
         this.setHealthBar(value);
-       
      }
 
     private handleEnemyKilled(value: number) {
@@ -183,6 +182,7 @@ export default class UI extends Phaser.Scene {
         if(value) {
             this.updateScore(1000);
         }
+        this.info.invincibility = value;
     }
     
     private handleSpeed(value: boolean) {
@@ -190,6 +190,7 @@ export default class UI extends Phaser.Scene {
         if(value) {
             this.updateScore(1000);
         }
+        this.info.speedUp = value;
     }
     
     private handlePoop(value: boolean) {
@@ -197,6 +198,7 @@ export default class UI extends Phaser.Scene {
         if(value) {
             this.updateScore(1000);
         }
+        this.info.throw = value;
     }
 
     private handlePower(value: boolean) {
@@ -204,6 +206,7 @@ export default class UI extends Phaser.Scene {
         if(value) {
             this.updateScore(1000);
         }
+        this.info.powerUp = value;
     }
 
     private handleChangeScore(value: number) {
@@ -222,7 +225,7 @@ export default class UI extends Phaser.Scene {
         this.time_start = 0;
         
         this.resetSpawnPoint();
-        this.game.sound.stopAll();
+        SceneFactory.stopSound(this);
         this.scene.stop(); // stop UI
     }
     
@@ -249,10 +252,19 @@ export default class UI extends Phaser.Scene {
         this.updateScore(10);
 
         if( this.info.coinsCollected == 100  ) {
-          //  SceneFactory.addSound(this, '100coins', false, true );
             this.handleLivesChanged(this.info.livesRemaining + 1);
             this.info.coinsCollected = 0;
         } 
+    }
+
+    private handleCoinTaken() {
+        this.info.coinsCollected -= 5;
+        
+        if( this.info.coinsCollected < 0  ) {
+            this.info.coinsCollected = 0;
+        }
+        
+        this.coinsLabel.text = `x ${this.info.coinsCollected}`;
     }
 
     private handleReset() {
@@ -265,12 +277,35 @@ export default class UI extends Phaser.Scene {
         this.info.lastHealth = 100;
         this.info.livesRemaining = 3;
 
+        this.info.invincibility = false;
+        this.info.speedUp = false;
+        this.info.powerUp = false;
+        this.info.throw = false;
+
         this.save();
 
         this.resetSpawnPoint();
-        this.game.sound.stopAll();
+        SceneFactory.stopSound(this);
         this.scene.stop();
         this.time_start = 0;
+    }
+
+    private handleRestart() {
+        this.time_start = 0;
+        
+        this.info.invincibility = false;
+        this.info.speedUp = false;
+        this.info.powerUp = false;
+        this.info.throw = false;
+
+        this.info.lastHealth = 100;
+        
+        this.pwrSpeed?.setAlpha(this.info.speedUp ? 1: 0.1);
+        this.pwrPoop?.setAlpha(this.info.throw? 1: 0.1);
+        this.pwrInvincible?.setAlpha(this.info.invincibility?1:0.1);
+        this.pwrPower?.setAlpha(this.info.powerUp?1:0.1);
+
+        this.save();
     }
 
     private resetSpawnPoint() {
@@ -284,7 +319,7 @@ export default class UI extends Phaser.Scene {
     }
 
     private save() {
-        let data = JSON.stringify(this.info);
+        const data = JSON.stringify(this.info);
         window.localStorage.setItem( 'ra8bit.stats', data );
     }
 
