@@ -18,9 +18,9 @@ import BearController from '~/scripts/BearController';
 import CrowController from '~/scripts/CrowController';
 import FlyController from '~/scripts/FlyController';
 import SawController from "~/scripts/SawController";
-import * as AlignmentHelper from '../scripts/AlignmentHelper';
 import * as WalletHelper from '../scripts/WalletHelper';
 import BaseScene from "./BaseScene";
+import BossController from "~/scripts/BossController";
 
 export default class Start extends BaseScene {
     constructor() {
@@ -44,11 +44,13 @@ export default class Start extends BaseScene {
     private flies: FlyController[] = [];
     private crows: CrowController[] = [];
     private saws: SawController[] = [];
-    private index: number = 0;
+    private boss: BossController[] = [];
+    private index = 0;
     private hsv;
     private shoutout !: Phaser.GameObjects.BitmapText;
     private credits !: Phaser.GameObjects.BitmapText;
-    private goFS: boolean = false;
+    private map!: Phaser.Tilemaps.Tilemap;
+    private goFS = false;
 
     init() {
 
@@ -78,7 +80,7 @@ export default class Start extends BaseScene {
         this.crows = [];
         this.saws = [];
 
-        let info = {
+        const info = {
             'lastHealth': 100,
             'coinsCollected': 0,
             'carrotsCollected': 0,
@@ -86,9 +88,8 @@ export default class Start extends BaseScene {
             'scorePoints': 0,
             'livesRemaining': 3,
         };
-        let data = JSON.stringify(info);
+        const data = JSON.stringify(info);
         window.localStorage.setItem('ra8bit.stats', data); 
-
     }
 
     preload() {
@@ -104,15 +105,14 @@ export default class Start extends BaseScene {
         this.hsv = Phaser.Display.Color.HSVColorWheel();
 
         const { width, height } = this.scale;
-
-        const map1 = this.make.tilemap({ key: 'start', tileWidth: 64, tileHeight: 64 });
-        const groundTiles = map1.addTilesetImage('ground', 'groundTiles', 64, 64, 0, 2);
-        const ra8bitTiles = map1.addTilesetImage('minira8bits', 'ra8bitTiles', 64, 64, 0, 2);
-        const ground = map1.createLayer('ground', [groundTiles, ra8bitTiles]);
+        this.map = this.make.tilemap({ key: 'start', tileWidth: 64, tileHeight: 64 });
+        const groundTiles = this.map.addTilesetImage('ground', 'groundTiles', 64, 64, 0, 2);
+        const ra8bitTiles = this.map.addTilesetImage('minira8bits', 'ra8bitTiles', 64, 64, 0, 2);
+        const ground = this.map.createLayer('ground', [groundTiles, ra8bitTiles]);
 
         ground.setCollisionByProperty({ collides: true, recalculateFaces: false });
 
-        const objectsLayer = map1.getObjectLayer('objects');
+        const objectsLayer = this.map.getObjectLayer('objects');
         objectsLayer.objects.forEach(objData => {
             const { x = 0, y = 0, name, width = 0, height = 0, rotation = 0 } = objData;
             switch (name) {
@@ -124,22 +124,20 @@ export default class Start extends BaseScene {
         })
         this.matter.world.convertTilemapLayer(ground, { label: 'ground', friction: 0, frictionStatic: 0 });
 
-
-        this.matter.world.setBounds(0, 0, map1.widthInPixels, map1.heightInPixels);
-        this.cameras.main.setBounds(0, -308, map1.widthInPixels, map1.heightInPixels);
+        this.matter.world.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
+        this.cameras.main.setBounds(0, -308, this.map.widthInPixels, this.map.heightInPixels);
         this.cameras.main.setAlpha(1);
         this.cameras.main.setZoom(0.5);
         this.cameras.main.roundPixels = true;
-      //  this.matter.world.drawDebug = false;
 
         this.matter.world.on("collisionstart", (e: { pairs: any; }, o1: any, o2: any) => {
-            var pairs = e.pairs;
-            for (var i = 0; i < pairs.length; i++) {
-                let bodyA = pairs[i].bodyA;
-                let bodyB = pairs[i].bodyB;
+            const pairs = e.pairs;
+            for (let i = 0; i < pairs.length; i++) {
+                const bodyA = pairs[i].bodyA;
+                const bodyB = pairs[i].bodyB;
 
-                let dx = ~~(bodyA.position.x - bodyB.position.x);
-                let dy = ~~(bodyA.position.y - bodyB.position.y);
+                const dx = ~~(bodyA.position.x - bodyB.position.x);
+                const dy = ~~(bodyA.position.y - bodyB.position.y);
 
                 if (Math.abs(dx) <= 64 && dy == 0) {
                     events.emit(bodyA.gameObject?.name + '-blocked', bodyA.gameObject);
@@ -148,7 +146,6 @@ export default class Start extends BaseScene {
         });
 
         SceneFactory.playRepeatMusic(this, 'theme');
-
     
         this.tweens.chain({
             targets: this.cameras.main,
@@ -215,7 +212,7 @@ export default class Start extends BaseScene {
         if(WalletHelper.isNotEligible())
             this.scene.start('wallet');
         else
-            this.scene.start('level1');
+            this.scene.start('player-select');
     }
 
     destroy() {
@@ -243,6 +240,8 @@ export default class Start extends BaseScene {
         this.shoutout.destroy();
         this.credits.destroy();
 
+        this.map.destroy();
+
     }
 
     update(time: number, deltaTime: number) {
@@ -269,10 +268,8 @@ export default class Start extends BaseScene {
         this.crows.forEach(crow => crow.update(deltaTime));
         this.saws.forEach(saw => saw.update(deltaTime));
 
-        let top = this.hsv[this.index].color;
-        let bottom = this.hsv[359 - this.index].color;
-        let top2 = this.hsv[(this.index + 45) % 360].color;
-        let bottom2 = this.hsv[(359 - this.index + 45) % 360].color;
+        const top = this.hsv[this.index].color;
+        const bottom = this.hsv[359 - this.index].color;
 
         this.shoutout.setTint(top, bottom, top, bottom);
 
