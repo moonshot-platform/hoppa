@@ -1,4 +1,4 @@
-![Logo](public/assets/logo.png)
+![Logo](public/assets/logo.webp)
 
 # Introduction 
 
@@ -76,13 +76,13 @@ To create levels, you need Tiled ( https://www.mapeditor.org )
 # Screenshots:
 
 Level 1
-![Screenshot 1](public/assets/screenshot.jpg)
+![Screenshot 1](public/assets/screenshot.webp)
 
 Bonus Level
-![Screenshot 2](public/assets/screenshot2.jpg)
+![Screenshot 2](public/assets/screenshot2.webp)
 
 Level 1
-![Screenshot 3](public/assets/screenshot3.jpg)
+![Screenshot 3](public/assets/screenshot3.webp)
 
 Secret Room
-![Screenshot 4](public/assets/screenshot4.jpg)
+![Screenshot 4](public/assets/screenshot4.webp)
