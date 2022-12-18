@@ -2,11 +2,11 @@ import Phaser, { Physics } from 'phaser'
 
 export default class BaseScene extends Phaser.Scene {
     
-    private frameTime: number = 0;
-    private renderNow: boolean = false;
+    private frameTime = 0;
+    private renderNow = false;
     private readonly MATTER_TIME_STEP = 1000 / 60;
     private readonly TARGET_RATE = 1000 / 30;
-    private accumulator: number = 0;
+    private accumulator = 0;
 
     constructor(name: string |  Phaser.Types.Scenes.SettingsConfig)  {
         super(name);
