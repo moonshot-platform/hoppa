@@ -4,6 +4,9 @@ import * as WalletHelper from '../scripts/WalletHelper';
 export default class Wallet extends Phaser.Scene {
     
     private image!: Phaser.GameObjects.Image;
+    private line1!: Phaser.GameObjects.BitmapText;
+    private line2!: Phaser.GameObjects.BitmapText;
+    private line3!: Phaser.GameObjects.BitmapText;
     
     constructor() {
         super('wallet');
@@ -19,19 +22,24 @@ export default class Wallet extends Phaser.Scene {
         const { width, height } = this.scale;
 
         if(globalThis.noWallet) {
-            this.add.bitmapText(width * 0.5, height / 2 + 160, 'press_start', 'It seems you dont have a wallet (yet)', 22)
+            this.line1 =this.add.bitmapText(width * 0.5, height / 2 + 160, 'press_start', 'It seems you dont have a wallet (yet)', 22)
                 .setTint(0xffffff)
                 .setOrigin(0.5);
         }
         else if(WalletHelper.isNotEligible() ) {
-            this.add.bitmapText(width * 0.5, height / 2 + 160, 'press_start', 'You are allowed access Level 1', 22)
+            this.line1= this.add.bitmapText(width * 0.5, height / 2 + 160, 'press_start', 'You are allowed access Level 1', 22)
                 .setTint(0xffffff)
                 .setOrigin(0.5);
         }
 
-        this.add.bitmapText(width * 0.5, height / 2 + 210, 'press_start', 'Unlimited play only for Moonshot and Ra8bits holders', 22)
+        this.line2 = this.add.bitmapText(width * 0.5, height / 2 + 210, 'press_start', 'Unlimited play only for Moonshot and Ra8bits holders', 22)
             .setTint(0xffffff)
             .setOrigin(0.5); 
+
+        this.line3 =this.add.bitmapText(width * 0.5, height / 2 + 260, 'press_start', 'And MoonBoxes.io NFT holders', 22)
+            .setTint(0xffffff)
+            .setOrigin(0.5); 
+        
 
         this.image = this.add.image(width / 2, height / 2, 'bg').setOrigin(0.5, 0.5).setVisible(true);
 
@@ -39,10 +47,16 @@ export default class Wallet extends Phaser.Scene {
         this.input.on('keydown', () => { this.startGame(); });
     }
 
+    destroy() {
+        this.line1.destroy();
+        this.line2.destroy();
+        this.line3.destroy();
+    }
+
     startGame() {
         this.image.destroy();
-        this.game.sound.stopAll();
+        SceneFactory.stopSound(this);
         this.scene.stop();
-        this.scene.start('level1');
+        this.scene.start('player-select');
     }
 }
