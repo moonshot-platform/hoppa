@@ -1,24 +1,23 @@
 import Phaser from 'phaser'
+import { sharedInstance as events } from './EventManager';
 
 export default class MovingPlatform {
 
-    private startY: number = 0;
-    private startX: number = 0;
-    private to: number = 0;
-    private duration: number = 0;
-    private vertical: boolean = false;
+    private startY = 0;
+    private startX = 0;
+    private to = 0;
+    private duration = 0;
+    private vertical = false;
     private sprite: Phaser.Physics.Matter.Sprite;
     private scene: Phaser.Scene;
 
-    private vx: number = 0;
-    private vy: number = 0;
-
-    private lastX: number = 0;
-    private lastY: number = 0;
-
-    private id: number = Phaser.Math.Between(0,100);
-
-    constructor(scene, x, y, to, duration, vertical, sprite) {
+    private vx = 0;
+    private vy = 0;
+    private lastX = 0;
+    private lastY = 0;
+    private noautostart = false;
+    
+    constructor(scene, x, y, to, duration, vertical, sprite: Phaser.Physics.Matter.Sprite, nas: false) {
         this.startX = x;
         this.startY = y;
         this.to = (to * 64);
@@ -26,41 +25,73 @@ export default class MovingPlatform {
         this.sprite = sprite;
         this.scene = scene;
         this.vertical = vertical;
-        //this.sprite.setFriction(1, 0, Infinity);
         this.sprite.setData('type', 'platform');
+        this.sprite.setDepth(16);
         this.lastX = x;
         this.lastY = y;
+        this.noautostart = nas;
+
+        if(this.noautostart) {
+            this.disable();
+            events.on('wakeup-object', this.enable, this);
+            console.log("Not auto starting platform");
+        }
+        else {
+            this.enable();
+            this.start();
+        }
+    }
+
+    disable() {
+        this.sprite.setAlpha(0);
+        this.sprite.setCollidesWith([6]);
+    }
+
+    enable() {
+        this.sprite.setAlpha(1);
+        this.sprite.setCollidesWith([1,4]);
+
+        this.start();
+    }
+
+    start() {
         if (this.vertical) {
             this.moveVertically();
         }
         else {
             this.moveHorizontally();
+        }   
+    }
+
+    destroy() {
+        if(!this.noautostart) {
+            events.off('wakeup-object', this.start);
         }
     }
 
     moveVertically() {
+
         this.scene.tweens.addCounter({
             from: 0,
             to: this.to,
             duration: this.duration,
-            ease: Phaser.Math.Easing.Stepped,
+            ease: Phaser.Math.Easing.Sine.InOut,
             repeat: -1,
             yoyo: true,
             onUpdate: (tween, target) => {
-              //  this.vy = this.sprite.body.position.y - this.lastY;
-              //  this.vx = this.sprite.body.position.x - this.lastX;
-                this.lastX = this.sprite.body.position.x;
-                this.lastY = this.sprite.body.position.y;
+                const y = Phaser.Math.RoundTo(this.startY + target.value,0);
+                const dy = y - this.lastY; 
 
-                const y = this.startY + target.value;
-                const dy = y - this.sprite.y;
-                this.sprite.y = y;
                 this.sprite.setVelocityY(dy);
-
+                this.sprite.setPosition(this.lastX, y);
+               
                 this.vy = this.sprite.body.velocity.y;
                 this.vx = this.sprite.body.velocity.x;
-                
-                this.sprite.setData('relpos', { x: this.vx, y: dy, vert: true, direction: (this.vy < 0 ? -1 : 1) });
+               
+                this.sprite.setData('relpos', { x: this.vx, y: this.vy, vert: true, direction: (this.vy < 0 ? -1 : 1) });
+        
+                this.lastX = this.sprite.body.position.x;
+                this.lastY = this.sprite.body.position.y;
 
             }
         });
