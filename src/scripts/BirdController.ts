@@ -1,4 +1,3 @@
-import { Physics } from "phaser";
 import StateMachine from "./StateMachine";
 import { sharedInstance as events } from './EventManager';
 
@@ -7,7 +6,7 @@ export default class BirdController {
     private sprite: Phaser.Physics.Matter.Sprite;
     private stateMachine: StateMachine;
 
-    private garbage: boolean = false;
+    private garbage = false;
     private moveTime = 0;
     private name: string;
 
@@ -95,12 +94,13 @@ export default class BirdController {
         if (this.sprite !== bird && !this.garbage) {
             return;
         }
+
         this.garbage = true;
         events.off(this.name + '-stomped', this.handleStomped, this);
 
         this.sprite.play('dead');
         this.sprite.on('animationcomplete', () => {
-            this.sprite.destroy();
+            this.cleanup();
         });
         this.stateMachine.setState('dead');
     }
@@ -118,6 +118,10 @@ export default class BirdController {
         else {
             this.stateMachine.setState('move-left');
         }
+    }
+
+    private cleanup() {
+        this.sprite.destroy();
     }
 
     public keepObject() {

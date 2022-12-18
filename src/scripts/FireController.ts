@@ -6,11 +6,11 @@ export default class FireController {
     private scene: Phaser.Scene;
     private sprite: Phaser.Physics.Matter.Sprite;
     private stateMachine: StateMachine;
-    private garbage: boolean = false;
+    private garbage = false;
     private moveTime = 0;
     private velocityX = 4;
     private name: string;
-    private myMoveTime: number = 0;
+    private myMoveTime = 0;
 
     constructor(
         scene: Phaser.Scene,

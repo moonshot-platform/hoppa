@@ -6,7 +6,7 @@ export default class FireWalkerController {
     private scene: Phaser.Scene;
     private sprite: Phaser.Physics.Matter.Sprite;
     private stateMachine: StateMachine;
-    private garbage: boolean = false;
+    private garbage = false;
     private moveTime = 0;
     private velocityX;
     private name;

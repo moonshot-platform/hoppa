@@ -10,7 +10,7 @@ export default class SawController {
     private moveTime = 0;
     private velocityX = 4;
     private name: string;
-    private myMoveTime: number = 6000;
+    private myMoveTime = 6000;
 
     constructor(
         scene: Phaser.Scene,

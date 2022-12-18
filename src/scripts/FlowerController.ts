@@ -1,13 +1,9 @@
-import { Physics } from "phaser";
 import StateMachine from "./StateMachine";
 import { sharedInstance as events } from './EventManager';
 
 export default class FlowerController {
-    private scene: Phaser.Scene;
     private sprite: Phaser.Physics.Matter.Sprite;
     private stateMachine: StateMachine;
-
-    private moveTime = 0;
     private name;
 
     constructor(
@@ -15,7 +11,6 @@ export default class FlowerController {
         sprite: Phaser.Physics.Matter.Sprite,
         name: string
     ) {
-        this.scene = scene;
         this.sprite = sprite;
         this.name = name;
         this.createAnims();
@@ -52,7 +47,7 @@ export default class FlowerController {
         if (this.sprite !== flower) {
             return;
         }
-
+        
         events.off(this.name + '-stomped', this.handleStomped, this);
 
         this.sprite.play('dead');

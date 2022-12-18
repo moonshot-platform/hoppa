@@ -1,4 +1,3 @@
-import { Physics } from "phaser";
 import StateMachine from "./StateMachine";
 import { sharedInstance as events } from './EventManager';
 
@@ -6,7 +5,7 @@ export default class BatController {
     private scene: Phaser.Scene;
     private sprite: Phaser.Physics.Matter.Sprite;
     private stateMachine: StateMachine;
-    private garbage: boolean = false;
+    private garbage = false;
     private moveTime = 0;
     private name;
     private velocityX = 7;

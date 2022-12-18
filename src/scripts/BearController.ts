@@ -1,4 +1,3 @@
-import { Physics } from "phaser";
 import StateMachine from "./StateMachine";
 import { sharedInstance as events } from './EventManager';
 import PlayerController from "./PlayerController";
@@ -6,10 +5,12 @@ import PlayerController from "./PlayerController";
 export default class BearController {
     private scene: Phaser.Scene;
     private sprite: Phaser.Physics.Matter.Sprite;
+    private heart: Phaser.GameObjects.Image;
+    
     private stateMachine: StateMachine;
-    private garbage: boolean = false;
+    private garbage = false;
     private name: string;
-    private player: Phaser.Physics.Matter.Sprite = null;
+    private player: Phaser.Physics.Matter.Sprite;
 
     constructor(
         scene: Phaser.Scene,
@@ -19,11 +20,12 @@ export default class BearController {
     ) {
         this.scene = scene;
         this.sprite = sprite;
-        this.name = name;
+        this.name = name; scene.add.image
         this.createAnims();
         this.garbage = false;
         this.stateMachine = new StateMachine(this);
         this.player = playerController?.getSprite();
+        this.heart = undefined;
         this.stateMachine.addState('idle', {
             onEnter: this.idleOnEnter
         })
@@ -41,11 +43,32 @@ export default class BearController {
     update(deltaTime: number) {
         this.stateMachine.update(deltaTime);
 
-        if( this.player !== undefined && this.player.body.position.x > this.sprite.body.position.x ) {
+        if(this.stateMachine.getCurrentState() !== 'idle' || this.player === undefined)
+            return;
+
+        if( this.player.body.position.x > this.sprite.body.position.x ) {
             this.sprite.flipX = true;
         }
         else {
             this.sprite.flipX = false;
+        }
+
+        if( this.heart === undefined && Phaser.Math.Distance.BetweenPoints(this.sprite.body.position, this.player.body.position) < (4 * 64 )) {
+            this.heart = this.scene.add.image( this.sprite.x - 4, this.sprite.y - this.sprite.height - 8, 'health',4).setScale(0.5,0.5);
+            const tweenConfig = {
+                targets: this.heart,
+                scaleX: 1.25,
+                scaleY: 1.25,
+                duration: 1500,
+                ease: 'Sine.easeInOut',
+                yoyo: true,
+                repeat: 0,
+                onComplete: () => {
+                    this.heart.destroy();
+                    this.heart = undefined;
+                }
+            };
+            this.scene.tweens.add( tweenConfig );
         }
     }
 
@@ -55,21 +78,23 @@ export default class BearController {
 
     private idleOnEnter() {
         this.sprite.play('idle');
-        this.stateMachine.setState('move-left');
     }
 
     private handleStomped(bear: Phaser.Physics.Matter.Sprite) {
         if (this.sprite !== bear && !this.garbage) {
             return;
         }
-        this.garbage = true;
-
+        
         events.off(this.name + '-stomped', this.handleStomped, this);
-
+        this.garbage = true;
         this.sprite.play('dead');
         this.sprite.on('animationcomplete', () => {
             this.cleanup();
         });
+
+        if(this.heart !== undefined) {
+            this.heart.setVisible(false);
+        }
 
         this.stateMachine.setState('dead');
     }

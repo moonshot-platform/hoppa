@@ -9,7 +9,7 @@ export default class BombController {
 
     private moveTime = 0;
     private name = "";
-    private garbage: boolean = false;
+    private garbage = false;
     private myMoveTime = 0;
 
     constructor(
@@ -132,6 +132,7 @@ export default class BombController {
         this.sprite.play('count');
         this.sprite.once(Phaser.Animations.Events.ANIMATION_COMPLETE, () => {
             this.stateMachine.setState('dead');
+            this.cleanup();
         });
 
     }

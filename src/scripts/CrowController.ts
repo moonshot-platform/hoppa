@@ -9,7 +9,7 @@ export default class CrowController {
     private moveTime = 0;
     private name;
 
-    private garbage: boolean = false;
+    private garbage = false;
 
     constructor(
         scene: Phaser.Scene,
@@ -92,10 +92,9 @@ export default class CrowController {
         if (this.sprite !== crow && !this.garbage) {
             return;
         }
-        this.garbage = true;
-
+        
         events.off(this.name + '-stomped', this.handleStomped, this);
-
+        this.garbage = true;
         this.sprite.play('dead');
         this.sprite.on('animationcomplete', () => {
             this.cleanup();

@@ -6,7 +6,7 @@ export default class MonsterController {
     private scene: Phaser.Scene;
     private sprite: Phaser.Physics.Matter.Sprite;
     private stateMachine: StateMachine;
-    private garbage: boolean = false;
+    private garbage = false;
     private moveTime = 0;
     private name = "";
 
@@ -122,7 +122,6 @@ export default class MonsterController {
             return;
         }
         this.garbage = true;
-
         events.off(this.name + '-stomped', this.handleStomped, this);
 
         this.sprite.play('dead');

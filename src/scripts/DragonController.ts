@@ -143,7 +143,6 @@ export default class DragonController {
             return;
         }
         this.garbage = true;
-
         events.off(this.name + '-stomped', this.handleStomped, this);
         this.sprite.play('dead');
         this.sprite.once(Phaser.Animations.Events.ANIMATION_COMPLETE, () => {
@@ -187,8 +186,8 @@ export default class DragonController {
         fireball.setFriction(0.0);
         fireball.setData('ttl', this.scene.game.loop.frame + 200);
         fireball.setOnCollide((data: MatterJS.ICollisionPair) => {
-            let a = data.bodyB as MatterJS.BodyType;
-            let b = data.bodyA as MatterJS.BodyType;
+            const a = data.bodyB as MatterJS.BodyType;
+            const b = data.bodyA as MatterJS.BodyType;
 
             if (b.label === 'player') {
                 this.player.takeDamage(25, 'lava');

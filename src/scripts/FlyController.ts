@@ -1,11 +1,12 @@
 import StateMachine from "./StateMachine";
 import { sharedInstance as events } from './EventManager';
+import * as CreatureLogic from './CreatureLogic';
 
 export default class FlyController {
     private scene: Phaser.Scene;
     private sprite: Phaser.Physics.Matter.Sprite;
     private stateMachine: StateMachine;
-
+    private garbage = false;
     private moveTime = 0;
     private name;
     private wingPower = 3;
@@ -18,6 +19,7 @@ export default class FlyController {
         this.scene = scene;
         this.sprite = sprite;
         this.name = name;
+        this.garbage = false;
         this.createAnims();
 
         this.stateMachine = new StateMachine(this);
@@ -80,7 +82,22 @@ export default class FlyController {
 
         if (this.moveTime > 1000) {
             this.stateMachine.setState('move-down');
+
         }
+    }
+    public lookahead(map: Phaser.Tilemaps.Tilemap): boolean {
+        if (this.sprite.active == false)
+            return false;
+
+        if (!CreatureLogic.hasTileAhead(map, this.scene.cameras.main, this.sprite, true, 0)) {
+            if (this.sprite.flipX)
+                this.stateMachine.setState("move-left");
+            else
+                this.stateMachine.setState("move-right");
+            return true;
+        }
+
+        return false;
     }
 
     private idleOnEnter() {
@@ -92,7 +109,7 @@ export default class FlyController {
         if (this.sprite !== fly) {
             return;
         }
-
+        this.garbage = true;
         events.off(this.name + '-stomped', this.handleStomped, this);
 
         this.sprite.play('dead');
@@ -101,6 +118,8 @@ export default class FlyController {
         });
         this.stateMachine.setState('dead');
     }
+
+    
 
     private cleanup() {
         this.sprite.destroy();
@@ -120,7 +139,9 @@ export default class FlyController {
             this.stateMachine.setState('move-up');
         }
     }
-
+    public keepObject() {
+        return !this.garbage;
+    }
     private createAnims() {
         this.sprite.anims.create({
             key: 'idle',

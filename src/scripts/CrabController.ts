@@ -9,7 +9,7 @@ export default class CrabController {
 
     private moveTime = 0;
     private name: string;
-    private garbage: boolean = false;
+    private garbage = false;
     private myMoveTime = 0;
 
     constructor(

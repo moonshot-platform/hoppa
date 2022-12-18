@@ -2,7 +2,6 @@ import StateMachine from "./StateMachine";
 import { sharedInstance as events } from './EventManager';
 
 export default class TNTController {
-    private scene: Phaser.Scene;
     private sprite: Phaser.Physics.Matter.Sprite;
     private stateMachine: StateMachine;
 
@@ -13,7 +12,6 @@ export default class TNTController {
         sprite: Phaser.Physics.Matter.Sprite,
         name: string
     ) {
-        this.scene = scene;
         this.sprite = sprite;
         this.name = name;
         this.createAnims();
@@ -65,7 +63,7 @@ export default class TNTController {
         if (this.sprite !== tnt) {
             return;
         }
-
+        
         events.off(this.name + '-stomped', this.handleStomped, this);
 
         this.sprite.play('pressed');
