@@ -5,6 +5,8 @@ import MovingPlatform from '../scripts/MovingPlatform';
 import Rabbitmitter from './Rabbitmitter';
 import BillBoard from './BillBoard';
 import ChangeSkin from './ChangeSkin';
+import NeonController from './NeonController';
+import BarController from './BarController';
 
 declare global {
     var musicTune: boolean;
@@ -13,24 +15,30 @@ declare global {
     var soundVolume: number;
     var krasota: boolean;
     var krasotaPlayStarted: boolean;
+    var rabbit: string;
+    var voice: string;
 }
 
 export function playSound(sounds: Map<string, Phaser.Sound.BaseSound>, sound: string) {
-    let s = sounds.get(sound);
+    const s = sounds.get(sound);
     if (s !== undefined)
         s.play({ volume: globalThis.soundVolume });
     else
         console.log("Sound " + sound + " is undefined");
 }
-export function playKrasota(sounds: Map<string, Phaser.Sound.BaseSound>, sound: string, kps: boolean = false) {
+export function playKrasota(sounds: Map<string, Phaser.Sound.BaseSound>, sound: string, kps = false) {
     if(globalThis.krasota == false ) {
         krasotaLock();
-        let s = sounds.get(sound);
+        const sample = sound + globalThis.voice;
+        const s = sounds.get(sample);
+        if(s === undefined ) { 
+            console.log("No such sound '" + sample + "'");
+        }
         s?.on( 'play', () => {
             if(kps) globalThis.krasotaPlayStarted = true;
         });
         s?.on( 'complete', () => {
-             globalThis.krasotaPlayStarted = false;
+            globalThis.krasotaPlayStarted = false;
             krasotaUnlock();
         });
         s?.play({ volume: globalThis.soundVolume });
@@ -47,21 +55,20 @@ export function krasotaPlayStarted() {
 }
 
 export function playRandomSound(sounds: Map<string, Phaser.Sound.BaseSound>, sound: string, min: number, max: number) {
-    let n = Phaser.Math.Between(min, max);
-
-    let s = sounds.get(sound + n);
+    const n = Phaser.Math.Between(min, max);
+    const s = sounds.get(sound + n);
     if (s !== undefined)
         s.play({ volume: globalThis.soundVolume });
 }
 
-export function addSound(ctx: Phaser.Scene, sound: string, loop: boolean, autoplay: boolean = true) {
-    if (globalThis.musicTune) {
+export function addSound(ctx: Phaser.Scene, sound: string, loop: boolean, autoplay = true) {
+/*    if (globalThis.musicTune) {
         ctx.sound.get(globalThis.musicTitle).stop();
         globalThis.musicTune = false;
         globalThis.musicTitle = "";
     }
-
-    let m = ctx.sound.add(sound, { loop: loop });
+*/
+    const m = ctx.sound.add(sound, { loop: loop });
 
     if (!autoplay)
         return m;
@@ -80,7 +87,7 @@ export function addSound(ctx: Phaser.Scene, sound: string, loop: boolean, autopl
 }
 
 export function playMusic(ctx: Phaser.Scene, choice: string): Phaser.Sound.BaseSound {
-    let m = ctx.sound.add(choice, { loop: false, delay: 2, volume: globalThis.musicVolume });
+    const m = ctx.sound.add(choice, { loop: false, delay: 2, volume: globalThis.musicVolume });
     if (!ctx.sound.locked) {
         m.play();
         globalThis.musicTune = true;
@@ -109,7 +116,7 @@ export function playMusic(ctx: Phaser.Scene, choice: string): Phaser.Sound.BaseS
 }
 
 export function playRepeatMusic(ctx: Phaser.Scene, choice: string): Phaser.Sound.BaseSound {
-    let m: Phaser.Sound.BaseSound = ctx.sound.add(choice, { loop: false, delay: 2, volume: globalThis.musicVolume });
+    const m: Phaser.Sound.BaseSound = ctx.sound.add(choice, { loop: false, delay: 2, volume: globalThis.musicVolume });
     if (!ctx.sound.locked) {
         m.play();
         globalThis.musicTune = true;
@@ -142,7 +149,7 @@ export function playRandomMusic(ctx: Phaser.Scene) {
         return;
     }
 
-    let tracks = [
+    const tracks = [
         '01_main_screen_trailer',
         '02_level_grass',
         '03_level_forest',
@@ -175,15 +182,13 @@ export function playRandomMusic(ctx: Phaser.Scene) {
         'catchy',
     ];
 
-    let choice = tracks[Phaser.Math.Between(0, tracks.length - 1)];
-
-
+    const choice = tracks[Phaser.Math.Between(0, tracks.length - 1)];
     playMusic(ctx, choice);
 }
 
 export function setupSounds(ctx: Phaser.Scene): Map<string, Phaser.Sound.BaseSound> {
-    let m = new Map<string, Phaser.Sound.BaseSound>();
-    let sounds = [
+    const m = new Map<string, Phaser.Sound.BaseSound>();
+    const sounds = [
         'jump',
         'pickupcoin',
         'droppinghits',
@@ -202,50 +207,57 @@ export function setupSounds(ctx: Phaser.Scene): Map<string, Phaser.Sound.BaseSou
         'splash',
         'nothrow',
         'explosion1', 'explosion2', 'explosion3', 'explosion4', 'explosion5', 'explosion6',
+        'hit1','hit2',
         'breakingtile',
         'click',
         'lightswitch',
         'changeskin',
         '100coins',
+        'blip',
     ];
 
     sounds.forEach(s => m.set(s, ctx.sound.add(s, { loop: false })));
 
-    let flirts = [
+    const flirts = [
         'breakmybed', 'donttellmewhattodo', 'imsothirsty', 'titanic', 'todo', 'uber', 'underneath', 'youcanstaybut'
     ];
     flirts.forEach(s => m.set(s, ctx.sound.add(s, { loop: false })));
+    flirts.forEach(s => m.set(s+ '-cs', ctx.sound.add(s+ '-cs', { loop: false })));
 
-    let gameovers = [
+
+    const gameovers = [
         'mymomcandothattoo', 'strongboysnevergiveup', 'takeitslow', 'whatareyou', 'wrongbutton', 'youcametooquick', 'yourfaceyourass'
     ];
     gameovers.forEach(s => m.set(s, ctx.sound.add(s, { loop: false })));
+    gameovers.forEach(s => m.set(s + '-cs', ctx.sound.add(s + '-cs', { loop: false })));
 
-    let wise = [
-        'beginatthebeginning', 'blowitoutofyourass', 'equalopportunity', 'hailtotheking', 'offtoday', 'therightmaninthewrong', 'timetokickass', 'wishtogoanywhere'
+    const wise = [
+        'beginatthebeginning', 'equalopportunity', 'hailtotheking', 'offtoday', 'therightmaninthewrong', 'wishtogoanywhere'
     ]
     wise.forEach(s => m.set(s, ctx.sound.add(s, { loop: false })));
+    wise.forEach(s => m.set(s + '-cs', ctx.sound.add(s + '-cs', { loop: false })));
 
-
+    m.set( 'blowitoutofyourass',ctx.sound.add('blowitoutofyourass', { loop: false }));
+    m.set( 'timetokickass', ctx.sound.add('timetokickass', { loop: false }));
 
     return m;
 }
 
 export function krasotaSays(selector: number, text: string ): string {
     if(selector == 0 ) {
-        let options= [
+        const options= [
             'breakmybed', 'donttellmewhattodo', 'imsothirsty', 'titanic', 'todo', 'uber', 'underneath', 'youcanstaybut'
         ];
         return options[ Phaser.Math.Between(0, options.length - 1)];
     }
     else if(selector == 1 ) {
-        let options= [
+        const options= [
             'mymomcandothattoo', 'strongboysnevergiveup', 'takeitslow', 'whatareyou', 'wrongbutton', 'youcametooquick', 'yourfaceyourass'
         ];
         return options[ Phaser.Math.Between(0, options.length - 1)];
     }
     else if(selector == 2 ) {
-        let options= [
+        const options= [
             'beginatthebeginning', 'offtoday', 'therightmaninthewrong', 'timetokickass', 'wishtogoanywhere'
         ];
         return options[ Phaser.Math.Between(0, options.length - 1)];
@@ -282,8 +294,7 @@ export function handleLoseFocus(ctx: Phaser.Scene) {
         return;
     }
 
-    ctx.game.sound.stopAll();
-    globalThis.musicTune = false;
+    stopSound(ctx);
 
     ctx.scene.run('paused', {
         onResume: () => {
@@ -292,16 +303,21 @@ export function handleLoseFocus(ctx: Phaser.Scene) {
     });
 }
 
+export function stopSound(ctx: Phaser.Scene) {
+    ctx.game.sound.stopAll();
+    globalThis.musicTune = false;
+}
+
 export function loadSettings() {
     let info: GameSettings;
-    let data = window.localStorage.getItem('ra8bit.audio');
+    const data = window.localStorage.getItem('ra8bit.audio');
 
     globalThis.musicVolume = 0.5;
     globalThis.soundVolume = 1.0;
     globalThis.krasota = false;
 
     if (data != null) {
-        let obj = JSON.parse(data);
+        const obj = JSON.parse(data);
         info = obj as GameSettings;
 
         globalThis.musicVolume = info.musicVolume || 0.5;
@@ -324,6 +340,8 @@ export function preload(ctx) {
     ctx.load.image('groundTiles', 'assets/terrainv3.webp');
     ctx.load.image('propTiles', 'assets/spritesheet_props_extruded.webp');
     ctx.load.image('grasTiles', 'assets/gras.webp');
+    ctx.load.image('cocoonTiles', 'assets/cocoons.webp');
+    ctx.load.image('stonesTiles', 'assets/stones.webp');
 
     ctx.load.image('bg_1', 'assets/back2.webp');
     ctx.load.image('bg_2', 'assets/back3.webp');
@@ -333,12 +351,9 @@ export function preload(ctx) {
     ctx.load.image('bg_6', 'assets/back7.webp');
     ctx.load.image('logo', 'assets/logo.webp');
 
-
     ctx.load.image('bg_cocoons', 'assets/bg_cocoons.webp');
     ctx.load.image('ra8bitTiles', 'assets/minira8bits.webp');
     ctx.load.image('ra8bittiles128-bg', 'assets/ra8bittiles128-bg.webp');
-
-
 
     ctx.load.image('ra8bits-64-tiles', 'assets/ra8bittiles64.webp');
 
@@ -347,11 +362,13 @@ export function preload(ctx) {
     ctx.load.spritesheet('health', 'assets/health.webp', { frameWidth: 64, frameHeight: 64, startFrame: 0, endFrame: 4 });
     ctx.load.image('bg-ui', 'assets/bg-ui.webp');
     ctx.load.image('mushyroom', 'assets/label-mushyroom.webp');
-
+    
     //win
     ctx.load.atlas('cocoon', 'assets/cocoons.webp', 'assets/cocoons.json');
     ctx.load.atlas('flares', 'assets/flares.webp', 'assets/flares.json');
 
+    ctx.load.atlas( 'lava-top', 'assets/lava-top.webp', 'assets/lava-top.json');
+    ctx.load.atlas( 'lava-center', 'assets/lava-center.webp', 'assets/lava-center.json');
 
     // sprite atlases
     ctx.load.atlas('rabbit', 'assets/rabbit.webp', 'assets/rabbit.json');
@@ -373,15 +390,16 @@ export function preload(ctx) {
     ctx.load.atlas('fly', 'assets/fly.webp', 'assets/fly.json');
     ctx.load.atlas('tnt', 'assets/tnt.webp', 'assets/tnt.json');
     ctx.load.atlas('saw', 'assets/saw.webp', 'assets/saw.json');
-
+    
+    ctx.load.atlas('neon', 'assets/neon.webp', 'assets/neon.json');
+    ctx.load.atlas('neon2', 'assets/neon2.webp', 'assets/neon2.json');
+    
     ctx.load.spritesheet('coin', 'assets/coin.webp', { frameWidth: 64, frameHeight: 64, startFrame: 0, endFrame: 5 });
     ctx.load.spritesheet('carrot', 'assets/carrot.webp', { frameWidth: 64, frameHeight: 64, startFrame: 0, endFrame: 5 });
     ctx.load.spritesheet('lab', 'assets/lab.webp', { frameWidth: 64, frameHeight: 136, startFrame: 0, endFrame: 3 });
     ctx.load.spritesheet('billboards', 'assets/billboards.webp', { frameWidth: 192, frameHeight: 220, startFrame: 0, endFrame: 34 });
     ctx.load.spritesheet('lightswitch', 'assets/lightswitch.webp', { frameWidth: 64, frameHeight: 64, startFrame: 0, endFrame: 1 });
     ctx.load.spritesheet('fireball', 'assets/fireball.webp', { frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 3 });
-
-
 
     // images
     ctx.load.image('heart', 'assets/heart.webp');
@@ -398,7 +416,9 @@ export function preload(ctx) {
     ctx.load.image('brick1-2', 'assets/brick1-2.webp');
     ctx.load.image('brick2-2', 'assets/brick2-2.webp');
     ctx.load.image('changeskin', 'assets/changeskin.webp');
-
+    ctx.load.image('arrow', 'assets/arrow.webp');
+    ctx.load.image('trashcan', 'assets/trashcan.webp');
+    
 
     // audio
     ctx.load.audio('jump', ['assets/jump.mp3', 'assets/jump.m4a']);
@@ -426,6 +446,9 @@ export function preload(ctx) {
     ctx.load.audio('explosion5', ['assets/explosion5.mp3', 'assets/explosion5.m4a']);
     ctx.load.audio('explosion6', ['assets/explosion6.mp3', 'assets/explosion6.m4a']);
 
+    ctx.load.audio('hit1', ['assets/hit1.mp3', 'assets/hit1.m4a']);
+    ctx.load.audio('hit2', ['assets/hit2.mp3', 'assets/hit2.m4a']);
+
     ctx.load.audio('breakingtile', ['assets/breakingtile.mp3', 'assets/breakingtile.m4a']);
 
     ctx.load.audio('gameover', ['assets/gameover.mp3', 'assets/gameover.m4a']);
@@ -437,6 +460,7 @@ export function preload(ctx) {
     ctx.load.audio('spectacle', [ 'assets/spectacle.mp3', 'assets/spectacle.m4a']);
     ctx.load.audio('theme', ['assets/start.mp3', 'assets/start.m4a']);
     ctx.load.audio('100coins', ['assets/100coins.mp3', 'assets/100coins.m4a']);
+    ctx.load.audio('blip', ['assets/blip.mp3', 'assets/blip.m4a']);
 
     // font
     ctx.load.bitmapFont('press_start', 'assets/press_start_2p.webp', 'assets/press_start_2p.fnt');
@@ -473,7 +497,8 @@ export function preload(ctx) {
     ctx.load.audio('happylevel', [ 'assets/happylevel.mp3', 'assets/happylevel.m4a']);
     ctx.load.audio('8bitmetal', [ 'assets/8bitmetal.mp3', 'assets/8bitmetal.m4a']);
     ctx.load.audio('catchy', [ 'assets/catchy.mp3', 'assets/catchy.m4a']);
-    
+    ctx.load.audio('boss6', [ 'assets/boss6.mp3', 'assets/boss6.m4a']);
+
     ctx.load.audio('beginatthebeginning', [ 'assets/beginatthebeginning.mp3', 'assets/beginatthebeginning.m4a']);
     ctx.load.audio('blowitoutofyourass', [ 'assets/blowitoutofyourass.mp3', 'assets/blowitoutofyourass.m4a']);
     ctx.load.audio('breakmybed', [ 'assets/breakmybed.mp3', 'assets/breakmybed.m4a']);
@@ -501,30 +526,81 @@ export function preload(ctx) {
     ctx.load.audio('youcanstaybut', [ 'assets/youcanstaybut.mp3', 'assets/youcanstaybut.m4a']);
     ctx.load.audio('yourfaceyourass', [ 'assets/yourfaceyourass.mp3', 'assets/yourfaceyourass.m4a']);
 
+    ctx.load.audio('beginatthebeginning', [ 'assets/beginatthebeginning.mp3', 'assets/beginatthebeginning.m4a']);
+    ctx.load.audio('blowitoutofyourass', [ 'assets/blowitoutofyourass.mp3', 'assets/blowitoutofyourass.m4a']);
+    ctx.load.audio('breakmybed', [ 'assets/breakmybed.mp3', 'assets/breakmybed.m4a']);
+    ctx.load.audio('donttellmewhattodo', [ 'assets/donttellmewhattodo.mp3', 'assets/donttellmewhattodo.m4a']);
+    ctx.load.audio('drunktoomuch', [ 'assets/drunktoomuch.mp3', 'assets/drunktoomuch.m4a']);
+    ctx.load.audio('equalopportunity', [ 'assets/equalopportunity.mp3', 'assets/equalopportunity.m4a']);
+    ctx.load.audio('hailtotheking', [ 'assets/hailtotheking.mp3', 'assets/hailtotheking.m4a']);
+    ctx.load.audio('idontseehow', [ 'assets/idontseehow.mp3', 'assets/idontseehow.m4a']);
+    ctx.load.audio('imsothirsty', [ 'assets/imsothirsty.mp3', 'assets/imsothirsty.m4a']);
+    ctx.load.audio('mymomcandothattoo', [ 'assets/mymomcandothattoo.mp3', 'assets/mymomcandothattoo.m4a']);
+    ctx.load.audio('offtoday', [ 'assets/offtoday.mp3', 'assets/offtoday.m4a']);
+    ctx.load.audio('strongboysnevergiveup', [ 'assets/strongboysnevergiveup.mp3', 'assets/strongboysnevergiveup.m4a']);
+    ctx.load.audio('takeitslow', [ 'assets/takeitslow.mp3', 'assets/takeitslow.m4a']);
+    ctx.load.audio('therightmaninthewrong', [ 'assets/therightmaninthewrong.mp3', 'assets/therightmaninthewrong.m4a']);
+    ctx.load.audio('timetokickass', [ 'assets/timetokickass.mp3', 'assets/timetokickass.m4a']);
+    ctx.load.audio('titanic', [ 'assets/titanic.mp3', 'assets/titanic.m4a']);
+    ctx.load.audio('todo', [ 'assets/todo.mp3', 'assets/todo.m4a']);
+    ctx.load.audio('uber', [ 'assets/uber.mp3', 'assets/uber.m4a']);
+    ctx.load.audio('underneath', [ 'assets/underneath.mp3', 'assets/underneath.m4a']);
+    ctx.load.audio('weareallmadhere', [ 'assets/weareallmadhere.mp3', 'assets/weareallmadhere.m4a']);
+    ctx.load.audio('whatareyou', [ 'assets/whatareyou.mp3', 'assets/whatareyou.m4a']);
+    ctx.load.audio('wishtogoanywhere', [ 'assets/wishtogoanywhere.mp3', 'assets/wishtogoanywhere.m4a']);
+    ctx.load.audio('wrongbutton', [ 'assets/wrongbutton.mp3', 'assets/wrongbutton.m4a']);
+    ctx.load.audio('youcametooquick', [ 'assets/youcametooquick.mp3', 'assets/youcametooquick.m4a']);
+    ctx.load.audio('youcanstaybut', [ 'assets/youcanstaybut.mp3', 'assets/youcanstaybut.m4a']);
+    ctx.load.audio('yourfaceyourass', [ 'assets/yourfaceyourass.mp3', 'assets/yourfaceyourass.m4a']);
 
+    ctx.load.audio('beginatthebeginning-cs', [ 'assets/beginatthebeginning-cs.mp3', 'assets/beginatthebeginning-cs.m4a']);
+    ctx.load.audio('breakmybed-cs', [ 'assets/breakmybed-cs.mp3', 'assets/breakmybed-cs.m4a']);
+    ctx.load.audio('donttellmewhattodo-cs', [ 'assets/donttellmewhattodo-cs.mp3', 'assets/donttellmewhattodo-cs.m4a']);
+    ctx.load.audio('drunktoomuch-cs', [ 'assets/drunktoomuch-cs.mp3', 'assets/drunktoomuch-cs.m4a']);
+    ctx.load.audio('equalopportunity-cs', [ 'assets/equalopportunity-cs.mp3', 'assets/equalopportunity-cs.m4a']);
+    ctx.load.audio('hailtotheking-cs', [ 'assets/hailtotheking-cs.mp3', 'assets/hailtotheking-cs.m4a']);
+    ctx.load.audio('idontseehow-cs', [ 'assets/idontseehow-cs.mp3', 'assets/idontseehow-cs.m4a']);
+    ctx.load.audio('imsothirsty-cs', [ 'assets/imsothirsty-cs.mp3', 'assets/imsothirsty-cs.m4a']);
+    ctx.load.audio('mymomcandothattoo-cs', [ 'assets/mymomcandothattoo-cs.mp3', 'assets/mymomcandothattoo-cs.m4a']);
+    ctx.load.audio('offtoday-cs', [ 'assets/offtoday-cs.mp3', 'assets/offtoday-cs.m4a']);
+    ctx.load.audio('strongboysnevergiveup-cs', [ 'assets/strongboysnevergiveup-cs.mp3', 'assets/strongboysnevergiveup-cs.m4a']);
+    ctx.load.audio('takeitslow-cs', [ 'assets/takeitslow-cs.mp3', 'assets/takeitslow-cs.m4a']);
+    ctx.load.audio('therightmaninthewrong-cs', [ 'assets/therightmaninthewrong-cs.mp3', 'assets/therightmaninthewrong-cs.m4a']);
+    ctx.load.audio('titanic-cs', [ 'assets/titanic-cs.mp3', 'assets/titanic-cs.m4a']);
+    ctx.load.audio('todo-cs', [ 'assets/todo-cs.mp3', 'assets/todo-cs.m4a']);
+    ctx.load.audio('uber-cs', [ 'assets/uber-cs.mp3', 'assets/uber-cs.m4a']);
+    ctx.load.audio('underneath-cs', [ 'assets/underneath-cs.mp3', 'assets/underneath-cs.m4a']);
+    ctx.load.audio('weareallmadhere-cs', [ 'assets/weareallmadhere-cs.mp3', 'assets/weareallmadhere-cs.m4a']);
+    ctx.load.audio('whatareyou-cs', [ 'assets/whatareyou-cs.mp3', 'assets/whatareyou-cs.m4a']);
+    ctx.load.audio('wishtogoanywhere-cs', [ 'assets/wishtogoanywhere-cs.mp3', 'assets/wishtogoanywhere-cs.m4a']);
+    ctx.load.audio('wrongbutton-cs', [ 'assets/wrongbutton-cs.mp3', 'assets/wrongbutton-cs.m4a']);
+    ctx.load.audio('youcametooquick-cs', [ 'assets/youcametooquick-cs.mp3', 'assets/youcametooquick-cs.m4a']);
+    ctx.load.audio('youcanstaybut-cs', [ 'assets/youcanstaybut-cs.mp3', 'assets/youcanstaybut-cs.m4a']);
+    ctx.load.audio('yourfaceyourass-cs', [ 'assets/yourfaceyourass-cs.mp3', 'assets/yourfaceyourass-cs.m4a']);
+    
     setupHandlers(ctx);
 }
 
 export function cullSprites(ctx: Phaser.Scene) {
-    let children: Phaser.GameObjects.GameObject[] = ctx.children.getChildren();
+    const children: Phaser.GameObjects.GameObject[] = ctx.children.getChildren();
     const n: number = children.length;
-    let i: number = 0;
+    let i = 0;
     while (i < n) {
-        let c = children[i];
+        const c = children[i];
         if (c instanceof Phaser.Physics.Matter.Sprite) {
-            let t = c as Phaser.Physics.Matter.Sprite;
+            const t = c as Phaser.Physics.Matter.Sprite;
             t.setVisible(false);
         }
         i++
     }
 
-    let visible: Phaser.GameObjects.GameObject[] = ctx.cameras.main.cull(children);
+    const visible: Phaser.GameObjects.GameObject[] = ctx.cameras.main.cull(children);
     const n2: number = visible.length;
     i = 0;
     while (i < n2) {
-        let c = visible[i];
+        const c = visible[i];
         if (c instanceof Phaser.Physics.Matter.Sprite) {
-            let t = c as Phaser.Physics.Matter.Sprite;
+            const t = c as Phaser.Physics.Matter.Sprite;
             t.setVisible(true);
         }
         i++;
@@ -580,7 +656,20 @@ export function createPlayer(ctx, x: number, y: number, width: number, height: n
 
 export function basicCreate(ctx, name, x, y, width, height, rotation, enemyCat, collideWith, controller, objData, player) {
     switch (name) {
-
+        case 'neon': {
+            const variation = objData.properties.find((p)=>p.name === 'taste')?.value || 'neon';
+            const neon = ctx.matter.add.sprite( x + (width * 0.5), y + (height * 0.5), variation, undefined, { 
+                isStatic: true,
+                label: 'neon',
+                vertices: [{x:0,y:0}, {x: 256, y: 0}, {x: 256, y: 52 }, { x:0,y: 52}]
+            });
+            const m = new NeonController(ctx,neon,variation);
+            neon.setCollisionGroup(6);
+            neon.setCollidesWith([6]);
+            controller.add('neon', neon.body as MatterJS.BodyType);
+            ctx.neon.push(m);
+            break;
+        }
         case 'dragon': {
             ctx.dragons.push(CreatureHelper.creatureCreateDragon(ctx, x, y, width, height, enemyCat, collideWith, controller, player));
             break;
@@ -613,6 +702,10 @@ export function basicCreate(ctx, name, x, y, width, height, rotation, enemyCat, 
             ctx.firewalkers.push(CreatureHelper.creatureCreatureFireWalker(ctx, x, y, width, height, enemyCat, collideWith, controller));
             break;
         }
+        case 'lava-top':
+        case 'lava-center':
+            ctx.lava.push( CreatureHelper.createCreatureLava(ctx, name,x,y, width, height, enemyCat, collideWith, controller));
+            break;
         case 'flower': {
             ctx.flowers.push(CreatureHelper.createCreatureFlower(ctx, x, y, width, height, enemyCat, collideWith, controller));
             break;
@@ -635,6 +728,10 @@ export function basicCreate(ctx, name, x, y, width, height, rotation, enemyCat, 
         }
         case 'bear': {
             ctx.bears.push(CreatureHelper.createCreatureBear(ctx, x, y, width, height, enemyCat, collideWith, controller, player));
+            break;
+        }
+        case 'boss': {
+            ctx.boss.push(CreatureHelper.createCreatureBoss(ctx, x, y, width, height, enemyCat, collideWith, controller, player));
             break;
         }
         case 'crow': {
@@ -661,6 +758,10 @@ export function basicCreate(ctx, name, x, y, width, height, rotation, enemyCat, 
             ObjectHelper.createCoin(ctx, x, y, width, height);
             break;
         }
+        case 'key': {
+            ObjectHelper.createKey(ctx, x, y, width, height, controller);
+            break;
+        }
         case 'lab': {
             ObjectHelper.createLab(ctx, x, y, width, height);
             break;
@@ -674,13 +775,22 @@ export function basicCreate(ctx, name, x, y, width, height, rotation, enemyCat, 
             ObjectHelper.createCrate(ctx, x, y, width, height);
             break;
         }
+
+        case 'trashcan': {
+            ObjectHelper.createTrashcan(ctx,x,y,width,height);
+            break;
+        }
+        case 'window': {
+            ctx.doors.push(CreatureHelper.createWindow(ctx,x,y,width,height,rotation,enemyCat,collideWith,controller,player));
+            break;
+        }
         case 'pipe': {
-            let dstx = objData.properties.find((p) => p.name === 'dstx')?.value;
-            let dsty = objData.properties.find((p) => p.name === 'dsty')?.value;
-            let delay = objData.properties.find((p) => p.name === 'delay')?.value;
-            let duration = objData.properties.find((p) => p.name === 'duration')?.value;
-            let room_wid = objData.properties.find((p) => p.name === 'room_width')?.value;
-            let room_hei = objData.properties.find((p) => p.name === 'room_height')?.value;
+            const dstx = objData.properties.find((p) => p.name === 'dstx')?.value;
+            const dsty = objData.properties.find((p) => p.name === 'dsty')?.value;
+            const delay = objData.properties.find((p) => p.name === 'delay')?.value;
+            const duration = objData.properties.find((p) => p.name === 'duration')?.value;
+            const room_wid = objData.properties.find((p) => p.name === 'room_width')?.value;
+            const room_hei = objData.properties.find((p) => p.name === 'room_height')?.value;
 
             const pipe = ctx.matter.add.rectangle(x + (width * 0.5), y + (height * 0.5), width, height, {
                 isStatic: true,
@@ -690,9 +800,10 @@ export function basicCreate(ctx, name, x, y, width, height, rotation, enemyCat, 
             break;
         }
         case 'platform': {
-            let to = objData.properties.find((p) => p.name === 'to').value;
-            let duration = objData.properties.find((p) => p.name === 'duration').value;
-            let vert = objData.properties.find((p) => p.name === 'vert').value;
+            const to = objData.properties.find((p) => p.name === 'to').value;
+            const duration = objData.properties.find((p) => p.name === 'duration').value;
+            const vert = objData.properties.find((p) => p.name === 'vert').value;
+            const noautostart = objData.properties.find((p)=> p.name === 'noautostart')?.value || false;
 
             const platform = ctx.matter.add.sprite(x + (width * 0.5), y + (height * 0.5), 'platform', undefined, {
                 isStatic: true,
@@ -701,9 +812,23 @@ export function basicCreate(ctx, name, x, y, width, height, rotation, enemyCat, 
             });
 
 
-            let m = new MovingPlatform(ctx, x, y, to, duration, vert, platform);
+            const m = new MovingPlatform(ctx, x, y, to, duration, vert, platform, noautostart);
             controller.add('platform', platform.body as MatterJS.BodyType);
             break;
+        }
+        case 'bar': {
+            const bar = ctx.matter.add.sprite(x + (width * 0.5), y+ (height * 0.5), 'bar', undefined, {
+                vertices: [{ x: 0, y: 0 }, { x: 937, y: 0 }, { x: 937, y: 28 }, { x: 0, y: 28 }],
+                isStatic: true,
+                label: 'bar'
+            });
+        
+            bar.setData('type', 'bar'); 
+            bar.setCollidesWith([]);
+
+            const m = new BarController(ctx,bar,'bar');
+            controller.add('bar', bar.body as MatterJS.BodyType);
+            break
         }
         case 'sink': {
             //FIXME: groups a set of tiles and move them down 
@@ -714,21 +839,20 @@ export function basicCreate(ctx, name, x, y, width, height, rotation, enemyCat, 
             break;
         }
         case 'brick': {
-            let hits = objData.properties.find((p) => p.name === 'hits').value;
-            let pem = objData.properties.find((p) => p.name === 'emitter').value;
+            const hits = objData.properties.find((p) => p.name === 'hits').value;
+            const pem = objData.properties.find((p) => p.name === 'emitter').value;
 
             const brick: MatterJS.BodyType = ctx.matter.add.rectangle(x + (width * 0.5), y + (height * 0.5), width, height, {
                 vertices: [{ x: 0, y: 0 }, { x: 64, y: 0 }, { x: 64, y: 64 }, { x: 0, y: 64 }],
                 isStatic: true,
                 label: 'brick',
             });
-            let m = new Rabbitmitter(ctx, x, y, hits, pem, brick);
+            const m = new Rabbitmitter(ctx, x, y, hits, pem, brick);
             controller.addWithValues('brick', brick, { "use": hits, "emitter": m });
             break;
         }
         case 'coinbrick': {
-            let hits = objData.properties.find((p) => p.name === 'hits').value;
-
+            const hits = objData.properties.find((p) => p.name === 'hits').value;
             const brick: MatterJS.BodyType = ctx.matter.add.rectangle(x + (width * 0.5), y + (height * 0.5), width, height, {
                 vertices: [{ x: 0, y: 0 }, { x: 64, y: 0 }, { x: 64, y: 64 }, { x: 0, y: 64 }],
                 isStatic: true,
@@ -754,8 +878,8 @@ export function basicCreate(ctx, name, x, y, width, height, rotation, enemyCat, 
             break;
         }
         case 'exit': {
-            let ev = objData.properties.find((p) => p.name === 'event').value;
-            let room = objData.properties.find((p) => p.name === 'room')?.value || 'start';
+            const ev = objData.properties.find((p) => p.name === 'event').value;
+            const room = objData.properties.find((p) => p.name === 'room')?.value || 'start';
             const bonus = ctx.matter.add.rectangle(x + (width * 0.5), y + (height * 0.5), width, height, {
                 vertices: [{ x: 0, y: 0 }, { x: 64, y: 0 }, { x: 64, y: 64 }, { x: 0, y: 64 }],
                 isStatic: true,
@@ -770,8 +894,8 @@ export function basicCreate(ctx, name, x, y, width, height, rotation, enemyCat, 
                 isStatic: true,
                 label: 'return',
             });
-            let dx = objData.properties.find((p) => p.name === 'spawnx').value;
-            let dy = objData.properties.find((p) => p.name === 'spawny').value;
+            const dx = objData.properties.find((p) => p.name === 'spawnx').value;
+            const dy = objData.properties.find((p) => p.name === 'spawny').value;
 
             controller.addWithValues('return', bonus, { "spawnx": dx, "spawny": dy });
             break;
@@ -782,10 +906,10 @@ export function basicCreate(ctx, name, x, y, width, height, rotation, enemyCat, 
                 isStatic: true,
                 label: 'return',
             });
-            let dx = objData.properties.find((p) => p.name === 'spawnx').value;
-            let dy = objData.properties.find((p) => p.name === 'spawny').value;
-            let camw = objData.properties.find((p) => p.name === 'camera-width').value;
-            let camh = objData.properties.find((p) => p.name === 'camera-height').value;
+            const dx = objData.properties.find((p) => p.name === 'spawnx').value;
+            const dy = objData.properties.find((p) => p.name === 'spawny').value;
+            const camw = objData.properties.find((p) => p.name === 'camera-width').value;
+            const camh = objData.properties.find((p) => p.name === 'camera-height').value;
 
             controller.addWithValues('goto', bonus.body as MatterJS.BodyType, { "spawnx": dx, "spawny": dy, "camw": camw, "camh": camh });
 
@@ -803,7 +927,7 @@ export function basicCreate(ctx, name, x, y, width, height, rotation, enemyCat, 
             break;
         }
         case 'changeskin': {
-            let use = objData.properties.find((p) => p.name === 'use').value;
+            const use = objData.properties.find((p) => p.name === 'use').value;
             const skin = ctx.matter.add.sprite(x + (width * 0.5), y + (height * 0.5), 'changeskin', undefined, {
                 isStatic: true,
                 label: 'changeskin',
@@ -814,8 +938,20 @@ export function basicCreate(ctx, name, x, y, width, height, rotation, enemyCat, 
             controller.addWithValues('changeskin', skin.body as MatterJS.BodyType, { "use": use });
             break;
         }
+
+        case 'player':
+        case 'player-spawn':
+            break;
+
+        case '':
+            console.log("Object " + objData.id + " has no name");
+            break;
+
         default:
-            console.log("Creature unknown '" + name + "'");
+            {
+                const sp = objData.properties.find((p) => p.name === 'label').value;
+                ctx.add.image(width / 2, height / 2, name, sp);
+            }
             break;
     }
 
