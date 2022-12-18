@@ -1,4 +1,4 @@
-var cacheName = 'hoppa-moonshot-v1';
+var cacheName = 'hoppa-moonshot-v1.1';
 var filesToCache = [
 '/hoppa/assets/01_main_screen_trailer.m4a',
 '/hoppa/assets/01_main_screen_trailer.mp3',
@@ -14,7 +14,10 @@ var filesToCache = [
 '/hoppa/assets/100coins.mp3',
 '/hoppa/assets/angel-eyes.m4a',
 '/hoppa/assets/angel-eyes.mp3',
+'/hoppa/assets/8bitmetal.m4a',
+'/hoppa/assets/8bitmetal.mp3',
 '/hoppa/assets/ape.webp',
+'/hoppa/assets/arrow.webp',
 '/hoppa/assets/back1.webp',
 '/hoppa/assets/back2.webp',
 '/hoppa/assets/back3.webp',
@@ -55,12 +58,20 @@ var filesToCache = [
 '/hoppa/assets/billboards.webp',
 '/hoppa/assets/bird.json',
 '/hoppa/assets/bird.webp',
+'/hoppa/assets/blip.m4a',
+'/hoppa/assets/blip.mp3',
 '/hoppa/assets/bomb.json',
 '/hoppa/assets/bomb.webp',
 '/hoppa/assets/bonustile.m4a',
 '/hoppa/assets/bonustile.mp3',
 '/hoppa/assets/boss.m4a',
 '/hoppa/assets/boss.mp3',
+'/hoppa/assets/boss.webp',
+'/hoppa/assets/boss.json',
+'/hoppa/assets/plof.json',
+'/hoppa/assets/plof.webp',
+'/hoppa/assets/boss6.mp3',
+'/hoppa/assets/boss6.m4a',
 '/hoppa/assets/bottomlesspitman.m4a',
 '/hoppa/assets/bottomlesspitman.mp3',
 '/hoppa/assets/breakingtile.m4a',
@@ -80,7 +91,6 @@ var filesToCache = [
 '/hoppa/assets/cocoons.webp',
 '/hoppa/assets/coin.json',
 '/hoppa/assets/coin.webp',
-'/hoppa/assets/coinGold.webp',
 '/hoppa/assets/coinpickup.m4a',
 '/hoppa/assets/coinpickup.mp3',
 '/hoppa/assets/crab.json',
@@ -138,7 +148,6 @@ var filesToCache = [
 '/hoppa/assets/greengray.mp3',
 '/hoppa/assets/ground-extruded.json',
 '/hoppa/assets/ground-extruded.webp',
-'/hoppa/assets/ground.json',
 '/hoppa/assets/health.json',
 '/hoppa/assets/health.webp',
 '/hoppa/assets/heart.webp',
@@ -146,6 +155,10 @@ var filesToCache = [
 '/hoppa/assets/heroimmortal.mp3',
 '/hoppa/assets/hit.m4a',
 '/hoppa/assets/hit.mp3',
+'/hoppa/assets/hit1.m4a',
+'/hoppa/assets/hit1.mp3',
+'/hoppa/assets/hit2.m4a',
+'/hoppa/assets/hit2.mp3',
 '/hoppa/assets/juhanijunkala.m4a',
 '/hoppa/assets/juhanijunkala.mp3',
 '/hoppa/assets/juhanjunkala2.m4a',
@@ -157,6 +170,10 @@ var filesToCache = [
 '/hoppa/assets/junglegroove.m4a',
 '/hoppa/assets/junglegroove.mp3',
 '/hoppa/assets/key.webp',
+'/hoppa/assets/lava-top.json',
+'/hoppa/assets/lava-top.webp',
+'/hoppa/assets/lava-center.json',
+'/hoppa/assets/lava-center.webp',
 '/hoppa/assets/lab.json',
 '/hoppa/assets/lab.webp',
 '/hoppa/assets/label-mushyroom.webp',
@@ -171,6 +188,7 @@ var filesToCache = [
 '/hoppa/assets/map1.json',
 '/hoppa/assets/map2.json',
 '/hoppa/assets/map3.json',
+'/hoppa/assets/map4.json',
 '/hoppa/assets/minira8bits.json',
 '/hoppa/assets/minira8bits.webp',
 '/hoppa/assets/monster.json',
@@ -204,7 +222,6 @@ var filesToCache = [
 '/hoppa/assets/press-start-2p.ttf',
 '/hoppa/assets/press_start_2p.fnt',
 '/hoppa/assets/press_start_2p.webp',
-'/hoppa/assets/ra8bit.webp',
 '/hoppa/assets/ra8bit1-map.json',
 '/hoppa/assets/ra8bittiles128-bg.webp',
 '/hoppa/assets/ra8bittiles128.json',
@@ -328,10 +345,74 @@ var filesToCache = [
 '/hoppa/assets/swinginglevel.mp3',
 '/hoppa/assets/happylevel.m4a',
 '/hoppa/assets/happylevel.mp3',
-'/hoppa/assets/8bitmetal.m4a',
-'/hoppa/assets/8bitmetal.mp3',
 '/hoppa/assets/longawayhome.m4a',
 '/hoppa/assets/longawayhome.mp3',
+'/hoppa/assets/beginatthebeginning-cs.m4a',
+'/hoppa/assets/breakmybed-cs.m4a',
+'/hoppa/assets/donttellmewhattodo-cs.m4a',
+'/hoppa/assets/drunktoomuch-cs.m4a',
+'/hoppa/assets/equalopportunity-cs.m4a',
+'/hoppa/assets/hailtotheking-cs.m4a',
+'/hoppa/assets/idontseehow-cs.m4a',
+'/hoppa/assets/imsothirsty-cs.m4a',
+'/hoppa/assets/mymomcandothattoo-cs.m4a',
+'/hoppa/assets/offtoday-cs.m4a',
+'/hoppa/assets/strongboysnevergiveup-cs.m4a',
+'/hoppa/assets/takeitslow-cs.m4a',
+'/hoppa/assets/therightmaninthewrong-cs.m4a',
+'/hoppa/assets/titanic-cs.m4a',
+'/hoppa/assets/todo-cs.m4a',
+'/hoppa/assets/uber-cs.m4a',
+'/hoppa/assets/underneath-cs.m4a',
+'/hoppa/assets/weareallmadhere-cs.m4a',
+'/hoppa/assets/whatareyou-cs.m4a',
+'/hoppa/assets/wishtogoanywhere-cs.m4a',
+'/hoppa/assets/wrongbutton-cs.m4a',
+'/hoppa/assets/youcametooquick-cs.m4a',
+'/hoppa/assets/youcanstaybut-cs.m4a',
+'/hoppa/assets/yourfaceyourass-cs.m4a',
+'/hoppa/assets/beginatthebeginning-cs.mp3',
+'/hoppa/assets/blowitoutofyourass-cs.mp3',
+'/hoppa/assets/breakmybed-cs.mp3',
+'/hoppa/assets/donttellmewhattodo-cs.mp3',
+'/hoppa/assets/drunktoomuch-cs.mp3',
+'/hoppa/assets/equalopportunity-cs.mp3',
+'/hoppa/assets/hailtotheking-cs.mp3',
+'/hoppa/assets/idontseehow-cs.mp3',
+'/hoppa/assets/imsothirsty-cs.mp3',
+'/hoppa/assets/mymomcandothattoo-cs.mp3',
+'/hoppa/assets/offtoday-cs.mp3',
+'/hoppa/assets/strongboysnevergiveup-cs.mp3',
+'/hoppa/assets/takeitslow-cs.mp3',
+'/hoppa/assets/therightmaninthewrong-cs.mp3',
+'/hoppa/assets/timetokickass-cs.mp3',
+'/hoppa/assets/titanic-cs.mp3',
+'/hoppa/assets/todo-cs.mp3',
+'/hoppa/assets/uber-cs.mp3',
+'/hoppa/assets/underneath-cs.mp3',
+'/hoppa/assets/weareallmadhere-cs.mp3',
+'/hoppa/assets/whatareyou-cs.mp3',
+'/hoppa/assets/wishtogoanywhere-cs.mp3',
+'/hoppa/assets/wrongbutton-cs.mp3',
+'/hoppa/assets/youcametooquick-cs.mp3',
+'/hoppa/assets/youcanstaybut-cs.mp3',
+'/hoppa/assets/yourfaceyourass-cs.mp3',
+'/hoppa/assets/demon_1.m4a',
+'/hoppa/assets/demon_1.mp3',
+'/hoppa/assets/demon_2.m4a',
+'/hoppa/assets/demon_2.mp3',
+'/hoppa/assets/demon_3.m4a',
+'/hoppa/assets/demon_3.mp3',
+'/hoppa/assets/demon_4.m4a',
+'/hoppa/assets/demon_4.mp3',
+'/hoppa/assets/stoplight.json',
+'/hoppa/assets/stoplight.webp',
+'/hoppa/assets/neon.json',
+'/hoppa/assets/neon.webp',
+'/hoppa/assets/doors.json',
+'/hoppa/assets/doors.webp',
+'/hoppa/assets/trashcan.webp',
+'/hoppa/assets/bar.webp',
 
 ];
 
@@ -344,10 +425,28 @@ e.waitUntil(
 self.skipWaiting();
 });
 
-self.addEventListener('fetch', function(e) {
-e.respondWith(
-    caches.match(e.request).then(function(response) {
-    return response || fetch(e.request);
-    })
-);
-});
+self.addEventListener('fetch', event => {
+    event.respondWith(
+       caches.match(event.request, { ignoreSearch: true })
+      .then(function(response) {
+        if (response) {
+          return response;
+        }
+        var requestToCache = event.request.clone();
+  
+        return fetch(requestToCache).then(
+          function(response) {
+            if(!response || response.status !== 200) {
+              return response;
+            }
+  
+            var responseToCache = response.clone();
+            caches.open(cacheName)
+            .then(function(cache) {
+              cache.put(requestToCache, responseToCache);
+            });
+            return response;
+          });
+      })
+    );
+  });
