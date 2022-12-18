@@ -8,7 +8,7 @@ export default class LightSwitchController {
     private stateMachine: StateMachine;
     private player: PlayerController;
 
-    private status: boolean = false;
+    private status = false;
     private name: string;
     private spotlight: Phaser.GameObjects.Light;
 
@@ -57,9 +57,9 @@ export default class LightSwitchController {
         this.layers = tileLayers;
         this.layers.forEach((l) => l.setAlpha(0.2)); // lights are "off" by default
 
-        let bodies: Phaser.GameObjects.GameObject[] = this.scene.children.list.filter(x => x instanceof Phaser.Physics.Matter.Sprite);
+        const bodies: Phaser.GameObjects.GameObject[] = this.scene.children.list.filter(x => x instanceof Phaser.Physics.Matter.Sprite);
         bodies.forEach((e) => {
-            let b = e as Phaser.Physics.Matter.Sprite;
+            const b = e as Phaser.Physics.Matter.Sprite;
             b.tint = (this.status ? 0xffffff : 0x322e32);
         });
     }
@@ -85,9 +85,9 @@ export default class LightSwitchController {
         this.sprite.setFrame(this.status ? 1 : 0);
         this.layers.forEach((l) => l.setAlpha(this.status ? 1 : 0.2));
 
-        let bodies: Phaser.GameObjects.GameObject[] = this.scene.children.list.filter(x => x instanceof Phaser.Physics.Matter.Sprite);
+        const bodies: Phaser.GameObjects.GameObject[] = this.scene.children.list.filter(x => x instanceof Phaser.Physics.Matter.Sprite);
         bodies.forEach((e) => {
-            let b = e as Phaser.Physics.Matter.Sprite;
+            const b = e as Phaser.Physics.Matter.Sprite;
             b.tint = (this.status ? 0xffffff : 0x322e32);
         });
 
