@@ -1,5 +1,4 @@
-import { Vertices } from 'matter';
-import Phaser, { Physics } from 'phaser'
+import Phaser from 'phaser'
 import ObstaclesController from '../scripts/ObstaclesController';
 import PlayerController from '../scripts/PlayerController';
 import MonsterController from '../scripts/MonsterController';
@@ -47,9 +46,9 @@ export default class Level3 extends BaseScene {
     private flies: FlyController[] = [];
     private crows: CrowController[] = [];
     private saws: SawController[] = [];
-
-    private playerX: number = -1;
-    private playerY: number = -1;
+    
+    private playerX = -1;
+    private playerY = -1;
 
     private sounds!: Map<string, Phaser.Sound.BaseSound>;
 
@@ -83,14 +82,18 @@ export default class Level3 extends BaseScene {
             'lastHealth': 100,
             'coinsCollected': 0,
             'carrotsCollected': 0,
-            'currLevel': 1,
+            'currLevel': 3,
             'scorePoints': 0,
             'livesRemaining': 3,
+            'invincibility': false,
+            'powerUp': false,
+            'speedUp': false,
+            'throw': false,
         };
 
-        let data = window.localStorage.getItem('ra8bit.stats');
+        const data = window.localStorage.getItem('ra8bit.stats');
         if (data != null) {
-            let obj = JSON.parse(data);
+            const obj = JSON.parse(data);
             this.info = obj as PlayerStats;
         }
 
@@ -119,10 +122,9 @@ export default class Level3 extends BaseScene {
 
         const { width, height } = this.scale;
 
-
         const totalWidth = 336 * 64;
-        let hei = 24 * 64;
-        let s = 1;
+        const hei = 24 * 64;
+        const s = 1;
         this.add
             .image(width / 2, height, "sky")
             .setScrollFactor(0)
@@ -149,10 +151,10 @@ export default class Level3 extends BaseScene {
         this.map.createLayer('obstacles', propTiles);
         layer1.setDepth(10);
 
-        let playerCat = 2; // this.matter.world.nextCategory();
-        let enemyCat = 4; //this.matter.world.nextCategory();
+        const playerCat = 2;
+        const enemyCat = 4;
 
-        let collideWith = [1, playerCat];
+        const collideWith = [1, playerCat];
 
         this.playerX = this.scene.scene.game.registry.get('playerX') || -1;
         this.playerY = this.scene.scene.game.registry.get('playerY') || -1;
@@ -161,14 +163,7 @@ export default class Level3 extends BaseScene {
         objectsLayer.objects.forEach(objData => {
 
             const { x = 0, y = 0, name, width = 0, height = 0, rotation = 0 } = objData;
-            let playerName: string = name;
-            if (playerName === 'player-spawn') {
-                playerName = 'player1'; // default to player1
-            } else if (playerName === 'player1-spawn') {
-                playerName = 'player1';
-            } else {
-                playerName = 'player2';
-            }
+           
             switch (name) {
                 case 'player1-spawn':
                 case 'player2-spawn':
@@ -185,8 +180,7 @@ export default class Level3 extends BaseScene {
                         this.obstaclesController,
                         this.sounds,
                         this.map,
-                        this.info,
-                        playerName
+                        this.info
                     );
                     this.playerController.setCollideWith(playerCat);
 
@@ -215,7 +209,7 @@ export default class Level3 extends BaseScene {
         });
 
         this.matter.world.convertTilemapLayer(ground, { label: 'ground', friction: 0, frictionStatic: 0 });
-        this.matter.world.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
+        this.matter.world.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels, 1,true, true, false);
 
    /*     this.matter.world.drawDebug = false;
         this.input.keyboard.on("keydown-I", (event) => {
@@ -224,18 +218,18 @@ export default class Level3 extends BaseScene {
         });*/
 
         this.matter.world.on("collisionstart", (e: { pairs: any; }, o1: any, o2: any) => {
-            var pairs = e.pairs;
-            for (var i = 0; i < pairs.length; i++) {
-                let bodyA = pairs[i].bodyA;
-                let bodyB = pairs[i].bodyB;
+            const pairs = e.pairs;
+            for (let i = 0; i < pairs.length; i++) {
+                const bodyA = pairs[i].bodyA;
+                const bodyB = pairs[i].bodyB;
 
-                let dx = ~~(bodyA.position.x - bodyB.position.x);
-                let dy = ~~(bodyA.position.y - bodyB.position.y);
+                const dx = ~~(bodyA.position.x - bodyB.position.x);
+                const dy = ~~(bodyA.position.y - bodyB.position.y);
 
                 const { min, max } = bodyA.bounds;
 
-                let bw = max.x - min.x;
-                let bh = (max.y - min.y) * 0.5;
+                const bw = max.x - min.x;
+                const bh = (max.y - min.y) * 0.5;
                 if (Math.abs(dx) <= bw && Math.abs(dy) <= bh) {
                     events.emit(bodyA.gameObject?.name + '-blocked', bodyA.gameObject);
                 }
@@ -267,6 +261,8 @@ export default class Level3 extends BaseScene {
         this.flies.forEach(fly => fly.destroy());
         this.crows.forEach(crow => crow.destroy());
         this.saws.forEach(saw => saw.destroy());
+
+        this.map.destroy();
     }
 
     update(time: number, deltaTime: number) {
@@ -284,6 +280,7 @@ export default class Level3 extends BaseScene {
         this.dragons = this.dragons.filter(e => e.keepObject());
         this.bears = this.bears.filter(e => e.keepObject());
         this.crows = this.crows.filter(e => e.keepObject());
+        this.flies = this.flies.filter(e => e.keepObject());
 
         this.monsters.forEach(monster => {
             monster.update(deltaTime);
@@ -313,7 +310,10 @@ export default class Level3 extends BaseScene {
         this.zeps.forEach(zep => zep.update(deltaTime));
         this.bears.forEach(bear => bear.update(deltaTime));
         this.tnts.forEach(tnt => tnt.update(deltaTime));
-        this.flies.forEach(fly => fly.update(deltaTime));
+        this.flies.forEach(fly => {
+            fly.update(deltaTime);
+            fly.lookahead(this.map);
+        });
         this.crows.forEach(crow => crow.update(deltaTime));
         this.saws.forEach(saw => {
             saw.update(deltaTime);
