@@ -1,5 +1,3 @@
-
-
 export function createCarrot(ctx, x, y, width, height) {
     ctx.anims.create({
         key: 'carrot',
@@ -48,14 +46,26 @@ export function createLab(ctx, x, y, width, height) {
 }
 
 export function createHealth(ctx, x, y, width, height) {
-    const health = ctx.matter.add.sprite(x, y, 'heart', undefined, {
+    const health = ctx.matter.add.sprite(x + (width * 0.5), y+ (height * 0.5), 'heart', undefined, {
         vertices: [{ x: 0, y: 0 }, { x: 64, y: 0 }, { x: 64, y: 64 }, { x: 0, y: 64 }],
         isStatic: true,
         isSensor: true
     });
 
-    health.setData('type', 'heart');
+    health.setData('type', 'heart'); 
     health.setData('healthPoints', 25);
+}
+
+export function createTrashcan(ctx, x, y, width, height) {
+    const trashcan = ctx.matter.add.sprite(x + (width * 0.5), y+ (height * 0.5), 'trashcan', undefined, {
+        vertices: [{ x: 0, y: 0 }, { x: 82, y: 0 }, { x: 82, y: 74 }, { x: 0, y: 74 }],
+        isStatic: true,
+        isSensor: true
+    });
+
+    trashcan.setData('type', 'heart'); 
+    trashcan.setData('healthPoints', 25);
+    trashcan.setCollidesWith([8]);
 }
 
 export function createCrate(ctx, x, y, width, height) {
@@ -64,4 +74,17 @@ export function createCrate(ctx, x, y, width, height) {
     });
     crate.setMass(0.1);
     crate.setData('type', 'crate');
+}
+
+export function createKey(ctx, x, y, width, height, controller) {
+    const key = ctx.matter.add.sprite(x + (width * 0.5), y + (height * 0.5), 'key', undefined, {
+        vertices: [{ x: 0, y: 0 }, { x: 64, y: 0 }, { x: 64, y: 64 }, { x: 0, y: 64 }],
+        label: 'key'
+    });
+    key.setCollidesWith([1,2]);
+    key.setCollisionGroup(4);
+    key.setMass(0.1);
+    key.setData('type', 'key');
+    key.setIgnoreGravity(false);
+    key.setName('key');
 }
