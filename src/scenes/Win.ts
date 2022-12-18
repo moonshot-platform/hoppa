@@ -5,7 +5,7 @@ export default class Win extends CreditScene {
 
     private scroller!: Phaser.GameObjects.DynamicBitmapText;
     private shoutout!: Phaser.GameObjects.BitmapText;
-    private index: number = 0;
+    private index = 0;
     private hsv;
     private fireworks!: Phaser.GameObjects.Particles.ParticleEmitterManager;
     private emitter!: Phaser.GameObjects.Particles.ParticleEmitter;
@@ -14,7 +14,6 @@ export default class Win extends CreditScene {
 
     constructor() {
         super('win');
-
     }
 
     private particles!: Phaser.GameObjects.Particles.ParticleEmitterManager;
@@ -62,7 +61,7 @@ export default class Win extends CreditScene {
             });
         });
 
-        var textures = this.textures;
+        const textures = this.textures;
         this.anims.create({
             key: 'player1-wins',
             frameRate: 15,
@@ -80,15 +79,17 @@ export default class Win extends CreditScene {
         this.add.sprite(width / 2 - 384, height / 2, 'player1-win').setOrigin(0.5, 0).play('player1-wins');
         this.add.sprite(width / 2 + 384, height / 2, 'player2-win').setOrigin(0.5, 0).play('player2-wins');
 
-        var logo = this.add.image(width / 2, height / 2, 'cocoon', 'Cocoon1').setDisplaySize(128, 203).setOrigin(0.5, 0.1);
-        let origin = logo.getTopLeft();
+        const logo = this.add.image(width / 2, height / 2, 'cocoon', 'c1.webp').setDisplaySize(128, 203).setOrigin(0.5, 0.1);
+        const origin = logo.getTopLeft();
 
-        var logoSource = {
+        const logoSource = {
             getRandomPoint: function (vec) {
+                let pixel;
+                let x,y;
                 do {
-                    var x = Phaser.Math.Between(0, 128 - 1);
-                    var y = Phaser.Math.Between(0, 203 - 1);
-                    var pixel = textures.getPixel(x, y, 'cocoon');
+                    x = Phaser.Math.Between(0, 128 - 1);
+                    y = Phaser.Math.Between(0, 203 - 1);
+                    pixel = textures.getPixel(x, y, 'cocoon');
                 } while (pixel.alpha < 255);
 
                 return vec.setTo(x + origin.x, y + origin.y);
@@ -114,6 +115,8 @@ export default class Win extends CreditScene {
 
         this.scroller = this.add.dynamicBitmapText(640, 360, 'press_start', this.content, 22).setOrigin(0.5,0.5);
         this.scroller.setCenterAlign();
+        
+        this.scroller.scrollY = -2000;
        
         this.input.on('pointerdown', () => { this.continueGame(); });
         this.input.on('keydown', () => { this.continueGame(); });
@@ -122,13 +125,13 @@ export default class Win extends CreditScene {
     update(time, delta) {
         this.scroller.scrollY += 0.05 * delta;
         if (this.scroller.scrollY > 3848) {
-            this.scroller.scrollY = 0;
+            this.scroller.scrollY = -2000;
         }
 
-        let top = this.hsv[this.index].color;
-        let bottom = this.hsv[359 - this.index].color;
-        let top2 = this.hsv[(this.index + 45) % 360].color;
-        let bottom2 = this.hsv[(359 - this.index + 45) % 360].color;
+        const top = this.hsv[this.index].color;
+        const bottom = this.hsv[359 - this.index].color;
+        const top2 = this.hsv[(this.index + 45) % 360].color;
+        const bottom2 = this.hsv[(359 - this.index + 45) % 360].color;
 
         this.shoutout.setTint(top, bottom, top, bottom);
 
@@ -140,7 +143,8 @@ export default class Win extends CreditScene {
     }
 
     continueGame() {
-        this.music.stop();
+        SceneFactory.stopSound(this);
+
         this.scene.stop();
         this.scene.start('start');
     }
@@ -148,6 +152,9 @@ export default class Win extends CreditScene {
     destroy() {
         this.particles.destroy();
         this.music.destroy();
+        this.fireworks.destroy();
+        this.shoutout.destroy();
+        this.scroller.destroy();
     }
 
 }
