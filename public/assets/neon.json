@@ -1,0 +1,62 @@
+{
+	"textures": [
+		{
+			"image": "neon.webp",
+			"format": "RGBA8888",
+			"size": {
+				"w": 512,
+				"h": 52
+			},
+			"scale": 1,
+			"frames": [
+				{
+					"filename": "neon-0.webp",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 256,
+						"h": 52
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 256,
+						"h": 52
+					},
+					"frame": {
+						"x": 0,
+						"y": 0,
+						"w": 256,
+						"h": 52
+					}
+				},
+				{
+					"filename": "neon-1.webp",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 256,
+						"h": 52
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 256,
+						"h": 52
+					},
+					"frame": {
+						"x": 256,
+						"y": 0,
+						"w": 256,
+						"h": 52
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "https://www.codeandweb.com/texturepacker",
+		"version": "3.0",
+		"smartupdate": "$TexturePacker:SmartUpdate:cbd2e19a5a081b5272df81fbc3058904:b2a7ce0c443f07cad91dd7b059e5d4af:2958672e61d08d49de6e96bb6611f80d$"
+	}
+}
