@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="336" height="50" tilewidth="64" tileheight="64" infinite="0" nextlayerid="18" nextobjectid="810">
+<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="336" height="50" tilewidth="64" tileheight="64" infinite="0" nextlayerid="18" nextobjectid="812">
  <editorsettings>
   <export target="map3.json" format="json"/>
  </editorsettings>
@@ -1092,7 +1092,7 @@
   <object id="148" name="exit" x="19840" y="2688" width="62" height="58">
    <properties>
     <property name="event" value="bonus-level"/>
-    <property name="room" value="win"/>
+    <property name="room" value="level4"/>
    </properties>
   </object>
   <object id="159" name="plant" x="5120" y="1856" width="64" height="128"/>
@@ -1205,7 +1205,7 @@
   <object id="575" name="coin" x="11968" y="2368" width="64" height="64"/>
   <object id="576" name="coin" x="12160" y="2368" width="64" height="64"/>
   <object id="577" name="flower" x="12160" y="2944" width="64" height="64"/>
-  <object id="579" name="flower" x="162" y="2627" width="64" height="64"/>
+  <object id="579" name="flower" x="158" y="2627" width="64" height="64"/>
   <object id="580" name="billboard" x="4800" y="1728" width="192" height="220"/>
   <object id="581" name="billboard" x="5312" y="1728" width="192" height="220"/>
   <object id="582" name="billboard" x="5824" y="1728" width="192" height="220"/>
@@ -1278,7 +1278,7 @@
   <object id="629" name="bird" x="3264" y="1024" width="64" height="64"/>
   <object id="630" name="bird" x="2816" y="512" width="64" height="64"/>
   <object id="631" name="bird" x="3328" y="256" width="64" height="64"/>
-  <object id="632" name="saw" x="5440" y="1018" width="64" height="32"/>
+  <object id="632" name="saw" x="5440" y="1020" width="64" height="32"/>
   <object id="633" name="player-spawn" x="4983.15" y="864.03" width="64" height="78"/>
   <object id="634" name="saw" x="5824.33" y="1020" width="64" height="32"/>
   <object id="635" name="saw" x="6124" y="825.333" width="64" height="32"/>
@@ -1606,6 +1606,8 @@
   <object id="806" name="coin" x="17984" y="2688" width="64" height="64"/>
   <object id="808" name="flower" x="4892" y="902" width="64" height="64"/>
   <object id="809" name="bonus" x="4736" y="2624" width="60.7942" height="59.3333"/>
+  <object id="810" name="saw" x="5696.33" y="1979.67" width="64" height="32"/>
+  <object id="811" name="saw" x="8065.33" y="1270.67" width="64" height="32"/>
  </objectgroup>
  <layer id="9" name="ground" width="336" height="50">
   <data encoding="csv">

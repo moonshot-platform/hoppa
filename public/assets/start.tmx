@@ -4,10 +4,10 @@
   <export target="start.json" format="json"/>
  </editorsettings>
  <tileset firstgid="1" name="minira8bits" tilewidth="64" tileheight="64" spacing="2" tilecount="195" columns="15">
-  <image source="minira8bits.png" width="1024" height="856"/>
+  <image source="minira8bits.webp" width="1024" height="856"/>
  </tileset>
  <tileset firstgid="196" name="ground" tilewidth="64" tileheight="64" spacing="2" tilecount="71" columns="7">
-  <image source="terrainv3.png" width="512" height="658"/>
+  <image source="terrainv3.webp" width="512" height="658"/>
   <tile id="0">
    <properties>
     <property name="anim" value=""/>
@@ -1014,7 +1014,7 @@
   <object id="6" name="bear" x="5217.64" y="571.151" width="64" height="68"/>
   <object id="7" name="flower" x="225.667" y="575.333" width="64" height="64"/>
   <object id="8" name="lab" x="2973.5" y="82.25" width="64" height="136"/>
-  <object id="10" name="carrot" x="3840" y="448" width="64" height="64"/>
+  <object id="10" name="carrot" x="3871.33" y="383.333" width="64" height="64"/>
   <object id="12" name="zeppelin1" x="1040" y="4" width="128" height="96"/>
   <object id="13" name="dragon" x="4798.83" y="606.333" width="64" height="96"/>
   <object id="14" name="plant" x="94.6667" y="574.667" width="64" height="128"/>
@@ -1041,7 +1041,7 @@
   <object id="41" name="coin" x="2880" y="0" width="64" height="64"/>
   <object id="42" name="health" x="5730.67" y="290.667" width="64" height="64"/>
   <object id="43" name="zeppelin2" x="4918" y="6" width="128" height="96"/>
-  <object id="44" name="flower" x="6497.5" y="574.5" width="64" height="64"/>
+  <object id="44" name="flower" x="6497.5" y="579.5" width="64" height="64"/>
   <object id="45" name="crate" x="6720" y="640" width="64" height="64"/>
   <object id="46" name="crate" x="6720" y="576" width="64" height="64"/>
   <object id="47" name="crate" x="6656" y="640" width="64" height="64"/>

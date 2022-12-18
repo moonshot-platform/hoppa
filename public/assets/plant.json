@@ -4,13 +4,13 @@
 			"image": "plant.webp",
 			"format": "RGBA8888",
 			"size": {
-				"w": 320,
+				"w": 512,
 				"h": 128
 			},
 			"scale": 1,
 			"frames": [
 				{
-					"filename": "0_Idle1.webp",
+					"filename": "PlantTrap1.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -31,7 +31,7 @@
 					}
 				},
 				{
-					"filename": "0_Idle2.webp",
+					"filename": "PlantTrap2.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -52,49 +52,70 @@
 					}
 				},
 				{
-					"filename": "1_Dead1.webp",
+					"filename": "PlantTrap3.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
 						"w": 64,
-						"h": 64
+						"h": 128
 					},
 					"spriteSourceSize": {
 						"x": 0,
 						"y": 0,
 						"w": 64,
-						"h": 64
+						"h": 128
 					},
 					"frame": {
 						"x": 128,
 						"y": 0,
 						"w": 64,
-						"h": 64
+						"h": 128
 					}
 				},
 				{
-					"filename": "1_Dead2.webp",
+					"filename": "PlantTrap4.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
 						"w": 64,
-						"h": 64
+						"h": 128
 					},
 					"spriteSourceSize": {
 						"x": 0,
 						"y": 0,
 						"w": 64,
-						"h": 64
+						"h": 128
 					},
 					"frame": {
 						"x": 192,
 						"y": 0,
 						"w": 64,
-						"h": 64
+						"h": 128
 					}
 				},
 				{
-					"filename": "1_Dead3.webp",
+					"filename": "PlantTrap5.webp",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 64,
+						"h": 128
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 64,
+						"h": 128
+					},
+					"frame": {
+						"x": 256,
+						"y": 0,
+						"w": 64,
+						"h": 128
+					}
+				},
+				{
+					"filename": "PlantTrap6.webp",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -108,7 +129,49 @@
 						"h": 64
 					},
 					"frame": {
-						"x": 256,
+						"x": 320,
+						"y": 0,
+						"w": 64,
+						"h": 64
+					}
+				},
+				{
+					"filename": "PlantTrap7.webp",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 64,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 64,
+						"h": 64
+					},
+					"frame": {
+						"x": 384,
+						"y": 0,
+						"w": 64,
+						"h": 64
+					}
+				},
+				{
+					"filename": "PlantTrap8.webp",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 64,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 64,
+						"h": 64
+					},
+					"frame": {
+						"x": 448,
 						"y": 0,
 						"w": 64,
 						"h": 64
@@ -120,6 +183,6 @@
 	"meta": {
 		"app": "https://www.codeandweb.com/texturepacker",
 		"version": "3.0",
-		"smartupdate": "$TexturePacker:SmartUpdate:0d783cd62f8275c82839210302a952d0:99484fe232370e8da0835407fb047ef3:e6e715a779bcc4a7e14169f4f827f2ba$"
+		"smartupdate": "$TexturePacker:SmartUpdate:3f8149534ae082e528328d12d027aaa5:4b7b82aef66de08821043425a0f0638b:e6e715a779bcc4a7e14169f4f827f2ba$"
 	}
 }
