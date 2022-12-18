@@ -3,7 +3,7 @@ import * as SceneFactory from '../scripts/SceneFactory';
 import CreditScene from "./CreditScene";
 export default class Story extends CreditScene {
     
-    private chapter: number = 1;
+    private chapter = 1;
     private image!: Phaser.GameObjects.Image;
     private scroller!: Phaser.GameObjects.DynamicBitmapText;
     private scrollText: string[] = [];
@@ -56,13 +56,20 @@ export default class Story extends CreditScene {
         this.input.on('keydown', () => { this.startGame(); });
     }
 
+    destroy() {
+        this.image.destroy();
+        this.scroller.destroy();
+        SceneFactory.stopSound(this);
+        
+    }
+
     nextStory() {
         const { width, height } = this.scale;
 
         this.time.delayedCall(5000, () => {
             this.cameras.main.fadeOut(1000, 0, 0, 0);
 
-            this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (c, e) => {
+            this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, () => {
                 this.image.destroy();
            
                 this.chapter ++;
@@ -70,7 +77,7 @@ export default class Story extends CreditScene {
                 if(this.chapter < 6) {
                     this.image = this.add.image(width / 2, height / 2, 'story' + this.chapter).setOrigin(0.5, 0.5);
                     this.cameras.main.fadeIn( 1000, 0,0,0);
-                    this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_IN_COMPLETE, (c, e) => {
+                    this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_IN_COMPLETE, () => {
                        this.nextStory();
                     }); 
                 }
@@ -86,28 +93,23 @@ export default class Story extends CreditScene {
     update(time,delta) {
         if(this.scroller.visible) {
             this.scroller.scrollY += 0.05 * delta;
-            console.log(this.scroller.scrollY);
             if (this.scroller.scrollY > 2100) { 
                 this.startGame();
             }
         }
     }
 
-
     startGame() {
-
-        let sound: Phaser.Sound.BaseSound = this.sound.get('spectacle');
+        const sound = this.sound.get('spectacle');
         this.tweens.add({
             targets:  sound,
             volume:   0,
             duration: 500,
             onComplete: () => {
-                this.game.sound.stopAll();
+                SceneFactory.stopSound(this);
                 this.scene.stop();
                 this.scene.start('start');
             }
         });
-
-        
     }
 }
