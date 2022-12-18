@@ -7,19 +7,19 @@ export default class JoypadController {
     private throwButton: Button;
     private jumpButton: Button;
 
-    private outer: number = 0x888888;
-    private inner: number = 0xcccccc;
+    private outer = 0x888888;
+    private inner = 0xcccccc;
 
-    private alphaOn: number = 0.66;
-    private alphaOff: number = 0.33;
+    private alphaOn = 0.66;
+    private alphaOff = 0.33;
 
     private A: Phaser.GameObjects.Arc;
     private B: Phaser.GameObjects.Arc;
 
     private scene: Phaser.Scene;
-    private stickRadius: number = 160;
-    private buttonRadius: number = 88;
-    private started: boolean = false;
+    private stickRadius = 160;
+    private buttonRadius = 88;
+    private started = false;
 
     constructor(scene: Phaser.Scene, width: number) {
 
@@ -64,6 +64,14 @@ export default class JoypadController {
         });
 
 
+    }
+
+    destroy() {
+        this.B.destroy();
+        this.A.destroy();
+        this.joystick.destroy();
+        this.throwButton.destroy();
+        this.jumpButton.destroy();
     }
 
     startTimer() {
@@ -127,10 +135,10 @@ export default class JoypadController {
 
     // dampening
     dampenVelocityX(velocityX: number): number {
-        let v = Phaser.Math.Clamp(this.joystick.force, 0, this.stickRadius);
+        const v = Phaser.Math.Clamp(this.joystick.force, 0, this.stickRadius);
         if (v == 0)
             return 0;
-        let f = (velocityX / this.stickRadius) * v;
+        const f = (velocityX / this.stickRadius) * v;
         return f;
     }
 
