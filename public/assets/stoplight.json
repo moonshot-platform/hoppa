@@ -1,0 +1,62 @@
+{
+	"textures": [
+		{
+			"image": "stoplight.png",
+			"format": "RGBA8888",
+			"size": {
+				"w": 90,
+				"h": 45
+			},
+			"scale": 1,
+			"frames": [
+				{
+					"filename": "Green.webp",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 45,
+						"h": 45
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 45,
+						"h": 45
+					},
+					"frame": {
+						"x": 0,
+						"y": 0,
+						"w": 45,
+						"h": 45
+					}
+				},
+				{
+					"filename": "Red.webp",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 45,
+						"h": 45
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 45,
+						"h": 45
+					},
+					"frame": {
+						"x": 45,
+						"y": 0,
+						"w": 45,
+						"h": 45
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "https://www.codeandweb.com/texturepacker",
+		"version": "3.0",
+		"smartupdate": "$TexturePacker:SmartUpdate:f2dc3b8fdc8a8b6753224cf639e96d6c:3d4075ec42cb68515765bc84562ad820:df25ff3af49d133b28aba36fd84be618$"
+	}
+}
