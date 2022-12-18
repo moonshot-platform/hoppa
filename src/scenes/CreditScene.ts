@@ -77,6 +77,7 @@ export default class CreditScreen extends Phaser.Scene {
         "",
         "Voice Over",
         "Ms. Krasota",
+        "CryptoSeas",
         "",
         "Writers",
         "c0ntrol zero",
@@ -161,6 +162,7 @@ export default class CreditScreen extends Phaser.Scene {
         "Anastasia",
         "",
         "$MSHOT",
+        "$RABITS",
         "",
 
     ];
