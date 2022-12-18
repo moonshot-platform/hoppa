@@ -3,7 +3,7 @@ import Phaser from 'phaser'
 export default class BillBoard {
 
     private sprite: Phaser.Physics.Matter.Sprite;
-    private frame: number = 0;
+    private frame = 0;
 
     constructor(scene: Phaser.Scene, sprite: Phaser.Physics.Matter.Sprite) {
         this.sprite = sprite;
