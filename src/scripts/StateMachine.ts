@@ -12,7 +12,7 @@ export default class StateMachine {
     private isSwitchingState = false;
     private stateQueue: string[] = [];
     private states = new Map<string, StateConfig>();
-    private paused: boolean = false;
+    private paused = false;
 
     constructor (context?: any, name?: string) {
         this.context = context;
