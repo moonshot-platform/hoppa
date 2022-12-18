@@ -4,7 +4,6 @@ import * as WalletHelper from '../scripts/WalletHelper'
 
 declare global {
     var dramaticIntro: boolean;
-  
 }
 
 export default class HoppaScreen extends Phaser.Scene {
@@ -14,15 +13,11 @@ export default class HoppaScreen extends Phaser.Scene {
     private continueLabel!: Phaser.GameObjects.BitmapText;
     private optionsLabel!: Phaser.GameObjects.BitmapText;
     private helpLabel!: Phaser.GameObjects.BitmapText;
+    private text!:Phaser.GameObjects.BitmapText;
 
     constructor() {
         super('hoppa');
     }
-
-    init() {
-        
-    }
-   
 
     preload() {
         SceneFactory.preload(this);
@@ -33,7 +28,7 @@ export default class HoppaScreen extends Phaser.Scene {
 
         this.add.image(width / 2, height / 2 - 128, 'logo').setDisplaySize(460, 196).setOrigin(0.5, 0.5);
 
-        this.add.bitmapText(width * 0.5, height / 2, 'press_start', 'A Ra8bits Production', 48)
+        this.text = this.add.bitmapText(width * 0.5, height / 2, 'press_start', 'A Ra8bits Production', 48)
             .setTint(0xc0c0c0)
             .setOrigin(0.5);
 
@@ -100,6 +95,8 @@ export default class HoppaScreen extends Phaser.Scene {
         this.optionsLabel.destroy();
         this.continueLabel.destroy();
         this.rotate?.destroy();
+        this.text.destroy();
+        this.helpLabel.destroy(); 
     }
 
     private printWarning(width, height) {
@@ -116,7 +113,7 @@ export default class HoppaScreen extends Phaser.Scene {
     }
 
     private hideInstaller() {
-        let button = document.querySelector('.add-button') as HTMLElement;
+        const button = document.querySelector('.add-button') as HTMLElement;
         if(button != null ) {
             button.style.display='none';
         }
