@@ -1,4 +1,4 @@
-import Phaser, { Physics } from 'phaser'
+import Phaser from 'phaser'
 import ObstaclesController from '../scripts/ObstaclesController';
 import PlayerController from '../scripts/PlayerController';
 import MonsterController from '../scripts/MonsterController';
@@ -51,8 +51,8 @@ export default class Bonus extends Phaser.Scene {
     private layer1!: Phaser.Tilemaps.TilemapLayer;
     private introMusic!: Phaser.Sound.BaseSound;
 
-    private playerX: number = -1;
-    private playerY: number = -1;
+    private playerX = -1;
+    private playerY = -1;
 
     private sounds!: Map<string, Phaser.Sound.BaseSound>;
 
@@ -62,7 +62,7 @@ export default class Bonus extends Phaser.Scene {
 
     init() {
 
-        this.cursors = this.input.keyboard.createCursorKeys();
+        this.cursors = this.input.keyboard?.createCursorKeys();
 
         this.obstaclesController = new ObstaclesController();
         this.monsters = [];
@@ -91,11 +91,15 @@ export default class Bonus extends Phaser.Scene {
             'currLevel': 1,
             'scorePoints': 0,
             'livesRemaining': 3,
+            'invincibility': false,
+            'powerUp': false,
+            'speedUp': false,
+            'throw': false,
         };
 
-        let data = window.localStorage.getItem('ra8bit.stats');
+        const data = window.localStorage.getItem('ra8bit.stats');
         if (data != null) {
-            let obj = JSON.parse(data);
+            const obj = JSON.parse(data);
             this.info = obj as PlayerStats;
         }
 
@@ -123,9 +127,8 @@ export default class Bonus extends Phaser.Scene {
         this.map = this.make.tilemap({ key: 'tilemap-bonus', tileWidth: 64, tileHeight: 64 });
 
         const totalWidth = this.map.widthInPixels;
-        let hei = this.map.heightInPixels;
-        let s = 1;
-        let bg = this.add
+        const s = 1;
+        const bg = this.add
             .image(totalWidth / 2, 0, "ra8bittiles128-bg")
             .setOrigin(0.5, 0)
             .setScale(s)
@@ -143,10 +146,10 @@ export default class Bonus extends Phaser.Scene {
         this.map.createLayer('obstacles', propTiles);
         this.layer1.setDepth(10);
 
-        let playerCat = 2; // this.matter.world.nextCategory();
-        let enemyCat = 4; //this.matter.world.nextCategory();
-
-        let collideWith = [1, playerCat];
+        const playerCat = 2;
+        const enemyCat = 4;
+        
+        const collideWith = [1, playerCat];
 
         this.playerX = this.scene.scene.game.registry.get('playerX') || -1;
         this.playerY = this.scene.scene.game.registry.get('playerY') || -1;
@@ -155,14 +158,7 @@ export default class Bonus extends Phaser.Scene {
         objectsLayer.objects.forEach(objData => {
 
             const { x = 0, y = 0, name, width = 0, height = 0, rotation = 0 } = objData;
-            let playerName: string = name;
-            if (playerName === 'player-spawn') {
-                playerName = 'player1'; // default to player1
-            } else if (playerName === 'player1-spawn') {
-                playerName = 'player1';
-            } else {
-                playerName = 'player2';
-            }
+           
 
             switch (name) {
                 case 'player1-spawn':
@@ -181,8 +177,7 @@ export default class Bonus extends Phaser.Scene {
                             this.obstaclesController,
                             this.sounds,
                             this.map,
-                            this.info,
-                            playerName,
+                            this.info
                         );
                         this.playerController.setCollideWith(playerCat);
 
@@ -221,13 +216,13 @@ export default class Bonus extends Phaser.Scene {
         });*/
 
         this.matter.world.on("collisionstart", (e: { pairs: any; }, o1: any, o2: any) => {
-            var pairs = e.pairs;
-            for (var i = 0; i < pairs.length; i++) {
-                let bodyA = pairs[i].bodyA;
-                let bodyB = pairs[i].bodyB;
+            const pairs = e.pairs;
+            for (let i = 0; i < pairs.length; i++) {
+                const bodyA = pairs[i].bodyA;
+                const bodyB = pairs[i].bodyB;
 
-                let dx = ~~(bodyA.position.x - bodyB.position.x);
-                let dy = ~~(bodyA.position.y - bodyB.position.y);
+                const dx = ~~(bodyA.position.x - bodyB.position.x);
+                const dy = ~~(bodyA.position.y - bodyB.position.y);
 
                 if (Math.abs(dx) <= 64 && dy == 0) {
                     events.emit(bodyA.gameObject?.name + '-blocked', bodyA.gameObject);
@@ -266,6 +261,7 @@ export default class Bonus extends Phaser.Scene {
         this.ground.destroy();
         this.layer1.destroy();
 
+        this.map.destroy();
     }
 
     update(time: number, deltaTime: number) {
