@@ -1,4 +1,4 @@
-import Phaser, { Tilemaps } from "phaser";
+import Phaser from "phaser";
 import StateMachine from "./StateMachine";
 import { sharedInstance as events } from './EventManager';
 import ObstaclesController from "./ObstaclesController";
@@ -7,12 +7,10 @@ import * as SceneFactory from "../scripts/SceneFactory";
 import PowerUps from "./PowerUps";
 import VirtualJoyStick from "phaser3-rex-plugins/plugins/virtualjoystick";
 import JoypadController from "./JoypadController";
-import TickTask from "phaser3-rex-plugins/plugins/utils/ticktask/TickTask";
-
 
 export default class PlayerController {
     private scene: Phaser.Scene;
-    private sprite: Phaser.Physics.Matter.Sprite;
+    private sprite!: Phaser.Physics.Matter.Sprite;
     private cursors: Phaser.Types.Input.Keyboard.CursorKeys;
     private stateMachine: StateMachine;
     private obstacles: ObstaclesController;
@@ -28,37 +26,36 @@ export default class PlayerController {
     public sensors_bottom;
     public sensors_left;
     public sensors_right;
-    private lasthit: number = 0;
+    private lasthit = 0;
     private poopbag = new Map<string, Phaser.Physics.Matter.Sprite>;
     private trashcan = new Map<string, Phaser.Physics.Matter.Sprite>;
 
-    private deltaS: number = 0;
+    private deltaS = 0;
+    private lastAction = 0;
+    private lastThrow = 0;
+    private throwDelay = 0;
 
-    private lastAction: number = 0;
-    private lastThrow: number = 0;
-    private throwDelay: number = 0;
-
-    private ACCEL_FRAMES: number = 6;
-    private DEACCEL_FRAMES: number = 3;
+    private ACCEL_FRAMES = 6;
+    private DEACCEL_FRAMES = 3;
 
     private bonusObjects = ['berry', 'pow', 'star', 'rubber1'];
-    private standingOnFloor: boolean = false;
-    private standingOnPlatform: boolean = false;
-    private wasStandingOnFloor: boolean = false;
+    private standingOnFloor = false;
+    private standingOnPlatform = false;
+    private wasStandingOnFloor = false;
 
-    private cannotThrow: boolean = false;
-    private delayedJump: boolean = false;
-    private jumpCount: number = 0;
-    private jumpActionValidUntil: number = 0;
+    private cannotThrow = false;
+    private delayedJump = false;
+    private jumpCount = 0;
+    private jumpActionValidUntil = 0;
     private sounds!: Map<string, Phaser.Sound.BaseSound>;
     private tilemap!: Phaser.Tilemaps.Tilemap;
-    private colCat: number = 0;
-    private spawn_x: number = 0;
-    private spawn_y: number = 0;
-    private playerButton1: boolean = false;
-    private playerButton2: boolean = false;
-    private LEANWAY: number = 8;
-
+    private colCat = 0;
+    private spawn_x = 0;
+    private spawn_y = 0;
+    private playerButton1 = false;
+    private playerButton2 = false;
+    private LEANWAY = 8;
+    private isDead = false;
     private wasd;
 
     private joystick?: VirtualJoyStick;
@@ -72,8 +69,7 @@ export default class PlayerController {
         obstacles: ObstaclesController,
         sounds: Map<string, Phaser.Sound.BaseSound>,
         tilemap: Phaser.Tilemaps.Tilemap,
-        stats: PlayerStats,
-        name: string,
+        stats: PlayerStats
     ) {
         this.scene = scene;
         this.sprite = sprite;
@@ -82,10 +78,10 @@ export default class PlayerController {
         this.sounds = sounds;
         this.tilemap = tilemap;
         this.stats = stats;
-        this.throwDelay = 60;
+        this.throwDelay = 30;
         this.lastThrow = 0;
-        this.name = name;
-        this.powerUps = new PowerUps(this);
+        this.name = globalThis.rabbit || 'player1';
+        this.powerUps = new PowerUps(this, scene);
         this.spawn_x = this.sprite.body.position.x;
         this.spawn_y = this.sprite.body.position.y;
         this.createAnims();
@@ -93,7 +89,7 @@ export default class PlayerController {
 
         this.scene.events.on('preupdate', this.preupdate, this);
 
-        this.wasd = this.scene.input.keyboard.addKeys(
+        this.wasd = this.scene.input.keyboard?.addKeys(
             {
                 'up': Phaser.Input.Keyboard.KeyCodes.W,
                 'down': Phaser.Input.Keyboard.KeyCodes.S,
@@ -102,8 +98,15 @@ export default class PlayerController {
             }
         )
 
-        this.scene.input.keyboard.once('keydown', () => {
+        this.scene.input.keyboard?.once('keydown', () => {
             events.emit('level-start');
+        });
+
+        this.scene.input.keyboard?.once('keydown-ESC', () => {
+            SceneFactory.stopSound(this.scene);
+            this.scene.scene.stop('ui');
+            this.scene.scene.stop();
+            this.scene.scene.start('hoppa');
         });
 
         this.stateMachine.addState('idle', {
@@ -149,7 +152,7 @@ export default class PlayerController {
             else if (player.label !== 'player')
                 player = body;
 
-            if (body.label === 'platform' || body.label === 'billboard') {
+            if (body.label === 'platform' || body.label === 'billboard' || body.label === 'bar') {
                 this.standingOnPlatform = false;
             }
         });
@@ -211,15 +214,17 @@ export default class PlayerController {
             }
 
             if (this.obstacles.isType('exit', body)) {
-                let next = this.obstacles.getValues('exit', body);
+                const next = this.obstacles.getValues('exit', body);
                 this.scene.cameras.main.fadeOut(500, 0, 0, 0)
-                this.scene.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (c, e) => {
+                this.scene.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, () => {
                     events.emit(next.event);
                     this.scene.scene.stop();
                     if( globalThis.noWallet || (globalThis.moonshotBalance == 0 && globalThis.ra8bitBalance == 0) && next.room !== 'bonus' ) {
-                        this.scene.scene.start( 'level1');
+                        SceneFactory.stopSound(this.scene);
+                        this.scene.scene.start( 'hoppa');
                     }
                     else {
+                        SceneFactory.stopSound(this.scene);
                         this.scene.scene.start(next.room);
                     }
                 });
@@ -227,7 +232,7 @@ export default class PlayerController {
 
             if (this.obstacles.isType('return', body)) {
                 this.scene.matter.world.pause();
-                let v = this.obstacles.getValues('return', body);
+                const v = this.obstacles.getValues('return', body);
                 this.sprite.setPosition(
                     v.spawnx * 64,
                     v.spawny * 64
@@ -241,7 +246,7 @@ export default class PlayerController {
 
             if (this.obstacles.isType('goto', body) && this.isDown()) {
                 this.scene.matter.world.pause();
-                let v = this.obstacles.getValues('goto', body);
+                const v = this.obstacles.getValues('goto', body);
                 this.sprite.scene.tweens.add({
                     targets: this.sprite,
                     y: this.sprite.y + this.sprite.height,
@@ -260,9 +265,9 @@ export default class PlayerController {
                 if (this.isDown()) {
 
                     this.scene.matter.world.pause();
-                    let v = this.obstacles.getValues('pipe', body);
-                    let ry = this.sprite.y;
-                    let rx = body.position.x;
+                    const v = this.obstacles.getValues('pipe', body);
+                    const ry = this.sprite.y;
+                    const rx = body.position.x;
 
                     this.sprite.scene.tweens.add({
                         targets: this.sprite,
@@ -284,14 +289,14 @@ export default class PlayerController {
             }
 
             if (this.obstacles.isType('bonus', body)) {
-                let v = this.obstacles.getValues('bonus', body);
+                const v = this.obstacles.getValues('bonus', body);
                 if (v.use > 0 && (player.position.y > body.position.y)) {
                     SceneFactory.playSound(this.sounds, 'bonustile');
                     let idx = (v.use == 3 ? 1 :  ~~(Math.random() * this.bonusObjects.length)); // first bonus is always POWER , followed by random bonus drop
                     while (v.last == idx) {
                         idx = ~~(Math.random() * this.bonusObjects.length);
                     }
-                    let name = this.bonusObjects[idx];
+                    const name = this.bonusObjects[idx];
                     const pwrup = this.scene.matter.add.sprite(body.position.x, body.position.y - 64, name, undefined, {
                         vertices: [{ x: 0, y: 0 }, { x: 64, y: 0 }, { x: 64, y: 64 }, { x: 0, y: 64 }],
                         label: 'bonus'
@@ -350,17 +355,17 @@ export default class PlayerController {
                 this.obstacles.isType('fly', body) ||
                 this.obstacles.isType('crow', body) ||
                 this.obstacles.isType('tnt', body) ||
+                this.obstacles.isType('boss', body) ||
                 this.obstacles.isType('fire', body)) {
                 this.lastHitBy = body.gameObject;
 
-                let bh = this.sprite.height * body.centerOfMass.y;
-                let ph = 96 * player.centerOfMass.y;
-                let yd = (body.position.y - player.position.y);
-
-                if (player.position.y < body.position.y && yd > bh && yd <= (ph + bh)) {
-                    this.stateMachine.setState('stomped');
+                if( (player.position.y + 31) < body.position.y ) {
+                   this.stateMachine.setState('stomped');
                 }
                 else {
+                    if(this.obstacles.isType('plant', body)) {
+                        events.emit("plant-touched", body.gameObject, this);
+                    }
                     this.stateMachine.setState('hit');
                 }
 
@@ -374,7 +379,7 @@ export default class PlayerController {
 
             if (this.obstacles.isType('brick', body) && this.powerUps.isPower()) {
                 if (player.position.y > (body.position.y + 32)) {
-                    let v = this.obstacles.getValues('brick', body);
+                    const v = this.obstacles.getValues('brick', body);
 
                     if (v.use > 0) {
                         v.use = v.use - 1;
@@ -394,7 +399,7 @@ export default class PlayerController {
 
             if (this.obstacles.isType('coinbrick', body) && this.powerUps.isPower()) {
                 if (player.position.y > (body.position.y + 32)) {
-                    let v = this.obstacles.getValues('coinbrick', body);
+                    const v = this.obstacles.getValues('coinbrick', body);
 
                     if (v.use > 0) {
                         v.use = v.use - 1;
@@ -421,7 +426,7 @@ export default class PlayerController {
             }
 
             if (gameObject instanceof Phaser.Physics.Matter.TileBody) {
-                let b = gameObject as Phaser.Physics.Matter.TileBody;
+                const b = gameObject as Phaser.Physics.Matter.TileBody;
 
                 if (!b.tile.visible) {
                     b.destroy();
@@ -429,12 +434,12 @@ export default class PlayerController {
                 }
 
                 if (b.tile.properties.breakable == true && player.position.y <= body.position.y) {
-                    let hits = b.tile.properties.hits || 0;
+                    const hits = b.tile.properties.hits || 0;
 
                     if (hits == 0) {
                         SceneFactory.playSound(this.sounds, 'breakingtile');
                         this.scene.time.delayedCall(b.tile.properties.breakdelay, () => {
-                            b.tile.tilemapLayer.removeTileAt(b.tile.x, b.tile.y, true, true);
+                            b.tile.tilemapLayer?.removeTileAt(b.tile.x, b.tile.y, true, true);
                             b.destroy();
                         }, [b], this);
                     }
@@ -478,7 +483,7 @@ export default class PlayerController {
                 }
                 case 'dropping': {
                     SceneFactory.playSound(this.sounds, 'pickupdropping');
-                    this.collectPoop(sprite);
+                    this.collectPoop(sprite,false);
                     break;
                 }
                 case 'coin': {
@@ -488,7 +493,33 @@ export default class PlayerController {
                     if( Phaser.Math.Between(0,25) == 0 ) {
                         SceneFactory.playKrasota(this.sounds, SceneFactory.krasotaSays(0,"")  );
                     }
+                    break;
+                }
+                case 'key': {
+                    sprite.setCollidesWith(6);
+                    events.emit('key-collected');
+                    SceneFactory.playSound(this.sounds, 'pickupcoin');
+                    this.bounceSpriteAndDestroy(sprite);
+                    SceneFactory.playKrasota(this.sounds, SceneFactory.krasotaSays(0,"")  );
+                    events.emit( "wakeup-object" );
+                    break;
+                }
+                case 'window': {
+                    // fade out, start another scene
+                    if(this.stateMachine.getCurrentState() === 'jump') {
+                        events.emit('coin-taken');
+                        
+                        this.sprite.body?.velocity.x = 0;
+                        this.sprite.body?.velocity.y = 0;
+                        this.sprite.setIgnoreGravity(true);
 
+                        this.scene.cameras.main.fadeOut(1000, 0, 0, 0);
+                        this.scene.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (c, e) => {
+                            this.scene.scene.stop();
+                            this.scene.scene.stop('ui');
+                            this.scene.scene.start('win');
+                        });
+                    }
                     break;
                 }
                 case 'carrot': {
@@ -527,7 +558,7 @@ export default class PlayerController {
                 }
                 case 'changeskin': {
                     if (player.position.y > body.position.y) {
-                        let v = this.obstacles.getValues('changeskin', body);
+                        const v = this.obstacles.getValues('changeskin', body);
                         if (v.use > 0) {
                             v.use = v.use - 1;
                             this.bounceSprite(sprite);
@@ -537,6 +568,11 @@ export default class PlayerController {
                             SceneFactory.playSound(this.sounds, 'equalopportunity');
                         }
                     }
+                    break;
+                }
+                case 'lava-center': {
+                    SceneFactory.playSound(this.sounds, 'lava');
+                    this.stateMachine.setState('world-hit');
                     break;
                 }
                 case 'crate': {
@@ -549,6 +585,7 @@ export default class PlayerController {
         });
     }
 
+    
     setJoystick(scene: Phaser.Scene, width: number) {
         if (scene.game.device.os.desktop)
             return;
@@ -573,11 +610,10 @@ export default class PlayerController {
     }
 
     takeDamage(dmg: number, sound: string) {
-        this.health = this.health - dmg;
-        this.health = Phaser.Math.Clamp(this.health, 0, 100);
+        this.setHealth(this.health - dmg);
         SceneFactory.playSound(this.sounds, sound);
         this.hitTween();
-        events.emit('health-changed', this.health);
+        this.lasthit = this.scene.time.now;
     }
 
     getCollideWith() {
@@ -592,19 +628,21 @@ export default class PlayerController {
         return this.sprite;
     }
 
-    collectPoop(turd: Phaser.Physics.Matter.Sprite) {
+    collectPoop(turd: Phaser.Physics.Matter.Sprite, splash = true) {
         if (this.trashcan.has(turd.name)) {
             console.log("Already destroyed " + turd.name);
         }
         else {
             SceneFactory.playSound(this.sounds, 'droppinghits');
-            turd.flipX = this.sprite.flipX;
-            turd.play('splash').once('animationcomplete', () => {
+                if(splash) {
+                    turd.flipX = this.sprite.flipX;
+                    turd.play('splash').once('animationcomplete', () => {
 
 
-                this.trashcan.set(turd.name, turd);
+                        this.trashcan.set(turd.name, turd);
 
-            });
+                    });
+                }
         }
     }
 
@@ -616,15 +654,17 @@ export default class PlayerController {
         this.stateMachine.destroy();
         this.obstacles.destroy();
         this.sounds.clear();
+        this.jp?.destroy();
+       
     }
 
-    preupdate(time: number, delta: number) {
+    preupdate() {
 
         this.trashcan.forEach((value, key) => {
             this.poopbag.delete(key);
             value.setActive(false);
             value.setStatic(true);
-            value.setOnCollide(() => { });
+            //value.setOnCollide(() => { });
             value.setCollidesWith(0);
             value.setCollisionGroup(8);
             value.setCollisionCategory(16);
@@ -635,8 +675,7 @@ export default class PlayerController {
         this.trashcan.clear();
 
         this.poopbag.forEach((turd) => {
-
-            let v = turd.getData('spawned');
+            const v = turd.getData('spawned');
             if (v != -1) {
                 if (!Phaser.Geom.Intersects.RectangleToRectangle(this.sprite.getBounds(), turd.getBounds())) {
                     turd.setCollidesWith([1, 2, 4]);
@@ -664,7 +703,7 @@ export default class PlayerController {
             this.jp.startTimer();
         }
 
-        if (this.sprite.body.position.y > (
+        if (this.sprite.body != null && this.sprite.body.position.y > (
             this.tilemap.heightInPixels - 32)) {
             this.stateMachine.setState('world-hit');
         }
@@ -675,7 +714,7 @@ export default class PlayerController {
     private setHealth(value: number) {
         if (this.powerUps.isInvincible()) {
             if (value > 0) {
-                let newhealth = Phaser.Math.Clamp(value, 0, 100);
+                const newhealth = Phaser.Math.Clamp(value, 0, 100);
                 if (newhealth > this.health) {
                     this.health = newhealth;
                     events.emit('health-changed', this.health);
@@ -747,7 +786,7 @@ export default class PlayerController {
     }
 
     private idleOnUpdate() {
-        let d = (this.scene.game.loop.frame - this.lastAction);
+        const d = (this.scene.game.loop.frame - this.lastAction);
 
         if (d > 120) {
             this.sprite.play(this.getEventName('facing'));
@@ -764,9 +803,6 @@ export default class PlayerController {
         this.playerJumps();
 
         this.updateVelocities('idle');
-    }
-
-    public printinfo() {
     }
 
     private jumpOnEnter() {
@@ -812,8 +848,13 @@ export default class PlayerController {
     }
 
     private throwOnEnter() {
-
-        let delta = this.scene.game.loop.frame - this.lastThrow;
+        const delta = this.scene.game.loop.frame - this.lastThrow;
+        const dx = this.sprite.body?.position.x || -1;
+        const dy = this.sprite.body?.position.y || -1;
+        
+        if( dx == -1 && dy == -1 )
+            return;
+ 
         if (delta < this.throwDelay) {
             if (this.isLeft() || this.isRight()) {
                 this.stateMachine.setState('walk');
@@ -824,8 +865,8 @@ export default class PlayerController {
             return;
         }
 
-        let name = 'dropping' + UniqueID.genUniqueID();
-        let dropping = this.scene.matter.add.sprite(this.sprite.body.position.x - 12, this.sprite.body.position.y - 21, 'dropping', undefined, {
+        const name = 'dropping' + UniqueID.genUniqueID();
+        const dropping = this.scene.matter.add.sprite(dx - 12, dy - 21, 'dropping', undefined, {
             vertices: [{ x: 0, y: 0 }, { x: 24, y: 0 }, { x: 24, y: 24 }, { x: 0, y: 24 }],
             label: 'dropping',
             angle: 45,
@@ -833,7 +874,7 @@ export default class PlayerController {
         });
         this.poopbag.set(name, dropping);
 
-        let turdSpeed = 24;
+        const turdSpeed = 24;
         dropping.setBounce(0.9);
 
         dropping.setFriction(0.0);
@@ -852,11 +893,11 @@ export default class PlayerController {
         this.lastThrow = this.scene.game.loop.frame;
 
         dropping.setOnCollide((data: MatterJS.ICollisionPair) => {
-            let a = data.bodyB as MatterJS.BodyType;
-            let b = data.bodyA as MatterJS.BodyType;
+            const a = data.bodyB as MatterJS.BodyType;
+            const b = data.bodyA as MatterJS.BodyType;
 
             if (b.gameObject?.name === undefined) {
-                let tile = this.tilemap.getTileAtWorldXY(b.position.x, b.position.y, undefined, this.scene.cameras.main, 'ground');
+                const tile = this.tilemap.getTileAtWorldXY(b.position.x, b.position.y, undefined, this.scene.cameras.main, 'ground');
                 if (tile != null && tile.properties !== undefined && tile.properties.sound !== undefined) {
                     SceneFactory.playSound(this.sounds, tile.properties.sound);
                     if (tile.properties.damage > 0) {
@@ -874,18 +915,26 @@ export default class PlayerController {
                     case 'star':
                     case 'crate':
                     case 'carrot':
+                    case 'key':
                         SceneFactory.playSound(this.sounds, 'droppingbounces');
 
                         break;
                     case 'spikes':
                         SceneFactory.playSound(this.sounds, 'lava');
                         break;
+                    
                     case 'fire':
                         break;
                     case 'player':
                         if (a.gameObject?.name !== undefined)
-                            this.collectPoop(a.gameObject);
+                            this.collectPoop(a.gameObject, false);
 
+                        break;
+                    case 'boss':
+                        if(a.velocity.x > 4 || a.velocity.x < -4) {
+                            events.emit(b.gameObject.name + '-hit', b.gameObject);
+                            this.collectPoop(a.gameObject);
+                        }
                         break;
                     case 'dropping':
                         if (a.gameObject !== undefined)
@@ -898,11 +947,13 @@ export default class PlayerController {
                     default:
                         if (b.gameObject?.name !== undefined) {
                             if (a.velocity.x > 3 || a.velocity.x < -3) {
-                                events.emit(b.gameObject.name + '-stomped', b.gameObject);
-
                                 if (b.gameObject !== undefined) {
-                                    let score = 100;
-                                    let btxt = this.scene.add.bitmapText(b.position.x, b.position.y, 'press_start',
+                                    b.gameObject.setCollidesWith(6);
+
+                                    events.emit(b.gameObject.name + '-stomped', b.gameObject);
+
+                                    const score = 100;
+                                    const btxt = this.scene.add.bitmapText(b.position.x, b.position.y, 'press_start',
                                         '+100', 24).setTint(0x4b2a09);
                                     btxt.setBlendMode('DIFFERENCE');
 
@@ -991,13 +1042,14 @@ export default class PlayerController {
 
         this.hitTween();
 
-        this.setHealth(0);
+        //this.setHealth(0);
         this.lasthit = this.scene.time.now;
         SceneFactory.playSound(this.sounds, 'lava');
 
-        this.scene.time.delayedCall(100, () => {
-            this.stateMachine.setState('dead');
-        });
+        this.health = Phaser.Math.Clamp(0, 0, 100);
+
+        events.emit('health-changed', this.health);
+        this.stateMachine.setState('dead');
 
     }
 
@@ -1074,24 +1126,25 @@ export default class PlayerController {
     private creatureStompOnEnter() {
         this.sprite.setVelocityY(-10);
         if (this.lastHitBy !== undefined) {
-            let body = this.lastHitBy.body;
-            let score = 100;
-            let b = this.scene.add.bitmapText(body.position.x, body.position.y, 'press_start',
-                '+100', 24).setTint(0xffffff);
-            b.setBlendMode('DIFFERENCE');
+            const body = this.lastHitBy.body;
+            if(body != null) {
+                const score = 100;
+                const b = this.scene.add.bitmapText(body.position.x, body.position.y, 'press_start',
+                    '+100', 24).setTint(0xffffff);
+                b.setBlendMode('DIFFERENCE');
 
+                this.scene.add.tween({
+                    targets: b,
+                    alpha: 0,
+                    duration: 800,
+                    ease: 'Power2',
+                    onComplete: () => {
+                        b.destroy();
+                    }
+                });
 
-            this.scene.add.tween({
-                targets: b,
-                alpha: 0,
-                duration: 800,
-                ease: 'Power2',
-                onComplete: () => {
-                    b.destroy();
-                }
-            });
-
-            events.emit('enemy-killed', score);
+                events.emit('enemy-killed', score);
+            }
         }
 
         events.emit(this.lastHitBy?.name + '-stomped', this.lastHitBy);
@@ -1102,13 +1155,25 @@ export default class PlayerController {
     }
 
     private deadOnEnter() {
-        this.sprite.play(this.getEventName('dead'));
+        
+        if(this.isDead) {
+            return;
+        }
 
-        this.sprite.setOnCollide(() => { });
+        this.isDead = true;
+
+        console.log("Player died! ");
+
+        this.sprite.setInteractive(false);
+        this.sprite.setCollidesWith(6);
+        // eslint-disable-next-line @typescript-eslint/no-empty-function
+        this.sprite.setOnCollide( () => {} );
+
+        this.sprite.play(this.getEventName( 'dead'));
 
         this.scene.cameras.main.shake(500);
         this.scene.time.delayedCall(250, () => {
-            this.scene.cameras.main.fade(250);
+            this.scene.cameras.main.fade(4000);
         });
 
         this.stats.livesRemaining = (this.stats.livesRemaining > 0 ? this.stats.livesRemaining - 1 : 0);
@@ -1117,35 +1182,49 @@ export default class PlayerController {
 
         events.emit('lives-changed', this.stats.livesRemaining);
 
-        
+         
         if (this.stats.livesRemaining == 0) {
-            let bite = SceneFactory.krasotaSays(2,"");
-            let s = this.sounds.get(bite);
-            s!.on( 'complete', () => {
-                SceneFactory.krasotaUnlock();
+            const bite = SceneFactory.krasotaSays(2,"");
+            const s = this.sounds.get(bite);
+            if(s !== undefined ) {
+                s.on( 'complete', () => {
+                    SceneFactory.krasotaUnlock();
+                    events.emit('reset-game');
+                    this.scene.scene.start('game-over');
+                });
+                SceneFactory.playKrasota(this.sounds, bite,true );
+            } else {
                 events.emit('reset-game');
                 this.scene.scene.start('game-over');
-            });
-            SceneFactory.playKrasota(this.sounds, bite,true );
+            }
         }
         else {
-            let bite = SceneFactory.krasotaSays(1,"");
-            let s = this.sounds.get(bite);
-            s!.on( 'complete', () => {
-                SceneFactory.krasotaUnlock();
+            const bite = SceneFactory.krasotaSays(1,"");
+            const s = this.sounds.get(bite);
+            if(s !== undefined) {
+                s.on( 'complete', () => {
+                    SceneFactory.krasotaUnlock();
+                    this.scene.scene.restart();
+                    events.emit('restart');
+                });
+                SceneFactory.playKrasota(this.sounds, bite,true );
+            }
+            else {
                 this.scene.scene.restart();
-            });
-            SceneFactory.playKrasota(this.sounds, bite,true );
+                events.emit('restart');
+            }
         }
 
-        this.scene.time.delayedCall(2000, () => {
-            if(!SceneFactory.krasotaPlayStarted()) {
+        this.scene.time.delayedCall(5500, () => {
+            if(!SceneFactory.krasotaPlayStarted() || (SceneFactory.krasotaPlayStarted() && globalThis.krasota)) {
                 if(this.stats.livesRemaining == 0 ) {
+                    // 'complete' event not fired
                     events.emit('reset-game');
                     this.scene.scene.start('game-over');
                 }
                 else {
                     this.scene.scene.restart();
+                    events.emit('restart');
                 }
             }
         });
@@ -1172,9 +1251,21 @@ export default class PlayerController {
         this.sprite.setIgnoreGravity(false);
     }
 
-    private updateVelocities(state: string) {
+    public toggle() {
+        let voice = '';
+        if (this.name === 'player1') {
+            this.name = 'player2';
+            voice = '-cs'; // CryptoSeas
+        }
+        else if (this.name === 'player2') {
+            this.name = 'player1'; // Krasota
+        }
+        globalThis.rabbit = this.name;
+        globalThis.voice = voice;
+    }
 
-        let d = (this.scene.game.loop.frame - this.lastAction);
+    private updateVelocities(state: string) {
+        const d = (this.scene.game.loop.frame - this.lastAction);
         this.deltaS = (d > this.ACCEL_FRAMES ? this.playerSpeed : (d / this.ACCEL_FRAMES) * this.playerSpeed);
 
         let speed = this.getSpeed(this.deltaS); // this.deltaS;
@@ -1217,16 +1308,16 @@ export default class PlayerController {
     }
 
     private isValidTile(x, y) {
-        let tile = this.tilemap.getTileAtWorldXY(
+        const tile = this.tilemap.getTileAtWorldXY(
             x,
             y,
             false, this.scene.cameras.main, 'ground');
 
         if (tile != null) {
             if (tile.canCollide && tile.visible && tile.collides) {
-                let dmg = tile.properties?.damage || 0;
-                let bt = tile.properties?.breakable || false;
-                let hits = tile.properties?.hits || 0;
+                const dmg = tile.properties?.damage || 0;
+                const bt = tile.properties?.breakable || false;
+                const hits = tile.properties?.hits || 0;
                  
                 if ((dmg === undefined || dmg <= 0) && (bt === undefined || bt == false) && (hits == 0)) {
                     //tile.tint = 0xff0000;//debug
@@ -1240,10 +1331,14 @@ export default class PlayerController {
     public updateSpawnlocation() {
         if(this.sprite === undefined || this.sprite.body === undefined)
             return;
-        
-            let nx = ~~(this.sprite.body.position.x / 64) * 64;
-        let ny = ~~((this.sprite.body.position.y + 48) / 64) * 64;
-        let nny = ~~((this.sprite.body.position.y) / 64) * 64;
+     
+        if(!this.standingOnFloor)
+           return;
+
+        const nx =  ~~( this.sprite.body.position.x / 64) * 64;
+        const ny =  ~~((this.sprite.body.position.y + 48) / 64) * 64;
+        const nny = ~~((this.sprite.body.position.y) / 64) * 64;
+     
         if (
             this.isValidTile(
                 nx,
@@ -1251,27 +1346,23 @@ export default class PlayerController {
             )) {
             this.scene.game.registry.set('playerX', nx);
             this.scene.game.registry.set('playerY', nny);
+            this.spawn_x = nx;
+            this.spawn_y = ny;
         }
     }
 
     private handlePlatform(body: MatterJS.BodyType) {
-        let vec = body.gameObject?.getData('relpos');
+        const vec = body.gameObject?.getData('relpos');
         this.sprite.setPosition(
             Phaser.Math.RoundTo(this.sprite.body.position.x + vec.x),
             Phaser.Math.RoundTo(this.sprite.body.position.y + vec.y)
         );
 
-     //   this.sprite.body.velocity.x -= vec.x;
-     //   this.sprite.body.velocity.y -= vec.y;
-       
-     //this.sprite.setVelocity(this.sprite.body.velocity.x + vec.x, this.sprite.body.velocity.y + vec.y);
-
-     this.standingOnPlatform = true;
-        
+       this.standingOnPlatform = true;      
     }
 
     private bounceTile(body: MatterJS.BodyType) {
-        let tile = this.tilemap.getTileAtWorldXY(body.position.x, body.position.y, false, this.scene.cameras.main, 'ground');
+        const tile = this.tilemap.getTileAtWorldXY(body.position.x, body.position.y, false, this.scene.cameras.main, 'ground');
         if (tile != null) {
             this.scene.tweens.add({
                 targets: tile,
@@ -1288,15 +1379,15 @@ export default class PlayerController {
     }
 
     private bounceSprite(sprite: Phaser.Physics.Matter.Sprite) {
-        let oldY: number = sprite.body.position.y;
-        let t1: Phaser.Tweens.Tween = sprite.getData( 'tween' );
+        const oldY: number = sprite.body?.position.y || -1;
+        const t1: Phaser.Tweens.Tween = sprite.getData( 'tween' );
         if( t1 !== undefined) {
             return; // tween running
         }
 
-        let tw: Phaser.Tweens.Tween = this.scene.tweens.add({
+        const tw = this.scene.tweens.add({
             targets: sprite,
-            y: sprite.body.position.y - 32,
+            y: (sprite.body?.position.y || 0) - 32,
             duration: 100,
             ease: 'Bounce',
             onComplete: () => {
@@ -1310,21 +1401,22 @@ export default class PlayerController {
     }
 
     private bounceSpriteAndDestroy(sprite: Phaser.Physics.Matter.Sprite) {
-        let oldY: number = sprite.body.position.y;
+        
         sprite.setCollidesWith([]);
-
-        this.scene.tweens.add({
-            targets: sprite,
-            alpha: 0,
-            y: sprite.body.position.y - 64,
-            duration: 500,
-            ease: 'Bounce',
-            onComplete: (t) => {
-                sprite.destroy();
-            },
-            repeat: 0,
-            yoyo: false,
-        });
+        if( sprite.body != null) {
+            this.scene.tweens.add({
+                targets: sprite,
+                alpha: 0,
+                y: sprite.body.position.y - 64,
+                duration: 500,
+                ease: 'Bounce',
+                onComplete: () => {
+                    sprite.destroy();
+                },
+                repeat: 0,
+                yoyo: false,
+            });
+        }
     }
 
     private createAnims() {
@@ -1495,13 +1587,13 @@ export default class PlayerController {
     }
 
     private withForce(): number {
-        let f = (this.joystick === undefined ? 1 : this.joystick.force);
+        const f = (this.joystick === undefined ? 1 : this.joystick.force);
         return f;
     }
 
     private getSpeed(num: number) {
         if (this.joystick !== undefined) {
-            let vx = this.jp.dampenVelocityX(num);
+            const vx = this.jp.dampenVelocityX(num);
             return vx;
         }
         return num;
