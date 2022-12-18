@@ -1,17 +1,14 @@
-import Phaser, { Tilemaps } from 'phaser'
+import Phaser from 'phaser'
 import PlayerController from './PlayerController';
 import { sharedInstance as events } from './EventManager';
 
 export default class ChangeSkin {
 
     private sprite: Phaser.Physics.Matter.Sprite;
-    private scene: Phaser.Scene;
-
     private name: string;
 
     constructor(scene: Phaser.Scene, sprite: Phaser.Physics.Matter.Sprite, name: string) {
         this.sprite = sprite;
-        this.scene = scene;
         this.sprite.setData('type', 'changeskin');
         this.sprite.setName('changeskin');
         this.name = name;
@@ -28,12 +25,7 @@ export default class ChangeSkin {
             return;
         }
 
-        if (player.name === 'player1') {
-            player.name = 'player2';
-        }
-        else if (player.name === 'player2') {
-            player.name = 'player1';
-        }
+        player.toggle();
     }
 
 }
