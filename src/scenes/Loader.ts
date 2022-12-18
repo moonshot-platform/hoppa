@@ -12,21 +12,18 @@ export default class Loader extends Phaser.Scene {
 
 
     preload() {
-        let width = this.game.canvas.width;
-        let height = this.game.canvas.height;
+        const width = this.game.canvas.width;
+        const height = this.game.canvas.height;
         
-        let d = ~~(width / 12);
+        const d = ~~(width / 12);
 
         this.cameras.main.setBackgroundColor(0x000000);
         this.add.rectangle(d, d, width - d - d, height - d - d, 0x000000).setOrigin(0);
 
-        let startup = this.add.graphics();
-
-
-        let boot = this.make.text({
+        const boot = this.make.text({
             x: d + d,
             y: d,
-            text: 'RA8BIT BASIC version 22.0',
+            text: 'RA8BIT BASIC version 22.1',
             style: {
                 font: "48px 'Press Start 2P'",
                 color: "#ffffff",
@@ -35,7 +32,7 @@ export default class Loader extends Phaser.Scene {
         boot.setOrigin(0, 0);
 
 
-        let status = this.make.text({
+        const status = this.make.text({
             x: d + (d / 2),
             y: d + 64,
             text: '4GB RAM SYSTEM    4294958080 Bytes free',
@@ -46,7 +43,7 @@ export default class Loader extends Phaser.Scene {
         });
         status.setOrigin(0, 0);
 
-        let info = this.make.text({
+        const info = this.make.text({
             x: d + (d / 2),
             y: d + 64 + 64,
             text: '(C) RA8BITS & MOONSHOT',
@@ -74,11 +71,10 @@ export default class Loader extends Phaser.Scene {
         this.commandline.setColor("#ffffff");
         this.commandline.setFontSize(48);
 
-        var progressBar = this.add.graphics();
-        var progressBox = this.add.graphics();
-        var scene = this;
-
-        var percentText = this.make.text({
+        const progressBar = this.add.graphics();
+        const progressBox = this.add.graphics();
+        
+        const percentText = this.make.text({
             x: 4 + d + 128,
             y: d + 256,
             text: '0%',
@@ -89,8 +85,8 @@ export default class Loader extends Phaser.Scene {
 
         
         this.load.on('progress', function (value: string) {
-            let p1 = parseFloat(value);
-            let p = ~~(p1 * 100);
+            const p1 = parseFloat(value);
+            const p = ~~(p1 * 100);
             percentText.setText(p + '%');
             percentText.setColor('#ffffff');
             progressBar.clear();
@@ -98,7 +94,7 @@ export default class Loader extends Phaser.Scene {
             progressBox.fillRect(4 + d, d + 256, 128 * p1, 48);
         });
 
-        this.load.on('complete', (e) => {
+        this.load.on('complete', () => {
             this.ready.text = "READY."
             progressBar.destroy();
             progressBox.destroy();
@@ -111,7 +107,7 @@ export default class Loader extends Phaser.Scene {
     }
 
     create() {
-        this.typewriteText('POKE 53265,0: RUN', '#ffffff');
+        this.typewriteText('POKE 53265,0: RUN');
 
         this.time.delayedCall(1000, () => { this.cameras.main.shake(500, 0.02); }, undefined, this);
 
@@ -122,7 +118,7 @@ export default class Loader extends Phaser.Scene {
         this.scene.start('moonshot');
     }
 
-    typewriteText(text, color) {
+    typewriteText(text) {
         const length = text.length;
         let i = 0;
 
