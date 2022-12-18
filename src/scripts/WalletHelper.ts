@@ -52,10 +52,10 @@ export async function getCurrentAccount() {
     ];
     
     // save the current balances of Moonshot and Ra8bit tokens
-    let moonshotContract = new ethers.Contract("0x5298ad82dd7c83eeaa31dda9deb4307664c60534", abi , globalThis.signer );     
+    const moonshotContract = new ethers.Contract("0x5298ad82dd7c83eeaa31dda9deb4307664c60534", abi , globalThis.signer );     
     globalThis.moonshotBalance = await moonshotContract.balanceOf( globalThis.selectedAddress );
 
-    let ra8bitContract = new ethers.Contract("0x27424eE307488cA414f430b84A10483344E6d80a", abi , globalThis.signer );    
+    const ra8bitContract = new ethers.Contract("0x27424eE307488cA414f430b84A10483344E6d80a", abi , globalThis.signer );    
     globalThis.ra8bitBalance = await ra8bitContract.balanceOf( globalThis.selectedAddress );
 
     getMyNFTCollections();
@@ -67,7 +67,7 @@ export function isNotEligible(): boolean {
 
 export async function getMyNFTCollections() {
   let numCollections = 0;
-  let nftAddress = [
+  const nftAddress = [
     '0x82A3E038048CF02C19e60856564bE209899d4F12',
     '0x0CBd80abc67d403E4258894E62235DbaF93F2779',
     '0xa552F4c1eD2115779c19B835dCF5A895Cdc25624',
@@ -82,10 +82,9 @@ export async function getMyNFTCollections() {
       console.log("Server Error. Please try again later.");
       return;
     }
-    let arr = data.data;
+    const arr = data.data;
    
     for( const d of arr.data ) {
-
         if( nftAddress.includes( d.ArtistNFTAddress ) )
           numCollections ++;
     }
@@ -96,7 +95,7 @@ export async function getMyNFTCollections() {
 }
 
 export async function newRequest() {
-    let url = 'https://moonboxes.io/api/api/userData?NSFW=undefined&userAddress=' + globalThis.selectedAddress;
+    const url = 'https://moonboxes.io/api/api/userData?NSFW=undefined&userAddress=' + globalThis.selectedAddress;
     const { chainId }  = await provider.getNetwork();
     const response = await fetch( url, {
       method: 'GET',
