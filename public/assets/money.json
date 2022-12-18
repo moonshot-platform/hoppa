@@ -1,0 +1,83 @@
+{
+	"textures": [
+		{
+			"image": "money.webp",
+			"format": "RGBA8888",
+			"size": {
+				"w": 144,
+				"h": 48
+			},
+			"scale": 1,
+			"frames": [
+				{
+					"filename": "Munney1.webp",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 48,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 48,
+						"h": 48
+					},
+					"frame": {
+						"x": 0,
+						"y": 0,
+						"w": 48,
+						"h": 48
+					}
+				},
+				{
+					"filename": "Munney2.webp",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 48,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 48,
+						"h": 48
+					},
+					"frame": {
+						"x": 48,
+						"y": 0,
+						"w": 48,
+						"h": 48
+					}
+				},
+				{
+					"filename": "Munney3.webp",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 48,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 48,
+						"h": 48
+					},
+					"frame": {
+						"x": 96,
+						"y": 0,
+						"w": 48,
+						"h": 48
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "https://www.codeandweb.com/texturepacker",
+		"version": "3.0",
+		"smartupdate": "$TexturePacker:SmartUpdate:e09857221c9cede83a4360ba68b2def9:882bfff8a5904f15c4225f93605b8843:19b287edb76a5481ab50ec1fa57a50dd$"
+	}
+}
