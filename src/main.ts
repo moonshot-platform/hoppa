@@ -1,9 +1,10 @@
 import Phaser from 'phaser'
-
 import Start from './scenes/Start'
 import Level1 from './scenes/Level1'
 import Level2 from './scenes/Level2'
 import Level3 from './scenes/Level3'
+import Level4 from './scenes/Level4'
+import SelectPlayer from './scenes/SelectPlayer'
 import LogoScreen from './scenes/LogoScreen'
 import HoppaScreen from './scenes/HoppaScreen'
 import UI from './scenes/UI'
@@ -39,8 +40,7 @@ const config: Phaser.Types.Core.GameConfig = {
 				isFixed: true,
 				fps: 60
 			}
-		},
-		
+		},	
 	},
 	fps: {
 		target: 30,
@@ -49,22 +49,20 @@ const config: Phaser.Types.Core.GameConfig = {
 	input: {
 		activePointers: 4,
 	},
-	scene: [ Loader,LogoScreen, HoppaScreen,Story, Wallet, GameSettingsMenu,Help, Start, Level1,Level2,Level3,Bonus, Win, UI,  Pause, GameOver],	
+	scene: [ Loader,LogoScreen,HoppaScreen,Story,Wallet,GameSettingsMenu,Help,Start,SelectPlayer,Level1,Level2,Level3,Level4, Bonus,Win,UI,Pause,GameOver],	
 }
 
 window.addEventListener('load', () => {
-	window.setTimeout(() => {
-	  
-	  if( 'serviceWorker' in navigator ) {
-		navigator.serviceWorker.register('sw.js',  { scope: "/hoppa/" } )
-			.then( function(r) {
-				console.log("Registered service worker ", r.scope);
-			})
-			.catch(function(e) {
-				console.log("Service worker failed registration: ", e);
-			});
-	   }
-
-	   new Phaser.Game(config);
+	window.setTimeout(() => { 
+		if( 'serviceWorker' in navigator ) {
+			navigator.serviceWorker.register('sw.js',  { scope: "/hoppa/" } )
+				.then( function(r) {
+					console.log("Registered service worker ", r.scope);
+				})
+				.catch(function(e) {
+					console.log("Service worker failed registration: ", e);
+				});
+		}
+	new Phaser.Game(config);
 	}, 2000)
 });
