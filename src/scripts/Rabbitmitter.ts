@@ -10,7 +10,7 @@ export default class Rabbitmitter {
     constructor(scene, x, y, hits, pem, sprite) {
         this.scene = scene;
         this.sprite = sprite;
-        var particles = scene.add.particles(pem);
+        const particles = scene.add.particles(pem);
         this.emitter = particles.createEmitter({
             speed: 400,
             scale: { start: 0.66, end: 0 },  // for some strange reason, there is a crash on images of size 64x64 'reading halfWidth'
@@ -26,11 +26,11 @@ export default class Rabbitmitter {
     }
 
     removeBrick(map: Phaser.Tilemaps.Tilemap, body: MatterJS.BodyType) {
-        let x = ~~(body.position.x / 64);
-        let y = ~~(body.position.y / 64);
+        const x = ~~(body.position.x / 64);
+        const y = ~~(body.position.y / 64);
 
         this.layers.forEach((e) => {
-            let tile = map.getTileAt(x, y, false, e);
+            const tile = map.getTileAt(x, y, false, e);
             if (tile != null) {
                 tile.setVisible(false);
             }
@@ -41,10 +41,10 @@ export default class Rabbitmitter {
     }
 
     emitParticle(map: Phaser.Tilemaps.Tilemap, body: MatterJS.BodyType) {
-        let x = ~~(body.position.x / 64);
-        let y = ~~(body.position.y / 64);
+        const x = ~~(body.position.x / 64);
+        const y = ~~(body.position.y / 64);
 
-        let tile = map.getTileAt(x, y, false, 'ground');
+        const tile = map.getTileAt(x, y, false, 'ground');
         if (tile != null) {
             this.scene.tweens.add({
                 targets: tile,
