@@ -211,7 +211,7 @@ export default class Level3 extends BaseScene {
             }
         });
 
-        this.matter.world.convertTilemapLayer(ground, { label: 'ground', friction: 0, frictionStatic: 0 });
+        this.matter.world.convertTilemapLayer(this.ground1, { label: 'ground', friction: 0, frictionStatic: 0 });
         this.matter.world.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels, 1,true, true, false);
 
    /*     this.matter.world.drawDebug = false;

@@ -240,7 +240,6 @@ export function setupSounds(ctx: Phaser.Scene): Map<string, Phaser.Sound.BaseSou
     m.set( 'blowitoutofyourass',ctx.sound.add('blowitoutofyourass', { loop: false }));
     m.set( 'timetokickass', ctx.sound.add('timetokickass', { loop: false }));
 
-    m.clear(); //FIXME: remove map
     return m;
 }
 

@@ -155,7 +155,7 @@ export default class Level2 extends BaseScene {
         this.ground1 = this.map.createLayer('ground', [ groundTiles ]);
         this.layer1 = this.map.createLayer('layer1', [ groundTiles ]);
       
-        ground.setCollisionByProperty({ collides: true,recalculateFaces: false });
+        this.ground1.setCollisionByProperty({ collides: true,recalculateFaces: false });
              
         this.map.createLayer('obstacles', propTiles);
         this.layer1.setDepth(10);
