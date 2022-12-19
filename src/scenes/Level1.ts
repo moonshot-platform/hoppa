@@ -284,7 +284,13 @@ export default class Level1 extends BaseScene {
         this.ground1.destroy();
         this.map.destroy();
         SceneFactory.stopSound(this);
+        SceneFactory.removeAllSounds(this);
+        
         this.sounds.clear(); 
+    }
+
+    preDestroy() {
+        this.obstaclesController.destroy(this);
     }
 
     update(time: number, deltaTime: number) {

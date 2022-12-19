@@ -242,6 +242,10 @@ export default class Level3 extends BaseScene {
         this.playerController?.setJoystick(this, width);
     }
 
+    preDestroy() {
+        this.obstaclesController.destroy(this);
+    }
+
     destroy() {
 
         this.events.off('player-jumped', this.playerJumped, this);
@@ -270,7 +274,9 @@ export default class Level3 extends BaseScene {
         this.ground1.destroy();
         this.layer1.destroy();
         this.map.destroy();
+        
         SceneFactory.stopSound(this);
+        SceneFactory.removeAllSounds(this);
         this.sounds.clear();
     }
 

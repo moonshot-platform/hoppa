@@ -143,8 +143,6 @@ export default class Win extends CreditScene {
     }
 
     continueGame() {
-        SceneFactory.stopSound(this);
-
         this.scene.stop();
         this.scene.start('start');
     }
@@ -155,6 +153,9 @@ export default class Win extends CreditScene {
         this.fireworks.destroy();
         this.shoutout.destroy();
         this.scroller.destroy();
+    
+        SceneFactory.stopSound(this);
+        SceneFactory.removeAllSounds(this);
     }
 
 }

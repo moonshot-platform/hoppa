@@ -274,6 +274,10 @@ export default class Level4 extends BaseScene {
         this.spotlight.y = this.playerController?.getY() || 0;
     }
 
+    preDestroy() {
+        this.obstaclesController.destroy(this);
+    }
+    
     destroy() {
         this.events.off('player-jumped', this.playerJumped, this);
 
@@ -307,6 +311,7 @@ export default class Level4 extends BaseScene {
         this.objects.forEach(obj=>obj.destroy());
         
         SceneFactory.stopSound(this);
+        SceneFactory.removeAllSounds(this);
         this.sounds.clear();
     }
 

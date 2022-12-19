@@ -653,7 +653,6 @@ export default class PlayerController {
         this.trashcan.clear();
         this.sprite.destroy();
         this.stateMachine.destroy();
-        this.obstacles.destroy();
         this.sounds.clear();
         this.jp?.destroy();
        

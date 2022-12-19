@@ -33,7 +33,7 @@ export function creatureCreateDragon(ctx, x, y, width, height, enemyCat, collide
     dragon.setName('dragon');
     dragon.setData('type', 'dragon');
 
-    controller.add('dragon', dragon.body as MatterJS.BodyType);
+    controller.add('dragon', dragon,dragon.body as MatterJS.BodyType);
 
     return new DragonController(ctx, dragon, player, dragon.name, enemyCat, collideWith);
 }
@@ -51,7 +51,7 @@ export function creatureCreateBomb(ctx, x, y, width, height, enemyCat, collideWi
     bomb.setName('bomb');
     bomb.setData('type', 'bomb');
 
-    controller.add('bomb', bomb.body as MatterJS.BodyType);
+    controller.add('bomb', bomb,bomb.body as MatterJS.BodyType);
 
     return new BombController(ctx, bomb, bomb.name);
 }
@@ -69,7 +69,7 @@ export function createCreatureMonster(ctx, x, y, width, height, enemyCat, collid
     monster.setName('monster');
     monster.setData('type', 'monster');
 
-    controller.add('monster', monster.body as MatterJS.BodyType);
+    controller.add('monster',monster, monster.body as MatterJS.BodyType);
 
     return new MonsterController(ctx, monster, monster.name)
 }
@@ -88,7 +88,7 @@ export function createCreatureBat(ctx, x, y, width, height, enemyCat, collideWit
     bat.setName('bat');
     bat.setData('type', 'bat');
 
-    controller.add('bat', bat.body as MatterJS.BodyType);
+    controller.add('bat',bat, bat.body as MatterJS.BodyType);
 
     return new BatController(ctx, bat, bat.name);
 }
@@ -107,7 +107,7 @@ export function createCreatureBird(ctx, x, y, width, height, enemyCat, collideWi
     bird.setName('bird');
     bird.setData('type', 'bird');
 
-    controller.add('bird', bird.body as MatterJS.BodyType);
+    controller.add('bird', bird,bird.body as MatterJS.BodyType);
 
     return new BirdController(ctx, bird, bird.name);
 }
@@ -126,7 +126,7 @@ export function createCreatureCrow(ctx, x, y, width, height, enemyCat, collideWi
     crow.setName('crow');
     crow.setData('type', 'crow');
 
-    controller.add('crow', crow.body as MatterJS.BodyType);
+    controller.add('crow',crow, crow.body as MatterJS.BodyType);
 
     return new CrowController(ctx, crow, crow.name);
 }
@@ -145,7 +145,7 @@ export function createCreatureFly(ctx, x, y, width, height, enemyCat, collideWit
     fly.setName('fly');
     fly.setData('type', 'fly');
     fly.set
-    controller.add('fly', fly.body as MatterJS.BodyType);
+    controller.add('fly',fly, fly.body as MatterJS.BodyType);
 
     return new FlyController(ctx, fly, fly.name);
 }
@@ -163,7 +163,7 @@ export function createCreatureCrab(ctx, x, y, width, height, enemyCat, collideWi
     crab.setName('crab');
     crab.setData('type', 'crab');
 
-    controller.add('crab', crab.body as MatterJS.BodyType);
+    controller.add('crab', crab,crab.body as MatterJS.BodyType);
 
     return new CrabController(ctx, crab, crab.name)
 }
@@ -180,7 +180,7 @@ export function createCreatureFire(ctx, x, y, width, height, enemyCat, collideWi
     fire.setCollidesWith(collideWith);
     fire.setName('fire');
 
-    controller.add('fire', fire.body as MatterJS.BodyType);
+    controller.add('fire',fire, fire.body as MatterJS.BodyType);
 
     return new FireController(ctx, fire, fire.name);
 }
@@ -199,7 +199,7 @@ export function createCreatureSaw(ctx, x, y, width, height, rot, enemyCat, colli
     saw.setCollidesWith(collideWith);
     saw.setName('saw');
 
-    controller.add('saw', saw.body as MatterJS.BodyType);
+    controller.add('saw',saw, saw.body as MatterJS.BodyType);
 
     return new SawController(ctx, saw, saw.name);
 }
@@ -217,7 +217,7 @@ export function creatureCreatureFireWalker(ctx, x, y, width, height, enemyCat, c
     firewalker.setName('firewalker');
     firewalker.setData('type', 'firewalker');
 
-    controller.add('firewalker', firewalker.body as MatterJS.BodyType);
+    controller.add('firewalker', firewalker, firewalker.body as MatterJS.BodyType);
 
     return new FireWalkerController(ctx, firewalker, firewalker.name);
 }
@@ -234,7 +234,7 @@ export function createCreatureFlower(ctx, x, y, width, height, enemyCat, collide
     flower.setName('flower');
     flower.setData('type', 'flower');
 
-    controller.add('flower', flower.body as MatterJS.BodyType);
+    controller.add('flower', flower,flower.body as MatterJS.BodyType);
 
     return new FlowerController(ctx, flower, flower.name);
 }
@@ -250,7 +250,7 @@ export function createCreaturePlant(ctx, x, y, width, height, enemyCat, collideW
     plant.setCollidesWith(collideWith);
     plant.setName('plant');
 
-    controller.add('plant', plant.body as MatterJS.BodyType);
+    controller.add('plant', plant,plant.body as MatterJS.BodyType);
 
     return new PlantController(ctx, plant, plant.name);
 }
@@ -276,7 +276,7 @@ export function createCreatureLava(ctx, name,x, y, width, height, enemyCat, coll
     lava.setName(name);
     lava.setData('type', name);
 
-    controller.add(name, lava.body as MatterJS.BodyType);
+    controller.add(name, lava,lava.body as MatterJS.BodyType);
 
     return new LavaController(ctx, lava, lava.name);
 }
@@ -292,7 +292,7 @@ export function createCreatureBear(ctx, x, y, width, height, enemyCat, collideWi
     bear.setCollidesWith(collideWith);
     bear.setName('bear');
 
-    controller.add('bear', bear.body as MatterJS.BodyType);
+    controller.add('bear', bear,bear.body as MatterJS.BodyType);
 
     return new BearController(ctx, bear, bear.name, playerController);
 }
@@ -308,7 +308,7 @@ export function createCreatureBoss(ctx, x, y, width, height, enemyCat, collideWi
     boss.setCollidesWith(collideWith);
     boss.setName('boss');
 
-    controller.add('boss', boss.body as MatterJS.BodyType);
+    controller.add('boss', boss,boss.body as MatterJS.BodyType);
 
     return new BossController(ctx, boss, boss.name, enemyCat, collideWith, playerController, controller);
 }
@@ -325,7 +325,7 @@ export function createCreatureTNT(ctx, x, y, width, height, enemyCat, collideWit
     tnt.setCollidesWith(collideWith);
     tnt.setName('tnt');
 
-    controller.add('tnt', tnt.body as MatterJS.BodyType);
+    controller.add('tnt', tnt,tnt.body as MatterJS.BodyType);
 
     return new TNTController(ctx, tnt, tnt.name);
 }
@@ -344,7 +344,7 @@ export function createCreatureZeppelin1(ctx, x, y, width, height, enemyCat, coll
     zep.setName('zeppelin1');
     zep.setData('type', 'zeppelin');
 
-    controller.add('zeppelin1', zep.body as MatterJS.BodyType);
+    controller.add('zeppelin1',zep, zep.body as MatterJS.BodyType);
 
     return new ZeppelinController(ctx, zep, zep.name);
 }
@@ -364,7 +364,7 @@ export function createCreatureZeppelin2(ctx, x, y, width, height, enemyCat, coll
     zep.setData('type', 'zeppelin');
     zep.setName('zeppelin2');
 
-    controller.add('zeppelin2', zep.body as MatterJS.BodyType);
+    controller.add('zeppelin2', zep,zep.body as MatterJS.BodyType);
 
     return new ZeppelinController(ctx, zep, zep.name);
 }
@@ -381,7 +381,7 @@ export function createLightSwitch(ctx, x, y, width, height, rotation, enemyCat, 
     zelightswitch.setCollisionCategory(enemyCat);
     zelightswitch.setCollidesWith(collideWith);
 
-    controller.add('lightswitch', zelightswitch.body as MatterJS.BodyType);
+    controller.add('lightswitch', zelightswitch, zelightswitch.body as MatterJS.BodyType);
 
     return new LightSwitchController(ctx, zelightswitch, player, zelightswitch.name);
 }
@@ -398,7 +398,7 @@ export function createWindow(ctx,x,y,width,height,rotation,enemyCat, collideWith
     win.setCollisionCategory(enemyCat);
     win.setCollidesWith([6]);
 
-    controller.add('window', win.body as MatterJS.BodyType);
+    controller.add('window', win, win.body as MatterJS.BodyType);
     
     return new DoorController(ctx, win, 'window');
 }

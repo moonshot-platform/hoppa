@@ -233,6 +233,10 @@ export default class Bonus extends Phaser.Scene {
         this.playerController?.setJoystick(this, width);
     }
 
+    preDestroy() {
+        this.obstaclesController.destroy(this);
+    }
+
     destroy() {
 
         this.introMusic.destroy();
@@ -264,8 +268,9 @@ export default class Bonus extends Phaser.Scene {
         
         
         this.map.destroy();
-
+        
         SceneFactory.stopSound(this);
+        SceneFactory.removeAllSounds(this);
         
     }
 

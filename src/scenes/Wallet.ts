@@ -55,7 +55,6 @@ export default class Wallet extends Phaser.Scene {
 
     startGame() {
         this.image.destroy();
-        SceneFactory.stopSound(this);
         this.scene.stop();
         this.scene.start('player-select');
     }

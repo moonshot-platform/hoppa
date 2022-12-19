@@ -148,6 +148,8 @@ export default class GameSettingsMenu extends Phaser.Scene {
         this.maleRabbit.destroy();
         this.femaleRabbit.destroy();
         this.arrow.destroy();
+        SceneFactory.stopSound(this);
+        SceneFactory.removeAllSounds(this);
     }
 
     continueGame() {

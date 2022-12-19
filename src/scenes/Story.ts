@@ -60,7 +60,7 @@ export default class Story extends CreditScene {
         this.image.destroy();
         this.scroller.destroy();
         SceneFactory.stopSound(this);
-        
+        SceneFactory.removeAllSounds(this);
     }
 
     nextStory() {

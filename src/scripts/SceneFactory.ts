@@ -7,6 +7,7 @@ import BillBoard from './BillBoard';
 import ChangeSkin from './ChangeSkin';
 import NeonController from './NeonController';
 import BarController from './BarController';
+import ObstaclesController from './ObstaclesController';
 
 declare global {
     var musicTune: boolean;
@@ -307,6 +308,10 @@ export function stopSound(ctx: Phaser.Scene) {
     ctx.game.sound.stopAll();
    // ctx.sound.destroy();
     globalThis.musicTune = false;
+}
+
+export function removeAllSounds(ctx: Phaser.Scene) {
+    ctx.game.sound.removeAll();
 }
 
 export function loadSettings() {
@@ -655,7 +660,7 @@ export function createPlayer(ctx, x: number, y: number, width: number, height: n
     return player;
 }
 
-export function basicCreate(ctx, name, x, y, width, height, rotation, enemyCat, collideWith, controller, objData, player) {
+export function basicCreate(ctx, name, x, y, width, height, rotation, enemyCat, collideWith, controller: ObstaclesController, objData, player) {
     switch (name) {
         case 'neon': {
             const variation = objData.properties.find((p)=>p.name === 'taste')?.value || 'neon';
@@ -667,7 +672,7 @@ export function basicCreate(ctx, name, x, y, width, height, rotation, enemyCat, 
             const m = new NeonController(ctx,neon,variation);
             neon.setCollisionGroup(6);
             neon.setCollidesWith([6]);
-            controller.add('neon', neon.body as MatterJS.BodyType);
+            controller.add('neon', neon, neon.body as MatterJS.BodyType);
             ctx.neon.push(m);
             break;
         }
@@ -797,7 +802,7 @@ export function basicCreate(ctx, name, x, y, width, height, rotation, enemyCat, 
                 isStatic: true,
                 label: 'pipe'
             });
-            controller.addWithValues('pipe', pipe, { "dstx": dstx, "dsty": dsty, "delay": delay, "duration": duration, "room_width": room_wid, "room_height": room_hei });
+            controller.addWithValues('pipe', undefined, pipe,{ "dstx": dstx, "dsty": dsty, "delay": delay, "duration": duration, "room_width": room_wid, "room_height": room_hei });
             break;
         }
         case 'platform': {
@@ -813,7 +818,7 @@ export function basicCreate(ctx, name, x, y, width, height, rotation, enemyCat, 
             });
 
             const m = new MovingPlatform(ctx, x, y, to, duration, vert, platform, noautostart, platform.body.id);
-            controller.add('platform', platform.body as MatterJS.BodyType);
+            controller.add('platform', platform, platform.body as MatterJS.BodyType);
             break;
         }
         case 'bar': {
@@ -827,7 +832,7 @@ export function basicCreate(ctx, name, x, y, width, height, rotation, enemyCat, 
             bar.setCollidesWith([]);
 
             const m = new BarController(ctx,bar,'bar');
-            controller.add('bar', bar.body as MatterJS.BodyType);
+            controller.add('bar', bar, bar.body as MatterJS.BodyType);
             break
         }
         case 'sink': {
@@ -848,7 +853,7 @@ export function basicCreate(ctx, name, x, y, width, height, rotation, enemyCat, 
                 label: 'brick',
             });
             const m = new Rabbitmitter(ctx, x, y, hits, pem, brick);
-            controller.addWithValues('brick', brick, { "use": hits, "emitter": m });
+            controller.addWithValues('brick', undefined, brick, { "use": hits, "emitter": m });
             break;
         }
         case 'coinbrick': {
@@ -858,14 +863,14 @@ export function basicCreate(ctx, name, x, y, width, height, rotation, enemyCat, 
                 isStatic: true,
                 label: 'coinbrick',
             });
-            controller.addWithValues('coinbrick', brick, { "use": hits });
+            controller.addWithValues('coinbrick', undefined,brick, { "use": hits });
             break;
         }
         case 'spikes': {
             const spike = ctx.matter.add.rectangle(x + (width * 0.5), y + (height * 0.5), width, height, {
                 isStatic: true
             });
-            controller.add('spikes', spike);
+            controller.add('spikes', undefined,spike);
             break;
         }
         case 'bonus': {
@@ -874,7 +879,7 @@ export function basicCreate(ctx, name, x, y, width, height, rotation, enemyCat, 
                 isStatic: true,
                 label: 'bonus',
             });
-            controller.addWithValues('bonus', bonus, { "use": 3 }, { "last": -1 });
+            controller.addWithValues('bonus', undefined, bonus, { "use": 3, "last": -1 });
             break;
         }
         case 'exit': {
@@ -885,7 +890,7 @@ export function basicCreate(ctx, name, x, y, width, height, rotation, enemyCat, 
                 isStatic: true,
                 label: 'exit',
             });
-            controller.addWithValues('exit', bonus, { "event": ev, "room": room });
+            controller.addWithValues('exit',undefined, bonus, { "event": ev, "room": room });
             break;
         }
         case 'return': {
@@ -897,7 +902,7 @@ export function basicCreate(ctx, name, x, y, width, height, rotation, enemyCat, 
             const dx = objData.properties.find((p) => p.name === 'spawnx').value;
             const dy = objData.properties.find((p) => p.name === 'spawny').value;
 
-            controller.addWithValues('return', bonus, { "spawnx": dx, "spawny": dy });
+            controller.addWithValues('return',undefined, bonus, { "spawnx": dx, "spawny": dy });
             break;
         }
         case 'goto': {
@@ -911,7 +916,7 @@ export function basicCreate(ctx, name, x, y, width, height, rotation, enemyCat, 
             const camw = objData.properties.find((p) => p.name === 'camera-width').value;
             const camh = objData.properties.find((p) => p.name === 'camera-height').value;
 
-            controller.addWithValues('goto', bonus.body as MatterJS.BodyType, { "spawnx": dx, "spawny": dy, "camw": camw, "camh": camh });
+            controller.addWithValues('goto',undefined, bonus, { "spawnx": dx, "spawny": dy, "camw": camw, "camh": camh });
 
             break;
         }
@@ -923,7 +928,7 @@ export function basicCreate(ctx, name, x, y, width, height, rotation, enemyCat, 
                 render: { sprite: { yOffset: 64 } },
             }).setOrigin(0.5, 0.33);
             new BillBoard(ctx, billboard);
-            controller.add('billboard', billboard.body as MatterJS.BodyType);
+            controller.add('billboard',billboard, billboard.body as MatterJS.BodyType);
             break;
         }
         case 'changeskin': {
@@ -935,7 +940,7 @@ export function basicCreate(ctx, name, x, y, width, height, rotation, enemyCat, 
 
             });
             new ChangeSkin(ctx, skin, 'changeskin');
-            controller.addWithValues('changeskin', skin.body as MatterJS.BodyType, { "use": use });
+            controller.addWithValues('changeskin',skin,  skin.body as MatterJS.BodyType, { "use": use });
             break;
         }
 

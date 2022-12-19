@@ -225,7 +225,6 @@ export default class UI extends Phaser.Scene {
         this.time_start = 0;
         
         this.resetSpawnPoint();
-        SceneFactory.stopSound(this);
         this.scene.stop(); // stop UI
     }
     
@@ -285,7 +284,6 @@ export default class UI extends Phaser.Scene {
         this.save();
 
         this.resetSpawnPoint();
-        SceneFactory.stopSound(this);
         this.scene.stop();
         this.time_start = 0;
     }

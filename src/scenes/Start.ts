@@ -213,7 +213,9 @@ export default class Start extends BaseScene {
         else
             this.scene.start('player-select');
     }
-
+    preDestroy() {
+        this.obstaclesController.destroy(this);
+    }
     destroy() {
 
         this.input.off('pointerdown', () => { this.continueGame(); });
@@ -235,7 +237,6 @@ export default class Start extends BaseScene {
         this.flies.forEach(fly => fly.destroy());
         this.crows.forEach(crow => crow.destroy());
         this.saws.forEach(saw => saw.destroy());
-        this.obstaclesController.destroy();
         this.shoutout.destroy();
         this.credits.destroy();
 
@@ -243,6 +244,7 @@ export default class Start extends BaseScene {
         this.ground1.destroy();
         this.map.destroy();
         SceneFactory.stopSound(this);
+        SceneFactory.removeAllSounds(this);
 
     }
 
