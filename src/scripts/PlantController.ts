@@ -36,6 +36,8 @@ export default class PlantController {
     destroy() {
         events.off(this.name + '-stomped', this.handleStomped, this);
         events.off(this.name + '-touched', this.handleTouched, this);
+
+        this.cleanup();
     }
 
     update(deltaTime: number) {
@@ -101,7 +103,11 @@ export default class PlantController {
 
 
     private cleanup() {
-        this.sprite.destroy();
+        if(this.sprite !== undefined) {
+           this.sprite.destroy();
+           this.stateMachine.destroy();
+        }
+        this.sprite = undefined;
     }
 
     private createAnims() {

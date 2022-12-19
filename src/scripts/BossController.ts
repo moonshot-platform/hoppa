@@ -16,6 +16,9 @@ export default class BossController {
     private playerController: PlayerController;
     private moneybag = new Map<string, Phaser.Physics.Matter.Sprite>;
 
+    private p4: Phaser.GameObjects.Particles.ParticleEmitterManager;
+    private p3: Phaser.GameObjects.Particles.ParticleEmitterManager;
+
     private emitter: Phaser.GameObjects.Particles.ParticleEmitter;
     private plof: Phaser.GameObjects.Particles.ParticleEmitter;
     private obstacles: ObstaclesController;
@@ -30,7 +33,7 @@ export default class BossController {
     private enemyCat: any;
     private collideWith: any;
 
-    private health = 10;
+    private health = 100;
     private healthbg: Phaser.GameObjects.Rectangle
     private healthbar: Phaser.GameObjects.Rectangle;
 
@@ -58,10 +61,10 @@ export default class BossController {
         this.enemyCat = enemyCat;
         this.obstacles = obstacles;
         this.collideWith = collideWith;
-        const p3 = scene.add.particles('money');
-        p3.setDepth(20);
+        this.p3 = scene.add.particles('money');
+        this.p3.setDepth(20);
         
-        this.emitter = p3.createEmitter({
+        this.emitter = this.p3.createEmitter({
             speed: 250,
             scale: { start: 1, end: 1 },  
             blendMode: '',
@@ -75,9 +78,9 @@ export default class BossController {
             frame: {  frames: [ "Munney1.webp", "Munney2.webp", "Munney3.webp" ], cycle: false },
         });
 
-        const p4 = scene.add.particles('plof');
-        p4.setDepth(12);
-        this.plof = p4.createEmitter({
+        this.p4 = scene.add.particles('plof');
+        this.p4.setDepth(12);
+        this.plof = this.p4.createEmitter({
             speed: 1,
             scale: { start: 0.75, end: 1 },  
             blendMode: 'SCREEN',
@@ -138,7 +141,12 @@ export default class BossController {
 
     destroy() {
         events.off(this.name + '-stomped', this.handleStomped, this);
-        events.off(this.name + '-hit', this.handleHit, this); 
+        events.off(this.name + '-hit', this.handleHit, this);
+
+        this.p3.destroy();
+        this.p4.destroy();
+
+        this.stateMachine.destroy();
     }
 
     update(deltaTime: number) {

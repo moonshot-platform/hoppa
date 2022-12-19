@@ -43,6 +43,8 @@ export default class LightSwitchController {
 
     destroy() {
         events.off(this.name + '-touched', this.handleTouched, this);
+
+        this.sprite.destroy();
     }
 
     update(deltaTime) {

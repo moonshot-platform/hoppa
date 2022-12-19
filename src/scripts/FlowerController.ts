@@ -29,6 +29,8 @@ export default class FlowerController {
 
     destroy() {
         events.off(this.name + '-stomped', this.handleStomped, this);
+
+        this.cleanup();
     }
 
     update(deltaTime: number) {
@@ -59,7 +61,11 @@ export default class FlowerController {
     }
 
     private cleanup() {
-        this.sprite.destroy();
+        if(this.sprite !== undefined) {
+           this.sprite.destroy();
+           this.stateMachine.destroy();
+        }
+        this.sprite = undefined;
     }
 
     private createAnims() {

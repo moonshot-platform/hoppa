@@ -43,6 +43,8 @@ export default class ZeppelinController {
 
     destroy() {
         events.off(this.name + '-blocked', this.handleBlocked, this);
+
+        this.sprite.destroy();
     }
 
     update(deltaTime: number) {

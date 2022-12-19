@@ -47,6 +47,8 @@ export default class FireController {
 
     destroy() {
         events.off(this.name + '-blocked', this.handleBlocked, this);
+
+        this.cleanup();
     }
 
     update(deltaTime: number) {
@@ -111,6 +113,15 @@ export default class FireController {
             return;
         }
         this.garbage = true;
+        this.cleanup();
+    }
+
+    private cleanup() {
+        if(this.sprite !== undefined) {
+           this.sprite.destroy();
+           this.stateMachine.destroy();
+        }
+        this.sprite = undefined;
     }
 
     private handleBlocked(fire: Phaser.Physics.Matter.Sprite) {

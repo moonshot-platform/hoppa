@@ -38,6 +38,8 @@ export default class BearController {
 
     destroy() {
         events.off(this.name + '-stomped', this.handleStomped, this);
+
+        this.cleanup();
     }
 
     update(deltaTime: number) {
@@ -100,9 +102,12 @@ export default class BearController {
     }
 
     private cleanup() {
-        this.sprite.destroy();
+        if(this.sprite !== undefined) {
+           this.sprite.destroy();
+           this.stateMachine.destroy();
+        }
+        this.sprite = undefined;
     }
-
     public keepObject() {
         return !this.garbage;
     }

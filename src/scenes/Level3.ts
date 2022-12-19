@@ -46,7 +46,9 @@ export default class Level3 extends BaseScene {
     private flies: FlyController[] = [];
     private crows: CrowController[] = [];
     private saws: SawController[] = [];
-    
+    private objects: Phaser.Physics.Matter.Sprite[] = [];
+    private ground1: Phaser.Tilemaps.TilemapLayer;
+    private layer1: Phaser.Tilemaps.TilemapLayer;
     private playerX = -1;
     private playerY = -1;
 
@@ -76,6 +78,7 @@ export default class Level3 extends BaseScene {
         this.flies = [];
         this.crows = [];
         this.saws = [];
+        this.objects = [];
         this.sounds = new Map<string, Phaser.Sound.BaseSound>();
 
         this.info = {
@@ -92,7 +95,7 @@ export default class Level3 extends BaseScene {
         };
 
         const data = window.localStorage.getItem('ra8bit.stats');
-        if (data != null) {
+        if( data != null ) {
             const obj = JSON.parse(data);
             this.info = obj as PlayerStats;
         }
@@ -143,13 +146,13 @@ export default class Level3 extends BaseScene {
         const propTiles = this.map.addTilesetImage('props', 'propTiles', 64, 64, 0, 2);
         const grasTiles = this.map.addTilesetImage('gras', 'grasTiles', 64, 64, 0, 2);
 
-        const ground = this.map.createLayer('ground', [groundTiles, grasTiles]);
-        const layer1 = this.map.createLayer('layer1', [groundTiles, grasTiles]);
+        this.ground1 = this.map.createLayer('ground', [groundTiles, grasTiles]);
+        this.layer1 = this.map.createLayer('layer1', [groundTiles, grasTiles]);
 
-        ground.setCollisionByProperty({ collides: true, recalculateFaces: false });
+        this.ground1.setCollisionByProperty({ collides: true, recalculateFaces: false });
 
         this.map.createLayer('obstacles', propTiles);
-        layer1.setDepth(10);
+        this.layer1.setDepth(10);
 
         const playerCat = 2;
         const enemyCat = 4;
@@ -262,7 +265,13 @@ export default class Level3 extends BaseScene {
         this.crows.forEach(crow => crow.destroy());
         this.saws.forEach(saw => saw.destroy());
 
+        this.objects.forEach(obj => obj.destroy());
+
+        this.ground1.destroy();
+        this.layer1.destroy();
         this.map.destroy();
+        SceneFactory.stopSound(this);
+        this.sounds.clear();
     }
 
     update(time: number, deltaTime: number) {

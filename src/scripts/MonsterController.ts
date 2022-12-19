@@ -45,6 +45,8 @@ export default class MonsterController {
     destroy() {
         events.off(this.name + '-stomped', this.handleStomped, this);
         events.off(this.name + '-blocked', this.handleBlocked, this);
+
+        this.cleanup();
     }
 
     update(deltaTime: number) {
@@ -133,7 +135,11 @@ export default class MonsterController {
     }
 
     private cleanup() {
-        this.sprite.destroy();
+        if(this.sprite !== undefined) {
+           this.sprite.destroy();
+           this.stateMachine.destroy();
+        }
+        this.sprite = undefined;
     }
 
     public keepObject() {

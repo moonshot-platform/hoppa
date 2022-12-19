@@ -30,6 +30,7 @@ export default class LavaController {
 
     destroy() {
         this.sprite.destroy();
+        this.stateMachine.destroy();
     }
 
     update(deltaTime: number) {

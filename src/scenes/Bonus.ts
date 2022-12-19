@@ -46,7 +46,7 @@ export default class Bonus extends Phaser.Scene {
     private crows: CrowController[] = [];
     private saws: SawController[] = [];
     private lightswitches: LightSwitchController[] = [];
-
+    private objects: Phaser.Physics.Matter.Sprite[] = [];
     private ground!: Phaser.Tilemaps.TilemapLayer;
     private layer1!: Phaser.Tilemaps.TilemapLayer;
     private introMusic!: Phaser.Sound.BaseSound;
@@ -83,7 +83,7 @@ export default class Bonus extends Phaser.Scene {
         this.saws = [];
         this.lightswitches = [];
         this.sounds = new Map<string, Phaser.Sound.BaseSound>();
-
+        this.objects = [];
         this.info = {
             'lastHealth': 100,
             'coinsCollected': 0,
@@ -257,11 +257,16 @@ export default class Bonus extends Phaser.Scene {
         this.crows.forEach(crow => crow.destroy());
         this.saws.forEach(saw => saw.destroy());
         this.lightswitches.forEach(l => l.destroy());
+        this.objects.forEach(obj=>obj.destroy());
 
         this.ground.destroy();
         this.layer1.destroy();
-
+        
+        
         this.map.destroy();
+
+        SceneFactory.stopSound(this);
+        
     }
 
     update(time: number, deltaTime: number) {

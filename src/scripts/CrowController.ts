@@ -45,6 +45,8 @@ export default class CrowController {
     destroy() {
         events.off(this.name + '-stomped', this.handleStomped, this);
         events.off(this.name + '-blocked', this.handleBlocked, this);
+
+        this.cleanup();
     }
 
     update(deltaTime: number) {
@@ -101,9 +103,13 @@ export default class CrowController {
         });
         this.stateMachine.setState('dead');
     }
-
+    
     private cleanup() {
-        this.sprite.destroy();
+        if(this.sprite !== undefined) {
+           this.sprite.destroy();
+           this.stateMachine.destroy();
+        }
+        this.sprite = undefined;
     }
 
     private handleBlocked(crow: Phaser.Physics.Matter.Sprite) {

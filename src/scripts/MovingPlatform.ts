@@ -14,10 +14,11 @@ export default class MovingPlatform {
     private vx = 0;
     private vy = 0;
     private lastX = 0;
+    private id = 0;
     private lastY = 0;
     private noautostart = false;
     
-    constructor(scene, x, y, to, duration, vertical, sprite: Phaser.Physics.Matter.Sprite, nas: false) {
+    constructor(scene, x, y, to, duration, vertical, sprite: Phaser.Physics.Matter.Sprite, nas: false, id) {
         this.startX = x;
         this.startY = y;
         this.to = (to * 64);
@@ -29,12 +30,12 @@ export default class MovingPlatform {
         this.sprite.setDepth(16);
         this.lastX = x;
         this.lastY = y;
+        this.id = id;
         this.noautostart = nas;
 
         if(this.noautostart) {
             this.disable();
             events.on('wakeup-object', this.enable, this);
-            console.log("Not auto starting platform");
         }
         else {
             this.enable();
@@ -67,6 +68,8 @@ export default class MovingPlatform {
         if(!this.noautostart) {
             events.off('wakeup-object', this.start);
         }
+
+        this.sprite.destroy();
     }
 
     moveVertically() {
@@ -85,10 +88,10 @@ export default class MovingPlatform {
                 this.sprite.setVelocityY(dy);
                 this.sprite.setPosition(this.lastX, y);
                
-                this.vy = this.sprite.body.velocity.y;
-                this.vx = this.sprite.body.velocity.x;
+                this.vy = dy;
+                this.vx = 0;
                
-                this.sprite.setData('relpos', { x: this.vx, y: this.vy, vert: true, direction: (this.vy < 0 ? -1 : 1) });
+                this.sprite.setData('relpos' + this.id, { x: this.vx, y: this.vy, vert: true, direction: (this.vy < 0 ? -1 : 1) });
         
                 this.lastX = this.sprite.body.position.x;
                 this.lastY = this.sprite.body.position.y;
@@ -107,19 +110,18 @@ export default class MovingPlatform {
             yoyo: true,
             onUpdate: (tween, target) => {
                 const x = Phaser.Math.RoundTo(this.startX + target.value,0);
-                const dx = x - this.lastX; // x - this.sprite.x;
+                const dx = x - this.sprite.x; // x - this.sprite.x;
              
                 this.sprite.setVelocityX(dx);
                 this.sprite.setPosition(x, this.lastY);
                 
                 this.vy = this.sprite.body.velocity.y;
-                this.vx = this.sprite.body.velocity.x;
+                this.vx = dx;//this.sprite.body.velocity.x;
 
-                this.sprite.setData('relpos', { x: this.vx, y: this.vy, vert: false, direction: (this.vx < 0 ? -1 : 1) });
+                if(this.vx != 0 ) this.sprite.setData('relpos' + this.id, { x: this.vx, y: this.vy, vert: false, direction: (this.vx < 0 ? -1 : 1) });
         
                 this.lastX = this.sprite.body.position.x;
                 this.lastY = this.sprite.body.position.y;
-
             }
         });
     }

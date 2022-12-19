@@ -111,6 +111,9 @@ export default class DoorController {
 
     public destroy() {
         this.sprite.destroy();
+        this.sprite2.destroy();
+        this.sprite3.destroy();
+        this.sprite4.destroy();
     }
   
     private idleOnEnter() {

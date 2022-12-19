@@ -27,5 +27,6 @@ export default class BarController {
 
     public destroy() {
         this.sprite.destroy();
+        
     }
 }

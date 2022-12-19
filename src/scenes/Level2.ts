@@ -50,6 +50,9 @@ export default class Level2 extends BaseScene {
     private saws: SawController[] = [];
     private boss: BossController[] = [];
     private lava: LavaController[] = [];
+    private objects: Phaser.Physics.Matter.Sprite[] = [];
+    private ground1: Phaser.Tilemaps.TilemapLayer;
+    private layer1: Phaser.Tilemaps.TilemapLayer;
 
     private playerX = -1;
     private playerY = -1;
@@ -82,6 +85,7 @@ export default class Level2 extends BaseScene {
         this.saws = [];
         this.boss = [];
         this.lava = [];
+        this.objects = [];
         this.sounds = new Map<string,Phaser.Sound.BaseSound>();
 
         this.info = {
@@ -148,13 +152,13 @@ export default class Level2 extends BaseScene {
         this.map = this.make.tilemap({ key: 'tilemap2', tileWidth: 64, tileHeight: 64 });
         const groundTiles = this.map.addTilesetImage('ground', 'groundTiles', 64, 64, 0, 2);
         const propTiles = this.map.addTilesetImage('props', 'propTiles', 64, 64, 0, 2);
-        const ground = this.map.createLayer('ground', [ groundTiles ]);
-        const layer1 = this.map.createLayer('layer1', [ groundTiles ]);
+        this.ground1 = this.map.createLayer('ground', [ groundTiles ]);
+        this.layer1 = this.map.createLayer('layer1', [ groundTiles ]);
       
         ground.setCollisionByProperty({ collides: true,recalculateFaces: false });
              
         this.map.createLayer('obstacles', propTiles);
-        layer1.setDepth(10);
+        this.layer1.setDepth(10);
         
         const playerCat = 2; // this.matter.world.nextCategory();
         const enemyCat = 4; //this.matter.world.nextCategory();
@@ -213,7 +217,7 @@ export default class Level2 extends BaseScene {
             }
         });
        
-        this.matter.world.convertTilemapLayer(ground, {label: 'ground', friction: 0, frictionStatic: 0 });
+        this.matter.world.convertTilemapLayer(this.ground1, {label: 'ground', friction: 0, frictionStatic: 0 });
         this.matter.world.setBounds(0,0,this.map.widthInPixels, this.map.heightInPixels, 1, true, true,false);
 
 /*        this.matter.world.drawDebug = false;
@@ -270,7 +274,13 @@ export default class Level2 extends BaseScene {
         this.saws.forEach(saw => saw.destroy()); 
         this.lava.forEach(lava=>lava.destroy());
 
-        this.map.destroy();  
+        this.objects.forEach( obj => obj.destroy());
+
+        this.ground1.destroy();
+        this.layer1.destroy();
+        this.map.destroy();
+        SceneFactory.stopSound(this);
+        this.sounds.clear();
     }
 
     update(time: number, deltaTime: number) {

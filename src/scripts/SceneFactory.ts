@@ -240,6 +240,7 @@ export function setupSounds(ctx: Phaser.Scene): Map<string, Phaser.Sound.BaseSou
     m.set( 'blowitoutofyourass',ctx.sound.add('blowitoutofyourass', { loop: false }));
     m.set( 'timetokickass', ctx.sound.add('timetokickass', { loop: false }));
 
+    m.clear(); //FIXME: remove map
     return m;
 }
 
@@ -305,6 +306,7 @@ export function handleLoseFocus(ctx: Phaser.Scene) {
 
 export function stopSound(ctx: Phaser.Scene) {
     ctx.game.sound.stopAll();
+   // ctx.sound.destroy();
     globalThis.musicTune = false;
 }
 
@@ -811,8 +813,7 @@ export function basicCreate(ctx, name, x, y, width, height, rotation, enemyCat, 
                 vertices: [{ x: 0, y: 0 }, { x: 192, y: 0 }, { x: 192, y: 32 }, { x: 0, y: 32 }]
             });
 
-
-            const m = new MovingPlatform(ctx, x, y, to, duration, vert, platform, noautostart);
+            const m = new MovingPlatform(ctx, x, y, to, duration, vert, platform, noautostart, platform.body.id);
             controller.add('platform', platform.body as MatterJS.BodyType);
             break;
         }

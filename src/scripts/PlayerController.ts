@@ -7,6 +7,7 @@ import * as SceneFactory from "../scripts/SceneFactory";
 import PowerUps from "./PowerUps";
 import VirtualJoyStick from "phaser3-rex-plugins/plugins/virtualjoystick";
 import JoypadController from "./JoypadController";
+import { Vector } from "matter";
 
 export default class PlayerController {
     private scene: Phaser.Scene;
@@ -526,7 +527,7 @@ export default class PlayerController {
                     events.emit('carrot-collected');
                     SceneFactory.playSound(this.sounds, 'pickupcarrot');
                     this.health = Phaser.Math.Clamp(this.health + 1, 0, 100);
-                    sprite.destroy();
+                    this.bounceSpriteAndDestroy(sprite);
                     break;
                 }
                 case 'heart': {
@@ -536,7 +537,7 @@ export default class PlayerController {
                     this.health = 100;
                     events.emit('health-changed', this.health);
                     events.emit('score-changed', 100);
-                    sprite.destroy();
+                    this.bounceSpriteAndDestroy(sprite);
                     break;
                 }
                 case 'platform': {
@@ -1352,13 +1353,15 @@ export default class PlayerController {
     }
 
     private handlePlatform(body: MatterJS.BodyType) {
-        const vec = body.gameObject?.getData('relpos');
-        this.sprite.setPosition(
-            Phaser.Math.RoundTo(this.sprite.body.position.x + vec.x),
-            Phaser.Math.RoundTo(this.sprite.body.position.y + vec.y)
-        );
-
-       this.standingOnPlatform = true;      
+        const vec = body.gameObject?.getData('relpos' + body.id);
+        if( vec !== undefined) {
+            this.sprite.setPosition(
+                Phaser.Math.RoundTo(this.sprite.body.position.x + vec.x),
+                Phaser.Math.RoundTo(this.sprite.body.position.y + vec.y)
+            );
+        }
+ 
+        this.standingOnPlatform = true;      
     }
 
     private bounceTile(body: MatterJS.BodyType) {
@@ -1411,7 +1414,9 @@ export default class PlayerController {
                 duration: 500,
                 ease: 'Bounce',
                 onComplete: () => {
-                    sprite.destroy();
+                    sprite.setActive(false);
+                    sprite.setVisible(false);
+                    //sprite.destroy();
                 },
                 repeat: 0,
                 yoyo: false,

@@ -50,6 +50,7 @@ export default class Start extends BaseScene {
     private shoutout !: Phaser.GameObjects.BitmapText;
     private credits !: Phaser.GameObjects.BitmapText;
     private map!: Phaser.Tilemaps.Tilemap;
+    private ground1: Phaser.Tilemaps.TilemapLayer;
     private goFS = false;
 
     init() {
@@ -108,9 +109,9 @@ export default class Start extends BaseScene {
         this.map = this.make.tilemap({ key: 'start', tileWidth: 64, tileHeight: 64 });
         const groundTiles = this.map.addTilesetImage('ground', 'groundTiles', 64, 64, 0, 2);
         const ra8bitTiles = this.map.addTilesetImage('minira8bits', 'ra8bitTiles', 64, 64, 0, 2);
-        const ground = this.map.createLayer('ground', [groundTiles, ra8bitTiles]);
+        this.ground1 = this.map.createLayer('ground', [groundTiles, ra8bitTiles]);
 
-        ground.setCollisionByProperty({ collides: true, recalculateFaces: false });
+        this.ground1.setCollisionByProperty({ collides: true, recalculateFaces: false });
 
         const objectsLayer = this.map.getObjectLayer('objects');
         objectsLayer.objects.forEach(objData => {
@@ -122,7 +123,7 @@ export default class Start extends BaseScene {
                     break;
             }
         })
-        this.matter.world.convertTilemapLayer(ground, { label: 'ground', friction: 0, frictionStatic: 0 });
+        this.matter.world.convertTilemapLayer(this.ground1, { label: 'ground', friction: 0, frictionStatic: 0 });
 
         this.matter.world.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
         this.cameras.main.setBounds(0, -308, this.map.widthInPixels, this.map.heightInPixels);
@@ -169,9 +170,7 @@ export default class Start extends BaseScene {
         this.input.on('pointerdown', () => { this.continueGame(); });
         this.input.on('keydown', () => { this.continueGame(); });
 
-        let cam = this.cameras.add(0, 0, width, 128);
-
-        const layer = this.add.layer();
+        const cam = this.cameras.add(0, 0, width, 128);
 
         this.shoutout = this.add.bitmapText(width / 2, -400, 'press_start',
             'PRESS SPACE TO PLAY', 24).setTint(0xff7300).setOrigin(0.5, 0.5);
@@ -240,7 +239,10 @@ export default class Start extends BaseScene {
         this.shoutout.destroy();
         this.credits.destroy();
 
+        this.tweens.destroy();
+        this.ground1.destroy();
         this.map.destroy();
+        SceneFactory.stopSound(this);
 
     }
 

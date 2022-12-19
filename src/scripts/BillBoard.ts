@@ -21,4 +21,8 @@ export default class BillBoard {
         this.sprite.setFrame((this.frame + 1) % 34);
     }
 
+    public destroy() {
+        this.sprite.destroy();
+    }
+
 }

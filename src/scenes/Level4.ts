@@ -58,8 +58,11 @@ export default class Level4 extends BaseScene {
     private playerX = -1;
     private playerY = -1;
     private spotlight!: Phaser.GameObjects.Light;
-
+    private objects: Phaser.Physics.Matter.Sprite[] = [];
     private sounds!: Map<string, Phaser.Sound.BaseSound>;
+    
+    private ground1: Phaser.Tilemaps.TilemapLayer;
+    private layer1: Phaser.Tilemaps.TilemapLayer;
 
     constructor() {
         super('level4');
@@ -89,6 +92,7 @@ export default class Level4 extends BaseScene {
         this.doors = [];
         this.neon = [];
         this.bars = [];
+        this.objects = [];
         this.sounds = new Map<string, Phaser.Sound.BaseSound>();
 
         this.info = {
@@ -165,13 +169,13 @@ export default class Level4 extends BaseScene {
         const propTiles = this.map.addTilesetImage('props', 'propTiles', 64, 64, 0, 2);
         const ra8bitTiles = this.map.addTilesetImage('ra8bits-64', 'ra8bits-64-tiles', 64, 64, 0, 0);
         
-        const ground = this.map.createLayer('ground', [groundTiles, ra8bitTiles,stonesTiles]);
-        const layer1 = this.map.createLayer('layer1', [groundTiles, ra8bitTiles,stonesTiles]);
+        this.ground1 = this.map.createLayer('ground', [groundTiles, ra8bitTiles,stonesTiles]);
+        this.layer1 = this.map.createLayer('layer1', [groundTiles, ra8bitTiles,stonesTiles]);
      
-        ground.setCollisionByProperty({ collides: true, recalculateFaces: false });
+        this.ground1.setCollisionByProperty({ collides: true, recalculateFaces: false });
        
         this.map.createLayer('obstacles', propTiles);
-        layer1.setDepth(10);
+        this.layer1.setDepth(10);
 
         const playerCat = 2;
         const enemyCat = 4;
@@ -228,7 +232,7 @@ export default class Level4 extends BaseScene {
             }
         });
 
-        this.matter.world.convertTilemapLayer(ground, { label: 'ground', friction: 0, frictionStatic: 0 });
+        this.matter.world.convertTilemapLayer(this.ground1, { label: 'ground', friction: 0, frictionStatic: 0 });
         this.matter.world.setBounds(0,0,this.map.widthInPixels, this.map.heightInPixels, 1, true, true,false);
 
     /*    this.matter.world.drawDebug = false;
@@ -295,9 +299,15 @@ export default class Level4 extends BaseScene {
         this.boss.forEach(boss=>boss.destroy());
         this.neon.forEach(n=>n.destroy());
         this.bars.forEach(b=>b.destroy());
+
+        this.ground1.destroy();
+        this.layer1.destroy();
         this.map.destroy();
+
+        this.objects.forEach(obj=>obj.destroy());
         
         SceneFactory.stopSound(this);
+        this.sounds.clear();
     }
 
     update(time: number, deltaTime: number) {
