@@ -100,7 +100,7 @@ export default class HoppaScreen extends Phaser.Scene {
     }
 
     private printWarning(width, height) {
-        this.rotate = this.add.bitmapText(width * 0.5, height / 2 + 240, 'press_start', '!rotate your device!', 18)
+        this.rotate = this.add.bitmapText(width * 0.5, height / 2 + 360, 'press_start', '!rotate your device!', 18)
             .setTint(0xff7300)
             .setOrigin(0.5);
     }
