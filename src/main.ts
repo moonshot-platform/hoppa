@@ -48,6 +48,7 @@ const config: Phaser.Types.Core.GameConfig = {
 	},
 	input: {
 		activePointers: 4,
+		gamepad: true,
 	},
 	scene: [ Loader,LogoScreen,HoppaScreen,Story,Wallet,GameSettingsMenu,Help,Start,SelectPlayer,Level1,Level2,Level3,Level4, Bonus,Win,UI,Pause,GameOver],	
 }
