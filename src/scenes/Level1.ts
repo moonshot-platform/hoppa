@@ -222,7 +222,7 @@ export default class Level1 extends BaseScene {
         });
 
         this.matter.world.convertTilemapLayer(this.ground1, { label: 'ground', friction: 0, frictionStatic: 0 });
-        this.matter.world.setBounds(0,0,this.map.widthInPixels, this.map.heightInPixels, 1, true, true,false);
+        this.matter.world.setBounds(0,0,this.map.widthInPixels, this.map.heightInPixels, 1, true, true,false, false, false);
       //  this.matter.world.drawDebug = false;
      /*   this.input.keyboard.on("keydown-I", (event) => {
             this.matter.world.drawDebug = !this.matter.world.drawDebug;
