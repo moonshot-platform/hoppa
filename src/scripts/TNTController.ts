@@ -43,7 +43,6 @@ export default class TNTController {
 
     private idleOnEnter() {
         this.sprite.play('idle');
-        this.stateMachine.setState('move-left');
     }
 
     private deadOnEnter() {
