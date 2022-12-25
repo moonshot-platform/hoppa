@@ -39,6 +39,8 @@ export default class GameSettingsMenu extends Phaser.Scene {
     preload() {
         SceneFactory.preload(this);
 
+        this.load.image('arrow', 'assets/arrow.webp');
+
         const data = window.localStorage.getItem('ra8bit.player');
 
         if (data != null) {
