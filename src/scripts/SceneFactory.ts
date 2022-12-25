@@ -359,9 +359,8 @@ export function preload(ctx) {
 
     ctx.load.image('bg_cocoons', 'assets/bg_cocoons.webp');
     ctx.load.image('ra8bitTiles', 'assets/minira8bits.webp');
-    ctx.load.image('ra8bittiles128-bg', 'assets/ra8bittiles128-bg.webp');
+    
 
-    ctx.load.image('ra8bits-64-tiles', 'assets/ra8bittiles64.webp');
 
     //ui
     ctx.load.bitmapFont('press_start', 'assets/press_start_2p.webp', 'assets/press_start_2p.fnt');
@@ -369,10 +368,6 @@ export function preload(ctx) {
     ctx.load.image('bg-ui', 'assets/bg-ui.webp');
     ctx.load.image('mushyroom', 'assets/label-mushyroom.webp');
     
-    //win
-    ctx.load.atlas('cocoon', 'assets/cocoons.webp', 'assets/cocoons.json');
-    ctx.load.atlas('flares', 'assets/flares.webp', 'assets/flares.json');
-
     ctx.load.atlas( 'lava-top', 'assets/lava-top.webp', 'assets/lava-top.json');
     ctx.load.atlas( 'lava-center', 'assets/lava-center.webp', 'assets/lava-center.json');
 
@@ -397,9 +392,6 @@ export function preload(ctx) {
     ctx.load.atlas('tnt', 'assets/tnt.webp', 'assets/tnt.json');
     ctx.load.atlas('saw', 'assets/saw.webp', 'assets/saw.json');
     
-    ctx.load.atlas('neon', 'assets/neon.webp', 'assets/neon.json');
-    ctx.load.atlas('neon2', 'assets/neon2.webp', 'assets/neon2.json');
-    
     ctx.load.spritesheet('coin', 'assets/coin.webp', { frameWidth: 64, frameHeight: 64, startFrame: 0, endFrame: 5 });
     ctx.load.spritesheet('carrot', 'assets/carrot.webp', { frameWidth: 64, frameHeight: 64, startFrame: 0, endFrame: 5 });
     ctx.load.spritesheet('lab', 'assets/lab.webp', { frameWidth: 64, frameHeight: 136, startFrame: 0, endFrame: 3 });
@@ -422,9 +414,6 @@ export function preload(ctx) {
     ctx.load.image('brick1-2', 'assets/brick1-2.webp');
     ctx.load.image('brick2-2', 'assets/brick2-2.webp');
     ctx.load.image('changeskin', 'assets/changeskin.webp');
-    ctx.load.image('arrow', 'assets/arrow.webp');
-    ctx.load.image('trashcan', 'assets/trashcan.webp');
-    
 
     // audio
     ctx.load.audio('jump', ['assets/jump.mp3', 'assets/jump.m4a']);
@@ -452,8 +441,6 @@ export function preload(ctx) {
     ctx.load.audio('explosion5', ['assets/explosion5.mp3', 'assets/explosion5.m4a']);
     ctx.load.audio('explosion6', ['assets/explosion6.mp3', 'assets/explosion6.m4a']);
 
-    ctx.load.audio('hit1', ['assets/hit1.mp3', 'assets/hit1.m4a']);
-    ctx.load.audio('hit2', ['assets/hit2.mp3', 'assets/hit2.m4a']);
 
     ctx.load.audio('breakingtile', ['assets/breakingtile.mp3', 'assets/breakingtile.m4a']);
 
@@ -504,6 +491,8 @@ export function preload(ctx) {
     ctx.load.audio('8bitmetal', [ 'assets/8bitmetal.mp3', 'assets/8bitmetal.m4a']);
     ctx.load.audio('catchy', [ 'assets/catchy.mp3', 'assets/catchy.m4a']);
     ctx.load.audio('boss6', [ 'assets/boss6.mp3', 'assets/boss6.m4a']);
+    ctx.load.audio('hit1', ['assets/hit1.mp3', 'assets/hit1.m4a']);
+    ctx.load.audio('hit2', ['assets/hit2.mp3', 'assets/hit2.m4a']);
 
     ctx.load.audio('beginatthebeginning', [ 'assets/beginatthebeginning.mp3', 'assets/beginatthebeginning.m4a']);
     ctx.load.audio('blowitoutofyourass', [ 'assets/blowitoutofyourass.mp3', 'assets/blowitoutofyourass.m4a']);
