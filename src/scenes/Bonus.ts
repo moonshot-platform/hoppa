@@ -107,7 +107,9 @@ export default class Bonus extends Phaser.Scene {
 
     preload() {
         SceneFactory.preload(this);
+        this.load.image('ra8bittiles128-bg', 'assets/ra8bittiles128-bg.webp');
         this.load.tilemapTiledJSON('tilemap-bonus', 'assets/ra8bit1-map.json');
+        this.load.image('ra8bits-64-tiles', 'assets/ra8bittiles64.webp');
     }
 
     create() {
