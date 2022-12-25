@@ -1,5 +1,4 @@
-import Phaser, { Physics } from 'phaser'
-
+import Phaser from 'phaser'
 export default class BaseScene extends Phaser.Scene {
     
     private frameTime = 0;
@@ -38,4 +37,5 @@ export default class BaseScene extends Phaser.Scene {
     doStep(): boolean {
         return this.renderNow;
     }
+
 }
