@@ -7,7 +7,6 @@ import * as SceneFactory from "../scripts/SceneFactory";
 import PowerUps from "./PowerUps";
 import VirtualJoyStick from "phaser3-rex-plugins/plugins/virtualjoystick";
 import JoypadController from "./JoypadController";
-import { Vector } from "matter";
 
 export default class PlayerController {
     private scene: Phaser.Scene;
@@ -17,7 +16,7 @@ export default class PlayerController {
     private obstacles: ObstaclesController;
     private powerUps!: PowerUps;
     private stats!: PlayerStats;
-    private jp !: JoypadController;
+    private jp?: JoypadController;
 
     private health = 100;
     private playerSpeed = 5;
@@ -58,6 +57,7 @@ export default class PlayerController {
     private LEANWAY = 8;
     private isDead = false;
     private wasd;
+    private buttonRepeat = 0;
 
     private joystick?: VirtualJoyStick;
 
@@ -89,6 +89,8 @@ export default class PlayerController {
         this.stateMachine = new StateMachine(this, this.name);
 
         this.scene.events.on('preupdate', this.preupdate, this);
+        this.scene.input.gamepad?.once( Phaser.Input.Gamepad.Events.DISCONNECTED, this.onGamePadDisconnected, this);
+        this.scene.input.gamepad?.once( Phaser.Input.Gamepad.Events.CONNECTED, this.onGamePadConnected, this );
 
         this.wasd = this.scene.input.keyboard?.addKeys(
             {
@@ -220,7 +222,7 @@ export default class PlayerController {
                 this.scene.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, () => {
                     events.emit(next.event);
                     this.scene.scene.stop();
-                    if( globalThis.noWallet || (globalThis.moonshotBalance == 0 && globalThis.ra8bitBalance == 0) && next.room !== 'bonus' ) {
+                    if( (globalThis.noWallet || (globalThis.moonshotBalance == 0 && globalThis.ra8bitBalance == 0)) && next.room !== 'bonus' ) {
                         SceneFactory.stopSound(this.scene);
                         this.scene.scene.start( 'hoppa');
                     }
@@ -510,8 +512,8 @@ export default class PlayerController {
                     if(this.stateMachine.getCurrentState() === 'jump') {
                         events.emit('coin-taken');
                         
-                        this.sprite.body?.velocity.x = 0;
-                        this.sprite.body?.velocity.y = 0;
+                        this.sprite.body.velocity.x = 0;
+                        this.sprite.body.velocity.y = 0;
                         this.sprite.setIgnoreGravity(true);
 
                         this.scene.cameras.main.fadeOut(1000, 0, 0, 0);
@@ -586,28 +588,54 @@ export default class PlayerController {
         });
     }
 
+    private createVirtualJoystick() {
+        if(this.jp !== undefined) {
+            this.jp.getB().on('click', () => {
+                if (!this.cannotThrow) {
+                    this.throwOnEnter();
+                    this.jp?.fireB();
+                    this.jp?.startTimerNow();
+                }
+
+            }, this);
+            this.jp.getA().on('click', () => {
+                this.playerButton2 = true;
+                this.jp?.fireA();
+                this.jp?.startTimerNow();
+            }, this);
+
+            this.joystick = this.jp.getStick();
+        }
+    }
     
     setJoystick(scene: Phaser.Scene, width: number) {
         if (scene.game.device.os.desktop)
             return;
 
+        if( scene.input.gamepad.total > 0 )
+            return;
+
+        if(this.jp !== undefined) {
+            this.jp.destroy();
+            this.jp = undefined;
+            this.joystick = undefined;
+        }
+
         this.jp = new JoypadController(scene, width);
 
-        this.jp.getB().on('click', () => {
-            if (!this.cannotThrow) {
-                this.throwOnEnter();
-                this.jp.fireB();
-                this.jp.startTimerNow();
-            }
+        this.createVirtualJoystick();
+    }
 
-        }, this);
-        this.jp.getA().on('click', () => {
-            this.playerButton2 = true;
-            this.jp.fireA();
-            this.jp.startTimerNow();
-        }, this);
+    onGamePadConnected() {
+        if(this.jp !== undefined) {
+            this.jp.destroy();
+            this.jp = undefined;
+            this.joystick = undefined;
+        }
+    }
 
-        this.joystick = this.jp.getStick();
+    onGamePadDisconnected() {
+        this.setJoystick( this.scene, this.scene.scale.width );
     }
 
     takeDamage(dmg: number, sound: string) {
@@ -753,6 +781,7 @@ export default class PlayerController {
 
         const spacebarJustDown = this.isSpace();
         if (spacebarJustDown) {
+            console.log("Space pressed!");
             if (this.standingOnFloor && this.jumpCount == 0 || this.jumpCount == 1) {
                 this.stateMachine.setState('jump');
                 return true;
@@ -1572,22 +1601,85 @@ export default class PlayerController {
 
 
     private isDown(): boolean {
-        return (this.joystick?.down || this.cursors.down.isDown || this.wasd.down.isDown);
+        return (this.isGamePadDown() || this.joystick?.down || this.cursors.down.isDown || this.wasd.down.isDown);
     }
     private isUp(): boolean {
-        return (this.joystick?.up || this.cursors.up.isDown || this.wasd.up.isDown);
+        return (this.isGamePadUp() || this.joystick?.up || this.cursors.up.isDown || this.wasd.up.isDown);
     }
     private isLeft(): boolean {
-        return (this.joystick?.left || this.cursors.left.isDown || this.wasd.left.isDown);
+        return (this.isGamePadLeft() || this.joystick?.left || this.cursors.left.isDown || this.wasd.left.isDown);
     }
     private isRight(): boolean {
-        return (this.joystick?.right || this.cursors.right.isDown || this.wasd.right.isDown);
+        return (this.isGamePadRight() || this.joystick?.right || this.cursors.right.isDown || this.wasd.right.isDown);
     }
     private isShift(): boolean {
-        return this.cursors.shift.isDown || this.playerButton1;
+        return this.isGamePadButton(1) || this.cursors.shift.isDown || this.playerButton1;
     }
     private isSpace(): boolean {
-        return Phaser.Input.Keyboard.JustDown(this.cursors.space) || this.playerButton2;
+        // Fixme: pressed state holds for several frames
+        return this.isGamePadButton(0) || Phaser.Input.Keyboard.JustDown(this.cursors.space) || this.playerButton2;
+    }
+
+    private isGamePadRight(): boolean {
+        const pad = this.scene.input.gamepad?.getPad(0);
+        if(pad?.axes.length) {
+            const x = pad.axes[0].getValue();
+            if( x > 0 )
+                return true;
+        }
+        return false;
+    }
+
+    private isGamePadLeft(): boolean {
+        const pad = this.scene.input.gamepad?.getPad(0);
+        if(pad?.axes.length) {
+            const x = pad.axes[0].getValue();
+            if( x < 0 )
+                return true;
+        }
+        return false;
+    }
+
+
+    private isGamePadDown(): boolean {
+        const pad = this.scene.input.gamepad?.getPad(0);
+        if(pad?.axes.length) {
+            const y = pad.axes[1].getValue();
+            if( y < 0 )
+                return true;
+        }
+        return false;
+    }
+
+    private isGamePadUp(): boolean {
+        const pad = this.scene.input.gamepad?.getPad(0);
+        if(pad?.axes.length) {
+            const y = pad.axes[1].getValue();
+            if( y < 0 )
+                return true;
+        }
+        return false;
+    }
+
+    private isGamePadButton(index): boolean {
+        const pad = this.scene.input.gamepad?.getPad(0);
+        if(pad?.axes.length) {
+            if(this.buttonRepeat == 0) { 
+                this.buttonRepeat = 15;
+                const v = pad.buttons[index].pressed;
+                if( v ) {
+                    console.log("pressed " + index);
+                    return true;
+                }
+                else {
+                    this.buttonRepeat = 0;
+                }
+            }
+            else {
+                this.buttonRepeat --;
+            }
+        }
+        return false;
     }
 
     private withForce(): number {
