@@ -24,6 +24,7 @@ export default class Win extends CreditScene {
         this.load.spritesheet('player1-win', 'assets/player1-win.webp', { frameWidth: 256, frameHeight: 167, startFrame: 0, endFrame: 5 });
         this.load.spritesheet('player2-win', 'assets/player2-win.webp', { frameWidth: 256, frameHeight: 167, startFrame: 0, endFrame: 5 });
         this.load.atlas('flares', 'assets/flares.webp', 'assets/flares.json');
+        this.load.atlas('cocoon', 'assets/cocoons.webp', 'assets/cocoons.json');
     }
 
     create() {
