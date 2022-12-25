@@ -136,10 +136,16 @@ export default class Level4 extends BaseScene {
 
         this.load.spritesheet('family', 'assets/ra8bittiles128-bg.webp', { frameWidth: 128, frameHeight: 128, startFrame: 0, endFrame: 299 });
         
+        this.load.atlas('neon', 'assets/neon.webp', 'assets/neon.json');
+        this.load.atlas('neon2', 'assets/neon2.webp', 'assets/neon2.json');
+
         this.load.audio('demon1', [ 'assets/demon_1.mp3', 'assets/demon_1.m4a']);
         this.load.audio('demon2', [ 'assets/demon_2.mp3', 'assets/demon_2.m4a']);
         this.load.audio('demon3', [ 'assets/demon_3.mp3', 'assets/demon_3.m4a']);
         this.load.audio('demon4', [ 'assets/demon_4.mp3', 'assets/demon_4.m4a']);
+        
+        this.load.image('trashcan', 'assets/trashcan.webp');
+        this.load.image('ra8bits-64-tiles', 'assets/ra8bittiles64.webp');
 
         SceneFactory.preload(this);
     }
@@ -233,7 +239,7 @@ export default class Level4 extends BaseScene {
         });
 
         this.matter.world.convertTilemapLayer(this.ground1, { label: 'ground', friction: 0, frictionStatic: 0 });
-        this.matter.world.setBounds(0,0,this.map.widthInPixels, this.map.heightInPixels, 1, true, true,false);
+        this.matter.world.setBounds(0,0,this.map.widthInPixels, this.map.heightInPixels, 1, true, true,false, false);
 
     /*    this.matter.world.drawDebug = false;
         this.input.keyboard.on("keydown-I", () => {
