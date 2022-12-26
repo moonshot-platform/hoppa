@@ -283,5 +283,9 @@ export default class Start extends BaseScene {
 
         SceneFactory.cullSprites(this);
 
+        if(SceneFactory.gamePadAnyButton(this)) {
+            this.continueGame();
+        }
+
     }
 }

@@ -632,10 +632,14 @@ export default class PlayerController {
             this.jp = undefined;
             this.joystick = undefined;
         }
+
+        console.log("Connected gamepads: ", this.scene.input.gamepad.total);
     }
 
     onGamePadDisconnected() {
         this.setJoystick( this.scene, this.scene.scale.width );
+
+        console.log("Connected gamepads: ", this.scene.input.gamepad.total);
     }
 
     takeDamage(dmg: number, sound: string) {
@@ -1627,6 +1631,9 @@ export default class PlayerController {
             if( x > 0 )
                 return true;
         }
+        if(pad?.buttons[15].pressed) {
+            return true;
+        }
         return false;
     }
 
@@ -1636,6 +1643,9 @@ export default class PlayerController {
             const x = pad.axes[0].getValue();
             if( x < 0 )
                 return true;
+        }
+        if(pad?.buttons[14].pressed) {
+            return true;
         }
         return false;
     }
@@ -1648,6 +1658,9 @@ export default class PlayerController {
             if( y < 0 )
                 return true;
         }
+        if(pad?.buttons[13].pressed) {
+            return true;
+        }
         return false;
     }
 
@@ -1657,6 +1670,9 @@ export default class PlayerController {
             const y = pad.axes[1].getValue();
             if( y < 0 )
                 return true;
+        }
+        if(pad?.buttons[1].pressed) {
+            return true;
         }
         return false;
     }
@@ -1668,7 +1684,6 @@ export default class PlayerController {
                 this.buttonRepeat = 15;
                 const v = pad.buttons[index].pressed;
                 if( v ) {
-                    console.log("pressed " + index);
                     return true;
                 }
                 else {

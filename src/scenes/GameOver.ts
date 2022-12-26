@@ -40,6 +40,12 @@ export default class GameOver extends Phaser.Scene {
         this.scene.start('start');
     }
 
+    update() {
+        if(SceneFactory.gamePadAnyButton(this)) {
+            this.continueGame();
+        }
+    }
+
     destroy() {
         this.text.destroy();
         this.introMusic?.destroy();

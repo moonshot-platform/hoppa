@@ -132,13 +132,13 @@ export default class GameSettingsMenu extends Phaser.Scene {
 
     update(): void {
 
-        if(this.cursors.left.isDown) {
+        if(this.cursors.left.isDown || SceneFactory.isGamePadLeft(this)) {
             this.selectPlayer1();
         }
-        else if(this.cursors.right.isDown) {
+        else if(this.cursors.right.isDown || SceneFactory.isGamePadRight(this)) {
             this.selectPlayer2();
         }
-        else if(this.cursors.shift.isDown || this.cursors.space.isDown ) { 
+        else if(this.cursors.shift.isDown || this.cursors.space.isDown || SceneFactory.gamePadAnyButton(this) ) { 
             this.scene.stop();
             this.scene.start(this.nextScene);
         }

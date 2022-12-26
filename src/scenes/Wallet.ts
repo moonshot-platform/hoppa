@@ -53,6 +53,12 @@ export default class Wallet extends Phaser.Scene {
         this.line3.destroy();
     }
 
+    update() {
+        if(SceneFactory.gamePadAnyButton(this)) {
+            this.startGame();
+        }
+    }
+
     startGame() {
         this.image.destroy();
         this.scene.stop();

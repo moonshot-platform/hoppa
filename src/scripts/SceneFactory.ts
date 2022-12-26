@@ -950,3 +950,69 @@ export function basicCreate(ctx, name, x, y, width, height, rotation, enemyCat, 
     }
 
 }
+
+
+
+export function isGamePadRight(ctx): boolean {
+    const pad = ctx.input.gamepad?.getPad(0);
+    if(pad?.axes.length) {
+        const x = pad.axes[0].getValue();
+        if( x > 0 )
+            return true;
+    }
+    if(pad?.buttons[15].pressed) {
+        return true;
+    }
+    return false;
+}
+
+export function isGamePadLeft(ctx): boolean {
+    const pad = ctx.input.gamepad?.getPad(0);
+    if(pad?.axes.length) {
+        const x = pad.axes[0].getValue();
+        if( x < 0 )
+            return true;
+    }
+    if(pad?.buttons[14].pressed) {
+        return true;
+    }
+    return false;
+}
+
+export function isGamePadDown(ctx): boolean {
+    const pad = ctx.input.gamepad?.getPad(0);
+    if(pad?.axes.length) {
+        const y = pad.axes[1].getValue();
+        if( y < 0 )
+            return true;
+    }
+    if(pad?.buttons[13].pressed) {
+        return true;
+    }
+    return false;
+}
+
+export function isGamePadUp(ctx): boolean {
+    const pad = ctx.input.gamepad?.getPad(0);
+    if(pad?.axes.length) {
+        const y = pad.axes[1].getValue();
+        if( y < 0 )
+            return true;
+    }
+    if(pad?.buttons[12].pressed) {
+        return true;
+    }
+    return false;
+}
+
+export function gamePadAnyButton(ctx): boolean {
+    const pad = ctx.input.gamepad?.getPad(0);
+    if(pad === undefined)
+        return false;
+
+    for ( let i = 0; i < pad.buttons.length; i ++ ) {
+        if(pad?.buttons[i].pressed)
+           return true;
+    }
+    return false;
+}

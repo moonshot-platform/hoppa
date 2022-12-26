@@ -97,6 +97,9 @@ export default class Story extends CreditScene {
                 this.startGame();
             }
         }
+        if(SceneFactory.gamePadAnyButton(this)) {
+            this.startGame();
+        }
     }
 
     startGame() {
