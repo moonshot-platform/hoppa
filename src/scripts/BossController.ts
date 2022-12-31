@@ -312,13 +312,13 @@ export default class BossController {
             this.playerController.takeDamage(25, 'hit');
             return;
         }
-        this.garbage = true;
         this.changeState(2);
         this.health -= 10;
         this.updateHealthBar();
 
         if(this.health <= 0) {
             this.changeState(3);
+            this.garbage = true;
         }
         
     }
