@@ -51,9 +51,43 @@ Usage:
 ```
 $ npm install
 $ npm run start
-
-$ npm run build
 ```
+
+To create a production build:
+
+```
+npm run build
+```
+
+Production files will be placed in the `dist` folder. Then upload those files to a web server. 🎉
+
+
+## Project Structure
+
+```
+    .
+    ├── dist
+    ├── node_modules
+    ├── public
+    ├── src
+    │   ├── scripts/
+    │   ├── scenes/
+    │   ├ main.ts
+	├── index.html
+    ├── package.json
+```
+
+## Static Assets
+
+Any static assets like images or audio files must be placed in the `public/assets` folder.
+
+```
+    public
+    ├── assets
+    │   ├── my-image.webp
+```
+
+Images must be in webp format
 
 # Way of the code
 
@@ -70,7 +104,7 @@ If you have Metamask installed, the game will attempt to check your Moonshot and
 
 # Dependencies
 
-To create levels, you need Tiled ( https://www.mapeditor.org ) 
+To edit/create levels, you need Tiled ( https://www.mapeditor.org ) 
 
 
 # Screenshots:
