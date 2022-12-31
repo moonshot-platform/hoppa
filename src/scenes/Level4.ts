@@ -99,7 +99,7 @@ export default class Level4 extends BaseScene {
             'lastHealth': 100,
             'coinsCollected': 0,
             'carrotsCollected': 0,
-            'currLevel': 3,
+            'currLevel': 4,
             'scorePoints': 0,
             'livesRemaining': 3,
             'invincibility': false,
