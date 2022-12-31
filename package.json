@@ -1,31 +1,28 @@
 {
-	"name": "phaser3-parcel-template",
+	"name": "hoppa",
 	"version": "1.0.0",
-	"description": "A typescript template project for Phaser 3 using Parceljs",
+	"description": "Hoppa!",
+	"type": "module",
 	"scripts": {
-		"start": "parcel src/index.html -p 8000",
-		"build": "parcel build src/index.html --no-minify --out-dir dist --public-url /hoppa",
-		"test": "echo \"Error: no test specified\" && exit 1",
+		"start": "vite",
+		"build": "vite build",
+		"preview": "vite preview",
 		"lint": "eslint ./src --ext .js,.jsx,.ts,.tsx"
 	},
-	"author": "supertommy",
+	"author": "Moonshot",
 	"license": "MIT",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/ourcade/phaser3-parcel-template.git"
+		"url": "https://github.com/moonshot-platform/hoppa.git"
 	},
-	"homepage": "https://github.com/ourcade/phaser3-parcel-template",
+	"homepage": "https://moonarcade.games/hoppa",
 	"devDependencies": {
 		"@typescript-eslint/eslint-plugin": "^5.45.0",
-		"@typescript-eslint/parser": "^5.45.0",
 		"cssnano": "^5.1.14",
 		"eslint": "^8.3.0",
 		"eslint-plugin-react": "^7.31.11",
-		"minimist": ">=1.2.7",
-		"parcel-plugin-clean-easy": "^1.0.2",
-		"parcel-plugin-static-files-copy": "^2.6.0",
-		"postcss": "^8.4.17",
-		"typescript": "^4.8.4"
+		"typescript": "^4.8.4",
+		"vite": "^3.1.0"
 	},
 	"dependencies": {
 		"ethers": "^5.7.2",
@@ -34,12 +31,5 @@
 		"phaser3-rex-plugins": "^1.1.74",
 		"phaser3-rex-plugins-types": "^0.2.0",
 		"web3-utils": "^1.8.0"
-	},
-	"parcelCleanPaths": [
-		"dist"
-	],
-	"staticFiles": {
-		"staticPath": "public",
-		"watcherGlob": "**"
 	}
 }
