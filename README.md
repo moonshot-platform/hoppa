@@ -88,6 +88,7 @@ Any static assets like images or audio files must be placed in the `public/asset
 ```
 
 Images must be in webp format
+Audio files must be in mp3 and in m4a format
 
 # Way of the code
 
