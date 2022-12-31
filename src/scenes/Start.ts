@@ -1,5 +1,5 @@
 import Phaser from "phaser";
-import ObstaclesController from "~/scripts/ObstaclesController";
+import ObstaclesController from "../scripts/ObstaclesController";
 import * as SceneFactory from '../scripts/SceneFactory';
 import MonsterController from '../scripts/MonsterController';
 import FireController from '../scripts/FireController';
@@ -12,15 +12,15 @@ import BatController from '../scripts/BatController';
 import DragonController from '../scripts/DragonController';
 import BombController from '../scripts/BombController';
 import { sharedInstance as events } from '../scripts/EventManager';
-import ZeppelinController from "~/scripts/ZeppelinController";
-import TNTController from '~/scripts/TNTController';
-import BearController from '~/scripts/BearController';
-import CrowController from '~/scripts/CrowController';
-import FlyController from '~/scripts/FlyController';
-import SawController from "~/scripts/SawController";
+import ZeppelinController from "../scripts/ZeppelinController";
+import TNTController from '../scripts/TNTController';
+import BearController from '../scripts/BearController';
+import CrowController from '../scripts/CrowController';
+import FlyController from '../scripts/FlyController';
+import SawController from "../scripts/SawController";
 import * as WalletHelper from '../scripts/WalletHelper';
 import BaseScene from "./BaseScene";
-import BossController from "~/scripts/BossController";
+import BossController from "../scripts/BossController";
 
 export default class Start extends BaseScene {
     constructor() {
