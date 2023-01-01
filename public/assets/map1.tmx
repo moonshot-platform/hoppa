@@ -1062,7 +1062,7 @@
   <object id="176" name="bomb" x="8512" y="3008" width="64" height="64"/>
   <object id="178" name="bomb" x="7040" y="3008" width="64" height="64"/>
   <object id="182" name="bat" x="8896" y="2240" width="64" height="64"/>
-  <object id="187" name="flower" x="8479.44" y="2430" width="64" height="64"/>
+  <object id="187" name="flower" x="8478" y="2432" width="64" height="64"/>
   <object id="188" name="flower" x="15454.2" y="2945" width="64" height="64"/>
   <object id="277" name="coin" x="14912" y="2496" width="64" height="64"/>
   <object id="278" name="coin" x="14729.1" y="2294.91" width="64" height="64"/>
