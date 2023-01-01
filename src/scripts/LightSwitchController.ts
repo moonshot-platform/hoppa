@@ -57,7 +57,8 @@ export default class LightSwitchController {
 
     public setLayers(tileLayers: Phaser.Tilemaps.TilemapLayer[]) {
         this.layers = tileLayers;
-        this.layers.forEach((l) => l.setAlpha(0.2)); // lights are "off" by default
+
+        this.layers.forEach((l) => l.setTint(0x222222));
 
         const bodies: Phaser.GameObjects.GameObject[] = this.scene.children.list.filter(x => x instanceof Phaser.Physics.Matter.Sprite);
         bodies.forEach((e) => {
@@ -85,8 +86,11 @@ export default class LightSwitchController {
         this.status = !this.status;
         this.spotlight.setVisible(this.status);
         this.sprite.setFrame(this.status ? 1 : 0);
-        this.layers.forEach((l) => l.setAlpha(this.status ? 1 : 0.2));
 
+        const color = (this.status ? 0xffffff: 0x222222 );
+        this.layers.forEach((l) => l.setTint(color));
+
+        
         const bodies: Phaser.GameObjects.GameObject[] = this.scene.children.list.filter(x => x instanceof Phaser.Physics.Matter.Sprite);
         bodies.forEach((e) => {
             const b = e as Phaser.Physics.Matter.Sprite;
