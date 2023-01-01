@@ -115,6 +115,7 @@ export default class Level1 extends BaseScene {
     }
 
     preload() {
+        
         SceneFactory.preload(this);
 
         this.load.tilemapTiledJSON('tilemap1', 'assets/map1.json');
@@ -123,7 +124,7 @@ export default class Level1 extends BaseScene {
     create() {
 
         super.create();
-
+        
         this.sounds = SceneFactory.setupSounds(this);
 
         this.scene.launch('ui');
@@ -252,9 +253,11 @@ export default class Level1 extends BaseScene {
         });
 
         this.playerController?.setJoystick(this, width);
+
     }
 
     destroy() {
+
         this.events.off('player-jumped', this.playerJumped, this);
 
         this.playerController?.destroy();
@@ -341,7 +344,10 @@ export default class Level1 extends BaseScene {
             dragon.lookahead(this.map);
         });
         this.bombs.forEach(bomb => bomb.update(deltaTime));
-        this.zeps.forEach(zep => zep.update(deltaTime));
+        this.zeps.forEach(zep => { 
+            zep.update(deltaTime); 
+            zep.lookahead(this.map);
+        });
         this.bears.forEach(bear => bear.update(deltaTime));
         this.tnts.forEach(tnt => tnt.update(deltaTime));
         this.flies.forEach(fly => {

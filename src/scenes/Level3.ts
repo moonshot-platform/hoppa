@@ -322,7 +322,10 @@ export default class Level3 extends BaseScene {
             dragon.lookahead(this.map);
         });
         this.bombs.forEach(bomb => bomb.update(deltaTime));
-        this.zeps.forEach(zep => zep.update(deltaTime));
+        this.zeps.forEach(zep => { 
+            zep.update(deltaTime); 
+            zep.lookahead(this.map);
+        });
         this.bears.forEach(bear => bear.update(deltaTime));
         this.tnts.forEach(tnt => tnt.update(deltaTime));
         this.flies.forEach(fly => {
