@@ -289,8 +289,6 @@ export default class UI extends Phaser.Scene {
     }
 
     private handleRestart() {
-        this.time_start = 0;
-        
         this.info.invincibility = false;
         this.info.speedUp = false;
         this.info.powerUp = false;
