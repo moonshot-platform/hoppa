@@ -71,7 +71,7 @@ export default class Help extends Phaser.Scene {
             .setTint(0xffffff)
             .setOrigin(0.5);
 
-        this.line4 = this.add.bitmapText(width * 0.5, height / 2 + 144, 'press_start', 'Or use touchpad', 32)
+        this.line4 = this.add.bitmapText(width * 0.5, height / 2 + 144, 'press_start', 'Or use touchpad/gamepad', 32)
             .setTint(0xffffff)
             .setOrigin(0.5);
 
