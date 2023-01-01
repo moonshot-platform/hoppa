@@ -23,7 +23,7 @@ export default class Loader extends Phaser.Scene {
         const boot = this.make.text({
             x: d + d,
             y: d,
-            text: 'RA8BIT BASIC version 22.1',
+            text: 'RA8BIT BASIC version 23.1',
             style: {
                 font: "48px 'Press Start 2P'",
                 color: "#ffffff",
@@ -46,7 +46,7 @@ export default class Loader extends Phaser.Scene {
         const info = this.make.text({
             x: d + (d / 2),
             y: d + 64 + 64,
-            text: '(C) RA8BITS & MOONSHOT',
+            text: '(C) RA8BITS & MOONSHOT 2022-2023',
             style: {
                 font: "48px 'Press Start 2P'",
                 color: "#ffffff",
