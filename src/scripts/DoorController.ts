@@ -40,7 +40,7 @@ export default class DoorController {
         this.createAnims();
 
         this.openTime = Phaser.Math.Between(2,5) * 1000;
-        this.closeTime = Phaser.Math.Between(20,30) * 1000;
+        this.closeTime = Phaser.Math.Between(15,20) * 1000;
 
         this.stateMachine = new StateMachine(this);
 
