@@ -1,5 +1,6 @@
 import StateMachine from "./StateMachine";
 import { sharedInstance as events } from './EventManager';
+import * as CreatureLogic from './CreatureLogic';
 
 export default class ZeppelinController {
     private scene: Phaser.Scene;
@@ -61,7 +62,7 @@ export default class ZeppelinController {
 
     private moveLeftOnUpdate(deltaTime: number) {
         this.moveTime += deltaTime;
-        this.sprite.flipX = true;
+        this.sprite.flipX = false;
         this.sprite.setVelocityX(-1 * this.velocityX);
 
         if (this.moveTime > 45000) {
@@ -75,7 +76,7 @@ export default class ZeppelinController {
 
     private moveRightOnUPdate(deltaTime: number) {
         this.moveTime += deltaTime;
-        this.sprite.flipX = false;
+        this.sprite.flipX = true;
         this.sprite.setVelocityX(this.velocityX);
 
         if (this.moveTime > 45000) {
@@ -83,8 +84,23 @@ export default class ZeppelinController {
         }
     }
 
+    public lookahead(map: Phaser.Tilemaps.Tilemap): boolean {
+        if (this.sprite.active == false)
+            return false;
+
+        if (!CreatureLogic.hasTileAhead(map, this.scene.cameras.main, this.sprite, true, 0)) {
+            if (this.sprite.flipX)
+                this.stateMachine.setState("move-left");
+            else
+                this.stateMachine.setState("move-right");
+            return true;
+        }
+
+        return false;
+    }
+
     private idleOnEnter() {
-        this.stateMachine.setState('move-right');
+        this.stateMachine.setState('move-left');
     }
 
     private handleBlocked(fire: Phaser.Physics.Matter.Sprite) {
