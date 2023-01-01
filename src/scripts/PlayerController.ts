@@ -212,6 +212,7 @@ export default class PlayerController {
                 player = body;
 
             if (this.obstacles.isType('spikes', body)) {
+                this.lastHitBy = body.gameObject;
                 this.stateMachine.setState('spike-hit');
                 return;
             }
@@ -376,6 +377,7 @@ export default class PlayerController {
             }
 
             if (this.obstacles.isType('saw', body)) {
+                this.lastHitBy = body.gameObject;
                 this.stateMachine.setState('hit');
                 return;
             }
@@ -574,6 +576,7 @@ export default class PlayerController {
                     break;
                 }
                 case 'lava-center': {
+                    this.lastHitBy = body.gameObject;
                     SceneFactory.playSound(this.sounds, 'lava');
                     this.stateMachine.setState('world-hit');
                     break;
