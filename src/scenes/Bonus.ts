@@ -20,6 +20,7 @@ import FlyController from '~/scripts/FlyController';
 import SawController from '~/scripts/SawController';
 import { sharedInstance as events } from '../scripts/EventManager';
 import LightSwitchController from '~/scripts/LightSwitchController';
+import NeonController from '~/scripts/NeonController';
 
 export default class Bonus extends Phaser.Scene {
 
@@ -50,7 +51,7 @@ export default class Bonus extends Phaser.Scene {
     private ground!: Phaser.Tilemaps.TilemapLayer;
     private layer1!: Phaser.Tilemaps.TilemapLayer;
     private introMusic!: Phaser.Sound.BaseSound;
-
+    private neon: NeonController[] = [];
     private playerX = -1;
     private playerY = -1;
 
@@ -81,6 +82,7 @@ export default class Bonus extends Phaser.Scene {
         this.flies = [];
         this.crows = [];
         this.saws = [];
+        this.neon = [];
         this.lightswitches = [];
         this.sounds = new Map<string, Phaser.Sound.BaseSound>();
         this.objects = [];
@@ -110,6 +112,8 @@ export default class Bonus extends Phaser.Scene {
         this.load.image('ra8bittiles128-bg', 'assets/ra8bittiles128-bg.webp');
         this.load.tilemapTiledJSON('tilemap-bonus', 'assets/ra8bit1-map.json');
         this.load.image('ra8bits-64-tiles', 'assets/ra8bittiles64.webp');
+        this.load.atlas('neon', 'assets/neon.webp', 'assets/neon.json');
+        this.load.atlas('neon2', 'assets/neon2.webp', 'assets/neon2.json');
     }
 
     create() {
@@ -264,6 +268,7 @@ export default class Bonus extends Phaser.Scene {
         this.saws.forEach(saw => saw.destroy());
         this.lightswitches.forEach(l => l.destroy());
         this.objects.forEach(obj=>obj.destroy());
+        this.neon.forEach(neon => neon.destroy());
 
         this.ground.destroy();
         this.layer1.destroy();
@@ -322,6 +327,7 @@ export default class Bonus extends Phaser.Scene {
             saw.update(deltaTime);
             saw.lookahead(this.map);
         });
+        this.neon.forEach(n=>n.update(deltaTime));
 
         if (this.playerController !== undefined) {
             this.playerController.update(deltaTime);
