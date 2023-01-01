@@ -788,7 +788,6 @@ export default class PlayerController {
 
         const spacebarJustDown = this.isSpace();
         if (spacebarJustDown) {
-            console.log("Space pressed!");
             if (this.standingOnFloor && this.jumpCount == 0 || this.jumpCount == 1) {
                 this.stateMachine.setState('jump');
                 return true;
