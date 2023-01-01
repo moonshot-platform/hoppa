@@ -176,7 +176,7 @@ export default class Start extends BaseScene {
             'PRESS SPACE TO PLAY', 24).setTint(0xff7300).setOrigin(0.5, 0.5);
 
         this.credits = this.add.bitmapText(320 + 640, -350, 'press_start',
-            'Written by c0ntrol zero, Artwork by Pixel8it, Storyline by Dandybanger, C 2022 Ra8bits, C 2022 Moonshot', 12).setTint(0xff7300).setOrigin(0.5, 0.5);
+            'Written by c0ntrol zero, Artwork by Pixel8it, Storyline by Dandybanger, C 2023 Ra8bits, C 2023 Moonshot', 12).setTint(0xff7300).setOrigin(0.5, 0.5);
         this.credits.setDropShadow(0, 2, 0xff0000, 0.5);
 
         cam.startFollow(this.shoutout);
