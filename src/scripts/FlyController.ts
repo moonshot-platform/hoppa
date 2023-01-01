@@ -7,6 +7,7 @@ export default class FlyController {
     private sprite: Phaser.Physics.Matter.Sprite;
     private stateMachine: StateMachine;
     private garbage = false;
+    private direction = 0;
     private moveTime = 0;
     private name;
     private wingPower = 3;
@@ -63,6 +64,7 @@ export default class FlyController {
 
     private moveDownOnEnter() {
         this.moveTime = 0;
+        this.direction = 0;
     }
 
     private moveDownOnUpdate(deltaTime: number) { // this is up actually
@@ -76,6 +78,7 @@ export default class FlyController {
 
     private moveUpOnEnter() {
         this.moveTime = 0;
+        this.direction = 1;
     }
 
     private moveUpOnUPdate(deltaTime: number) {
@@ -91,11 +94,17 @@ export default class FlyController {
         if (this.sprite.active == false)
             return false;
 
-        if (!CreatureLogic.hasTileAhead(map, this.scene.cameras.main, this.sprite, true, 0)) {
-            if (this.sprite.flipX)
-                this.stateMachine.setState("move-left");
+        const direction = (this.sprite.body.velocity.y > 0) ? 1 : -1;
+        let y = this.sprite.body.position.y;
+        y += (direction * 64);
+  
+        const tile = map.getTileAtWorldXY(this.sprite.body.x, y, undefined, this.scene.cameras.main, 'ground');
+
+        if (tile != null) {
+            if (this.direction == 1 )
+                this.stateMachine.setState("move-down");
             else
-                this.stateMachine.setState("move-right");
+                this.stateMachine.setState("move-up");
             return true;
         }
 
@@ -105,6 +114,7 @@ export default class FlyController {
     private idleOnEnter() {
         this.sprite.play('idle');
         this.stateMachine.setState('move-down');
+        this.direction = 0;
     }
 
     private handleStomped(fly: Phaser.Physics.Matter.Sprite) {
