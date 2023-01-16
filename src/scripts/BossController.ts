@@ -16,11 +16,9 @@ export default class BossController {
     private playerController: PlayerController;
     private moneybag = new Map<string, Phaser.Physics.Matter.Sprite>;
 
-    private p4: Phaser.GameObjects.Particles.ParticleEmitterManager;
-    private p3: Phaser.GameObjects.Particles.ParticleEmitterManager;
+    private p4: Phaser.GameObjects.Particles.ParticleEmitter;
+    private p3: Phaser.GameObjects.Particles.ParticleEmitter;
 
-    private emitter: Phaser.GameObjects.Particles.ParticleEmitter;
-    private plof: Phaser.GameObjects.Particles.ParticleEmitter;
     private obstacles: ObstaclesController;
     
     private drops:Phaser.Physics.Matter.Sprite[] = [];
@@ -61,10 +59,8 @@ export default class BossController {
         this.enemyCat = enemyCat;
         this.obstacles = obstacles;
         this.collideWith = collideWith;
-        this.p3 = scene.add.particles('money');
-        this.p3.setDepth(20);
         
-        this.emitter = this.p3.createEmitter({
+        this.p3 = this.scene.add.particles(0,0,'money', {
             speed: 250,
             scale: { start: 1, end: 1 },  
             blendMode: '',
@@ -78,9 +74,9 @@ export default class BossController {
             frame: {  frames: [ "Munney1.webp", "Munney2.webp", "Munney3.webp" ], cycle: false },
         });
 
-        this.p4 = scene.add.particles('plof');
-        this.p4.setDepth(12);
-        this.plof = this.p4.createEmitter({
+        this.p3.setDepth(20);
+
+        this.p4 = this.scene.add.particles(0,0, 'plof',{
             speed: 1,
             scale: { start: 0.75, end: 1 },  
             blendMode: 'SCREEN',
@@ -110,6 +106,9 @@ export default class BossController {
                 });
             }
         });
+        this.p4.setDepth(12);
+        
+        
         
         const bw = 128 + 64;
         this.healthbg = this.scene.add.rectangle( this.sprite.x - (bw/2)
@@ -388,16 +387,16 @@ export default class BossController {
         this.sprite.on(Phaser.Animations.Events.ANIMATION_UPDATE, function(anim,frame,sprite,frameKey) {
             switch(frameKey) {
                 case 'angry4.webp':
-                    this.emitter.emitParticle(Phaser.Math.Between(3, 7),  this.sprite.body.position.x -64, this.sprite.body.position.y - 32);
+                    this.p3.emitParticle(Phaser.Math.Between(3, 7),  this.sprite.body.position.x -64, this.sprite.body.position.y - 32);
                     break;
                 case 'angry6.webp':
-                    this.emitter.emitParticle(Phaser.Math.Between(3, 7),  this.sprite.body.position.x + 64, this.sprite.body.position.y - 32);
+                    this.p3.emitParticle(Phaser.Math.Between(3, 7),  this.sprite.body.position.x + 64, this.sprite.body.position.y - 32);
                     break;
                 case 'angry7.webp':
                     this.hit1.play({ volume: globalThis.soundVolume });
                     this.scene.cameras.main.shake(100,0.02);
-                    this.plof.emitParticle(1,  this.sprite.body.position.x - 48, this.sprite.body.position.y + 88);
-                    this.plof.emitParticle(1,  this.sprite.body.position.x + 48, this.sprite.body.position.y + 88);
+                    this.p4.emitParticle(1,  this.sprite.body.position.x - 48, this.sprite.body.position.y + 88);
+                    this.p4.emitParticle(1,  this.sprite.body.position.x + 48, this.sprite.body.position.y + 88);
                     break;
                 case 'angry5.webp':
                 case 'angry1.webp': 
