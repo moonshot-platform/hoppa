@@ -1,5 +1,6 @@
 import StateMachine from "./StateMachine";
 import { sharedInstance as events } from './EventManager';
+import * as CreatureLogic from './CreatureLogic';
 
 export default class CrowController {
     private scene: Phaser.Scene;
@@ -71,6 +72,12 @@ export default class CrowController {
         }
     }
 
+    public lookahead(map: Phaser.Tilemaps.Tilemap): boolean {
+        if (this.sprite.active == false)
+            return false;
+
+        return false;
+    }
     private moveRightOnEnter() {
         this.moveTime = 0;
     }

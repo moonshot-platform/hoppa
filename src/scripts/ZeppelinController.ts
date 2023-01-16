@@ -65,7 +65,7 @@ export default class ZeppelinController {
         this.sprite.flipX = false;
         this.sprite.setVelocityX(-1 * this.velocityX);
 
-        if (this.moveTime > 45000) {
+        if (this.moveTime > 15000) {
             this.stateMachine.setState('move-right');
         }
     }
@@ -79,7 +79,7 @@ export default class ZeppelinController {
         this.sprite.flipX = true;
         this.sprite.setVelocityX(this.velocityX);
 
-        if (this.moveTime > 45000) {
+        if (this.moveTime > 15000) {
             this.stateMachine.setState('move-left');
         }
     }
@@ -88,14 +88,14 @@ export default class ZeppelinController {
         if (this.sprite.active == false)
             return false;
 
-        if (!CreatureLogic.hasTileAhead(map, this.scene.cameras.main, this.sprite, true, 0)) {
+      /*  if (!CreatureLogic.hasTileAhead(map, this.scene.cameras.main, this.sprite, true, 0)) {
             if (this.sprite.flipX)
                 this.stateMachine.setState("move-left");
             else
                 this.stateMachine.setState("move-right");
             return true;
         }
-
+        */
         return false;
     }
 

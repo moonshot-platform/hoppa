@@ -76,7 +76,7 @@ export function createCreatureMonster(ctx, x, y, width, height, enemyCat, collid
 
 export function createCreatureBat(ctx, x, y, width, height, enemyCat, collideWith, controller) {
     const bat = ctx.matter.add.sprite(x + (width * 0.5), y + (height * 0.5), 'bat', undefined, {
-        vertices: [{ x: 0, y: 0 }, { x: 64, y: 0 }, { x: 64, y: 64 }, { x: 0, y: 64 }],
+        vertices: [{ x: 0, y: 0 }, { x: 48, y: 0 }, { x: 48, y: 28 }, { x: 0, y: 28 }],
         label: 'bat'
     })
         .setFixedRotation();

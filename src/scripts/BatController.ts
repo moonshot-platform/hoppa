@@ -22,6 +22,7 @@ export default class BatController {
         this.createAnims();
 
         this.stateMachine = new StateMachine(this);
+        this.velocityX = Phaser.Math.Between(6.55, 7.25);
 
         this.stateMachine.addState('idle', {
             onEnter: this.idleOnEnter
@@ -134,20 +135,21 @@ export default class BatController {
     }
 
     private createAnims() {
+        const framerate = Phaser.Math.Between(8,12);
         this.sprite.anims.create({
             key: 'idle',
-            frameRate: 10,
+            frameRate: framerate,
             repeat: -1,
             frames: this.sprite.anims.generateFrameNames('bat', {
                 start: 0,
-                end: 1,
+                end: 3,
                 prefix: '0_Idle',
                 suffix: '.webp'
             })
         });
         this.sprite.anims.create({
             key: 'dead',
-            frameRate: 10,
+            frameRate: framerate,
             repeat: 0,
             frames: this.sprite.anims.generateFrameNames('bat', {
                 start: 0,

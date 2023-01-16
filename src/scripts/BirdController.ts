@@ -133,13 +133,7 @@ export default class BirdController {
     public keepObject() {
         return !this.garbage;
     }
-
-    private createPath() {
-
-        return new Phaser.Curves.Path(this.sprite.x, this.sprite.y)
-            .ellipseTo(1, 1, 1, 1, false, 0);
-    }
-
+      
     private createAnims() {
         this.sprite.anims.create({
             key: 'idle',

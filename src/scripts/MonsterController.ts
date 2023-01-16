@@ -152,7 +152,7 @@ export default class MonsterController {
     private createAnims() {
         this.sprite.anims.create({
             key: 'idle',
-            frameRate: 5,
+            frameRate: 3,
             repeat: -1,
             frames: this.sprite.anims.generateFrameNames('monster', {
                 start: 1,
