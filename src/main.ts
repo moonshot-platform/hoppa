@@ -4,6 +4,8 @@ import Level1 from './scenes/Level1'
 import Level2 from './scenes/Level2'
 import Level3 from './scenes/Level3'
 import Level4 from './scenes/Level4'
+import Level5 from './scenes/Level5'
+import Level6 from './scenes/Level6'
 import SelectPlayer from './scenes/SelectPlayer'
 import LogoScreen from './scenes/LogoScreen'
 import HoppaScreen from './scenes/HoppaScreen'
@@ -17,6 +19,7 @@ import GameSettingsMenu from './scenes/GameSettingsMenu'
 import Help from './scenes/Help'
 import Story from './scenes/Story'
 import Wallet from './scenes/Wallet'
+
 
 const config: Phaser.Types.Core.GameConfig = {
 	type: Phaser.WEBGL,
@@ -50,13 +53,14 @@ const config: Phaser.Types.Core.GameConfig = {
 		activePointers: 4,
 		gamepad: true,
 	},
-	scene: [ Loader,LogoScreen,HoppaScreen,Story,Wallet,GameSettingsMenu,Help,Start,SelectPlayer,Level1,Level2,Level3,Level4, Bonus,Win,UI,Pause,GameOver],	
+	scene: [ Loader,LogoScreen,HoppaScreen,Wallet,Story,GameSettingsMenu,Help,Start,SelectPlayer,Level1,Level2,Level3,Level4,Level5,Level6,Bonus,Win,UI,Pause,GameOver],	
 }
 
 window.addEventListener('load', () => {
 	window.setTimeout(() => { 
 		if( 'serviceWorker' in navigator ) {
-			navigator.serviceWorker.register('sw.js',  { scope: "/hoppa/" } )
+			const s = navigator.serviceWorker;
+			s.register('sw.js',  { scope: "/hoppa/" } )
 				.then( function(r) {
 					console.log("Registered service worker ", r.scope);
 				})
