@@ -270,6 +270,7 @@ export default class PlayerController {
 
                     this.scene.matter.world.pause();
                     const v = this.obstacles.getValues('pipe', body);
+                    const vrh = v.room_hei;
                     const ry = this.sprite.y;
                     const rx = body.position.x;
 
@@ -285,7 +286,12 @@ export default class PlayerController {
                         },
                         onComplete: () => {
                             this.sprite.setPosition(v.dstx * 64, v.dsty * 64);
-                            this.scene.cameras.main.startFollow(this.sprite, true, undefined, undefined, undefined, 208);
+                            if( vrh > 0) {
+                                this.scene.cameras.main.startFollow(this.sprite, true, undefined, undefined, undefined, 208);
+                            }
+                            else {
+                                this.scene.cameras.main.startFollow(this.sprite, true);
+                            }
                             this.scene.matter.world.resume();
                         }
                     });
@@ -1348,6 +1354,8 @@ export default class PlayerController {
             y,
             false, this.scene.cameras.main, 'ground');
 
+        
+
         if (tile != null) {
             if (tile.canCollide && tile.visible && tile.collides) {
                 const dmg = tile.properties?.damage || 0;
@@ -1356,6 +1364,18 @@ export default class PlayerController {
                  
                 if ((dmg === undefined || dmg <= 0) && (bt === undefined || bt == false) && (hits == 0)) {
                     //tile.tint = 0xff0000;//debug
+                    const tileUp = this.tilemap.getTileAtWorldXY(
+                        x,
+                        y - 64,
+                        false,
+                        this.scene.cameras.main, 'ground');
+                        
+                    if(tileUp != null) {
+                        if(tileUp.canCollide && tileUp.visible && tileUp.collides) {
+                            return false;
+                        }
+                    }
+
                     return true;
                 }
             }
