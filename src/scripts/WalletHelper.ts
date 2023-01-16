@@ -8,6 +8,7 @@ declare global {
     var provider: ethers.providers.Web3Provider;
     var signer: ethers.providers.JsonRpcSigner;
     var noWallet: boolean;
+    var chainId: number;
 
     interface Window {
         ethereum: import('ethers').providers.ExternalProvider;
@@ -23,26 +24,44 @@ export function init() {
     }
 
     globalThis.provider = new ethers.providers.Web3Provider(window.ethereum);
-        
+    globalThis.moonshotBalance = 0;
+    globalThis.ra8bitBalance = 0;
+    globalThis.selectedAddress = "0x000000000000000000000000000000000000dead";
+    
     (window.ethereum as any).on( 'accountsChanged', function(accounts) {
       if( accounts.length > 0 ) {
-        globalThis.selectedAddress = accounts[0];
         getCurrentAccount();
+        getMyNFTCollections();
       }
     });
 
-    globalThis.moonshotBalance = 0;
-    globalThis.ra8bitBalance = 0;
-    globalThis.selectedAddress = "0x0";
+    (window.ethereum as any).on( 'network', (newNet,oldNet) => {
+      if(newNet.chainId == 56) {
+        getCurrentAccount();
+        getMyNFTCollections();
+      }
+    });
 
     console.log("Initialized wallet provider ", globalThis.provider);
 }
 
 export async function getCurrentAccount() {
-    if( globalThis.noWallet )
-        return;
+    if( globalThis.noWallet ) {
+       console.log("No wallet found");
+       return;
+    }
+
+    const { chainId } = await provider.getNetwork();
+
+    globalThis.chainId = chainId;
+
+    if(globalThis.chainId != 56) {
+      console.log("Wallet is not connected with Binance Smart Chain: ", chainId);
+      return;
+    }
 
     await globalThis.provider.send("eth_requestAccounts", []);
+
     globalThis.signer = globalThis.provider.getSigner();
     // save the currently connected address
     globalThis.selectedAddress = await globalThis.signer.getAddress();
@@ -57,9 +76,79 @@ export async function getCurrentAccount() {
 
     const ra8bitContract = new ethers.Contract("0x27424eE307488cA414f430b84A10483344E6d80a", abi , globalThis.signer );    
     globalThis.ra8bitBalance = await ra8bitContract.balanceOf( globalThis.selectedAddress );
-
-    getMyNFTCollections();
+    
 }
+
+export async function getSomeRa8bitTokens() {
+  if( globalThis.noWallet )
+    return "No wallet found";
+
+  await globalThis.provider.send("eth_requestAccounts", []);
+  globalThis.signer = globalThis.provider.getSigner();
+  // save the currently connected address
+  globalThis.selectedAddress = await globalThis.signer.getAddress();
+  
+  const abi = [
+      "function canWithdraw(address addr) public view returns (bool)",
+      "function getFreeRa8bit() external"
+  ];
+
+  const faucetContract = new ethers.Contract("0x5620AF88096762868150100FA21797eCB49c5759", abi , globalThis.signer );     
+  const canWithdraw = await faucetContract.canWithdraw( globalThis.selectedAddress );
+
+  if( canWithdraw ) {
+
+    try {
+
+      const tx = await faucetContract.getFreeRa8bit();
+      await tx.wait();
+    
+      await getCurrentAccount();
+    }
+    catch( error: any ) {
+      return error.reason;
+    }
+  }
+
+  return "You received $RA8BIT tokens";
+}
+
+export async function getSomeMoonshotTokens(): Promise<string> {
+  if( globalThis.noWallet ) {
+    return "No wallet found";
+  }
+
+  await globalThis.provider.send("eth_requestAccounts", []);
+  globalThis.signer = globalThis.provider.getSigner();
+  // save the currently connected address
+  globalThis.selectedAddress = await globalThis.signer.getAddress();
+  
+  const abi = [
+      "function canWithdraw(address addr) public view returns (bool)",
+      "function getFreeMoonshot() external"
+  ];
+
+  const faucetContract = new ethers.Contract("0x23737b74C1026a8F3A038Af0F9752b7cbd75A76C", abi , globalThis.signer );     
+  const canWithdraw = await faucetContract.canWithdraw( globalThis.selectedAddress );
+
+  if( canWithdraw ) {
+
+    try {
+
+      const tx = await faucetContract.getFreeMoonshot();
+      await tx.wait();
+
+      await getCurrentAccount();
+    }
+    catch( error: any ) {
+      return error.reason;
+    }
+  }
+
+  return "You received $MSHOT tokens";
+
+}
+
 
 export function isNotEligible(): boolean {
     return globalThis.noWallet || (globalThis.moonshotBalance == 0 && globalThis.ra8bitBalance == 0 && !globalThis.hasNFT );
