@@ -108,6 +108,7 @@ export default class HoppaScreen extends Phaser.Scene {
     private continueGame() {
         WalletHelper.init();
         WalletHelper.getCurrentAccount();
+        WalletHelper.getMyNFTCollections();
         this.scene.stop();
         this.scene.start('story');
     }
