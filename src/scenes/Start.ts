@@ -45,6 +45,7 @@ export default class Start extends BaseScene {
     private crows: CrowController[] = [];
     private saws: SawController[] = [];
     private boss: BossController[] = [];
+    private lava: LavaController[] = [];
     private index = 0;
     private hsv;
     private shoutout !: Phaser.GameObjects.BitmapText;
@@ -80,6 +81,7 @@ export default class Start extends BaseScene {
         this.flies = [];
         this.crows = [];
         this.saws = [];
+        this.lava = [];
 
         const info = {
             'lastHealth': 100,
@@ -237,6 +239,8 @@ export default class Start extends BaseScene {
         this.flies.forEach(fly => fly.destroy());
         this.crows.forEach(crow => crow.destroy());
         this.saws.forEach(saw => saw.destroy());
+        this.lava.forEach(lava=>lava.destroy());
+
         this.shoutout.destroy();
         this.credits.destroy();
 
@@ -255,22 +259,51 @@ export default class Start extends BaseScene {
         if(!super.doStep())
             return;
         
-        this.monsters.forEach(monster => monster.update(deltaTime));
-        this.fires.forEach(fire => fire.update(deltaTime));
+        this.monsters.forEach(monster => {
+            monster.update(deltaTime);
+            monster.lookahead(this.map);
+        });
+        this.fires.forEach(fire => {
+            fire.update(deltaTime);
+            fire.lookahead(this.map)
+        });
+        this.firewalkers.forEach(firewalker => {
+            firewalker.update(deltaTime);
+            firewalker.lookahead(this.map);
+        });
+        this.zeps.forEach(zep => { 
+            zep.update(deltaTime); 
+            zep.lookahead(this.map);
+        });
+        this.flies.forEach(fly => {
+            fly.update(deltaTime); 
+            fly.lookahead(this.map);
+        });
+        this.crabs.forEach(crab => {
+            crab.update(deltaTime);
+            crab.lookahead(this.map);
+        });
+        this.dragons.forEach(dragon => {
+            dragon.update(deltaTime);
+            dragon.lookahead(this.map);
+        });
+        this.crows.forEach(crow => {
+            crow.update(deltaTime);
+            crow.lookahead(this.map);
+        });
+
         this.flowers.forEach(flower => flower.update(deltaTime));
         this.plants.forEach(plant => plant.update(deltaTime));
-        this.crabs.forEach(crab => crab.update(deltaTime));
         this.birds.forEach(bird => bird.update(deltaTime));
-        this.firewalkers.forEach(firewalker => firewalker.update(deltaTime));
         this.bats.forEach(bat => bat.update(deltaTime));
-        this.dragons.forEach(dragon => dragon.update(deltaTime));
         this.bombs.forEach(bomb => bomb.update(deltaTime));
-        this.zeps.forEach(zep => zep.update(deltaTime));
         this.bears.forEach(bear => bear.update(deltaTime));
         this.tnts.forEach(tnt => tnt.update(deltaTime));
-        this.flies.forEach(fly => fly.update(deltaTime));
-        this.crows.forEach(crow => crow.update(deltaTime));
+        
         this.saws.forEach(saw => saw.update(deltaTime));
+        this.lava.forEach(lava => {
+            lava.update(deltaTime);
+        });
 
         const top = this.hsv[this.index].color;
         const bottom = this.hsv[359 - this.index].color;

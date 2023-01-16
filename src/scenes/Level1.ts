@@ -116,6 +116,13 @@ export default class Level1 extends BaseScene {
 
     preload() {
         
+        this.load.image('bg_1', 'assets/back2.webp');
+        this.load.image('bg_2', 'assets/back3.webp');
+        this.load.image('bg_3', 'assets/back4.webp');
+        this.load.image('bg_4', 'assets/back5.webp');
+        this.load.image('bg_5', 'assets/back6.webp');
+        this.load.image('bg_6', 'assets/back7.webp');
+
         SceneFactory.preload(this);
 
         this.load.tilemapTiledJSON('tilemap1', 'assets/map1.json');
@@ -327,34 +334,43 @@ export default class Level1 extends BaseScene {
             fire.update(deltaTime);
             fire.lookahead(this.map)
         });
-        this.flowers.forEach(flower => flower.update(deltaTime));
-        this.plants.forEach(plant => plant.update(deltaTime));
-        this.crabs.forEach(crab => {
-            crab.update(deltaTime);
-            crab.lookahead(this.map);
-        });
-        this.birds.forEach(bird => bird.update(deltaTime));
         this.firewalkers.forEach(firewalker => {
             firewalker.update(deltaTime);
             firewalker.lookahead(this.map);
         });
-        this.bats.forEach(bat => bat.update(deltaTime));
-        this.dragons.forEach(dragon => {
-            dragon.update(deltaTime);
-            dragon.lookahead(this.map);
-        });
-        this.bombs.forEach(bomb => bomb.update(deltaTime));
         this.zeps.forEach(zep => { 
             zep.update(deltaTime); 
             zep.lookahead(this.map);
         });
-        this.bears.forEach(bear => bear.update(deltaTime));
-        this.tnts.forEach(tnt => tnt.update(deltaTime));
         this.flies.forEach(fly => {
             fly.update(deltaTime); 
             fly.lookahead(this.map);
         });
-        this.crows.forEach(crow => crow.update(deltaTime));
+        this.crabs.forEach(crab => {
+            crab.update(deltaTime);
+            crab.lookahead(this.map);
+        });
+        this.dragons.forEach(dragon => {
+            dragon.update(deltaTime);
+            dragon.lookahead(this.map);
+        });
+        this.crows.forEach(crow => {
+            crow.update(deltaTime);
+            crow.lookahead(this.map);
+        });
+
+        this.flowers.forEach(flower => flower.update(deltaTime));
+        this.plants.forEach(plant => plant.update(deltaTime));
+        this.birds.forEach(bird => bird.update(deltaTime));
+
+        this.bats.forEach(bat => bat.update(deltaTime));
+
+        this.bombs.forEach(bomb => bomb.update(deltaTime));
+
+        this.bears.forEach(bear => bear.update(deltaTime));
+        this.tnts.forEach(tnt => tnt.update(deltaTime));
+
+
         this.saws.forEach(saw => {
             saw.update(deltaTime);
             saw.lookahead(this.map);
