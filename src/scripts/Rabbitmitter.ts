@@ -4,15 +4,13 @@ export default class Rabbitmitter {
 
     private sprite!: MatterJS.BodyType;
     private emitter!: Phaser.GameObjects.Particles.ParticleEmitter;
-    private particles: Phaser.GameObjects.Particles.ParticleEmitterManager;
     private scene: Phaser.Scene;
     private layers: string[] = ['ground', 'layer1'];
 
     constructor(scene, x, y, hits, pem, sprite) {
         this.scene = scene;
         this.sprite = sprite;
-        this.particles = scene.add.particles(pem);
-        this.emitter = this.particles.createEmitter({
+        this.emitter = this.scene.add.particles(0,0,pem, {
             speed: 400,
             scale: { start: 0.66, end: 0 },  // for some strange reason, there is a crash on images of size 64x64 'reading halfWidth'
             blendMode: '',
@@ -38,8 +36,7 @@ export default class Rabbitmitter {
         });
 
         this.scene.matter.world.remove(body);
-        this.emitter.stop();
-        this.particles.destroy();
+        this.emitter.destroy();
     }
 
     emitParticle(map: Phaser.Tilemaps.Tilemap, body: MatterJS.BodyType) {
