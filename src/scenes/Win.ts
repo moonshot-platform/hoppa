@@ -7,8 +7,8 @@ export default class Win extends CreditScene {
     private shoutout!: Phaser.GameObjects.BitmapText;
     private index = 0;
     private hsv;
-    private fireworks!: Phaser.GameObjects.Particles.ParticleEmitterManager;
-    private emitter!: Phaser.GameObjects.Particles.ParticleEmitter;
+    private fireworks!: Phaser.GameObjects.Particles.ParticleEmitter;
+    private particles!: Phaser.GameObjects.Particles.ParticleEmitter;
 
     private music!: Phaser.Sound.BaseSound;
 
@@ -16,8 +16,7 @@ export default class Win extends CreditScene {
         super('win');
     }
 
-    private particles!: Phaser.GameObjects.Particles.ParticleEmitterManager;
-
+   
     preload() {
         SceneFactory.preload(this);
 
@@ -32,7 +31,6 @@ export default class Win extends CreditScene {
 
         this.music = SceneFactory.playRepeatMusic(this, 'boss');
         this.hsv = Phaser.Display.Color.HSVColorWheel();
-        this.fireworks = this.add.particles('flares');
         this.add.image(width / 2, 0, 'logo').setDisplaySize(144, 62).setOrigin(0.5, 0);
 
         this.time.delayedCall(3000, () => {
@@ -43,21 +41,20 @@ export default class Win extends CreditScene {
                 frame: { frames: ['red', 'yellow', 'green', 'blue'], cycle: true, quantity: 512 },
                 frequency: 1024,
                 gravityY: 300,
-                lifespan: 1000,
+                lifespan: 2000,
                 quantity: 500,
                 reserve: 500,
                 scale: { min: 0.05, max: 0.15 },
-                speed: { min: 200, max: 512 },
-                x: 512, y: 384,
+                speed: { min: 100, max: 200 },
             };
-            this.emitter = this.fireworks.createEmitter(emitterConfig);
+            this.particles = this.add.particles(512,385,'flares', emitterConfig);
 
             this.time.addEvent({
                 delay: 250,
                 startAt: 250,
                 repeat: -1,
                 callback: () => {
-                    this.emitter.setPosition(width * Phaser.Math.FloatBetween(0.25, 0.75), height * Phaser.Math.FloatBetween(0, 0.5));
+                    this.particles.setPosition(width * Phaser.Math.FloatBetween(0.25, 0.75), height * Phaser.Math.FloatBetween(0, 0.5));
                 },
             });
         });
@@ -97,11 +94,7 @@ export default class Win extends CreditScene {
             }
         };
 
-        this.particles = this.add.particles('flares');
-
-        this.particles.createEmitter({
-            x: 0,
-            y: 0,
+        this.fireworks = this.add.particles(0,0, 'flares', {
             lifespan: 1000,
             gravityY: 10,
             scale: { start: 0, end: 0.25, ease: 'Quad.easeOut' },
@@ -151,7 +144,6 @@ export default class Win extends CreditScene {
     destroy() {
         this.particles.destroy();
         this.music.destroy();
-        this.fireworks.destroy();
         this.shoutout.destroy();
         this.scroller.destroy();
     
