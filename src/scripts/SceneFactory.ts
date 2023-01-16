@@ -349,14 +349,11 @@ export function preload(ctx) {
     ctx.load.image('cocoonTiles', 'assets/cocoons.webp');
     ctx.load.image('stonesTiles', 'assets/stones.webp');
 
-    ctx.load.image('bg_1', 'assets/back2.webp');
-    ctx.load.image('bg_2', 'assets/back3.webp');
-    ctx.load.image('bg_3', 'assets/back4.webp');
-    ctx.load.image('bg_4', 'assets/back5.webp');
-    ctx.load.image('bg_5', 'assets/back6.webp');
-    ctx.load.image('bg_6', 'assets/back7.webp');
+
     ctx.load.image('logo', 'assets/logo.webp');
 
+
+    
     ctx.load.image('bg_cocoons', 'assets/bg_cocoons.webp');
     ctx.load.image('ra8bitTiles', 'assets/minira8bits.webp');
     
@@ -782,10 +779,10 @@ export function basicCreate(ctx, name, x, y, width, height, rotation, enemyCat, 
         case 'pipe': {
             const dstx = objData.properties.find((p) => p.name === 'dstx')?.value;
             const dsty = objData.properties.find((p) => p.name === 'dsty')?.value;
-            const delay = objData.properties.find((p) => p.name === 'delay')?.value;
-            const duration = objData.properties.find((p) => p.name === 'duration')?.value;
-            const room_wid = objData.properties.find((p) => p.name === 'room_width')?.value;
-            const room_hei = objData.properties.find((p) => p.name === 'room_height')?.value;
+            const delay = objData.properties.find((p) => p.name === 'delay')?.value || 0;
+            const duration = objData.properties.find((p) => p.name === 'duration')?.value || 0;
+            const room_wid = objData.properties.find((p) => p.name === 'room_width')?.value || 0;
+            const room_hei = objData.properties.find((p) => p.name === 'room_height')?.value || 0;
 
             const pipe = ctx.matter.add.rectangle(x + (width * 0.5), y + (height * 0.5), width, height, {
                 isStatic: true,
