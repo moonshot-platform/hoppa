@@ -184,7 +184,7 @@ export async function getMyNFTCollections() {
 }
 
 export async function newRequest() {
-    const url = 'https://moonboxes.io/api/api/userData?NSFW=undefined&userAddress=' + globalThis.selectedAddress;
+    const url = 'https://moonboxes.io/api/api/userNftData?blockchainId=56&userAddress=' + globalThis.selectedAddress;
     const { chainId }  = await provider.getNetwork();
     const response = await fetch( url, {
       method: 'GET',
