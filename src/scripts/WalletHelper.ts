@@ -184,15 +184,12 @@ export async function getMyNFTCollections() {
 }
 
 export async function newRequest() {
-    const url = 'https://moonboxes.io/api/api/userNftData?blockchainId=56&userAddress=' + globalThis.selectedAddress;
     const { chainId }  = await provider.getNetwork();
+    const url = 'https://moonboxes.io/api/api/userNftData?blockchainId=' + chainId + '&userAddress=' + globalThis.selectedAddress;
     const response = await fetch( url, {
       method: 'GET',
       mode: 'cors',
       cache: 'no-cache',
-      headers: {
-        'blockchainId': ""  + chainId,
-      },
       redirect: 'follow',
     }).then( (response) => {
       if( response.status >= 400 && response.status < 600) {
@@ -206,5 +203,5 @@ export async function newRequest() {
        console.log("Oops try again much later:",error);
     });
     return response;
-  }
+}
   
