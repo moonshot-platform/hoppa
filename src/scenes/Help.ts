@@ -6,13 +6,23 @@ export default class Help extends Phaser.Scene {
     private line2!: Phaser.GameObjects.BitmapText;
     private line3!: Phaser.GameObjects.BitmapText;
     private line4!: Phaser.GameObjects.BitmapText;
-    
+    private line5?: Phaser.GameObjects.BitmapText;
+    private cursors!: Phaser.Types.Input.Keyboard.CursorKeys;
     constructor() {
         super('help')
     }
 
     preload() {
         SceneFactory.preload(this);
+    }
+
+    init() {
+        
+        this.cursors = this.input.keyboard?.createCursorKeys();
+        
+        this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
+            this.destroy();
+        });
     }
 
     create() {
@@ -31,6 +41,14 @@ export default class Help extends Phaser.Scene {
         this.line2.destroy();
         this.line3.destroy();
         this.line4.destroy();
+        this.line5?.destroy();
+        this.line5 = undefined;
+    }
+
+    update() {
+        if( SceneFactory.gamePadAnyButton(this) || this.cursors.space.isDown ) {
+            this.continueGame();
+        }
     }
 
     private createIntro() {
@@ -71,10 +89,13 @@ export default class Help extends Phaser.Scene {
             .setTint(0xffffff)
             .setOrigin(0.5);
 
-        this.line4 = this.add.bitmapText(width * 0.5, height / 2 + 144, 'press_start', 'Or use touchpad/gamepad', 32)
+        this.line4 = this.add.bitmapText(width * 0.5, height / 2 + 144, 'press_start', 'Use I to open Inventory', 32)
             .setTint(0xffffff)
             .setOrigin(0.5);
 
+        this.line5 = this.add.bitmapText(width * 0.5, height / 2 + 192, 'press_start', 'Or use touchpad/gamepad', 32)
+            .setTint(0xffffff)
+            .setOrigin(0.5);
             
         this.time.delayedCall(6000, () => {
             this.clearLines();
@@ -87,6 +108,7 @@ export default class Help extends Phaser.Scene {
         this.line2.destroy();
         this.line3.destroy();
         this.line4.destroy();
+        this.line5?.destroy();
     }
 
     private continueGame() {
