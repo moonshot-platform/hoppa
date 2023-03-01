@@ -1,12 +1,13 @@
 import Phaser from "phaser";
 import * as SceneFactory from '../scripts/SceneFactory';
+
 export default class GameOver extends Phaser.Scene {
     constructor() {
         super('game-over')
     }
 
     private introMusic?: Phaser.Sound.BaseSound;
-    private text: Phaser.GameObjects.BitmapText;
+    private text!: Phaser.GameObjects.BitmapText;
 
     preload() {
         SceneFactory.preload(this);
