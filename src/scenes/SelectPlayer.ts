@@ -1,5 +1,7 @@
 import Phaser from "phaser";
 import * as SceneFactory from '../scripts/SceneFactory';
+import { PlayerPreferences } from "./PlayerPreferences";
+import { PlayerStats } from "./PlayerStats";
 
 export default class GameSettingsMenu extends Phaser.Scene {
 
@@ -25,7 +27,7 @@ export default class GameSettingsMenu extends Phaser.Scene {
     }
 
     init() {
-        this.cursors = this.input.keyboard.createCursorKeys();
+        this.cursors = this.input.keyboard?.createCursorKeys();
         this.sounds = new Map<string, Phaser.Sound.BaseSound>();
 
         const data = window.localStorage.getItem( 'ra8bit.stats' );
@@ -82,6 +84,9 @@ export default class GameSettingsMenu extends Phaser.Scene {
     create() {
 
         const { width, height } = this.scale;
+
+        this.input.setDefaultCursor('url(assets/hand.cur), pointer');
+
         this.sounds = SceneFactory.setupSounds(this);
         
         this.backLabel = this.add.bitmapText(width / 2, 64, 'press_start', 'PLEASE SELECT', 24)
