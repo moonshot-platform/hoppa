@@ -2,6 +2,7 @@ import Phaser from "phaser";
 import { sharedInstance as events } from "../scripts/EventManager";
 import * as SceneFactory from '../scripts/SceneFactory';
 import * as WalletHelper from '../scripts/WalletHelper';
+import { PlayerStats } from "./PlayerStats";
 
 export default class UI extends Phaser.Scene {
     
@@ -48,6 +49,8 @@ export default class UI extends Phaser.Scene {
                 'speedUp': false,
                 'powerUp': false,
                 'throw': false,
+                'pokeBall': false,
+                'voice': false,
             };
         }
         
@@ -105,12 +108,15 @@ export default class UI extends Phaser.Scene {
         events.on('health-changed', this.handleHealthChanged, this);
         events.on('reset-game', this.handleReset, this);
         events.on('next-level', this.handleNextLevel, this);
+        events.on('warp-level', this.handleWarpLevel, this);
         events.on('bonus-level', this.handleBonusRound, this);
 
         events.on('power-invincible' , this.handleInvincible, this);
         events.on('power-speed' , this.handleSpeed, this);
         events.on('power-poop' , this.handlePoop, this);
         events.on('power-power', this.handlePower, this);
+        events.on('power-pokeball', this.handlePokeball, this);
+        events.on('voice-random', this.handleVoice, this);
         events.on('score-changed', this.handleChangeScore, this);
         
         events.on('carrot-collected', this.handleCarrotCollected, this );
@@ -118,8 +124,9 @@ export default class UI extends Phaser.Scene {
 
         events.on('level-start', this.startGame, this); 
         events.on('restart', this.handleRestart, this);
+        events.on('save-state', this.save, this);
 
-        this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
+        events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
             events.off('coin-collected', this.handleCoinCollected, this);
             events.off('coin-taken', this.handleCoinTaken, this);
             events.off('enemy-killed', this.handleEnemyKilled,this);
@@ -128,18 +135,23 @@ export default class UI extends Phaser.Scene {
             
             events.off('next-level', this.handleNextLevel, this);
             events.off('bonus-level', this.handleBonusRound, this);
-    
+            events.off('warp-level', this.handleWarpLevel, this);
+
             events.off('power-invincible' , this.handleInvincible, this);
             events.off('power-speed' , this.handleSpeed, this);
             events.off('power-poop' , this.handlePoop, this);
+            events.off('power-pokeball', this.handlePokeball, this);
             events.off('power-power', this.handlePower, this);
             events.off('score-changed', this.handleChangeScore, this);
-            
+            events.off('voice-random', this.handleVoice, this);
+        
             events.off('carrot-collected', this.handleCarrotCollected, this );
             events.off('lives-changed', this.handleLivesChanged, this); 
         
             events.off('level-start', this.startGame, this);
-            events.on( 'restart', this.handleRestart, this);
+            events.off( 'restart', this.handleRestart, this);
+
+            events.off('save-state', this.save, this );
         });
     }
 
@@ -179,33 +191,31 @@ export default class UI extends Phaser.Scene {
 
     private handleInvincible(value: boolean) {
         this.pwrInvincible?.setAlpha(value ? 1: 0.1);
-        if(value) {
-            this.updateScore(1000);
-        }
         this.info.invincibility = value;
     }
     
     private handleSpeed(value: boolean) {
         this.pwrSpeed?.setAlpha(value ? 1: 0.1);
-        if(value) {
-            this.updateScore(1000);
-        }
         this.info.speedUp = value;
     }
     
     private handlePoop(value: boolean) {
         this.pwrPoop?.setAlpha(value ? 1: 0.1);
-        if(value) {
-            this.updateScore(1000);
-        }
         this.info.throw = value;
+    }
+
+    private handlePokeball(value: boolean) {
+        this.info.pokeBall = value;
+        this.pwrPoop?.setAlpha(value ? 1: 0.1);
+        this.info.throw = value;
+    }
+
+    private handleVoice(value: boolean) {
+        this.info.voice = value;
     }
 
     private handlePower(value: boolean) {
         this.pwrPower?.setAlpha(value ? 1: 0.1);
-        if(value) {
-            this.updateScore(1000);
-        }
         this.info.powerUp = value;
     }
 
@@ -230,6 +240,13 @@ export default class UI extends Phaser.Scene {
     
     private handleBonusRound() {
         this.handleSceneSwitch();   
+    }
+
+    private handleWarpLevel(value: number) {
+        this.info.currLevel = value;
+        this.save();
+
+        this.time_start = 0;
     }
 
     private handleNextLevel() {
@@ -280,7 +297,8 @@ export default class UI extends Phaser.Scene {
         this.info.speedUp = false;
         this.info.powerUp = false;
         this.info.throw = false;
-
+        this.info.pokeBall = false;
+        this.info.voice = false;
         this.save();
 
         this.resetSpawnPoint();
@@ -293,7 +311,8 @@ export default class UI extends Phaser.Scene {
         this.info.speedUp = false;
         this.info.powerUp = false;
         this.info.throw = false;
-
+        this.info.pokeBall = false;
+        this.info.voice = false;
         this.info.lastHealth = 100;
         
         this.pwrSpeed?.setAlpha(this.info.speedUp ? 1: 0.1);
