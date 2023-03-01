@@ -7,10 +7,12 @@ import * as SceneFactory from "../scripts/SceneFactory";
 import PowerUps from "./PowerUps";
 import VirtualJoyStick from "phaser3-rex-plugins/plugins/virtualjoystick";
 import JoypadController from "./JoypadController";
+import Inventory from "~/scenes/Inventory";
+import { PlayerStats } from "~/scenes/PlayerStats";
 
 export default class PlayerController {
     private scene: Phaser.Scene;
-    private sprite!: Phaser.Physics.Matter.Sprite;
+    private sprite?: Phaser.Physics.Matter.Sprite;
     private cursors: Phaser.Types.Input.Keyboard.CursorKeys;
     private stateMachine: StateMachine;
     private obstacles: ObstaclesController;
@@ -58,6 +60,12 @@ export default class PlayerController {
     private isDead = false;
     private wasd;
     private buttonRepeat = 0;
+    private inventoryOpen = false;
+
+    private gameStopping = false;
+
+    private projectileName: string = "dropping";
+    private projectileSplash: string = "dropping-splash";
 
     private joystick?: VirtualJoyStick;
 
@@ -65,7 +73,7 @@ export default class PlayerController {
 
     constructor(
         scene: Phaser.Scene,
-        sprite: Phaser.Physics.Matter.Sprite,
+        sprite: Phaser.Physics.Matter.Sprite | undefined,
         cursors: Phaser.Types.Input.Keyboard.CursorKeys,
         obstacles: ObstaclesController,
         sounds: Map<string, Phaser.Sound.BaseSound>,
@@ -82,10 +90,11 @@ export default class PlayerController {
         this.throwDelay = 30;
         this.lastThrow = 0;
         this.name = globalThis.rabbit || 'player1';
-        this.powerUps = new PowerUps(this, scene);
-        this.spawn_x = this.sprite.body.position.x;
-        this.spawn_y = this.sprite.body.position.y;
-        this.createAnims();
+        this.powerUps = new PowerUps(this, scene, false);
+        this.spawn_x = this.sprite?.body.position.x || 640;
+        this.spawn_y = this.sprite?.body.position.y || -100;
+        if(this.sprite !== undefined)
+            this.createAnims();
         this.stateMachine = new StateMachine(this, this.name);
 
         this.scene.events.on('preupdate', this.preupdate, this);
@@ -101,15 +110,19 @@ export default class PlayerController {
             }
         )
 
+        
+
         this.scene.input.keyboard?.once('keydown', () => {
             events.emit('level-start');
         });
 
+        this.scene.input.keyboard?.on("keydown-I", (event) => {
+          this.openInventory();
+        });
+
+
         this.scene.input.keyboard?.once('keydown-ESC', () => {
-            SceneFactory.stopSound(this.scene);
-            this.scene.scene.stop('ui');
-            this.scene.scene.stop();
-            this.scene.scene.start('hoppa');
+            this.stopGame();
         });
 
         this.stateMachine.addState('idle', {
@@ -146,7 +159,7 @@ export default class PlayerController {
             .setState('idle');
 
 
-        this.sprite.setOnCollideEnd((data: MatterJS.ICollisionPair) => {
+        this.sprite?.setOnCollideEnd((data: MatterJS.ICollisionPair) => {
             let body = data.bodyB as MatterJS.BodyType;
             let player = data.bodyA as MatterJS.BodyType;
 
@@ -160,7 +173,7 @@ export default class PlayerController {
             }
         });
 
-        this.sprite.setOnCollideActive((data: MatterJS.ICollisionPair) => {
+        this.sprite?.setOnCollideActive((data: MatterJS.ICollisionPair) => {
             let body = data.bodyB as MatterJS.BodyType;
             let player = data.bodyA as MatterJS.BodyType;
 
@@ -202,7 +215,7 @@ export default class PlayerController {
             }
         });
 
-        this.sprite.setOnCollide((data: MatterJS.ICollisionPair) => {
+        this.sprite?.setOnCollide((data: MatterJS.ICollisionPair) => {
             let body = data.bodyB as MatterJS.BodyType;
             let player = data.bodyA as MatterJS.BodyType;
 
@@ -219,17 +232,19 @@ export default class PlayerController {
 
             if (this.obstacles.isType('exit', body)) {
                 const next = this.obstacles.getValues('exit', body);
+                const room = next.room;
+                const ev = next.event;
                 this.scene.cameras.main.fadeOut(500, 0, 0, 0)
                 this.scene.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, () => {
-                    events.emit(next.event);
+                    events.emit(ev);
                     this.scene.scene.stop();
-                    if( (globalThis.noWallet || (globalThis.moonshotBalance == 0 && globalThis.ra8bitBalance == 0)) && next.room !== 'bonus' ) {
+                    if( (globalThis.noWallet || (globalThis.moonshotBalance == 0 && globalThis.ra8bitBalance == 0)) && room !== 'bonus' ) {
                         SceneFactory.stopSound(this.scene);
                         this.scene.scene.start( 'hoppa');
                     }
                     else {
                         SceneFactory.stopSound(this.scene);
-                        this.scene.scene.start(next.room);
+                        this.scene.scene.start(room);
                     }
                 });
             }
@@ -600,17 +615,22 @@ export default class PlayerController {
     private createVirtualJoystick() {
         if(this.jp !== undefined) {
             this.jp.getB().on('click', () => {
-                if (!this.cannotThrow) {
-                    this.throwOnEnter();
-                    this.jp?.fireB();
-                    this.jp?.startTimerNow();
+                this.playerButton1 = true;
+                if(!(this.playerButton1 && this.playerButton2)) {
+                    if (!this.cannotThrow) {
+                        this.throwOnEnter();
+                        this.jp?.fireB();
+                        this.jp?.startTimerNow();
+                    }
                 }
-
             }, this);
+
             this.jp.getA().on('click', () => {
                 this.playerButton2 = true;
-                this.jp?.fireA();
-                this.jp?.startTimerNow();
+                if(!(this.playerButton1 && this.playerButton2)) {
+                    this.jp?.fireA();
+                    this.jp?.startTimerNow();
+                }
             }, this);
 
             this.joystick = this.jp.getStick();
@@ -670,6 +690,16 @@ export default class PlayerController {
         return this.sprite;
     }
 
+    openInventory() {
+        this.inventoryOpen = !this.inventoryOpen;
+        if(this.inventoryOpen) {
+            this.scene.scene.launch('inventory', {"player": this });
+        }
+        else {
+            this.scene.scene.stop('inventory');
+        }
+    }
+
     collectPoop(turd: Phaser.Physics.Matter.Sprite, splash = true) {
         if (this.trashcan.has(turd.name)) {
             console.log("Already destroyed " + turd.name);
@@ -692,14 +722,14 @@ export default class PlayerController {
         this.scene.events.off('preupdate', this.preupdate, this);
         this.poopbag.clear();
         this.trashcan.clear();
-        this.sprite.destroy();
+        this.sprite?.destroy();
         this.stateMachine.destroy();
-        this.sounds.clear();
+        this.sounds?.clear();
         this.jp?.destroy();
-       
+        this.powerUps.destroy();
     }
 
-    preupdate() {
+    preupdate(time, delta) {
 
         this.trashcan.forEach((value, key) => {
             this.poopbag.delete(key);
@@ -727,7 +757,7 @@ export default class PlayerController {
         });
 
         this.updateSpawnlocation();
-
+        
     }
 
     update(deltaTime: number) {
@@ -840,10 +870,18 @@ export default class PlayerController {
             this.stateMachine.setState('walk');
         }
 
+        if( this.isR2() ) {
+            this.openInventory();
+        }
+        
         this.playerThrows();
         this.playerJumps();
 
         this.updateVelocities('idle');
+    
+        if( this.isStart() ) {
+            this.stopGame();
+        }
     }
 
     private jumpOnEnter() {
@@ -907,7 +945,7 @@ export default class PlayerController {
         }
 
         const name = 'dropping' + UniqueID.genUniqueID();
-        const dropping = this.scene.matter.add.sprite(dx - 12, dy - 21, 'dropping', undefined, {
+        const dropping = this.scene.matter.add.sprite(dx - 12, dy - 21, this.projectileName, undefined, {
             vertices: [{ x: 0, y: 0 }, { x: 24, y: 0 }, { x: 24, y: 24 }, { x: 0, y: 24 }],
             label: 'dropping',
             angle: 45,
@@ -915,13 +953,14 @@ export default class PlayerController {
         });
         this.poopbag.set(name, dropping);
 
-        const turdSpeed = 24;
+        const turdSpeed = 24 + ( this.stats.pokeBall ? 8 : 0);
         dropping.setBounce(0.9);
 
         dropping.setFriction(0.0);
         dropping.setFrictionAir(0.0005);
         dropping.setMass(0.1);
         dropping.setDepth(10);
+
         dropping.setVelocityX((this.sprite.flipX ? -turdSpeed : turdSpeed));
 
         dropping.setCollisionGroup(6);
@@ -1034,7 +1073,7 @@ export default class PlayerController {
         dropping.anims.create({
             key: 'splash',
             frameRate: 25,
-            frames: this.sprite.anims.generateFrameNames('dropping-splash', {
+            frames: this.sprite.anims.generateFrameNames(this.projectileSplash, {
                 start: 1,
                 end: 3,
                 prefix: 'Splash',
@@ -1042,6 +1081,7 @@ export default class PlayerController {
             }),
             repeat: 0
         });
+        
     }
 
     private hitTween() {
@@ -1092,6 +1132,16 @@ export default class PlayerController {
         events.emit('health-changed', this.health);
         this.stateMachine.setState('dead');
 
+    }
+
+    private stopGame() {
+        if(!this.gameStopping) {
+            this.gameStopping = true;
+            SceneFactory.stopSound(this.scene);
+            this.scene.scene.stop('ui');
+            this.scene.scene.stop();
+            this.scene.scene.start('hoppa');
+        }
     }
 
     private spikeHitOnEnter() {
@@ -1284,6 +1334,10 @@ export default class PlayerController {
         this.playerSpeed = 5;
     }
 
+    public getSpeed() {
+        return this.playerSpeed;
+    }
+
     public enableAntiGravity() {
         this.sprite.setIgnoreGravity(true);
     }
@@ -1303,6 +1357,37 @@ export default class PlayerController {
         }
         globalThis.rabbit = this.name;
         globalThis.voice = voice;
+    }
+
+    public setVoice(val: boolean) {
+        if( val == false ) {
+            if(this.name === 'player1') {
+                globalThis.voice = '-cs';
+            }
+            else {
+                globalThis.voice = '';
+            }
+
+        }   
+        else {
+            globalThis.voice = '-vd';
+        }
+        
+        this.stats.voice = val;
+    }
+
+
+    public setProjectile(name: string, splash: string) {
+        this.projectileName = name;
+        this.projectileSplash = splash;
+
+        if("moonshot-ball" === name ) {
+            this.stats.pokeBall = true;
+        }
+        else {
+            this.stats.pokeBall = false;
+        }
+
     }
 
     private updateVelocities(state: string) {
@@ -1389,6 +1474,9 @@ export default class PlayerController {
      
         if(!this.standingOnFloor)
            return;
+
+        if( this.sprite.body?.velocity.y != 0 || this.sprite.body?.velocity.x == 0 )
+            return;
 
         const nx =  ~~( this.sprite.body.position.x / 64) * 64;
         const ny =  ~~((this.sprite.body.position.y + 48) / 64) * 64;
@@ -1626,24 +1714,29 @@ export default class PlayerController {
     }
 
 
-    private isDown(): boolean {
+    public isDown(): boolean {
         return (this.isGamePadDown() || this.joystick?.down || this.cursors.down.isDown || this.wasd.down.isDown);
     }
-    private isUp(): boolean {
+    public isUp(): boolean {
         return (this.isGamePadUp() || this.joystick?.up || this.cursors.up.isDown || this.wasd.up.isDown);
     }
-    private isLeft(): boolean {
+    public isLeft(): boolean {
         return (this.isGamePadLeft() || this.joystick?.left || this.cursors.left.isDown || this.wasd.left.isDown);
     }
-    private isRight(): boolean {
+    public isRight(): boolean {
         return (this.isGamePadRight() || this.joystick?.right || this.cursors.right.isDown || this.wasd.right.isDown);
     }
-    private isShift(): boolean {
+    public isShift(): boolean {
         return this.isGamePadButton(1) || this.cursors.shift.isDown || this.playerButton1;
     }
-    private isSpace(): boolean {
-        // Fixme: pressed state holds for several frames
+    public isSpace(): boolean {
         return this.isGamePadButton(0) || Phaser.Input.Keyboard.JustDown(this.cursors.space) || this.playerButton2;
+    }
+    public isR2(): boolean {
+        return this.isGamePadButton(7) || (this.playerButton1 && this.playerButton2);
+    }
+    public isStart(): boolean {
+        return this.isGamePadButton(9);
     }
 
     private isGamePadRight(): boolean {
@@ -1690,10 +1783,10 @@ export default class PlayerController {
         const pad = this.scene.input.gamepad?.getPad(0);
         if(pad?.axes.length) {
             const y = pad.axes[1].getValue();
-            if( y < 0 )
+            if( y > 0 )
                 return true;
         }
-        if(pad?.buttons[1].pressed) {
+        if(pad?.buttons[12].pressed) {
             return true;
         }
         return false;
@@ -1724,13 +1817,13 @@ export default class PlayerController {
         return f;
     }
 
-    private getSpeed(num: number) {
+  /*  private getSpeed(num: number) {
         if (this.joystick !== undefined) {
             const vx = this.jp.dampenVelocityX(num);
             return vx;
         }
         return num;
     }
-
+*/
 
 }
