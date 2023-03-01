@@ -1,6 +1,7 @@
 import Phaser from "phaser";
 import * as SceneFactory from '../scripts/SceneFactory';
 import { Slider } from 'phaser3-rex-plugins/templates/ui/ui-components.js';
+import { GameSettings } from "./GameSettings";
 
 export default class GameSettingsMenu extends Phaser.Scene {
 
@@ -67,6 +68,8 @@ export default class GameSettingsMenu extends Phaser.Scene {
     create() {
 
         const { width, height } = this.scale;
+
+        this.input.setDefaultCursor('url(assets/hand.cur), pointer');
 
         SceneFactory.setupSounds(this);
 
