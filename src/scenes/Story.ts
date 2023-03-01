@@ -3,6 +3,7 @@ import * as SceneFactory from '../scripts/SceneFactory';
 import CreditScene from "./CreditScene";
 export default class Story extends CreditScene {
     
+    private cursors!: Phaser.Types.Input.Keyboard.CursorKeys;
     private chapter = 1;
     private image!: Phaser.GameObjects.Image;
     private scroller!: Phaser.GameObjects.DynamicBitmapText;
@@ -34,6 +35,10 @@ export default class Story extends CreditScene {
 
     create() {
         const { width, height } = this.scale;
+
+        this.cursors = this.input.keyboard?.createCursorKeys();
+
+        this.input.setDefaultCursor('none');
 
         SceneFactory.playMusic( this, 'spectacle');
 
@@ -97,7 +102,7 @@ export default class Story extends CreditScene {
                 this.startGame();
             }
         }
-        if(SceneFactory.gamePadAnyButton(this)) {
+        if(SceneFactory.gamePadAnyButton(this) || this.cursors.space.isDown ) {
             this.startGame();
         }
     }
