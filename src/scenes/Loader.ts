@@ -46,7 +46,7 @@ export default class Loader extends Phaser.Scene {
         const info = this.make.text({
             x: d + (d / 2),
             y: d + 64 + 64,
-            text: '(C) RA8BITS & MOONSHOT 2022-2023',
+            text: '(C) RA8BITS & MOONSHOT 2021-2023',
             style: {
                 font: "48px 'Press Start 2P'",
                 color: "#ffffff",
