@@ -8,6 +8,7 @@ import ChangeSkin from './ChangeSkin';
 import NeonController from './NeonController';
 import BarController from './BarController';
 import ObstaclesController from './ObstaclesController';
+import { GameSettings } from '~/scenes/GameSettings';
 
 declare global {
     var musicTune: boolean;
@@ -63,13 +64,8 @@ export function playRandomSound(sounds: Map<string, Phaser.Sound.BaseSound>, sou
 }
 
 export function addSound(ctx: Phaser.Scene, sound: string, loop: boolean, autoplay = true) {
-/*    if (globalThis.musicTune) {
-        ctx.sound.get(globalThis.musicTitle).stop();
-        globalThis.musicTune = false;
-        globalThis.musicTitle = "";
-    }
-*/
-    const m = ctx.sound.add(sound, { loop: loop });
+
+    const m = ctx.sound.add(sound, { loop: loop, volume: globalThis.soundVolume });
 
     if (!autoplay)
         return m;
@@ -224,6 +220,7 @@ export function setupSounds(ctx: Phaser.Scene): Map<string, Phaser.Sound.BaseSou
     ];
     flirts.forEach(s => m.set(s, ctx.sound.add(s, { loop: false })));
     flirts.forEach(s => m.set(s+ '-cs', ctx.sound.add(s+ '-cs', { loop: false })));
+    flirts.forEach(s => m.set(s+ '-vd', ctx.sound.add(s+ '-vd', { loop: false })));
 
 
     const gameovers = [
@@ -231,12 +228,16 @@ export function setupSounds(ctx: Phaser.Scene): Map<string, Phaser.Sound.BaseSou
     ];
     gameovers.forEach(s => m.set(s, ctx.sound.add(s, { loop: false })));
     gameovers.forEach(s => m.set(s + '-cs', ctx.sound.add(s + '-cs', { loop: false })));
+    gameovers.forEach(s => m.set(s + '-vd', ctx.sound.add(s + '-vd', { loop: false })));
+
 
     const wise = [
         'beginatthebeginning', 'equalopportunity', 'hailtotheking', 'offtoday', 'therightmaninthewrong', 'wishtogoanywhere'
     ]
     wise.forEach(s => m.set(s, ctx.sound.add(s, { loop: false })));
     wise.forEach(s => m.set(s + '-cs', ctx.sound.add(s + '-cs', { loop: false })));
+    wise.forEach(s => m.set(s + '-vd', ctx.sound.add(s + '-vd', { loop: false })));
+    
 
     m.set( 'blowitoutofyourass',ctx.sound.add('blowitoutofyourass', { loop: false }));
     m.set( 'timetokickass', ctx.sound.add('timetokickass', { loop: false }));
@@ -335,7 +336,7 @@ export function loadSettings() {
         if (globalThis.soundVolume < 0 || globalThis.soundVolume > 1) {
             globalThis.soundVolume = 1;
         }
-    }
+    }  
 }
 
 export function preload(ctx) {
@@ -381,6 +382,7 @@ export function preload(ctx) {
     ctx.load.atlas('dragon', 'assets/dragon.webp', 'assets/dragon.json');
     ctx.load.atlas('bomb', 'assets/bomb.webp', 'assets/bomb.json');
     ctx.load.atlas('dropping-splash', 'assets/dropping-splash.webp', 'assets/dropping-splash.json');
+    ctx.load.atlas('moonshot-splash', 'assets/moonshot-splash.webp', 'assets/moonshot-splash.json');
 
     ctx.load.atlas('cracks', 'assets/cracks.webp', 'assets/cracks.json');
     ctx.load.atlas('crow', 'assets/crow.webp', 'assets/crow.json');
@@ -404,6 +406,8 @@ export function preload(ctx) {
     ctx.load.image('toad', 'assets/toad.webp');
     ctx.load.image('rubber1', 'assets/rubber_1.webp');
     ctx.load.image('dropping', 'assets/dropping.webp');
+    ctx.load.image('pokeball', 'assets/pokeball.webp');
+    ctx.load.image('moonshot-ball', 'assets/moonshot-ball.webp');
     ctx.load.image('crate', 'assets/crate.webp');
     ctx.load.image('zeppelin1', 'assets/zeppelin1.webp');
     ctx.load.image('zeppelin2', 'assets/zeppelin2.webp');
@@ -570,6 +574,33 @@ export function preload(ctx) {
     ctx.load.audio('youcanstaybut-cs', [ 'assets/youcanstaybut-cs.mp3', 'assets/youcanstaybut-cs.m4a']);
     ctx.load.audio('yourfaceyourass-cs', [ 'assets/yourfaceyourass-cs.mp3', 'assets/yourfaceyourass-cs.m4a']);
     
+    ctx.load.audio( 'beginatthebeginning-vd', ['assets/beginatthebeginning-vd.mp3', 'assets/beginatthebeginning-vd.m4a' ]);
+    ctx.load.audio( 'blowitoutofyourass-vd', ['assets/blowitoutofyourass-vd.mp3', 'assets/blowitoutofyourass-vd.m4a' ]);
+    ctx.load.audio( 'breakmybed-vd', ['assets/breakmybed-vd.mp3', 'assets/breakmybed-vd.m4a' ]);
+    ctx.load.audio( 'donttellmewhattodo-vd', ['assets/donttellmewhattodo-vd.mp3', 'assets/donttellmewhattodo-vd.m4a' ]);
+    ctx.load.audio( 'drunktoomuch-vd', ['assets/drunktoomuch-vd.mp3', 'assets/drunktoomuch-vd.m4a' ]);
+    ctx.load.audio( 'equalopportunity-vd', ['assets/equalopportunity-vd.mp3', 'assets/equalopportunity-vd.m4a' ]);
+    ctx.load.audio( 'hailtotheking-vd', ['assets/hailtotheking-vd.mp3', 'assets/hailtotheking-vd.m4a' ]);
+    ctx.load.audio( 'idontseehow-vd', ['assets/idontseehow-vd.mp3', 'assets/idontseehow-vd.m4a' ]);
+    ctx.load.audio( 'imsothirsty-vd', ['assets/imsothirsty-vd.mp3', 'assets/imsothirsty-vd.m4a' ]);
+    ctx.load.audio( 'mymomcandothattoo-vd', ['assets/mymomcandothattoo-vd.mp3', 'assets/mymomcandothattoo-vd.m4a' ]);
+    ctx.load.audio( 'strongboysnevergiveup-vd', ['assets/strongboysnevergiveup-vd.mp3', 'assets/strongboysnevergiveup-vd.m4a' ]);
+    ctx.load.audio( 'takeitslow-vd', ['assets/takeitslow-vd.mp3', 'assets/takeitslow-vd.m4a' ]);
+    ctx.load.audio( 'therightmaninthewrong-vd', ['assets/therightmaninthewrong-vd.mp3', 'assets/therightmaninthewrong-vd.m4a' ]);
+    ctx.load.audio( 'timetokickass-vd', ['assets/timetokickass-vd.mp3', 'assets/timetokickass-vd.m4a' ]);
+    ctx.load.audio( 'underneath-vd', ['assets/underneath-vd.mp3', 'assets/underneath-vd.m4a' ]);
+    ctx.load.audio( 'weareallmadhere-vd', ['assets/weareallmadhere-vd.mp3', 'assets/weareallmadhere-vd.m4a' ]);
+    ctx.load.audio( 'whatareyou-vd', ['assets/whatareyou-vd.mp3', 'assets/whatareyou-vd.m4a' ]);
+    ctx.load.audio( 'wishtogoanywhere-vd', ['assets/wishtogoanywhere-vd.mp3', 'assets/wishtogoanywhere-vd.m4a' ]);
+    ctx.load.audio( 'wrongbutton-vd', ['assets/wrongbutton-vd.mp3', 'assets/wrongbutton-vd.m4a' ]);
+    ctx.load.audio( 'youcametooquick-vd', ['assets/youcametooquick-vd.mp3', 'assets/youcametooquick-vd.m4a' ]);
+    ctx.load.audio( 'youcanstaybut-vd', ['assets/youcanstaybut-vd.mp3', 'assets/youcanstaybut-vd.m4a' ]);
+    ctx.load.audio( 'yourfaceyourass-vd', ['assets/yourfaceyourass-vd.mp3', 'assets/yourfaceyourass-vd.m4a' ]);
+    ctx.load.audio( 'titanic-vd', ['assets/titanic-vd.mp3', 'assets/titanic-vd.m4a' ]);
+    ctx.load.audio( 'todo-vd', ['assets/todo-vd.mp3', 'assets/todo-vd.m4a' ]);
+    ctx.load.audio( 'uber-vd', ['assets/uber-vd.mp3', 'assets/uber-vd.m4a' ]);
+    ctx.load.audio( 'offtoday-vd', ['assets/offtoday-vd.mp3', 'assets/offtoday-vd.m4a' ]);
+
     setupHandlers(ctx);
 }
 
@@ -948,9 +979,12 @@ export function basicCreate(ctx, name, x, y, width, height, rotation, enemyCat, 
 
 }
 
+export function isGamePadActive(ctx: Phaser.Scene) : boolean {
+    const pad = ctx.input.gamepad?.getPad(0);
+    return pad !== undefined;
+}
 
-
-export function isGamePadRight(ctx): boolean {
+export function isGamePadRight(ctx: Phaser.Scene) : boolean {
     const pad = ctx.input.gamepad?.getPad(0);
     if(pad?.axes.length) {
         const x = pad.axes[0].getValue();
@@ -963,7 +997,7 @@ export function isGamePadRight(ctx): boolean {
     return false;
 }
 
-export function isGamePadLeft(ctx): boolean {
+export function isGamePadLeft(ctx: Phaser.Scene) : boolean {
     const pad = ctx.input.gamepad?.getPad(0);
     if(pad?.axes.length) {
         const x = pad.axes[0].getValue();
@@ -976,7 +1010,7 @@ export function isGamePadLeft(ctx): boolean {
     return false;
 }
 
-export function isGamePadDown(ctx): boolean {
+export function isGamePadDown(ctx: Phaser.Scene) : boolean {
     const pad = ctx.input.gamepad?.getPad(0);
     if(pad?.axes.length) {
         const y = pad.axes[1].getValue();
@@ -989,11 +1023,11 @@ export function isGamePadDown(ctx): boolean {
     return false;
 }
 
-export function isGamePadUp(ctx): boolean {
+export function isGamePadUp(ctx: Phaser.Scene) : boolean {
     const pad = ctx.input.gamepad?.getPad(0);
     if(pad?.axes.length) {
         const y = pad.axes[1].getValue();
-        if( y < 0 )
+        if( y > 0 )
             return true;
     }
     if(pad?.buttons[12].pressed) {
@@ -1002,7 +1036,7 @@ export function isGamePadUp(ctx): boolean {
     return false;
 }
 
-export function gamePadAnyButton(ctx): boolean {
+export function gamePadAnyButton(ctx: Phaser.Scene) : boolean {
     const pad = ctx.input.gamepad?.getPad(0);
     if(pad === undefined)
         return false;
