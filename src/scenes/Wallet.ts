@@ -12,6 +12,7 @@ export default class Wallet extends Phaser.Scene {
     private status!: Phaser.GameObjects.BitmapText;
     private delayedRun!: Phaser.Time.TimerEvent;
     private txLock = false;
+    private changeEvents = 0;
 
     constructor() {
         super('wallet');
@@ -25,6 +26,10 @@ export default class Wallet extends Phaser.Scene {
 
     create() {
         const { width, height } = this.scale;
+
+        this.changeEvents = globalThis.changeEvent;
+
+        this.input.setDefaultCursor('url(assets/hand.cur), pointer');
 
         if(globalThis.noWallet) {
             this.line1 =this.add.bitmapText(width * 0.5, height / 2 + 150, 'press_start', 'It seems you dont have a crypto wallet (yet)', 22)
@@ -58,21 +63,31 @@ export default class Wallet extends Phaser.Scene {
             .setDropShadow(2,2,0xff0000)
             .setOrigin(0.5);
 
+        let statusText = "Please confirm the TX and standby";
+        if( globalThis.chainId != 56 ) {
+            statusText = "You are not connected to the Binance Smart Chain";
+        }
+        else if( globalThis.noWallet ) {
+            statusText = "Please install MetaMask or TrustWallet first";
+        }
+
         this.line4.setInteractive({ cursor: 'pointer' })
             .on('pointerup', () => {
                 this.line5.setTint(0x222b5c);
+                this.status.setText(statusText);
 
-                this.status.setText("Please confirm the TX and standby");
-                this.txLock = true;
+                if( globalThis.chainId == 56 && !globalThis.noWallet) {
+                    this.txLock = true;
 
-                const faucet = async() => {
-                    const msg = await  WalletHelper.getSomeRa8bitTokens();
-                    this.status.setText(msg);
-                    this.txLock = false;
-                    this.delayedStart();
-                };
+                    const faucet = async() => {
+                        const msg = await  WalletHelper.getSomeRa8bitTokens();
+                        this.status.setText(msg);
+                        this.txLock = false;
+                        this.delayedStart();
+                    };
 
-                faucet();
+                    faucet();
+                }
                
             })
             .on('pointerdown', () => {
@@ -90,18 +105,20 @@ export default class Wallet extends Phaser.Scene {
                 this.delayedRun?.remove(false);
                 this.line5.setTint(0x222b5c);
  
-                this.status.setText("Please confirm the TX and standby");
-                this.txLock = true;
+                this.status.setText(statusText);
 
-                const faucet = async() => {
-                    const msg = await WalletHelper.getSomeMoonshotTokens();
-                    this.status.setText(msg);
-                    this.txLock = false;
-                    this.delayedStart();
-                };
+                if(globalThis.chainId == 56 && !globalThis.noWallet ) {
+                    this.txLock = true;
 
-                faucet();
-                
+                    const faucet = async() => {
+                        const msg = await WalletHelper.getSomeMoonshotTokens();
+                        this.status.setText(msg);
+                        this.txLock = false;
+                        this.delayedStart();
+                    };
+
+                    faucet();
+                }
             })
             .on('pointerdown', () => {
                 this.line5.setTint(0x99b0be);   
@@ -139,7 +156,13 @@ export default class Wallet extends Phaser.Scene {
     }
 
     update() {
-        if(SceneFactory.gamePadAnyButton(this)) {
+        
+
+        if( globalThis.changeEvent != this.changeEvents ) {
+            this.scene.restart();
+            this.changeEvents = globalThis.changeEvent;
+        }
+        else if(SceneFactory.gamePadAnyButton(this)) {
             this.startGame();
         }
     }
