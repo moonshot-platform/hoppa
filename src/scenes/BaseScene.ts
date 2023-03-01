@@ -7,11 +7,14 @@ export default class BaseScene extends Phaser.Scene {
     private readonly TARGET_RATE = 1000 / 30;
     private accumulator = 0;
 
+  
     constructor(name: string |  Phaser.Types.Scenes.SettingsConfig)  {
         super(name);
     }
 
     create() {
+        this.input.setDefaultCursor('none');
+
         this.matter.world.autoUpdate = false;
     }
 
