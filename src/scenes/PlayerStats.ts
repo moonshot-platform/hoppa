@@ -1,4 +1,4 @@
-interface PlayerStats {
+export interface PlayerStats {
     lastHealth: number;
     coinsCollected: number;
     carrotsCollected: number;
@@ -9,4 +9,6 @@ interface PlayerStats {
     speedUp: boolean;
     powerUp: boolean;
     throw: boolean;
+    pokeBall: boolean;
+    voice: boolean;
 }
