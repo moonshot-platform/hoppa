@@ -21,6 +21,7 @@ import SawController from "../scripts/SawController";
 import * as WalletHelper from '../scripts/WalletHelper';
 import BaseScene from "./BaseScene";
 import BossController from "../scripts/BossController";
+import LavaController from "~/scripts/LavaController";
 
 export default class Start extends BaseScene {
     constructor() {
@@ -51,11 +52,14 @@ export default class Start extends BaseScene {
     private shoutout !: Phaser.GameObjects.BitmapText;
     private credits !: Phaser.GameObjects.BitmapText;
     private map!: Phaser.Tilemaps.Tilemap;
-    private ground1: Phaser.Tilemaps.TilemapLayer;
+    private ground1!: Phaser.Tilemaps.TilemapLayer;
+    private cursors!: Phaser.Types.Input.Keyboard.CursorKeys;
+    
     private goFS = false;
 
     init() {
-
+        this.cursors = this.input.keyboard?.createCursorKeys();
+        
         if (this.sys.game.device.fullscreen.available) {
             this.goFS = true;
         }
@@ -90,6 +94,12 @@ export default class Start extends BaseScene {
             'currLevel': 1,
             'scorePoints': 0,
             'livesRemaining': 3,
+            'invincibility': false,
+            'speedUp': false,
+            'powerUp': false,
+            'throw': false,
+            'pokeBall': false,
+            'voice': false,
         };
         const data = JSON.stringify(info);
         window.localStorage.setItem('ra8bit.stats', data); 
@@ -116,7 +126,7 @@ export default class Start extends BaseScene {
         this.ground1.setCollisionByProperty({ collides: true, recalculateFaces: false });
 
         const objectsLayer = this.map.getObjectLayer('objects');
-        objectsLayer.objects.forEach(objData => {
+        objectsLayer?.objects.forEach(objData => {
             const { x = 0, y = 0, name, width = 0, height = 0, rotation = 0 } = objData;
             switch (name) {
 
@@ -178,7 +188,7 @@ export default class Start extends BaseScene {
             'PRESS SPACE TO PLAY', 24).setTint(0xff7300).setOrigin(0.5, 0.5);
 
         this.credits = this.add.bitmapText(320 + 640, -350, 'press_start',
-            'Written by c0ntrol zero, Artwork by Pixel8it, Storyline by Dandybanger, C 2023 Ra8bits, C 2023 Moonshot', 12).setTint(0xff7300).setOrigin(0.5, 0.5);
+            'Written by c0ntrol zero, Artwork by Pixel8it, Storyline by Dandybanger, C 2022 Ra8bits, C 2022 Moonshot', 12).setTint(0xff7300).setOrigin(0.5, 0.5);
         this.credits.setDropShadow(0, 2, 0xff0000, 0.5);
 
         cam.startFollow(this.shoutout);
@@ -316,7 +326,7 @@ export default class Start extends BaseScene {
 
         SceneFactory.cullSprites(this);
 
-        if(SceneFactory.gamePadAnyButton(this)) {
+        if(SceneFactory.gamePadAnyButton(this) || this.cursors.space.isDown ) {
             this.continueGame();
         }
 
