@@ -56,8 +56,8 @@ export default class ObstaclesController {
              this.obstacles.delete( key );
         })
 
-        this.obstacles.forEach( body => {console.log('should remove body ' + body );
-        scene.matter.world.remove(body);
+        this.obstacles.forEach( body => {
+            scene.matter.world.remove(body);
         } );
         this.obstacles.clear();
         this.values.clear();
