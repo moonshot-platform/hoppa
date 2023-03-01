@@ -24,6 +24,7 @@ import BaseScene from './BaseScene';
 import BossController from '~/scripts/BossController';
 import LavaController from '~/scripts/LavaController';
 import NeonController from '~/scripts/NeonController';
+import { PlayerStats } from './PlayerStats';
 
 export default class Level4 extends BaseScene {
 
@@ -53,8 +54,8 @@ export default class Level4 extends BaseScene {
     private lava: LavaController[] = [];
     private neon: NeonController[] = [];
     private objects: Phaser.Physics.Matter.Sprite[] = [];
-    private ground1: Phaser.Tilemaps.TilemapLayer;
-    private layer1: Phaser.Tilemaps.TilemapLayer;
+    private ground1!: Phaser.Tilemaps.TilemapLayer;
+    private layer1!: Phaser.Tilemaps.TilemapLayer;
 
     private playerX = -1;
     private playerY = -1;
@@ -95,13 +96,15 @@ export default class Level4 extends BaseScene {
             'lastHealth': 100,
             'coinsCollected': 0,
             'carrotsCollected': 0,
-            'currLevel': 4,
+            'currLevel': 1,
             'scorePoints': 0,
             'livesRemaining': 3,
             'invincibility': false,
-            'powerUp': false,
             'speedUp': false,
+            'powerUp': false,
             'throw': false,
+            'pokeBall': false,
+            'voice': false,
         };
 
         const data = window.localStorage.getItem( 'ra8bit.stats' );
@@ -184,7 +187,7 @@ export default class Level4 extends BaseScene {
         this.playerY = this.scene.scene.game.registry.get( 'playerY' ) || -1;
         
         const objectsLayer = this.map.getObjectLayer('objects');
-        objectsLayer.objects.forEach(objData => {
+        objectsLayer?.objects.forEach(objData => {
             
             const { x = 0, y = 0, name, width = 0, height = 0, rotation = 0 } = objData;
           
@@ -223,7 +226,7 @@ export default class Level4 extends BaseScene {
             }
         });
 
-        objectsLayer.objects.forEach(objData => {
+        objectsLayer?.objects.forEach(objData => {
             const { x = 0, y = 0, name, width = 0, height = 0, rotation = 0 } = objData;
             switch (name) {
                 default:

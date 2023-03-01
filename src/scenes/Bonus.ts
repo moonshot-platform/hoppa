@@ -21,6 +21,7 @@ import SawController from '~/scripts/SawController';
 import { sharedInstance as events } from '../scripts/EventManager';
 import LightSwitchController from '~/scripts/LightSwitchController';
 import NeonController from '~/scripts/NeonController';
+import { PlayerStats } from './PlayerStats';
 
 export default class Bonus extends Phaser.Scene {
 
@@ -97,6 +98,8 @@ export default class Bonus extends Phaser.Scene {
             'powerUp': false,
             'speedUp': false,
             'throw': false,
+            'pokeBall': false,
+            'voice': false
         };
 
         const data = window.localStorage.getItem('ra8bit.stats');
@@ -161,7 +164,7 @@ export default class Bonus extends Phaser.Scene {
         this.playerY = this.scene.scene.game.registry.get('playerY') || -1;
 
         const objectsLayer = this.map.getObjectLayer('objects');
-        objectsLayer.objects.forEach(objData => {
+        objectsLayer?.objects.forEach(objData => {
 
             const { x = 0, y = 0, name, width = 0, height = 0, rotation = 0 } = objData;
            
@@ -201,7 +204,7 @@ export default class Bonus extends Phaser.Scene {
 
         });
 
-        objectsLayer.objects.forEach(objData => {
+        objectsLayer?.objects.forEach(objData => {
             const { x = 0, y = 0, name, width = 0, height = 0, rotation = 0 } = objData;
             switch (name) {
                 default:

@@ -25,6 +25,7 @@ import LightSwitchController from '~/scripts/LightSwitchController';
 import DoorController from '~/scripts/DoorController';
 import NeonController from '~/scripts/NeonController';
 import BarController from '~/scripts/BarController';
+import { PlayerStats } from './PlayerStats';
 
 export default class Level6 extends BaseScene {
 
@@ -61,15 +62,15 @@ export default class Level6 extends BaseScene {
     private objects: Phaser.Physics.Matter.Sprite[] = [];
     private sounds!: Map<string, Phaser.Sound.BaseSound>;
     
-    private ground1: Phaser.Tilemaps.TilemapLayer;
-    private layer1: Phaser.Tilemaps.TilemapLayer;
+    private ground1!: Phaser.Tilemaps.TilemapLayer;
+    private layer1!: Phaser.Tilemaps.TilemapLayer;
 
     constructor() {
         super('level6');
     }
 
     init() {
-        this.cursors = this.input.keyboard.createCursorKeys();
+        this.cursors = this.input.keyboard?.createCursorKeys();
 
         this.obstaclesController = new ObstaclesController();
         this.monsters = [];
@@ -99,13 +100,15 @@ export default class Level6 extends BaseScene {
             'lastHealth': 100,
             'coinsCollected': 0,
             'carrotsCollected': 0,
-            'currLevel': 6,
+            'currLevel': 1,
             'scorePoints': 0,
             'livesRemaining': 3,
             'invincibility': false,
-            'powerUp': false,
             'speedUp': false,
+            'powerUp': false,
             'throw': false,
+            'pokeBall': false,
+            'voice': false,
         };
 
         const data = window.localStorage.getItem('ra8bit.stats');
@@ -192,7 +195,7 @@ export default class Level6 extends BaseScene {
         this.playerY = this.scene.scene.game.registry.get('playerY') || -1;
 
         const objectsLayer = this.map.getObjectLayer('objects');
-        objectsLayer.objects.forEach(objData => {
+        objectsLayer?.objects.forEach(objData => {
 
             const { x = 0, y = 0, name, width = 0, height = 0 } = objData;
         
@@ -229,7 +232,7 @@ export default class Level6 extends BaseScene {
             }
         });
 
-        objectsLayer.objects.forEach(objData => {
+        objectsLayer?.objects.forEach(objData => {
             const { x = 0, y = 0, name, width = 0, height = 0, rotation = 0 } = objData;
             switch (name) {
                 default:

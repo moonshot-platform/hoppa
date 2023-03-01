@@ -23,6 +23,7 @@ import { sharedInstance as events} from '../scripts/EventManager';
 import BaseScene from './BaseScene';
 import BossController from '~/scripts/BossController';
 import LavaController from '~/scripts/LavaController';
+import { PlayerStats } from './PlayerStats';
 
 export default class Level5 extends BaseScene {
 
@@ -51,8 +52,8 @@ export default class Level5 extends BaseScene {
     private boss: BossController[] = [];
     private lava: LavaController[] = [];
     private objects: Phaser.Physics.Matter.Sprite[] = [];
-    private ground1: Phaser.Tilemaps.TilemapLayer;
-    private layer1: Phaser.Tilemaps.TilemapLayer;
+    private ground1!: Phaser.Tilemaps.TilemapLayer;
+    private layer1!: Phaser.Tilemaps.TilemapLayer;
 
     private playerX = -1;
     private playerY = -1;
@@ -92,13 +93,15 @@ export default class Level5 extends BaseScene {
             'lastHealth': 100,
             'coinsCollected': 0,
             'carrotsCollected': 0,
-            'currLevel': 5,
+            'currLevel': 1,
             'scorePoints': 0,
             'livesRemaining': 3,
             'invincibility': false,
-            'powerUp': false,
             'speedUp': false,
+            'powerUp': false,
             'throw': false,
+            'pokeBall': false,
+            'voice': false,
         };
 
         const data = window.localStorage.getItem( 'ra8bit.stats' );
@@ -140,21 +143,11 @@ export default class Level5 extends BaseScene {
         const totalWidth = 336 * 64;
         const hei = 24 * 64;
         const s = 1;
-      /*  this.add
-          .image(width / 2, height, "sky")
-          .setScrollFactor(0)
-          .setOrigin(0.5, 1)
-          .setScale(s)
-          .setTint(tint);
-
-*/
 
         AlignmentHelper.createAligned(this, totalWidth, hei,"g_1", 0.385 / s,1); //mountain
         AlignmentHelper.createAligned(this, totalWidth, hei, "g_2", 0.375 / s,1);
         AlignmentHelper.createAligned(this, totalWidth, hei, "g_3", 0.365 / s,1);
         AlignmentHelper.createAligned(this, totalWidth, hei,"g_4", 0.35 / s,1);
-       // AlignmentHelper.createAlignedT(this, totalWidth, hei,"g_5", 0.345 / s,1, tint);
-    //    AlignmentHelper.createAlignedT(this, totalWidth, hei,"bg_6", 0.36 ,1, tint);
 
         this.map = this.make.tilemap({ key: 'tilemap5', tileWidth: 64, tileHeight: 64 });
         const groundTiles = this.map.addTilesetImage('ground', 'groundTiles', 64, 64, 0, 2);
@@ -177,7 +170,7 @@ export default class Level5 extends BaseScene {
         this.playerY = this.scene.scene.game.registry.get( 'playerY' ) || -1;
         
         const objectsLayer = this.map.getObjectLayer('objects');
-        objectsLayer.objects.forEach(objData => {
+        objectsLayer?.objects.forEach(objData => {
             
             const { x = 0, y = 0, name, width = 0, height = 0, rotation = 0 } = objData;
           
@@ -216,7 +209,7 @@ export default class Level5 extends BaseScene {
             }
         });
 
-        objectsLayer.objects.forEach(objData => {
+        objectsLayer?.objects.forEach(objData => {
             const { x = 0, y = 0, name, width = 0, height = 0, rotation = 0 } = objData;
             switch (name) {
                 default:
