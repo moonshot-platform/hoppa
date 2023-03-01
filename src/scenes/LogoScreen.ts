@@ -14,6 +14,8 @@ export default class LogoScreen extends Phaser.Scene {
 
         const { width, height } = this.scale;
 
+        this.input.setDefaultCursor('none');
+
         this.add.image(width / 2, height / 2, 'moonshot').setOrigin(0.5, 0.5);
 
         this.add.bitmapText(width * 0.5, height / 2 + 96, 'press_start', 'presents', 22)
