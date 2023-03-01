@@ -1,6 +1,5 @@
 import Phaser from "phaser";
-import { sharedInstance as events } from "../scripts/EventManager";
-import * as SceneFactory from '../scripts/SceneFactory';
+
 export default class Pause extends Phaser.Scene {
 
     private text!: Phaser.GameObjects.BitmapText;
