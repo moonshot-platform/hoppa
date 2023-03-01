@@ -14,13 +14,27 @@ export default class HoppaScreen extends Phaser.Scene {
     private optionsLabel!: Phaser.GameObjects.BitmapText;
     private helpLabel!: Phaser.GameObjects.BitmapText;
     private text!:Phaser.GameObjects.BitmapText;
+    private cursors!: Phaser.Types.Input.Keyboard.CursorKeys;
+    private arrow?:Phaser.GameObjects.Image;
+    private activeItem: number = 0;
+
+    private arrowY: number = 460;
+    private arrowX: number = 400;
+
+    private lastUpdate: number = 0;
 
     constructor() {
         super('hoppa');
     }
 
+    init() {
+        this.cursors = this.input.keyboard?.createCursorKeys();
+    }
+
     preload() {
         SceneFactory.preload(this);
+    
+        this.load.image('arrow', 'assets/arrow.webp');
     }
 
     create() {
@@ -38,6 +52,12 @@ export default class HoppaScreen extends Phaser.Scene {
         }
 
         this.time.delayedCall(delay, () => {
+
+            this.input.setDefaultCursor('url(assets/hand.cur), pointer');
+
+
+            this.createArrow();
+
             this.continueLabel = this.add.bitmapText(width * 0.5, height / 2 + 108, 'press_start', 'Connect', 48)
                 .setTint(0xffffff)
                 .setOrigin(0.5);
@@ -46,7 +66,7 @@ export default class HoppaScreen extends Phaser.Scene {
                 .setTint(0xffffff)
                 .setOrigin(0.5);
 
-            this.helpLabel = this.add.bitmapText(width * 0.5, height / 2 + 234, 'press_start', 'Help', 48)
+            this.helpLabel = this.add.bitmapText(width * 0.5, height / 2 + 244, 'press_start', 'Help', 48)
                 .setTint(0xffffff)
                 .setOrigin(0.5);
 
@@ -82,13 +102,72 @@ export default class HoppaScreen extends Phaser.Scene {
                     this.helpLabel.setTint(0x99b0be);
                 });
 
-            if (this.scale.orientation !== Phaser.Scale.Orientation.LANDSCAPE) {
+                
+            if (this.scale.width < this.scale.height) {
                 this.printWarning(width, height);
             }
 
             globalThis.dramaticIntro = true;
         });
 
+    }
+
+    createArrow() {
+        this.arrow = this.add.image(this.arrowX, this.arrowY, 'arrow' );
+        this.arrow.setRotation(30);
+        this.arrow.setVisible(false);
+    }
+
+    update(time: number, deltaTime: number) {
+
+        if( time < this.lastUpdate ) 
+            return;
+
+        let haveArrow = false;
+
+        if( SceneFactory.isGamePadActive(this) ) {
+            haveArrow = true;
+        }
+
+        this.lastUpdate = time + 120; 
+
+        if(this.cursors.down.isDown || SceneFactory.isGamePadUp(this)) {
+            this.activeItem ++;
+        }
+        else if(this.cursors.up.isDown || SceneFactory.isGamePadDown(this)) {
+            this.activeItem --;
+        }
+        else if(this.cursors.shift.isDown || this.cursors.space.isDown || SceneFactory.gamePadAnyButton(this) ) { 
+            switch(this.activeItem) {
+                case 0:
+                    this.continueGame();
+                    break;    
+                case 1:
+                    this.scene.stop();
+                    this.scene.start('options');
+                    break;
+                case 2:
+                    this.scene.stop();
+                    this.scene.start('help');
+                    break;
+            }
+        }
+
+
+        if( this.activeItem < 0 ) { 
+            this.activeItem = 2;
+        } else if (this.activeItem > 2 ) {
+            this.activeItem = 0;
+        }
+        
+        if(haveArrow) {
+            this.arrow?.setVisible(true);
+            this.arrow?.setPosition( this.arrowX, this.arrowY + (64 * this.activeItem) );
+        }
+        else {
+            this.arrow?.setVisible(false);
+        }
+    
     }
 
     destroy() {
