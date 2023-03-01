@@ -1,0 +1,33 @@
+{
+	"name": "hoppa",
+	"version": "1.0.0",
+	"description": "Hoppa!",
+	"scripts": {
+		"start": "vite",
+		"build": "vite build",
+		"preview": "vite preview",
+		"lint": "eslint ./src --ext .js,.jsx,.ts,.tsx"
+	},
+	"author": "Moonshot",
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/moonshot-platform/hoppa.git"
+	},
+	"homepage": "https://moonarcade.games/hoppa",
+	"devDependencies": {
+		"@typescript-eslint/eslint-plugin": "^5.45.0",
+		"cssnano": "^5.1.14",
+		"eslint": "^8.3.0",
+		"eslint-plugin-react": "^7.31.11",
+		"typescript": "^4.8.4"
+	},
+	"dependencies": {
+		"ethers": "^5.7.2",
+		"phaser": "^3.60.0-beta.17",
+		"phaser3-merged-input": "^1.5.0",
+		"phaser3-rex-plugins": "^1.1.74",
+		"phaser3-rex-plugins-types": "^0.2.0",
+		"web3-utils": "^1.8.0"
+	}
+}
