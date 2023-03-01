@@ -267,6 +267,7 @@ export function createCreatureLava(ctx, name,x, y, width, height, enemyCat, coll
     if( name === 'lava-center' )
     {
         lava.setCollidesWith(collideWith);
+        lava.setDepth(4);
     }  
     else { // lava-top : fallthrough
         lava.setDepth(10);
