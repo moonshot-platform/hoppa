@@ -342,6 +342,10 @@ export default class BossController {
             this.moneybag.delete(bill.name);
             bill.destroy();
         });
+        this.scene.anims.remove('hit');
+        this.scene.anims.remove('idle');
+        this.scene.anims.remove('angry');
+        this.sprite.off(Phaser.Animations.Events.ANIMATION_UPDATE, function(anim,frame,sprite,frameKey) {}, this );
     }
 
     public keepObject() {
