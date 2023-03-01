@@ -9,7 +9,7 @@ declare global {
     var signer: ethers.providers.JsonRpcSigner;
     var noWallet: boolean;
     var chainId: number;
-
+    var changeEvent: number;
     interface Window {
         ethereum: import('ethers').providers.ExternalProvider;
     }
@@ -32,6 +32,8 @@ export function init() {
       if( accounts.length > 0 ) {
         getCurrentAccount();
         getMyNFTCollections();
+        findCards();
+        globalThis.changeEvent ++;
       }
     });
 
@@ -39,10 +41,13 @@ export function init() {
       if(newNet.chainId == 56) {
         getCurrentAccount();
         getMyNFTCollections();
+        findCards();
+        globalThis.changeEvent ++;
       }
     });
 
-    console.log("Initialized wallet provider ", globalThis.provider);
+    findCards();
+
 }
 
 export async function getCurrentAccount() {
@@ -77,6 +82,31 @@ export async function getCurrentAccount() {
     const ra8bitContract = new ethers.Contract("0x27424eE307488cA414f430b84A10483344E6d80a", abi , globalThis.signer );    
     globalThis.ra8bitBalance = await ra8bitContract.balanceOf( globalThis.selectedAddress );
     
+}
+
+export async function findCards() {
+  await globalThis.provider.send("eth_requestAccounts", []);
+  globalThis.signer = globalThis.provider.getSigner();
+  // save the currently connected address
+  globalThis.selectedAddress = await globalThis.signer.getAddress();
+  
+  const abi = [
+      "function balanceOf(address _owner, uint256 _id) external view returns (uint256)",
+  ];
+
+  const c = new ethers.Contract("0xb8eB97a1d6393B087EEACb33c3399505a3219d3D", abi , globalThis.signer );
+  let cards: string[] = new Array(10);
+  cards[0] = "0";
+  for( let i = 1; i < 10; i ++ ) {
+    let balance = await c.balanceOf( globalThis.selectedAddress, i );
+    if( balance > 0 ) 
+      globalThis.hasNFT = true;
+    let bn = "" + balance;
+    cards[i]= bn;
+  }
+  
+  const data = JSON.stringify(cards);
+  window.localStorage.setItem( 'ra8bit.cards', data );
 }
 
 export async function getSomeRa8bitTokens() {
