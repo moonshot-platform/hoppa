@@ -63,15 +63,15 @@ export default class Inventory extends Phaser.Scene {
     }
 
     preload() {
-        this.load.audio('card-1', ['/assets/card-1.mp3', '/assets/card-1.m4a'] );
-        this.load.audio('card-2', ['/assets/card-2.mp3', '/assets/card-2.m4a'] );
-        this.load.audio('card-3', ['/assets/card-3.mp3', '/assets/card-3.m4a'] );
-        this.load.audio('card-4', ['/assets/card-4.mp3', '/assets/card-4.m4a'] );
-        this.load.audio('card-5', ['/assets/card-5.mp3', '/assets/card-5.m4a'] );
-        this.load.audio('card-6', ['/assets/card-6.mp3', '/assets/card-6.m4a'] );
-        this.load.audio('card-7', ['/assets/card-7.mp3', '/assets/card-7.m4a'] );
-        this.load.audio('card-8', ['/assets/card-8.mp3', '/assets/card-8.m4a'] );
-        this.load.audio('card-9', ['/assets/card-9.mp3', '/assets/card-9.m4a'] );
+        this.load.audio('card-1', ['assets/card-1.mp3', 'assets/card-1.m4a'] );
+        this.load.audio('card-2', ['assets/card-2.mp3', 'assets/card-2.m4a'] );
+        this.load.audio('card-3', ['assets/card-3.mp3', 'assets/card-3.m4a'] );
+        this.load.audio('card-4', ['assets/card-4.mp3', 'assets/card-4.m4a'] );
+        this.load.audio('card-5', ['assets/card-5.mp3', 'assets/card-5.m4a'] );
+        this.load.audio('card-6', ['assets/card-6.mp3', 'assets/card-6.m4a'] );
+        this.load.audio('card-7', ['assets/card-7.mp3', 'assets/card-7.m4a'] );
+        this.load.audio('card-8', ['assets/card-8.mp3', 'assets/card-8.m4a'] );
+        this.load.audio('card-9', ['assets/card-9.mp3', 'assets/card-9.m4a'] );
 
         this.load.image('inv', 'assets/inventory.webp' );
         this.load.atlas('cards', 'assets/cards.webp', 'assets/cards.json' );
