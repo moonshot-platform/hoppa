@@ -10,7 +10,7 @@ export default class AdScene extends Phaser.Scene {
     }
 
     private loadVideo() {
-        const N = 24;
+        const N = 25;
 
         let c = Phaser.Math.Between(0,N);
 
