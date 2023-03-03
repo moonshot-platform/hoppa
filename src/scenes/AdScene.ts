@@ -4,8 +4,7 @@ import * as SceneFactory from '../scripts/SceneFactory';
 export default class AdScene extends Phaser.Scene {
 
     private v?: Phaser.GameObjects.Video;
-    private cursors?: Phaser.Types.Input.Keyboard.CursorKeys;
-
+    
     constructor() {
         super('ad')
     }
@@ -34,8 +33,6 @@ export default class AdScene extends Phaser.Scene {
 
         });
 
-        this.cursors = this.input.keyboard?.createCursorKeys();
-
     }
 
     preload() {
@@ -50,12 +47,14 @@ export default class AdScene extends Phaser.Scene {
         this.v?.play(true);
         this.v?.setPaused(false);
        
+        this.input.on('pointerdown', this.startGame, this);
+        this.input.on('keydown',this.startGame, this);
     }
 
     update() {
-        if(SceneFactory.gamePadAnyButton(this) || this.cursors?.space.isDown) {
-            this.scene.stop();
-            this.scene.start('hoppa');
+
+        if(SceneFactory.gamePadAnyButton(this)) {
+            this.startGame();
         }
 
         if( this.v?.isPaused() ) {
@@ -65,13 +64,21 @@ export default class AdScene extends Phaser.Scene {
         let t = this.v?.getProgress() || 0; 
 
         if( t > 0.99 ) {
-            this.scene.stop();
-            this.scene.start('hoppa');     
+            this.startGame();
         }
+ 
+    }
+
+    private startGame() {
+        this.scene.stop();
+        this.scene.start('hoppa');
     }
 
     destroy() {
       this.v?.stop();
       this.v?.destroy();
+
+      this.input.off('pointerdown', this.startGame, this);
+      this.input.off('keydown', this.startGame, this);
     }
 }
