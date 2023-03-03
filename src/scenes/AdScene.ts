@@ -42,6 +42,9 @@ export default class AdScene extends Phaser.Scene {
     create() {
         const { width, height } = this.scale;
         
+        this.input.setDefaultCursor('none');
+
+
         this.v = this.add.video(width/2,height/2,'ad');
 
         this.v?.play(true);
