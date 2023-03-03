@@ -220,6 +220,7 @@ export default class Start extends BaseScene {
 
     private continueGame() {
         this.game.sound.stopAll();
+       
         if(WalletHelper.isNotEligible())
             this.scene.start('wallet');
         else

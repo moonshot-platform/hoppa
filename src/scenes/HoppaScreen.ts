@@ -110,6 +110,12 @@ export default class HoppaScreen extends Phaser.Scene {
             globalThis.dramaticIntro = true;
         });
 
+
+        this.time.delayedCall( 10000, () => {
+            this.scene.stop();
+            this.scene.start('ad');
+        });
+
     }
 
     createArrow() {

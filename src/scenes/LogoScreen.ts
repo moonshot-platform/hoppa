@@ -27,7 +27,7 @@ export default class LogoScreen extends Phaser.Scene {
 
             this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (c, e) => {
                 this.scene.stop();
-                this.scene.start('hoppa');
+                this.scene.start('ad');
             });
         });
     }
