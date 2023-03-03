@@ -113,6 +113,8 @@ export default class CreditScreen extends Phaser.Scene {
         "Nene",
         "SketchyLogic",
         "Spring Spring",
+        "shiru8bit",
+        "Nicole Marie T.",
         "",
         "Technology used",
         "Typescript",

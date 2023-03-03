@@ -44,6 +44,7 @@ export default class AdScene extends Phaser.Scene {
         
         this.input.setDefaultCursor('none');
 
+        SceneFactory.stopSound(this);
 
         this.v = this.add.video(width/2,height/2,'ad');
 

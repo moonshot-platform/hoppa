@@ -176,7 +176,9 @@ export function playRandomMusic(ctx: Phaser.Scene) {
         'swinginglevel',
         'happylevel', 
         '8bitmetal',
-        'catchy',
+        'catchy',  
+        'enchantedwoods',
+        'galaticfunk',
     ];
 
     const choice = tracks[Phaser.Math.Between(0, tracks.length - 1)];
@@ -494,6 +496,8 @@ export function preload(ctx) {
     ctx.load.audio('boss6', [ 'assets/boss6.mp3', 'assets/boss6.m4a']);
     ctx.load.audio('hit1', ['assets/hit1.mp3', 'assets/hit1.m4a']);
     ctx.load.audio('hit2', ['assets/hit2.mp3', 'assets/hit2.m4a']);
+    ctx.load.audio('enchantedwoods', [ 'assets/enchantedwoods.mp3', 'assets/enchantedwoods.m4a']);
+    ctx.load.audio('galaticfunk', [ 'assets/galaticfunk.mp3', 'assets/galaticfunk.m4a']);
 
     ctx.load.audio('beginatthebeginning', [ 'assets/beginatthebeginning.mp3', 'assets/beginatthebeginning.m4a']);
     ctx.load.audio('blowitoutofyourass', [ 'assets/blowitoutofyourass.mp3', 'assets/blowitoutofyourass.m4a']);
