@@ -7,7 +7,7 @@ import * as SceneFactory from "../scripts/SceneFactory";
 import PowerUps from "./PowerUps";
 import VirtualJoyStick from "phaser3-rex-plugins/plugins/virtualjoystick";
 import JoypadController from "./JoypadController";
-import Inventory from "~/scenes/Inventory";
+
 import { PlayerStats } from "~/scenes/PlayerStats";
 
 export default class PlayerController {
