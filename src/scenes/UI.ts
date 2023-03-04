@@ -54,8 +54,28 @@ export default class UI extends Phaser.Scene {
             };
         }
         
-
+        this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
+            this.destroy();
+        });
     }
+
+    destroy() {
+        this.scoreLabel.destroy();
+        this.coinsLabel.destroy();
+        this.timeLabel.destroy();
+        this.levelLabel.destroy();
+
+        this.graphics.destroy();
+        this.health?.destroy();
+        this.lives.forEach( (l) => {
+            l.destroy();
+        });
+        this.pwrInvincible?.destroy();
+        this.pwrSpeed?.destroy();
+        this.pwrPoop?.destroy();
+        this.pwrPower?.destroy();
+    }
+
 
     preload() {
         SceneFactory.preload(this);
