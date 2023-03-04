@@ -1,36 +1,21 @@
 import Phaser from "phaser";
 import * as SceneFactory from '../scripts/SceneFactory'; 
+import News from "../scripts/News";
 
 export default class AdScene extends Phaser.Scene {
 
     private v?: Phaser.GameObjects.Video;
-    
+    private news?: News;
+    private adEnding = false;
+   
     constructor() {
         super('ad')
     }
 
-    private loadVideo() {
-        const N = 25;
-
-        let c = Phaser.Math.Between(0,N);
-
-        this.load.video( 'ad', 'assets/ad-'+c + '.mp4', 'loadeddata', false, false);
-
-        console.log("play " + c );
-    }
-
     init() {
-        
         this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
-            
-            if( this.cache.video.has( 'ad' ) ) {
-                this.cache.video.remove( 'ad' );
-            }
-            
-            
+            this.removeAd();
             this.destroy();
-
-
         });
 
     }
@@ -40,22 +25,21 @@ export default class AdScene extends Phaser.Scene {
     }
 
     create() {
-        const { width, height } = this.scale;
-        
         this.input.setDefaultCursor('none');
 
         SceneFactory.stopSound(this);
 
-        this.v = this.add.video(width/2,height/2,'ad');
+        this.loadAd();
 
-        this.v?.play(true);
-        this.v?.setPaused(false);
-       
+        this.playAd();
+      
+        this.time.delayedCall( 5000, () => { this.news = new News(this) } );
+        
         this.input.on('pointerdown', this.startGame, this);
         this.input.on('keydown',this.startGame, this);
     }
 
-    update() {
+    update(time,delta) {
 
         if(SceneFactory.gamePadAnyButton(this)) {
             this.startGame();
@@ -67,22 +51,57 @@ export default class AdScene extends Phaser.Scene {
 
         let t = this.v?.getProgress() || 0; 
 
-        if( t > 0.99 ) {
+        if( t >= 0.9806) { // magic number 
             this.startGame();
         }
- 
-    }
-
-    private startGame() {
-        this.scene.stop();
-        this.scene.start('hoppa');
     }
 
     destroy() {
       this.v?.stop();
       this.v?.destroy();
 
+      this.news?.destroy();
+
       this.input.off('pointerdown', this.startGame, this);
       this.input.off('keydown', this.startGame, this);
+
+      this.adEnding = false;
+    }
+    
+    private chooseAd(): string {
+        const N = 25;
+        let c = Phaser.Math.Between(0,N);
+        return 'assets/ad-'+c + '.mp4';
+    }
+
+    private loadVideo() {
+        this.load.video( 'ad', this.chooseAd(), 'loadeddata', false, false);
+    }
+
+    private removeAd() {
+        if( this.cache.video.has( 'ad' ) ) {
+            this.cache.video.remove( 'ad' );
+        }
+    }
+
+    private loadAd() {
+        const { width, height } = this.scale;        
+        this.v = this.add.video(width/2,height/2,'ad');
+    }
+
+    private playAd() {
+        this.v?.play(true);
+        this.v?.setPaused(false);
+    }
+    
+    private startGame() {
+        if(!this.adEnding) {
+            this.adEnding = true;
+            this.cameras.main.fadeOut(100, 0, 0, 0);
+            this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, () => {
+                this.scene.stop();
+                this.scene.start('hoppa');
+            });
+        }
     }
 }
