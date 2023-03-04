@@ -238,7 +238,7 @@ export default class PlayerController {
                 this.scene.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, () => {
                     events.emit(ev);
                     this.scene.scene.stop();
-                    if( (globalThis.noWallet || (globalThis.moonshotBalance == 0 && globalThis.ra8bitBalance == 0)) && room !== 'bonus' && !globalThis.hasNFT ) {
+                    if( (globalThis.noWallet || (globalThis.moonshotBalance == 0 && globalThis.ra8bitBalance == 0 && !globalThis.hasNFT)) && room !== 'bonus' ) {
                         SceneFactory.stopSound(this.scene);
                         this.scene.scene.start( 'hoppa');
                     }
