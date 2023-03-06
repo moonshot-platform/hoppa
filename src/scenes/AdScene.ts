@@ -102,6 +102,7 @@ export default class AdScene extends Phaser.Scene {
                 this.scene.stop();
                 this.scene.start('hoppa');
             });
+            this.v?.setPaused();
         }
     }
 }
