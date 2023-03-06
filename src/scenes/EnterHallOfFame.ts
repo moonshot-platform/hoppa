@@ -20,10 +20,16 @@ export default class EnterHallOfFame extends Phaser.Scene {
     private statusText!: Phaser.GameObjects.BitmapText;
     private countdownText!: Phaser.GameObjects.BitmapText;
     private countdown = 0;
+    private countdownActive = true;
     private hsv;
     private hsvIndex = 0;
     private spacing = 72;
     private startPosition = 0;
+
+    private isTouching = false;
+
+    private isReady: number[] = [0,0,0];
+    private touchInputTimer?: Phaser.Time.TimerEvent;
 
     private info?: PlayerStats;
 
@@ -68,7 +74,7 @@ export default class EnterHallOfFame extends Phaser.Scene {
 
         this.title = this.add.bitmapText(width / 2, 64, this.fontface, "NEW HIGHSCORE", 82).setTint(0xffff00).setDropShadow(2, 2, 0xff0000, 0.5).setOrigin(0.5, 0);
 
-        this.statusText = this.add.bitmapText(width / 2, height - 16, this.fontface, "", 14).setOrigin(0.5, 0);
+        this.statusText = this.add.bitmapText(width / 2, height - 64, this.fontface, "", 14).setOrigin(0.5, 0);
 
         this.scoreText = this.add.bitmapText(width / 2, 196, this.fontface, this.formatScore(score), 72).setOrigin(0.5, 0);
 
@@ -84,14 +90,20 @@ export default class EnterHallOfFame extends Phaser.Scene {
 
         this.input.on("pointerdown", this.handlePointerDown, this);
         this.input.on("wheel", this.handleWheel, this);
+ 
+        SceneFactory.playSound(this.sounds, 'winneris' );
+        this.time.delayedCall( 4000, () => {
+            SceneFactory.playSound(this.sounds, 'hiscore');
+        }, undefined, this);
     }
 
     handleKeyDown(event) {
         const letter = String.fromCharCode(event.keyCode).toUpperCase();
         console.log(event.keyCode);
-        if (letter >= "A" && letter <= "Z") {
+        if (letter >= "A" && letter <= "Z" || letter === "?" || letter === " ") {
             this.updateInitial(letter);
             this.confirmed();
+            this.incLetter();
         } else if (event.keyCode === 37) {
             this.decLetter();
             this.unconfirmed();
@@ -104,10 +116,21 @@ export default class EnterHallOfFame extends Phaser.Scene {
         } else if (event.keyCode == 40 ) {
             this.nextLetter( this.currentInitialIndex, 1);
             this.unconfirmed();
+        } else if (event.keyCode == 13 ) {
+            this.confirmed();
+            this.incLetter();
+        } else if (event.keyCode == 8 ) {
+            this.decLetter();
+            this.unconfirmed();
+        } else if (event.keyCode == 27) {
+            this.endScene();
         }
     }
 
-    handlePointerDown(pointer) {
+    handlePointerDown(pointer: Phaser.Input.Pointer) {
+        if( pointer.isDown && pointer.wasTouch)
+            return; // touch event 
+
         this.confirmed();
         this.incLetter();
     }
@@ -158,6 +181,22 @@ export default class EnterHallOfFame extends Phaser.Scene {
             this.incLetter();
         }
 
+        if( this.input.activePointer.isDown && this.input.activePointer.wasTouch ) {
+            let dir = ( this.input.activePointer.position.y > 0 ? 1 : -1 );
+            const index = this.nearestLeter(this.input.activePointer);
+            if(index >= 0) {
+                this.touchInputNotDone();
+                this.nextLetter(index, dir );
+                this.confirmedX(index);
+                // start 3 second wait timer and accept input if user does not make any changes
+                if( this.isInputDone() ) {
+                    this.stopCountdown();
+                    this.touchInputTimer = this.time.addEvent( { delay : 3000, callback: this.inputDone, callbackScope : this });
+                }
+            }
+        }
+        
+
     }
 
     destroy() {
@@ -171,18 +210,33 @@ export default class EnterHallOfFame extends Phaser.Scene {
         this.statusText.destroy();
         SceneFactory.stopSound(this);
         SceneFactory.removeAllSounds(this);
-        this.sounds.clear(); 
+        this.sounds.clear();
+        this.isReady[0] = 0;
+        this.isReady[1] = 0;
+        this.isReady[2] = 0;
+
+        this.touchInputTimer?.remove(false);
+        this.touchInputTimer?.destroy();
+    }
+
+    private touchInputNotDone() {
+        this.touchInputTimer?.remove(false);
+        this.touchInputTimer?.destroy();
+        this.touchInputTimer = undefined;
     }
 
     private handleWheel(pointer, gameObjects, deltaX, deltaY, deltaZ) {
         const index = this.nearestLeter(pointer);
+        if(index == -1)
+            return;
+
         if (deltaY < 0) {
             this.nextLetter(index, 1);
         }
         else {
             this.nextLetter(index, -1);
         }
-        this.unconfirmed();
+        this.unconfirmedX(index);
     }
 
     private updateCountdown() {
@@ -191,7 +245,9 @@ export default class EnterHallOfFame extends Phaser.Scene {
             this.scene.stop();
         }
         else {
-            this.time.addEvent({ delay: 1000, callback: this.updateCountdown, callbackScope: this });
+            if(this.countdownActive) {
+                this.time.addEvent({ delay: 1000, callback: this.updateCountdown, callbackScope: this });
+            }
         }
         this.countdownText.setText("" + this.countdown);
     }
@@ -233,6 +289,10 @@ export default class EnterHallOfFame extends Phaser.Scene {
             this.statusText.setText("You are not connected to the Binance Smart Chain");
         }
         this.time.delayedCall(cd * 1000, this.endScene, undefined, this);
+    }
+
+    private isInputDone() {
+        return this.isReady[0] == 1 && this.isReady[1] == 1 && this.isReady[2] == 1;
     }
 
     private endScene() {
@@ -281,16 +341,23 @@ export default class EnterHallOfFame extends Phaser.Scene {
         this.currentInitialIndex++;
         if (this.currentInitialIndex > 2) {
             this.currentInitialIndex = 2;
-            this.inputDone();
         }
+        if( this.isInputDone() )
+            this.inputDone();
     }
 
     private decLetter() {
         this.currentInitialIndex--;
         if (this.currentInitialIndex < 0) {
-            this.currentInitialIndex = 0;
-            this.inputDone();
+            this.currentInitialIndex = 0; 
         }
+        if( this.isInputDone() )
+            this.inputDone();
+    }
+
+    private stopCountdown() {
+        this.countdownActive = false;
+        this.countdownText.setText("");
     }
 
     private confirmed() {
@@ -298,11 +365,28 @@ export default class EnterHallOfFame extends Phaser.Scene {
         this.bitmapLetters[this.currentInitialIndex].setTint(0x300051);
         this.bitmapCursor.setTint(0x300051);
         SceneFactory.playSound(this.sounds, 'blip');
+        this.isReady[ this.currentInitialIndex ] = 1;
+    }
+
+    private confirmedX(index) {
+        this.bitmapCursor.setX(this.startPosition + index * this.spacing);
+        this.bitmapLetters[index].setTint(0x300051);
+        this.bitmapCursor.setTint(0x300051);
+        SceneFactory.playSound(this.sounds, 'blip');
+        this.isReady[ index ] = 1;
     }
 
     private unconfirmed() {
         this.bitmapCursor.setX(this.startPosition + this.currentInitialIndex * this.spacing);
         this.bitmapLetters[this.currentInitialIndex].setTint(0xffffff);
         this.bitmapCursor.setTint(0xffffff);
+        this.isReady[ this.currentInitialIndex  ] = 0;
+    }
+
+    private unconfirmedX(index) {
+        this.bitmapCursor.setX(this.startPosition + index * this.spacing);
+        this.bitmapLetters[index].setTint(0xffffff);
+        this.bitmapCursor.setTint(0xffffff);
+        this.isReady[ index  ] = 0;
     }
 }
