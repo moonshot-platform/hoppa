@@ -66,6 +66,8 @@ export default class Level1 extends BaseScene {
     }
 
     init() {
+        super.init();
+
         this.cursors = this.input.keyboard?.createCursorKeys();
 
         this.obstaclesController = new ObstaclesController();
@@ -235,11 +237,6 @@ export default class Level1 extends BaseScene {
 
         this.matter.world.convertTilemapLayer(this.ground1, { label: 'ground', friction: 0, frictionStatic: 0 });
         this.matter.world.setBounds(0,0,this.map.widthInPixels, this.map.heightInPixels, 1, true, true,false, false, false);
-      //  this.matter.world.drawDebug = false;
-     /*   this.input.keyboard.on("keydown-I", (event) => {
-            this.matter.world.drawDebug = !this.matter.world.drawDebug;
-            this.matter.world.debugGraphic.clear();
-        });*/
 
         this.matter.world.on("collisionstart", (e: { pairs: any; }, o1: any, o2: any) => {
             const pairs = e.pairs;
@@ -269,6 +266,8 @@ export default class Level1 extends BaseScene {
 
     destroy() {
 
+        super.destroy();
+
         this.events.off('player-jumped', this.playerJumped, this);
 
         this.playerController?.destroy();
@@ -297,8 +296,6 @@ export default class Level1 extends BaseScene {
         this.layer1.destroy();
         this.ground1.destroy();
         this.map.destroy();
-        SceneFactory.stopSound(this);
-        SceneFactory.removeAllSounds(this);
         
         this.sounds.clear(); 
     }

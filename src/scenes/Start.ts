@@ -58,6 +58,9 @@ export default class Start extends BaseScene {
     private goFS = false;
 
     init() {
+
+        super.init();
+
         this.cursors = this.input.keyboard?.createCursorKeys();
         
         if (this.sys.game.device.fullscreen.available) {
@@ -232,6 +235,8 @@ export default class Start extends BaseScene {
     }
     destroy() {
 
+        super.destroy();
+
         this.input.off('pointerdown', () => { this.continueGame(); });
         this.input.off('keydown', () => { this.continueGame(); });
 
@@ -259,9 +264,7 @@ export default class Start extends BaseScene {
         this.tweens.destroy();
         this.ground1.destroy();
         this.map.destroy();
-        SceneFactory.stopSound(this);
-        SceneFactory.removeAllSounds(this);
-
+        
     }
 
     update(time: number, deltaTime: number) {

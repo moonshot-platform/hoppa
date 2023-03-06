@@ -70,6 +70,9 @@ export default class Level6 extends BaseScene {
     }
 
     init() {
+
+        super.init();
+
         this.cursors = this.input.keyboard?.createCursorKeys();
 
         this.obstaclesController = new ObstaclesController();
@@ -288,6 +291,9 @@ export default class Level6 extends BaseScene {
     }
     
     destroy() {
+
+        super.destroy();
+
         this.events.off('player-jumped', this.playerJumped, this);
 
         this.playerController?.destroy();
@@ -320,8 +326,6 @@ export default class Level6 extends BaseScene {
 
         this.objects.forEach(obj=>obj.destroy());
         
-        SceneFactory.stopSound(this);
-        SceneFactory.removeAllSounds(this);
         this.sounds.clear();
     }
 

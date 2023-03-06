@@ -65,6 +65,9 @@ export default class Level2 extends BaseScene {
 	}
 
     init() {
+
+        super.init();
+
         this.cursors = this.input.keyboard?.createCursorKeys();
         
         this.obstaclesController = new ObstaclesController();
@@ -267,6 +270,8 @@ export default class Level2 extends BaseScene {
 
     destroy() {
 
+        super.destroy();
+
         this.events.off('player-jumped', this.playerJumped, this);
      
         this.playerController?.destroy();
@@ -296,7 +301,6 @@ export default class Level2 extends BaseScene {
         this.layer1.destroy();
         this.map.destroy();
      
-        SceneFactory.stopSound(this);
         this.sounds.clear();
     }
 
