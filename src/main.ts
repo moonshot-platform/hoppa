@@ -21,6 +21,8 @@ import Story from './scenes/Story'
 import Wallet from './scenes/Wallet'
 import Inventory from './scenes/Inventory'
 import AdScene from './scenes/AdScene'
+import HallOfFame from './scenes/HallOfFame'
+import EnterHallOfFame from './scenes/EnterHallOfFame'
 
 const config: Phaser.Types.Core.GameConfig = {
 	type: Phaser.WEBGL,
@@ -54,7 +56,7 @@ const config: Phaser.Types.Core.GameConfig = {
 		activePointers: 4,
 		gamepad: true,
 	},
-	scene: [ Loader,LogoScreen,AdScene, HoppaScreen,Wallet,Inventory,Story,GameSettingsMenu,Help,Start,SelectPlayer,Level1,Level2,Level3,Level4,Level5,Level6,Bonus,Win,UI,Pause,GameOver],	
+	scene: [ Loader,LogoScreen,AdScene, HoppaScreen,Wallet, HallOfFame,EnterHallOfFame, Inventory,Story,GameSettingsMenu,Help,Start,SelectPlayer,Level1,Level2,Level3,Level4,Level5,Level6,Bonus,Win,UI,Pause,GameOver],	
 }
 
 window.addEventListener('load', () => {
