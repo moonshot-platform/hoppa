@@ -1,5 +1,6 @@
 import * as Phaser from 'phaser';
 import NewsBanner from './NewsBanner';
+import * as SceneFactory from '../scripts/SceneFactory'; 
 
 export default class News { 
 
@@ -105,7 +106,7 @@ export default class News {
 
   private fetchNews() {
     
-    let parsedItem = this.parsedItems[ Phaser.Math.Between(0, this.items.length - 1)];
+    let parsedItem = this.parsedItems[ SceneFactory.random(0, this.items.length - 1)];
     
     this.banner2.setText( parsedItem.title.toUpperCase() );
     this.banner4.setText( parsedItem.text.toUpperCase() );
@@ -480,5 +481,50 @@ export default class News {
     "title": "Investor millionaire accident",
     "text": "buys wrong coin, makes fortune"
   }`,
+  `{
+    "title": "Ethereum Smart Contracts: The Future of Finance?",
+    "text": "Ethereum's smart contract capabilities have the potential to revolutionize the financial industry."
+  }`,
+  `{
+    "title": "Ethereum Smart Contracts: The Lawyers' Nightmare",
+    "text": "Ethereum's smart contracts: the future of finance or the lawyers' nightmare? As the code rules, legal disputes drop."
+  }`,
+  `{
+    "title": "Crypto Zombies Rise, Bitcoin Leads the Horde",
+    "text": "Crypto zombies rise from the grave, led by Bitcoin's undead army. HODLers stock up on weapons and memes."
+  }`,
+  `{
+    "title": "Ethereum Gas Fees Skyrocket, Turn to Bike-Powered Mining",
+    "text": "Ethereum gas fees skyrocket, prompting crypto users to turn to bike-powered mining. Green energy or sweaty desperation?"
+  }`,
+  `{
+    "title": "Crypto Investors Go Bananas for Monkeycoin",
+    "text": "Crypto investors go bananas for Monkeycoin. As the market swings, will they hold on or fling their poo?"
+  }`,
+  `{
+    "title": "Crypto Influencers Fight to Be Queen Bee of Honeycoin",
+    "text": "Crypto influencers fight to be queen bee of Honeycoin. The hive is buzzing, as they compete for sweet success."
+  }`,
+  `{
+    "title": "Crypto Experts Discover New Altcoin: Chuck Norriscoin",
+    "text": "Crypto experts discover new altcoin: Chuck Norriscoin. The value can't be measured in dollars, only roundhouse kicks."
+  }`,
+  `{
+    "title": "Crypto Exchange Hacked, Hackers Steal All the Garlicoin",
+    "text": "Crypto exchange hacked, hackers steal all the Garlicoin. Italian grandmothers everywhere are outraged."
+  }`,
+  `{
+    "title": "Crypto Investors Panic Sell, Stock Up on Ramen Noodles",
+    "text": "Crypto investors panic sell, stocking up on Ramen noodles. The college student diet goes mainstream."
+  }`,
+  `{
+    "title": "AI Develops Sense of Humor, Humans Still Dont Find it Funny",
+    "text": "AI develops sense of humor, humans still don't find it funny. Looks like the robots still have some work to do!"
+  }`,
+ `{
+  "title": "Crypto Investor Buys Lamborghini, Forgets Keys on Blockchain",
+  "text": "Crypto investor buys Lamborghini, forgets keys on blockchain. Looks like he needs to mine some more memory."
+  }`,
+
   ];
 }
