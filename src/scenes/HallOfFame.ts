@@ -38,22 +38,16 @@ export default class HallOfFame extends Phaser.Scene {
     private highscores: Highscore[] = [];
     private bitmapTexts: Phaser.GameObjects.BitmapText[] = [];
 
-    private fromScene: string = 'hoppa';
-    
     constructor() {
         super('halloffame');
         
     }
 
-    init(data) {
+    init() {
         this.cursors = this.input.keyboard?.createCursorKeys();
         this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
             this.destroy();
-        });
-
-        if( data !== undefined ) {
-            this.fromScene = data.fromScene;
-        }
+        });    
     }
 
     preload() {
@@ -117,7 +111,7 @@ export default class HallOfFame extends Phaser.Scene {
 
     private endScene() {
         this.scene.stop();
-        this.scene.start(this.fromScene);
+        this.scene.start(globalThis.adReturn);
     }
 
     private getOrdinal(i) {

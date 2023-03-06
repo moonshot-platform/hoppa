@@ -10,6 +10,7 @@ declare global {
     var noWallet: boolean;
     var chainId: number;
     var changeEvent: number;
+    var adReturn: string;
     interface Window {
         ethereum: import('ethers').providers.ExternalProvider;
     }
@@ -26,6 +27,7 @@ export function init() {
     globalThis.provider = new ethers.providers.Web3Provider(window.ethereum);
     globalThis.moonshotBalance = 0;
     globalThis.ra8bitBalance = 0;
+    globalThis.adReturn = "hoppa";
     globalThis.selectedAddress = "0x000000000000000000000000000000000000dead";
     
     (window.ethereum as any).on( 'accountsChanged', function(accounts) {

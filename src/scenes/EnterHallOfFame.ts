@@ -296,6 +296,7 @@ export default class EnterHallOfFame extends Phaser.Scene {
     }
 
     private endScene() {
+        globalThis.adReturn = "hoppa";
         this.scene.stop();
         this.scene.start('halloffame');
     }

@@ -40,6 +40,7 @@ export default class HoppaScreen extends Phaser.Scene {
     create() {
         const { width, height } = this.scale;
 
+        
         this.add.image(width / 2, height / 2 - 128, 'logo').setDisplaySize(460, 196).setOrigin(0.5, 0.5);
 
         this.text = this.add.bitmapText(width * 0.5, height / 2, 'press_start', 'A Ra8bits Production', 48)
@@ -115,8 +116,10 @@ export default class HoppaScreen extends Phaser.Scene {
             this.scene.stop();
             const n = Phaser.Math.Between(0,5);
             let scene = 'ad';
-            if( !globalThis.noWallet && globalThis.chainId == 56 && n < 2 )
+            if( !globalThis.noWallet && globalThis.chainId == 56 && n < 2 ) {
+                globalThis.adReturn = "hoppa";
                 scene = 'halloffame';
+            }
             this.scene.start(scene);
         });
 
