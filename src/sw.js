@@ -491,6 +491,19 @@ var filesToCache = [
 '/hoppa/assets/card-9.m4a',
 '/hoppa/assets/card-9.mp3',
 '/hoppa/assets/hand.cur',
+'/hoppa/assets/chiptune-stage1.mp3',
+'/hoppa/assets/chiptune-stage1.m4a',
+'/hoppa/assets/chiptune-stage2.mp3',
+'/hoppa/assets/chiptune-stage2.m4a',
+'/hoppa/assets/x-pixeladventures.mp3',
+'/hoppa/assets/x-pixeladventures.m4a',
+'/hoppa/assets/proper_summer.mp3',
+'/hoppa/assets/proper_summer.m4a',
+'/hoppa/assets/galaticfunk.mp3',
+'/hoppa/assets/galaticfunk.m4a',
+'/hoppa/assets/enchantedwoods.mp3',
+'/hoppa/assets/enchantedwoods.m4a'
+
 ];
 
 self.addEventListener('install', function(e) {
