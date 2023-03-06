@@ -44,6 +44,7 @@ export default class UI extends Phaser.Scene {
                 'carrotsCollected': 0,
                 'currLevel': 1,
                 'scorePoints': 0,
+                'highScorePoints': 0,
                 'livesRemaining': 3,
                 'invincibility': false,
                 'speedUp': false,
@@ -60,6 +61,9 @@ export default class UI extends Phaser.Scene {
     }
 
     destroy() {
+
+        this.disableEvents();
+
         this.scoreLabel.destroy();
         this.coinsLabel.destroy();
         this.timeLabel.destroy();
@@ -147,39 +151,43 @@ export default class UI extends Phaser.Scene {
         events.on('save-state', this.save, this);
 
         events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
-            events.off('coin-collected', this.handleCoinCollected, this);
-            events.off('coin-taken', this.handleCoinTaken, this);
-            events.off('enemy-killed', this.handleEnemyKilled,this);
-            events.off('health-changed', this.handleHealthChanged, this);
-            events.off('reset-game', this.handleReset, this);
-            
-            events.off('next-level', this.handleNextLevel, this);
-            events.off('bonus-level', this.handleBonusRound, this);
-            events.off('warp-level', this.handleWarpLevel, this);
-
-            events.off('power-invincible' , this.handleInvincible, this);
-            events.off('power-speed' , this.handleSpeed, this);
-            events.off('power-poop' , this.handlePoop, this);
-            events.off('power-pokeball', this.handlePokeball, this);
-            events.off('power-power', this.handlePower, this);
-            events.off('score-changed', this.handleChangeScore, this);
-            events.off('voice-random', this.handleVoice, this);
-        
-            events.off('carrot-collected', this.handleCarrotCollected, this );
-            events.off('lives-changed', this.handleLivesChanged, this); 
-        
-            events.off('level-start', this.startGame, this);
-            events.off( 'restart', this.handleRestart, this);
-
-            events.off('save-state', this.save, this );
+            this.disableEvents();
         });
     }
-
+    
     update() {
         if(this.time_start > 0 && this.lasttick <= this.game.loop.frame) {
             this.timeLabel.text = `${(Phaser.Math.FloorTo( (this.time.now - this.time_start) * 0.001))}`;
             this.lasttick = this.game.loop.frame + 20;
         }
+    }
+
+    private disableEvents() {
+        events.off('coin-collected', this.handleCoinCollected, this);
+        events.off('coin-taken', this.handleCoinTaken, this);
+        events.off('enemy-killed', this.handleEnemyKilled,this);
+        events.off('health-changed', this.handleHealthChanged, this);
+        events.off('reset-game', this.handleReset, this);
+        
+        events.off('next-level', this.handleNextLevel, this);
+        events.off('bonus-level', this.handleBonusRound, this);
+        events.off('warp-level', this.handleWarpLevel, this);
+
+        events.off('power-invincible' , this.handleInvincible, this);
+        events.off('power-speed' , this.handleSpeed, this);
+        events.off('power-poop' , this.handlePoop, this);
+        events.off('power-pokeball', this.handlePokeball, this);
+        events.off('power-power', this.handlePower, this);
+        events.off('score-changed', this.handleChangeScore, this);
+        events.off('voice-random', this.handleVoice, this);
+    
+        events.off('carrot-collected', this.handleCarrotCollected, this );
+        events.off('lives-changed', this.handleLivesChanged, this); 
+    
+        events.off('level-start', this.startGame, this);
+        events.off( 'restart', this.handleRestart, this);
+
+        events.off('save-state', this.save, this );
     }
 
     private startGame() {
@@ -308,7 +316,9 @@ export default class UI extends Phaser.Scene {
         for(let i = 0; i <3 ;i ++ ) {
             this.lives[i].setFrame(0);
         }
+        this.info.highScorePoints = ( this.info.scorePoints > this.info.highScorePoints ? this.info.scorePoints : this.info.highScorePoints );
         this.info.scorePoints = 0;
+        
         this.info.currLevel = 1;
         this.info.lastHealth = 100;
         this.info.livesRemaining = 3;
