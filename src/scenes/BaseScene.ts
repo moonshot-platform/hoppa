@@ -1,4 +1,6 @@
-import Phaser from 'phaser'
+import Phaser from 'phaser';
+import * as SceneFactory from '../scripts/SceneFactory';
+
 export default class BaseScene extends Phaser.Scene {
     
     private frameTime = 0;
@@ -10,6 +12,13 @@ export default class BaseScene extends Phaser.Scene {
   
     constructor(name: string |  Phaser.Types.Scenes.SettingsConfig)  {
         super(name);
+    }
+
+    init() {
+        this.game.events.on( Phaser.Core.Events.BLUR, this.muteSound, this );
+        this.game.events.on( Phaser.Core.Events.FOCUS, this.unmuteSound, this );
+
+        document.addEventListener('visibilitychange', this.looseFocus );
     }
 
     create() {
@@ -32,7 +41,6 @@ export default class BaseScene extends Phaser.Scene {
         if( this.frameTime >= this.TARGET_RATE ) {
             this.frameTime -= this.TARGET_RATE;
             this.renderNow = true;
-        
         }
 
     }
@@ -40,5 +48,37 @@ export default class BaseScene extends Phaser.Scene {
     doStep(): boolean {
         return this.renderNow;
     }
+
+    private muteSound() {
+        SceneFactory.stopSound(this);
+    }
+
+    private unmuteSound() {
+        if (!globalThis.musicTune && globalThis.musicTitle !== undefined) {
+            SceneFactory.playMusic(this, globalThis.musicTitle);
+        }
+    }
+
+    private looseFocus() {
+        if (!document.hidden)
+          return;
+        SceneFactory.stopSound(this);
+    }
+
+    destroy() {
+        this.game.events.off(Phaser.Core.Events.BLUR, this.muteSound, this);
+        this.game.events.off(Phaser.Core.Events.FOCUS, this.unmuteSound, this );
+
+        document?.removeEventListener( 'visibilitychange' , this.looseFocus );
+
+        SceneFactory.stopSound(this);
+        SceneFactory.removeAllSounds(this);
+
+    }
+
+
+    
+
+    
 
 }
