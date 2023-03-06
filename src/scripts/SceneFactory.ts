@@ -108,7 +108,6 @@ export function playMusic(ctx: Phaser.Scene, choice: string): Phaser.Sound.BaseS
     });
     m.once(Phaser.Sound.Events.STOP, () => {
         globalThis.musicTune = false;
-        globalThis.musicTitle = undefined;
     });
 
     return m;
@@ -136,7 +135,6 @@ export function playRepeatMusic(ctx: Phaser.Scene, choice: string): Phaser.Sound
     });
     m.once(Phaser.Sound.Events.STOP, () => {
         globalThis.musicTune = false;
-        globalThis.musicTitle = undefined;
     });
 
     return m;
@@ -239,6 +237,8 @@ export function setupSounds(ctx: Phaser.Scene): Map<string, Phaser.Sound.BaseSou
         'changeskin',
         '100coins',
         'blip',
+        'winneris',
+        'hiscore',
     ];
 
     sounds.forEach(s => m.set(s, ctx.sound.add(s, { loop: false })));
@@ -298,39 +298,12 @@ export function krasotaSays(selector: number, text: string ): string {
 
 
 export function setupHandlers(ctx: Phaser.Scene) {
-
-    ctx.game.events.on(Phaser.Core.Events.BLUR, () => {
-        if (ctx.scene.isActive('paused')) {
-            ctx.scene.stop('paused');
-        }
-        stopSound(ctx);
-    });
-
-    ctx.game.events.on(Phaser.Core.Events.FOCUS, () => {
-        if (!globalThis.musicTune && globalThis.musicTitle !== undefined) {
-            playMusic(ctx, globalThis.musicTitle);
-        }
-    });
-
-    document.addEventListener('visibilitychange', () => {
-        if (!document.hidden)
-            return;
-        handleLoseFocus(ctx);
-    });
+/*
+  */
 }
 
 export function handleLoseFocus(ctx: Phaser.Scene) {
-    if (ctx.scene.isActive('paused')) {
-        return;
-    }
-
-    stopSound(ctx);
-
-    ctx.scene.run('paused', {
-        onResume: () => {
-            ctx.scene.stop();
-        }
-    });
+    
 }
 
 export function stopSound(ctx: Phaser.Scene) {
@@ -528,7 +501,9 @@ export function preload(ctx) {
     ctx.load.audio('chiptune-stage1', [ 'assets/chiptune-stage1.mp3', 'assets/chiptune-stage1.m4a']);
     ctx.load.audio('chiptune-stage2', [ 'assets/chiptune-stage2.mp3', 'assets/chiptune-stage2.m4a']);
     ctx.load.audio('x-pixeladventures', [ 'assets/x-pixeladventures.mp3', 'assets/x-pixeladventures.m4a']);
-    
+    ctx.load.audio('winneris', [ 'assets/winneris.mp3', 'assets/winneris.m4a']);
+    ctx.load.audio('hiscore', [ 'assets/hiscore.mp3', 'assets/hiscore.m4a']);
+        
     ctx.load.audio('beginatthebeginning', [ 'assets/beginatthebeginning.mp3', 'assets/beginatthebeginning.m4a']);
     ctx.load.audio('blowitoutofyourass', [ 'assets/blowitoutofyourass.mp3', 'assets/blowitoutofyourass.m4a']);
     ctx.load.audio('breakmybed', [ 'assets/breakmybed.mp3', 'assets/breakmybed.m4a']);
