@@ -147,8 +147,7 @@ export default class GameSettingsMenu extends Phaser.Scene {
             this.selectPlayer2();
         }
         else if(this.cursors?.shift.isDown || this.cursors?.space.isDown || SceneFactory.gamePadAnyButton(this) ) { 
-            this.scene.stop();
-            this.scene.start(this.nextScene);
+            this.continueGame();
         }
     }
 
@@ -165,6 +164,12 @@ export default class GameSettingsMenu extends Phaser.Scene {
 
     continueGame() {
         this.scene.stop();
-        this.scene.start(this.nextScene);
+
+        if( globalThis.chainId == 56 && !globalThis.noWallet ) {
+            this.scene.start( 'halloffame', { fromScene: this.nextScene } );
+        }
+        else {
+            this.scene.start(this.nextScene);
+        }
     }
 }
