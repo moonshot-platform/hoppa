@@ -10,6 +10,9 @@ export default class Loader extends Phaser.Scene {
     private ready!: Phaser.GameObjects.Text;
 
 
+    init() {
+        localStorage.clear();
+    }
 
     preload() {
         const width = this.game.canvas.width;
