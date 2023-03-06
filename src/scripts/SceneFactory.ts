@@ -314,6 +314,7 @@ export function stopSound(ctx: Phaser.Scene) {
 
 export function removeAllSounds(ctx: Phaser.Scene) {
     ctx.game.sound.removeAll();
+    globalThis.musicTitle = undefined;
 }
 
 export function loadSettings() {
