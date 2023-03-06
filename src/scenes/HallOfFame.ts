@@ -76,7 +76,7 @@ export default class HallOfFame extends Phaser.Scene {
         
         this.getHallOfFame(); 
 
-        this.time.delayedCall( 10000, this.endScene, undefined, this );
+        this.time.delayedCall( this.countdown * 1000, this.endScene, undefined, this );
     }
 
 
