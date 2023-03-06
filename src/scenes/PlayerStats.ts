@@ -4,6 +4,7 @@ export interface PlayerStats {
     carrotsCollected: number;
     currLevel: number;
     scorePoints: number;
+    highScorePoints: number;
     livesRemaining: number;
     invincibility: boolean;
     speedUp: boolean;

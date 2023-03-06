@@ -1,6 +1,8 @@
 import Phaser from "phaser";
 import * as SceneFactory from '../scripts/SceneFactory';
+import * as WalletHelper from '../scripts/WalletHelper';
 import CreditScene from "./CreditScene";
+import { PlayerStats } from "./PlayerStats";
 export default class Win extends CreditScene {
 
     private scroller!: Phaser.GameObjects.DynamicBitmapText;
@@ -9,6 +11,7 @@ export default class Win extends CreditScene {
     private hsv;
     private fireworks!: Phaser.GameObjects.Particles.ParticleEmitter;
     private particles!: Phaser.GameObjects.Particles.ParticleEmitter;
+    private info: PlayerStats;
 
     private music!: Phaser.Sound.BaseSound;
 
@@ -16,6 +19,11 @@ export default class Win extends CreditScene {
         super('win');
     }
 
+    init() {
+        this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
+            this.destroy();
+        });
+    }
    
     preload() {
         SceneFactory.preload(this);
@@ -137,8 +145,7 @@ export default class Win extends CreditScene {
     }
 
     continueGame() {
-        this.scene.stop();
-        this.scene.start('start');
+        this.hasNewHighscore();
     }
 
     destroy() {
@@ -149,6 +156,41 @@ export default class Win extends CreditScene {
     
         SceneFactory.stopSound(this);
         SceneFactory.removeAllSounds(this);
+    }
+
+    private hasNewHighscore() {
+        let result = false;
+
+        const data = window.localStorage.getItem( 'ra8bit.stats' );
+        if( data != null ) {
+            const obj = JSON.parse(data);
+            this.info = obj as PlayerStats;
+        }
+
+        if(globalThis.chainId == 56 && !globalThis.noWallet ) {
+            let hs = this.info?.highScorePoints || 0;
+            let score = this.info?.scorePoints || 0;
+            if( hs > score )
+                score = hs;
+
+            const checkNewHighscore = async() => {
+                const inTop10 = await WalletHelper.hasNewHighScore(score);
+                if(inTop10) {
+                    this.scene.stop();
+                    this.scene.start('enter-hall');
+                }
+                else {
+                    this.scene.stop();
+                    this.scene.start('start');
+                }
+            };
+            checkNewHighscore();
+        }
+        else {
+            this.scene.stop();
+            this.scene.start('start');
+        }
+
     }
 
 }

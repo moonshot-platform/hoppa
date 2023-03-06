@@ -561,7 +561,6 @@ export default class PlayerController {
                     events.emit('lives-changed', this.stats.livesRemaining);
                     this.health = 100;
                     events.emit('health-changed', this.health);
-                    events.emit('score-changed', 100);
                     this.bounceSpriteAndDestroy(sprite);
                     break;
                 }
@@ -590,7 +589,6 @@ export default class PlayerController {
                             this.bounceSprite(sprite);
                             SceneFactory.playSound(this.sounds, 'changeskin');
                             events.emit(sprite.name + "-touched", sprite, this);
-                            events.emit('score-changed', 1000);
                             SceneFactory.playSound(this.sounds, 'equalopportunity');
                         }
                     }
@@ -1586,7 +1584,7 @@ export default class PlayerController {
             frames: this.sprite.anims.generateFrameNames('rabbit', {
                 start: 0,
                 end: 3,
-                prefix: '3_Walk',
+                prefix: '3_Walk', 
                 suffix: '.webp'
             }),
             repeat: -1

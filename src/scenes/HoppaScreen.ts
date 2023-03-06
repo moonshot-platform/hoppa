@@ -14,7 +14,7 @@ export default class HoppaScreen extends Phaser.Scene {
     private optionsLabel!: Phaser.GameObjects.BitmapText;
     private helpLabel!: Phaser.GameObjects.BitmapText;
     private text!:Phaser.GameObjects.BitmapText;
-    private cursors!: Phaser.Types.Input.Keyboard.CursorKeys;
+    private cursors?: Phaser.Types.Input.Keyboard.CursorKeys;
     private arrow?:Phaser.GameObjects.Image;
     private activeItem: number = 0;
 
@@ -113,7 +113,11 @@ export default class HoppaScreen extends Phaser.Scene {
 
         this.time.delayedCall( 10000, () => {
             this.scene.stop();
-            this.scene.start('ad');
+            const n = Phaser.Math.Between(0,5);
+            let scene = 'ad';
+            if( !globalThis.noWallet && globalThis.chainId == 56 && n < 2 )
+                scene = 'halloffame';
+            this.scene.start(scene);
         });
 
     }
@@ -137,13 +141,13 @@ export default class HoppaScreen extends Phaser.Scene {
 
         this.lastUpdate = time + 120; 
 
-        if(this.cursors.down.isDown || SceneFactory.isGamePadUp(this)) {
+        if(this.cursors?.down.isDown || SceneFactory.isGamePadUp(this)) {
             this.activeItem ++;
         }
-        else if(this.cursors.up.isDown || SceneFactory.isGamePadDown(this)) {
+        else if(this.cursors?.up.isDown || SceneFactory.isGamePadDown(this)) {
             this.activeItem --;
         }
-        else if(this.cursors.shift.isDown || this.cursors.space.isDown || SceneFactory.gamePadAnyButton(this) ) { 
+        else if(this.cursors?.shift.isDown || this.cursors?.space.isDown || SceneFactory.gamePadAnyButton(this) ) { 
             switch(this.activeItem) {
                 case 0:
                     this.continueGame();

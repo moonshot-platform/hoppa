@@ -53,7 +53,7 @@ export default class Start extends BaseScene {
     private credits !: Phaser.GameObjects.BitmapText;
     private map!: Phaser.Tilemaps.Tilemap;
     private ground1!: Phaser.Tilemaps.TilemapLayer;
-    private cursors!: Phaser.Types.Input.Keyboard.CursorKeys;
+    private cursors?: Phaser.Types.Input.Keyboard.CursorKeys;
     
     private goFS = false;
 
@@ -93,6 +93,7 @@ export default class Start extends BaseScene {
             'carrotsCollected': 0,
             'currLevel': 1,
             'scorePoints': 0,
+            'highScorePoints': 0,
             'livesRemaining': 3,
             'invincibility': false,
             'speedUp': false,
@@ -327,7 +328,7 @@ export default class Start extends BaseScene {
 
         SceneFactory.cullSprites(this);
 
-        if(SceneFactory.gamePadAnyButton(this) || this.cursors.space.isDown ) {
+        if(SceneFactory.gamePadAnyButton(this) || this.cursors?.space.isDown ) {
             this.continueGame();
         }
 

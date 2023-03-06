@@ -1,6 +1,7 @@
 import Phaser from "phaser";
 import * as SceneFactory from '../scripts/SceneFactory';
-
+import { PlayerStats } from "./PlayerStats";
+import * as WalletHelper from '../scripts/WalletHelper';
 export default class GameOver extends Phaser.Scene {
     constructor() {
         super('game-over')
@@ -8,9 +9,16 @@ export default class GameOver extends Phaser.Scene {
 
     private introMusic?: Phaser.Sound.BaseSound;
     private text!: Phaser.GameObjects.BitmapText;
+    private info?: PlayerStats;
 
     preload() {
         SceneFactory.preload(this);
+    }
+
+    init() {
+        this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
+            this.destroy();
+        });
     }
 
     create() {
@@ -38,7 +46,8 @@ export default class GameOver extends Phaser.Scene {
 
     continueGame() {
         this.introMusic?.stop();
-        this.scene.start('start');
+
+        this.hasNewHighscore();
     }
 
     update() {
@@ -51,4 +60,40 @@ export default class GameOver extends Phaser.Scene {
         this.text.destroy();
         this.introMusic?.destroy();
     }
+
+    private hasNewHighscore() {
+        let result = false;
+
+        const data = window.localStorage.getItem( 'ra8bit.stats' );
+        if( data != null ) {
+            const obj = JSON.parse(data);
+            this.info = obj as PlayerStats;
+        }
+
+        if(globalThis.chainId == 56 && !globalThis.noWallet ) {
+            let hs = this.info?.highScorePoints || 0;
+            let score = this.info?.scorePoints || 0;
+            if( hs > score )
+                score = hs;
+
+            const checkNewHighscore = async() => {
+                const inTop10 = await WalletHelper.hasNewHighScore(score);
+                if(inTop10) {
+                    this.scene.stop();
+                    this.scene.start('enter-hall');
+                }
+                else {
+                    this.scene.stop();
+                    this.scene.start('start');
+                }
+            };
+            checkNewHighscore();
+        }
+        else {
+            this.scene.stop();
+            this.scene.start('start');
+        }
+
+    }
+
 }

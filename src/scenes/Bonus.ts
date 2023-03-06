@@ -93,13 +93,14 @@ export default class Bonus extends Phaser.Scene {
             'carrotsCollected': 0,
             'currLevel': 1,
             'scorePoints': 0,
+            'highScorePoints': 0,
             'livesRemaining': 3,
             'invincibility': false,
-            'powerUp': false,
             'speedUp': false,
+            'powerUp': false,
             'throw': false,
             'pokeBall': false,
-            'voice': false
+            'voice': false,
         };
 
         const data = window.localStorage.getItem('ra8bit.stats');

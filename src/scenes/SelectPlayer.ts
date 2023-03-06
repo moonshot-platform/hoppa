@@ -13,7 +13,7 @@ export default class GameSettingsMenu extends Phaser.Scene {
     private femaleRabbit!: Phaser.GameObjects.Image;
     private arrow!:Phaser.GameObjects.Image;
     private player1Selected: boolean;
-    private cursors!: Phaser.Types.Input.Keyboard.CursorKeys;
+    private cursors?: Phaser.Types.Input.Keyboard.CursorKeys;
     private nextScene: string;
     private sounds!: Map<string, Phaser.Sound.BaseSound>;
     private stats!: PlayerStats;
@@ -36,6 +36,9 @@ export default class GameSettingsMenu extends Phaser.Scene {
             this.stats = obj as PlayerStats;
             this.nextScene = 'level' + this.stats.currLevel;
         }
+        this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
+            this.destroy();
+        });
     }
 
     preload() {
@@ -137,13 +140,13 @@ export default class GameSettingsMenu extends Phaser.Scene {
 
     update(): void {
 
-        if(this.cursors.left.isDown || SceneFactory.isGamePadLeft(this)) {
+        if(this.cursors?.left.isDown || SceneFactory.isGamePadLeft(this)) {
             this.selectPlayer1();
         }
-        else if(this.cursors.right.isDown || SceneFactory.isGamePadRight(this)) {
+        else if(this.cursors?.right.isDown || SceneFactory.isGamePadRight(this)) {
             this.selectPlayer2();
         }
-        else if(this.cursors.shift.isDown || this.cursors.space.isDown || SceneFactory.gamePadAnyButton(this) ) { 
+        else if(this.cursors?.shift.isDown || this.cursors?.space.isDown || SceneFactory.gamePadAnyButton(this) ) { 
             this.scene.stop();
             this.scene.start(this.nextScene);
         }
@@ -157,6 +160,7 @@ export default class GameSettingsMenu extends Phaser.Scene {
         this.arrow.destroy();
         SceneFactory.stopSound(this);
         SceneFactory.removeAllSounds(this);
+        this.sounds.clear(); 
     }
 
     continueGame() {

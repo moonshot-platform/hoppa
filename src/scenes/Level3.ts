@@ -91,6 +91,7 @@ export default class Level3 extends BaseScene {
             'carrotsCollected': 0,
             'currLevel': 1,
             'scorePoints': 0,
+            'highScorePoints': 0,
             'livesRemaining': 3,
             'invincibility': false,
             'speedUp': false,

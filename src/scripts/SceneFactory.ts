@@ -9,10 +9,11 @@ import NeonController from './NeonController';
 import BarController from './BarController';
 import ObstaclesController from './ObstaclesController';
 import { GameSettings } from '~/scenes/GameSettings';
+import { randomBytes } from 'crypto';
 
 declare global {
     var musicTune: boolean;
-    var musicTitle: string;
+    var musicTitle: string | undefined;
     var musicVolume: number;
     var soundVolume: number;
     var krasota: boolean;
@@ -107,6 +108,7 @@ export function playMusic(ctx: Phaser.Scene, choice: string): Phaser.Sound.BaseS
     });
     m.once(Phaser.Sound.Events.STOP, () => {
         globalThis.musicTune = false;
+        globalThis.musicTitle = undefined;
     });
 
     return m;
@@ -134,10 +136,30 @@ export function playRepeatMusic(ctx: Phaser.Scene, choice: string): Phaser.Sound
     });
     m.once(Phaser.Sound.Events.STOP, () => {
         globalThis.musicTune = false;
+        globalThis.musicTitle = undefined;
     });
 
     return m;
 }
+
+export function random(min: number, max: number): number {
+    const range = max - min;
+    const bytesNeeded = Math.ceil(Math.log2(range) / 8);
+    const randomBytes = new Uint8Array(bytesNeeded);
+    let randomNumber = 0;
+  
+    do {
+      randomBytes.fill(0);
+      randomBytes.set(window.crypto.getRandomValues(randomBytes));
+      const bitOffset = randomBytes.length * 8 - Math.ceil(Math.log2(range));
+      randomNumber = randomBytes.reduce((acc, byte, index) => {
+        const shiftedByte = byte << (index * 8);
+        return acc + shiftedByte;
+      }, 0) >>> bitOffset;
+    } while (randomNumber > range);
+  
+    return randomNumber + min;
+  }
 
 export function playRandomMusic(ctx: Phaser.Scene) {
 
@@ -164,6 +186,7 @@ export function playRandomMusic(ctx: Phaser.Scene) {
         'greengray',
         'junglegroove',
         'onmyway',
+        'propersummer',
         'spy',
         'thevillage',
         'heroimmortal',
@@ -179,9 +202,12 @@ export function playRandomMusic(ctx: Phaser.Scene) {
         'catchy',  
         'enchantedwoods',
         'galaticfunk',
+        'chiptune-stage1',
+        'chiptune-stage2',
+        'x-pixeladventures'
     ];
 
-    const choice = tracks[Phaser.Math.Between(0, tracks.length - 1)];
+    const choice = tracks[  random(0, tracks.length - 1)];
     playMusic(ctx, choice);
 }
 
@@ -277,7 +303,7 @@ export function setupHandlers(ctx: Phaser.Scene) {
         if (ctx.scene.isActive('paused')) {
             ctx.scene.stop('paused');
         }
-
+        stopSound(ctx);
     });
 
     ctx.game.events.on(Phaser.Core.Events.FOCUS, () => {
@@ -498,7 +524,11 @@ export function preload(ctx) {
     ctx.load.audio('hit2', ['assets/hit2.mp3', 'assets/hit2.m4a']);
     ctx.load.audio('enchantedwoods', [ 'assets/enchantedwoods.mp3', 'assets/enchantedwoods.m4a']);
     ctx.load.audio('galaticfunk', [ 'assets/galaticfunk.mp3', 'assets/galaticfunk.m4a']);
-
+    ctx.load.audio('propersummer', [ 'assets/proper_summer.mp3', 'assets/proper_summer.m4a']);
+    ctx.load.audio('chiptune-stage1', [ 'assets/chiptune-stage1.mp3', 'assets/chiptune-stage1.m4a']);
+    ctx.load.audio('chiptune-stage2', [ 'assets/chiptune-stage2.mp3', 'assets/chiptune-stage2.m4a']);
+    ctx.load.audio('x-pixeladventures', [ 'assets/x-pixeladventures.mp3', 'assets/x-pixeladventures.m4a']);
+    
     ctx.load.audio('beginatthebeginning', [ 'assets/beginatthebeginning.mp3', 'assets/beginatthebeginning.m4a']);
     ctx.load.audio('blowitoutofyourass', [ 'assets/blowitoutofyourass.mp3', 'assets/blowitoutofyourass.m4a']);
     ctx.load.audio('breakmybed', [ 'assets/breakmybed.mp3', 'assets/breakmybed.m4a']);
