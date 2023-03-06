@@ -61,6 +61,14 @@ npm run build
 
 Production files will be placed in the `dist` folder. Then upload those files to a web server. 🎉
 
+## Smart Contracts
+
+Hall of Fame
+- https://bscscan.com/address/0x9d811D1600236cE2874A1f3cA2E7318cABe2DB7d#code
+
+Hoppa Cards
+- https://bscscan.com/address/0xb8eB97a1d6393B087EEACb33c3399505a3219d3D
+
 
 ## Project Structure
 
