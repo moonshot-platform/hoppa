@@ -502,8 +502,11 @@ var filesToCache = [
 '/hoppa/assets/galaticfunk.mp3',
 '/hoppa/assets/galaticfunk.m4a',
 '/hoppa/assets/enchantedwoods.mp3',
-'/hoppa/assets/enchantedwoods.m4a'
-
+'/hoppa/assets/enchantedwoods.m4a',
+'/hoppa/assets/winneris.mp3',
+'/hoppa/assets/winneris.m4a',
+'/hoppa/assets/hiscore.mp3',
+'/hoppa/assets/hiscore.m4a', 
 ];
 
 self.addEventListener('install', function(e) {
