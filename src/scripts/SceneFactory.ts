@@ -504,6 +504,7 @@ export function preload(ctx) {
     ctx.load.audio('x-pixeladventures', [ 'assets/x-pixeladventures.mp3', 'assets/x-pixeladventures.m4a']);
     ctx.load.audio('winneris', [ 'assets/winneris.mp3', 'assets/winneris.m4a']);
     ctx.load.audio('hiscore', [ 'assets/hiscore.mp3', 'assets/hiscore.m4a']);
+    ctx.load.audio('finalbossbattle', [ 'assets/finalbossbattle.mp3', 'assets/finalbossbattle.m4a']);
         
     ctx.load.audio('beginatthebeginning', [ 'assets/beginatthebeginning.mp3', 'assets/beginatthebeginning.m4a']);
     ctx.load.audio('blowitoutofyourass', [ 'assets/blowitoutofyourass.mp3', 'assets/blowitoutofyourass.m4a']);
@@ -1055,5 +1056,16 @@ export function gamePadAnyButton(ctx: Phaser.Scene) : boolean {
         if(pad?.buttons[i].pressed)
            return true;
     }
+    return false;
+}
+
+export function gamePadIsButton(ctx: Phaser.Scene, index) : boolean {
+    const pad = ctx.input.gamepad?.getPad(0);
+    if(pad === undefined)
+        return false;
+
+    if(pad?.buttons[index].pressed)
+           return true;
+     
     return false;
 }
