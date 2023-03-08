@@ -1,4 +1,4 @@
-var cacheName = 'hoppa-moonshot-v1.3';
+var cacheName = 'hoppa-moonshot-v1.4';
 var filesToCache = [
 '/hoppa/assets/01_main_screen_trailer.m4a',
 '/hoppa/assets/01_main_screen_trailer.mp3',
