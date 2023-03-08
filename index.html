@@ -58,5 +58,21 @@
 				});
 			});
 		});
+		window.addEventListener('load', () => {
+			window.setTimeout(() => { 
+				if( 'serviceWorker' in navigator ) {
+					const s = navigator.serviceWorker;
+					s.register('sw.js',  { scope: "/hoppa/" } )
+						.then( function(r) {
+							console.log("Registered service worker ", r.scope);
+						})
+						.catch(function(e) {
+							console.log("Service worker failed registration: ", e);
+						});
+				}
+			}, 2000);
+		});
+		
+
 	</script>
 </html>

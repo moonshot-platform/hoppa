@@ -23,6 +23,9 @@ import Inventory from './scenes/Inventory'
 import AdScene from './scenes/AdScene'
 import HallOfFame from './scenes/HallOfFame'
 import EnterHallOfFame from './scenes/EnterHallOfFame'
+import Tournament from './scenes/Tournament'
+import HoppaSelect from './scenes/HoppaSelect'
+import TournamentIntro from './scenes/TournamentIntro'
 
 const config: Phaser.Types.Core.GameConfig = {
 	type: Phaser.WEBGL,
@@ -56,21 +59,11 @@ const config: Phaser.Types.Core.GameConfig = {
 		activePointers: 4,
 		gamepad: true,
 	},
-	scene: [ Loader,LogoScreen,AdScene, HoppaScreen,Wallet, HallOfFame,EnterHallOfFame, Inventory,Story,GameSettingsMenu,Help,Start,SelectPlayer,Level1,Level2,Level3,Level4,Level5,Level6,Bonus,Win,UI,Pause,GameOver],	
+	scene: [ Loader,LogoScreen,AdScene, HoppaScreen,HoppaSelect, Wallet,TournamentIntro,Tournament,HallOfFame,EnterHallOfFame, Inventory,Story,GameSettingsMenu,Help,Start,SelectPlayer,Level1,Level2,Level3,Level4,Level5,Level6,Bonus,Win,UI,Pause,GameOver],	
 }
 
 window.addEventListener('load', () => {
 	window.setTimeout(() => { 
-		if( 'serviceWorker' in navigator ) {
-			const s = navigator.serviceWorker;
-			s.register('sw.js',  { scope: "/hoppa/" } )
-				.then( function(r) {
-					console.log("Registered service worker ", r.scope);
-				})
-				.catch(function(e) {
-					console.log("Service worker failed registration: ", e);
-				});
-		}
-	new Phaser.Game(config);
+		new Phaser.Game(config);
 	}, 2000)
 });
