@@ -100,7 +100,7 @@ export default class AdScene extends Phaser.Scene {
             this.cameras.main.fadeOut(100, 0, 0, 0);
             this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, () => {
                 this.scene.stop();
-                this.scene.start('hoppa');
+                this.scene.start(globalThis.adReturn);
             });
             this.v?.setPaused();
         }
