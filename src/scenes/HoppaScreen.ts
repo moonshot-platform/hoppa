@@ -29,19 +29,26 @@ export default class HoppaScreen extends Phaser.Scene {
 
     init() {
         this.cursors = this.input.keyboard?.createCursorKeys();
+
+        
+        this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
+            this.destroy();
+        });
     }
 
     preload() {
         SceneFactory.preload(this);
     
         this.load.image('arrow', 'assets/arrow.webp');
+    
+        globalThis.adReturn = "hoppa";
     }
 
     create() {
         const { width, height } = this.scale;
 
         
-        this.add.image(width / 2, height / 2 - 128, 'logo').setDisplaySize(460, 196).setOrigin(0.5, 0.5);
+        this.add.image(width / 2, height / 2 - 172, 'logo').setDisplaySize(460, 196).setOrigin(0.5, 0.5);
 
         this.text = this.add.bitmapText(width * 0.5, height / 2, 'press_start', 'A Ra8bits Production', 48)
             .setTint(0xc0c0c0)
@@ -74,35 +81,22 @@ export default class HoppaScreen extends Phaser.Scene {
             this.continueLabel.setInteractive({ cursor: 'pointer' })
                 .on('pointerup', () => {
                     this.hideInstaller();
-                    this.continueLabel.setTint(0x222b5c);
                     this.continueGame();
-                })
-                .on('pointerdown', () => {
-                    this.continueLabel.setTint(0x99b0be);
                 });
-
+                
             this.optionsLabel.setInteractive({ cursor: 'pointer' })
                 .on('pointerup', () => {
-                    this.optionsLabel.setTint(0x222b5c);
                     this.hideInstaller();
                     this.scene.stop();
                     this.scene.start('options');
-                })
-                .on('pointerdown', () => {
-                    this.optionsLabel.setTint(0x99b0be);
                 });
-
+                
             this.helpLabel.setInteractive({ cursor: 'pointer' })
                 .on('pointerup', () => {
-                    this.helpLabel.setTint(0x222b5c);
                     this.hideInstaller();
                     this.scene.stop();
-                    this.scene.start('help');
-                })
-                .on('pointerdown', () => {
-                    this.helpLabel.setTint(0x99b0be);
+                    this.scene.start('tournament');
                 });
-
                 
             if (this.scale.width < this.scale.height) {
                 this.printWarning(width, height);
@@ -117,7 +111,6 @@ export default class HoppaScreen extends Phaser.Scene {
             const n = Phaser.Math.Between(0,5);
             let scene = 'ad';
             if( !globalThis.noWallet && globalThis.chainId == 56 && n < 2 ) {
-                globalThis.adReturn = "hoppa";
                 scene = 'halloffame';
             }
             this.scene.start(scene);
@@ -161,7 +154,7 @@ export default class HoppaScreen extends Phaser.Scene {
                     break;
                 case 2:
                     this.scene.stop();
-                    this.scene.start('help');
+                    this.scene.start('help'); //help
                     break;
             }
         }
@@ -188,7 +181,11 @@ export default class HoppaScreen extends Phaser.Scene {
         this.continueLabel.destroy();
         this.rotate?.destroy();
         this.text.destroy();
-        this.helpLabel.destroy(); 
+        this.helpLabel.destroy();
+        this.arrow?.destroy();
+
+        SceneFactory.stopSound(this);
+        SceneFactory.removeAllSounds(this);
     }
 
     private printWarning(width, height) {
@@ -202,7 +199,7 @@ export default class HoppaScreen extends Phaser.Scene {
         WalletHelper.getCurrentAccount();
         WalletHelper.getMyNFTCollections();
         this.scene.stop();
-        this.scene.start('story');
+        this.scene.start('hoppa-select');
     }
 
     private hideInstaller() {
