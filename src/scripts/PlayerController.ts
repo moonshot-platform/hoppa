@@ -93,8 +93,9 @@ export default class PlayerController {
         this.powerUps = new PowerUps(this, scene, false);
         this.spawn_x = this.sprite?.body.position.x || 640;
         this.spawn_y = this.sprite?.body.position.y || -100;
-        if(this.sprite !== undefined)
+        if(this.sprite !== undefined) {
             this.createAnims();
+        }
         this.stateMachine = new StateMachine(this, this.name);
 
         this.scene.events.on('preupdate', this.preupdate, this);
