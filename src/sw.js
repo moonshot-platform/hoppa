@@ -506,7 +506,9 @@ var filesToCache = [
 '/hoppa/assets/winneris.mp3',
 '/hoppa/assets/winneris.m4a',
 '/hoppa/assets/hiscore.mp3',
-'/hoppa/assets/hiscore.m4a', 
+'/hoppa/assets/hiscore.m4a',
+'/hoppa/assets/finalbossbattle.mp3',
+'/hoppa/assets/finalbossbattle.m4a', 
 ];
 
 self.addEventListener('install', function(e) {
