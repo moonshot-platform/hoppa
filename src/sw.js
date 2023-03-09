@@ -1,4 +1,6 @@
 var cacheName = 'hoppa-moonshot-v1.4';
+var cacheWhiteList = [ "hoppa-moonshot-v1.4" ];
+
 var filesToCache = [
 '/hoppa/assets/01_main_screen_trailer.m4a',
 '/hoppa/assets/01_main_screen_trailer.mp3',
@@ -542,6 +544,20 @@ self.addEventListener('fetch', event => {
             });
             return response;
           });
+      })
+    );
+  });
+
+  self.addEventListener("activate", (event) => {
+    event.waitUntil(
+      caches.keys().then((cacheNames) => {
+        return Promise.all(
+          cacheNames.map((cacheName) => {
+            if (cacheWhitelist.indexOf(cacheName) === -1) {
+              return caches.delete(cacheName);
+            }
+          })
+        );
       })
     );
   });
