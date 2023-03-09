@@ -97,9 +97,9 @@ export default class EnterHallOfFame extends Phaser.Scene {
         }, undefined, this);
     }
 
-    handleKeyDown(event) {
+    private handleKeyDown(event) {
         const letter = String.fromCharCode(event.keyCode).toUpperCase();
-        console.log(event.keyCode);
+
         if (letter >= "A" && letter <= "Z" || letter === "?" || letter === " ") {
             this.updateInitial(letter);
             this.confirmed();
@@ -158,10 +158,10 @@ export default class EnterHallOfFame extends Phaser.Scene {
         this.lastUpdate = time + 120;
 
         if (SceneFactory.isGamePadDown(this)) {
-            this.nextLetter(this.currentInitialIndex, 1);
+            this.nextLetter(this.currentInitialIndex, -1);
         }
         if (SceneFactory.isGamePadUp(this)) {
-            this.nextLetter(this.currentInitialIndex, -1);
+            this.nextLetter(this.currentInitialIndex, 1);
         }
         if (SceneFactory.isGamePadLeft(this)) {
             this.currentInitialIndex--;
