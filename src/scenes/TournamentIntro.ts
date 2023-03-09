@@ -157,7 +157,7 @@ export default class TournamentIntro extends Phaser.Scene {
 
         this.input.setDefaultCursor('none');
 
-        this.countdown = 68;
+        this.countdown = 48;
         this.countdownText = this.add.bitmapText(width - 64, height - 64, 'press_start', "" + this.countdown, 22 ).setOrigin(1,1).setTint(0x300051);
         this.time.addEvent( { delay: 1000, callback: this.updateCountdown, callbackScope: this});
 
@@ -173,8 +173,7 @@ export default class TournamentIntro extends Phaser.Scene {
     }
 
     update(time, delta) {
-        this.scroller.scrollY += 0.05 * delta;
-        console.log( this.scroller.scrollY);
+        this.scroller.scrollY += 0.0725 * delta;
         if (this.scroller.scrollY > 1800) {
             this.scroller.scrollY = -1650;
         }
