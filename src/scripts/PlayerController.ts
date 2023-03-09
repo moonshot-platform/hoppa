@@ -19,7 +19,8 @@ export default class PlayerController {
     private powerUps!: PowerUps;
     private stats!: PlayerStats;
     private jp?: JoypadController;
-
+    private jpI?: JoypadController;
+    
     private health = 100;
     private playerSpeed = 5;
     private playerJump = 15;
@@ -68,6 +69,7 @@ export default class PlayerController {
     private projectileSplash: string = "dropping-splash";
 
     private joystick?: VirtualJoyStick;
+
 
     public name: string;
 
@@ -637,22 +639,46 @@ export default class PlayerController {
     }
     
     setJoystick(scene: Phaser.Scene, width: number) {
-        if (scene.game.device.os.desktop)
-            return;
+       // if (scene.game.device.os.desktop)
+        //    return;
 
-        if( scene.input.gamepad.total > 0 )
-            return;
-
+       // if( scene.input.gamepad.total > 0 )
+       //     return;
+/*
         if(this.jp !== undefined) {
             this.jp.destroy();
             this.jp = undefined;
             this.joystick = undefined;
         }
 
-        this.jp = new JoypadController(scene, width);
+        this.jp = new JoypadController(scene, width); */
 
+        if( this.jp === undefined ) {
+            this.jp = new JoypadController(scene, width );
+            this.createVirtualJoystick();
+        }
+     /*   else {
+            this.jp.destroy();
+            this.jp = new JoypadController(scene, width);
+            this.createVirtualJoystick();
+        } */
+
+    }
+
+    pokeVirtualStick(scene: Phaser.Scene, width: number ) {
+        this.jpI = this.jp;
+        
+        this.jp = new JoypadController(scene, width );
         this.createVirtualJoystick();
     }
+
+    unpokeVirtualStick(scene:Phaser.Scene) {
+        this.jp?.destroy();
+        this.jp = this.jpI;
+        this.createVirtualJoystick();
+        this.jpI = undefined;
+    }
+
 
     onGamePadConnected() {
         if(this.jp !== undefined) {
@@ -760,6 +786,10 @@ export default class PlayerController {
     }
 
     update(deltaTime: number) {
+
+        if(this.jpI !== undefined )
+            return;
+
         this.stateMachine.update(deltaTime);
 
         this.cannotThrow = !this.powerUps.isPoop();
@@ -1393,7 +1423,7 @@ export default class PlayerController {
         const d = (this.scene.game.loop.frame - this.lastAction);
         this.deltaS = (d > this.ACCEL_FRAMES ? this.playerSpeed : (d / this.ACCEL_FRAMES) * this.playerSpeed);
 
-        let speed = this.getSpeed(this.deltaS); // this.deltaS;
+        let speed = this.getSpeed(this.deltaS); // FIXME
 
         let keepWalking = false;
 
@@ -1824,5 +1854,7 @@ export default class PlayerController {
         return num;
     }
 */
+
+// FIXME: virtual pad not working in inventory mode
 
 }

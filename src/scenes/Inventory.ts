@@ -51,6 +51,9 @@ export default class Inventory extends Phaser.Scene {
     }
 
     destroy() {
+
+       this.player.unpokeVirtualStick(this);
+
        this.text?.destroy();
        this.statusText?.destroy();
        this.graphics.destroy();
@@ -189,7 +192,7 @@ export default class Inventory extends Phaser.Scene {
             this.scene.stop();
         });
 
-        let statusText = "Press I or R2 [exit]\nPress X or Space [select]\nArrows [navigate]";
+        let statusText = "Press I or R2 [exit]\nPress X or Space [select]\nArrows [navigate]\nA+B on virtual [exit]";
         this.statusText = this.add.bitmapText(1000, 96, 'press_start', statusText, 16)
                 .setTint(0x16ffff)
                 .setOrigin(0.5);
@@ -306,6 +309,8 @@ export default class Inventory extends Phaser.Scene {
         }
      
         this.scene.bringToTop('inventory');
+
+        this.player.pokeVirtualStick(this,width);
     }
     
     openItem(id) {
