@@ -82,6 +82,9 @@ export default class HoppaScreen extends Phaser.Scene {
                 .on('pointerup', () => {
                     this.hideInstaller();
                     this.continueGame();
+                })
+                .on('pointerdown', () => {
+                   this.highlightActive(0);
                 });
                 
             this.optionsLabel.setInteractive({ cursor: 'pointer' })
@@ -89,14 +92,18 @@ export default class HoppaScreen extends Phaser.Scene {
                     this.hideInstaller();
                     this.scene.stop();
                     this.scene.start('options');
-                });
-                
+                }).on('pointerdown', () => {
+                    this.highlightActive(1);
+                 });
+
             this.helpLabel.setInteractive({ cursor: 'pointer' })
                 .on('pointerup', () => {
                     this.hideInstaller();
                     this.scene.stop();
                     this.scene.start('tournament');
-                });
+                }).on('pointerdown', () => {
+                    this.highlightActive(2);
+                 });
                 
             if (this.scale.width < this.scale.height) {
                 this.printWarning(width, height);
@@ -124,6 +131,27 @@ export default class HoppaScreen extends Phaser.Scene {
         this.arrow.setVisible(false);
     }
 
+    private highlightActive(active) {
+        switch(active) {
+            case 0:
+                this.continueLabel?.setTint(0xff7300);
+                this.optionsLabel?.setTint(0xffffff);
+                this.helpLabel?.setTint(0xffffff);
+                break;
+            case 1:
+                this.continueLabel?.setTint(0xffffff);
+                this.optionsLabel?.setTint(0xff7300);
+                this.helpLabel?.setTint(0xffffff);
+                break;
+            case 2:
+                this.continueLabel?.setTint(0xffffff);
+                this.optionsLabel?.setTint(0xffffff);
+                this.helpLabel?.setTint(0xff7300);
+                break;
+        }
+        this.activeItem = active;
+    }
+
     update(time: number, deltaTime: number) {
 
         if( time < this.lastUpdate ) 
@@ -138,10 +166,10 @@ export default class HoppaScreen extends Phaser.Scene {
         this.lastUpdate = time + 120; 
 
         if(this.cursors?.down.isDown || SceneFactory.isGamePadUp(this)) {
-            this.activeItem ++;
+            this.activeItem --;
         }
         else if(this.cursors?.up.isDown || SceneFactory.isGamePadDown(this)) {
-            this.activeItem --;
+            this.activeItem ++;
         }
         else if(this.cursors?.shift.isDown || this.cursors?.space.isDown || SceneFactory.gamePadAnyButton(this) ) { 
             switch(this.activeItem) {
@@ -165,6 +193,8 @@ export default class HoppaScreen extends Phaser.Scene {
         } else if (this.activeItem > 2 ) {
             this.activeItem = 0;
         }
+
+        this.highlightActive(this.activeItem);
         
         if(haveArrow) {
             this.arrow?.setVisible(true);
@@ -177,11 +207,11 @@ export default class HoppaScreen extends Phaser.Scene {
     }
 
     destroy() {
-        this.optionsLabel.destroy();
-        this.continueLabel.destroy();
+        this.optionsLabel?.destroy();
+        this.continueLabel?.destroy();
         this.rotate?.destroy();
-        this.text.destroy();
-        this.helpLabel.destroy();
+        this.text?.destroy();
+        this.helpLabel?.destroy();
         this.arrow?.destroy();
 
         SceneFactory.stopSound(this);
