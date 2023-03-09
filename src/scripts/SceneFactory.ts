@@ -1025,7 +1025,7 @@ export function isGamePadDown(ctx: Phaser.Scene) : boolean {
     const pad = ctx.input.gamepad?.getPad(0);
     if(pad?.axes.length) {
         const y = pad.axes[1].getValue();
-        if( y < 0 )
+        if( y > 0 )
             return true;
     }
     if(pad?.buttons[13].pressed) {
@@ -1038,7 +1038,7 @@ export function isGamePadUp(ctx: Phaser.Scene) : boolean {
     const pad = ctx.input.gamepad?.getPad(0);
     if(pad?.axes.length) {
         const y = pad.axes[1].getValue();
-        if( y > 0 )
+        if( y < 0 )
             return true;
     }
     if(pad?.buttons[12].pressed) {
