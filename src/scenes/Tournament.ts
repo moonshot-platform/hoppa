@@ -19,7 +19,7 @@ export default class Tournament extends Phaser.Scene {
 
     private inputAmount: number = 0;
     private previousAmount: number = 0;
-    private countdown = 32;
+    private countdown = 0;
     private idleTimer = 0;
 
     private inArena: boolean = false;
@@ -52,7 +52,7 @@ export default class Tournament extends Phaser.Scene {
 
         this.input.setDefaultCursor('url(assets/hand.cur), pointer');
 
-        this.countdown = 10;
+        this.countdown = 32;
         this.countdownText = this.add.bitmapText(width - 64, height - 64, 'press_start', "" + this.countdown, 22 ).setOrigin(1,1).setTint(0x300051);
 
         this.statusText = this.add.bitmapText(width/2, height/2 - 64 , 'press_start', 'Checking Block Chain ...', fontSize)
@@ -121,10 +121,10 @@ export default class Tournament extends Phaser.Scene {
         this.lastUpdate = time + 120;
 
         if (SceneFactory.isGamePadDown(this)) {
-            this.nextNumber(1);
+            this.nextNumber(-1);
         }
         if (SceneFactory.isGamePadUp(this)) {
-            this.nextNumber(-1);
+            this.nextNumber(1);
         }
         if (SceneFactory.isGamePadLeft(this)) {
             this.nextNumber(-10);
@@ -220,12 +220,14 @@ export default class Tournament extends Phaser.Scene {
     private formatPlayerStake() {
         const f = async () => {
             let v = await WalletHelper.getEstimatedUnstakedAmount();
-            let dv = this.fromContractAmount(v);
-            if( dv > 0 ) {
-                this.yourStakeLabel.setText( "Your stake: " + this.getUnit( dv ) + " $MSHOT" );
-            }
-            else {
-                this.yourStakeLabel.setText( "Use the wheel, cursors or gamepad for amount");
+            if(this.scene.isActive(this.scene.key)) {
+                let dv = this.fromContractAmount(v);
+                if( dv > 0 ) {
+                    this.yourStakeLabel.setText( "Your stake: " + this.getUnit( dv ) + " $MSHOT" );
+                }
+                else {
+                    this.yourStakeLabel.setText( "Use the wheel, cursors or gamepad for amount");
+                }
             }
         };
 
@@ -235,13 +237,15 @@ export default class Tournament extends Phaser.Scene {
     private calculateIfYouWin() {
         const f = async () => {
             let v = await WalletHelper.getEstimatedReward();
-            let dv = this.fromContractAmount(v);
-            if( dv > 0) {
-               this.ifYouWinLabel.setText( "If you win: " + this.getUnit( dv ) + " $MSHOT" );
-            }
-            else {
-                this.ifYouWinLabel.setText( "" );
-                this.ifYouWinLabel.setText( "Press Enter, Click, Touch or X press to confirm");
+            if(this.scene.isActive(this.scene.key)) {
+                let dv = this.fromContractAmount(v);
+                if( dv > 0) {
+                this.ifYouWinLabel.setText( "If you win: " + this.getUnit( dv ) + " $MSHOT" );
+                }
+                else {
+                    this.ifYouWinLabel.setText( "" );
+                    this.ifYouWinLabel.setText( "Press Enter, Click, Touch or X press to confirm");
+                }
             }
         };
 
@@ -252,13 +256,16 @@ export default class Tournament extends Phaser.Scene {
         const f = async () => {
             let tp = await WalletHelper.getTotalPlayers();
             let ts = await WalletHelper.getTotalAmountStaked();
-            let dts = this.fromContractAmount(ts);
 
-            if( dts > 0 ) {
-                this.totalStakedLabel.setText( "Total staked by " + tp + " players: " + this.getUnit( dts ) + " $MSHOT" );
-            }
-            else {
-                this.totalStakedLabel.setText( "" );
+            if(this.scene.isActive(this.scene.key)) {
+                let dts = this.fromContractAmount(ts);
+
+                if( dts > 0 ) {
+                    this.totalStakedLabel.setText( "Total staked by " + tp + " players: " + this.getUnit( dts ) + " $MSHOT" );
+                }
+                else {
+                    this.totalStakedLabel.setText( "" );
+                }
             }
         };
         f();
@@ -278,23 +285,25 @@ export default class Tournament extends Phaser.Scene {
        
         const f = async () => {
             let gameEndTime = await WalletHelper.getGameEndTime();
-            let end = new Date(gameEndTime);
-            let now = new Date();
+            if(this.scene.isActive(this.scene.key)) {
+                let end = new Date(gameEndTime);
+                let now = new Date();
 
-            const timeDiff = end.getTime() - now.getTime();
+                const timeDiff = end.getTime() - now.getTime();
 
-            const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+                const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
 
-            const dayStr = days.toString().padStart(2, '0');
-            const hourStr = hours.toString().padStart(2, '0');
-            const minuteStr = minutes.toString().padStart(2, '0');
+                const dayStr = days.toString().padStart(2, '0');
+                const hourStr = hours.toString().padStart(2, '0');
+                const minuteStr = minutes.toString().padStart(2, '0');
 
-            
-            const str = "Closing ceremony in " + dayStr + ":" + hourStr + ":" + minuteStr;
-            
-            this.closingInLabel?.setText(str);
+                
+                const str = "Closing ceremony in " + dayStr + ":" + hourStr + ":" + minuteStr;
+                
+                this.closingInLabel?.setText(str);
+            }
         }
         f();
    
@@ -304,17 +313,19 @@ export default class Tournament extends Phaser.Scene {
         let result = false;
         const f = async () => {
             result = await WalletHelper.isArenaUnderPenalty();
-            if(result) {
-                this.statusText?.setText("Arena game is playing");
-            }
-            else {
-                this.statusText?.setText("No penalty for unstaking");
-            }
-            if(result && this.inArena) {
-                this.penaltyLabel?.setText(`Leaving early is under ${this.penaltyPercentage}% penalty!`);
-            }
-            else {
-                this.penaltyLabel?.setText('');
+            if(this.scene.isActive(this.scene.key)) {
+                if(result) {
+                    this.statusText?.setText("Arena game is playing");
+                }
+                else {
+                    this.statusText?.setText("No penalty for unstaking");
+                }
+                if(result && this.inArena) {
+                    this.penaltyLabel?.setText(`Leaving early is under ${this.penaltyPercentage}% penalty!`);
+                }
+                else {
+                    this.penaltyLabel?.setText('');
+                }
             }
         }
         f();
@@ -324,10 +335,12 @@ export default class Tournament extends Phaser.Scene {
         let result = false;
         const f = async () => {
             result = await WalletHelper.isArenaPlayer();
-            this.statusText?.setText(
-                "Arena participant: " + (result ? "Yes": "No")
-            );
-            this.inArena = result;
+            if(this.scene.isActive(this.scene.key)) {
+                this.statusText?.setText(
+                    "Arena participant: " + (result ? "Yes": "No")
+                );
+                this.inArena = result;
+            }
         }
         f();
     }
@@ -362,8 +375,10 @@ export default class Tournament extends Phaser.Scene {
         let result = false;
         const f = async () => {
             result = await WalletHelper.isArenaApproved(this.toContractAmount());
-            this.hasApproved = result;
-            this.updateActionButtons(this.hasApproved);
+            if(this.scene.isActive(this.scene.key)) {
+                this.hasApproved = result;
+                this.updateActionButtons(this.hasApproved);
+            }
         }
         f();
     }
@@ -372,13 +387,15 @@ export default class Tournament extends Phaser.Scene {
         let result = "";
         const f = async () => {
             result = await WalletHelper.getMyStake();
-            let v = this.fromContractAmount(result);
-            if( v <= 0 ) {
-                v = 10;
+            if(this.scene.isActive(this.scene.key)) {
+                let v = this.fromContractAmount(result);
+                if( v <= 0 ) {
+                    v = 10;
+                }
+                this.inputAmount = v;
+                this.previousAmount = v;
+                this.nextNumber(0);
             }
-            this.inputAmount = v;
-            this.previousAmount = v;
-            this.nextNumber(0);
         }
         f();
     }
@@ -389,16 +406,18 @@ export default class Tournament extends Phaser.Scene {
             this.statusText?.setText("Please confirm the transaction");
             const f = async () => {
                 status = await WalletHelper.approveForArena(this.toContractAmount());
-                if(status === "OK") {
-                    this.statusText?.setText("Approval successful");
-                    this.updateActionButtons(true);
-                    this.checkIfApproved();
-                }
-                else {
-                    this.statusText?.setText(status);
-                }
+                if(this.scene.isActive(this.scene.key)) {
+                    if(status === "OK") {
+                        this.statusText?.setText("Approval successful");
+                        this.updateActionButtons(true);
+                        this.checkIfApproved();
+                    }
+                    else if(!status !== undefined) {
+                        this.statusText?.setText(status);
+                    }
 
-                this.showCountdown();
+                    this.showCountdown();
+                }
             }   
             f();
         }
@@ -409,17 +428,19 @@ export default class Tournament extends Phaser.Scene {
         this.statusText?.setText("Please confirm the transaction");
         const f = async () => {
             status = await WalletHelper.enterArena(this.toContractAmount());
-            if( status === "OK" ) {
-                this.statusText?.setText("You entered the Arena.");
-                this.inArena = true;
-                this.updateActionButtons(this.hasApproved);
-                this.updateAll();
-            }
-            else {
-                this.statusText?.setText(status);
-            }
+            if(this.scene.isActive(this.scene.key)) {
+                if( status === "OK" ) {
+                    this.statusText?.setText("You entered the Arena.");
+                    this.inArena = true;
+                    this.updateActionButtons(this.hasApproved);
+                    this.updateAll();
+                }
+                else {
+                    this.statusText?.setText(status);
+                }
 
-            this.showCountdown();
+                this.showCountdown();
+            }
         }
         f();
     }
@@ -429,17 +450,19 @@ export default class Tournament extends Phaser.Scene {
         this.statusText?.setText("Please confirm the transaction");
         const f = async () => {
             status = await WalletHelper.leaveArena();
-            if( status === "OK" ) {
-                this.statusText?.setText("You left the Arena.");
-                this.inArena = false;
-                this.updateActionButtons(this.hasApproved);
-                this.updateAll();
+            if(this.scene.isActive(this.scene.key)) {
+                if( status === "OK" ) {
+                    this.statusText?.setText("You left the Arena.");
+                    this.inArena = false;
+                    this.updateActionButtons(this.hasApproved);
+                    this.updateAll();
+                }
+                else {
+                    this.statusText?.setText(status);
+                }
+                
+                this.showCountdown();
             }
-            else {
-                this.statusText?.setText(status);
-            }
-            
-            this.showCountdown();
         }
         f();
     }
