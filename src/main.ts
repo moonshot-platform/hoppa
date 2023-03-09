@@ -65,5 +65,5 @@ const config: Phaser.Types.Core.GameConfig = {
 window.addEventListener('load', () => {
 	window.setTimeout(() => { 
 		new Phaser.Game(config);
-	}, 2000)
+	}, 3000)
 });

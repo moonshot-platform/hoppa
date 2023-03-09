@@ -38,14 +38,13 @@
 		<script src="src/main.ts" type="module"></script>
 	</body>
 	<script type="text/javascript">
-		let prompt;
-		let button = document.querySelector('.add-button');
-		button.style.display = 'none';
+
 
 		window.addEventListener('beforeinstallprompt', (e) => {
 			e.preventDefault();
 			prompt = e;
-			button.style.display = 'block';
+			
+			//button.style.display = 'block';
 
 			button.addEventListener('click', () => {
 				button.style.display = 'none';
@@ -58,8 +57,12 @@
 				});
 			});
 		});
+
 		window.addEventListener('load', () => {
 			window.setTimeout(() => { 
+				let prompt;
+				let button = document.querySelector('.add-button');
+				button.style.display = 'none';
 				if( 'serviceWorker' in navigator ) {
 					const s = navigator.serviceWorker;
 					s.register('sw.js',  { scope: "/hoppa/" } )
@@ -70,7 +73,7 @@
 							console.log("Service worker failed registration: ", e);
 						});
 				}
-			}, 2000);
+			}, 3000);
 		});
 		
 

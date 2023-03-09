@@ -234,9 +234,9 @@ export default class HoppaScreen extends Phaser.Scene {
 
     private hideInstaller() {
         const button = document.querySelector('.add-button') as HTMLElement;
-        if(button != null ) {
+      /*  if(button != null ) {
             button.style.display='none';
-        }
+        } */
     }
 
 }
