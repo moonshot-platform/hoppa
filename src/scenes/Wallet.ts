@@ -11,8 +11,11 @@ export default class Wallet extends Phaser.Scene {
     private line5!: Phaser.GameObjects.BitmapText;
     private status!: Phaser.GameObjects.BitmapText;
     private delayedRun!: Phaser.Time.TimerEvent;
+    private countdownActive = true;
     private txLock = false;
     private changeEvents = 0;
+    private countdownText!: Phaser.GameObjects.BitmapText;
+    private countdown = 0;
 
     constructor() {
         super('wallet');
@@ -20,9 +23,33 @@ export default class Wallet extends Phaser.Scene {
 
     preload() {
         this.load.image('bg', 'assets/storyx.webp');
-
+        this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
+            this.destroy();
+        }); 
         SceneFactory.preload(this);
     } 
+
+
+    private endScene() {
+        if(!this.txLock) {
+            this.startGame();
+        }
+    }
+
+    private updateCountdown() {
+        this.countdown--;
+        if (this.countdown <= 0) {
+            this.endScene();
+            this.countdownText.setText("");
+        }
+        else {
+            if(this.countdownActive) {
+                this.time.addEvent({ delay: 1000, callback: this.updateCountdown, callbackScope: this });
+            }
+            this.countdownText.setText("" + this.countdown);
+        }
+        
+    }
 
     create() {
         const { width, height } = this.scale;
@@ -31,6 +58,14 @@ export default class Wallet extends Phaser.Scene {
 
         this.input.setDefaultCursor('url(assets/hand.cur), pointer');
 
+        this.countdown = 10;
+        
+       
+       
+        this.countdownText = this.add.bitmapText(width - 64, height - 64, 'press_start', "" + this.countdown, 22).setOrigin(1, 1).setTint(0x300051);
+        this.time.addEvent({ delay: 1000, callback: this.updateCountdown, callbackScope: this });
+
+        
         if(globalThis.noWallet) {
             this.line1 =this.add.bitmapText(width * 0.5, height / 2 + 150, 'press_start', 'It seems you dont have a crypto wallet (yet)', 22)
                 .setTint(0xffffff)
@@ -133,10 +168,8 @@ export default class Wallet extends Phaser.Scene {
             this.scene.start('hoppa');
         });
 
-        this.delayedRun = this.time.delayedCall( 10000, () => {
-            if(!this.txLock) {
-                this.startGame();
-            }
+        this.delayedRun = this.time.delayedCall( this.countdown * 1000, () => {
+            this.endScene();
         });
     }
 
@@ -153,6 +186,8 @@ export default class Wallet extends Phaser.Scene {
         this.line4.destroy();
         this.line5.destroy();
         this.status.destroy();
+        this.image.destroy();
+        this.countdownText.destroy();
     }
 
     update() {
@@ -169,7 +204,7 @@ export default class Wallet extends Phaser.Scene {
 
     startGame() {
         this.cameras.main.fadeOut();
-        this.image.destroy();
+        
         this.scene.stop();
         this.scene.start('player-select');
     }
