@@ -62,7 +62,7 @@ export default class BaseScene extends Phaser.Scene {
     private looseFocus() {
         if (!document.hidden)
           return;
-        SceneFactory.stopSound(this);
+        //SceneFactory.stopSound(this);
     }
 
     destroy() {
