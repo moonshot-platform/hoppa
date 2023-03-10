@@ -178,7 +178,7 @@ export default class HoppaSelect extends Phaser.Scene {
                     break;
                 case 2:
                     this.scene.stop();
-                    this.scene.start('hoppa');
+                    this.scene.start('hoppa-select');
                     break;
             }
         }
