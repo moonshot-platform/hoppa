@@ -136,6 +136,10 @@ export default class GameSettingsMenu extends Phaser.Scene {
         this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
             this.saveSettings();
         });
+
+        this.input.keyboard?.on("keydown-ESC", (event) => {
+            this.goBackScene();
+        });
     }
 
     update(): void {
@@ -146,9 +150,18 @@ export default class GameSettingsMenu extends Phaser.Scene {
         else if(this.cursors?.right.isDown || SceneFactory.isGamePadRight(this)) {
             this.selectPlayer2();
         }
-        else if(this.cursors?.shift.isDown || this.cursors?.space.isDown || SceneFactory.gamePadAnyButton(this) ) { 
+        else if(this.cursors?.shift.isDown || this.cursors?.space.isDown || SceneFactory.gamePadIsButton(this,0) ) { 
             this.continueGame();
         }
+
+        if( SceneFactory.gamePadIsButton(this,8)) {
+            this.goBackScene();
+        }
+    }
+
+    private goBackScene() {
+        this.scene.stop();
+        this.scene.start('hoppa-select');
     }
 
     destroy() {
