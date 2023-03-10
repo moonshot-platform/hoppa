@@ -10,6 +10,9 @@ export default class GameOver extends Phaser.Scene {
     private introMusic?: Phaser.Sound.BaseSound;
     private text!: Phaser.GameObjects.BitmapText;
     private info?: PlayerStats;
+    private offset: number = 0;
+    private amplitude = 100;
+    private frequency = 0.01;
 
     preload() {
         SceneFactory.preload(this);
@@ -54,6 +57,12 @@ export default class GameOver extends Phaser.Scene {
         if(SceneFactory.gamePadAnyButton(this)) {
             this.continueGame();
         }
+
+        const waveOffset = Math.sin(this.offset);
+        const x = this.text.width  + waveOffset * this.amplitude;
+        const y = 256 + Math.abs(waveOffset) * 100;
+        this.text.setPosition(x, y);
+        this.offset += this.frequency;
     }
 
     destroy() {
