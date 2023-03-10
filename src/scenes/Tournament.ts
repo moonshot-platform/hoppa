@@ -58,7 +58,15 @@ export default class Tournament extends Phaser.Scene {
         this.statusText = this.add.bitmapText(width/2, height/2 - 64 , 'press_start', 'Checking Block Chain ...', fontSize)
             .setTint(0xffffff)
             .setOrigin(0.5);
-        this.actionButton = this.add.bitmapText(width * 0.5, 164, 'press_start',  'enter', 48 ).setTint(0xffffff).setOrigin(0.5);
+        this.actionButton = this.add.bitmapText(width * 0.5, 164, 'press_start',  'enter', 48 ).setTint(0xffffff).setOrigin(0.5)
+            .setInteractive()
+            .on('pointerup', () => {
+                this.handlePointerDown();
+            })
+            .on('pointerdown', () => {
+                this.actionButton?.setTint(0xff7300);
+            }
+            );
         this.valueButton = this.add.bitmapText(width * 0.5, 216, 'press_start', '', 24 ).setTint(0xffffff).setOrigin(0.5);
         this.penaltyLabel = this.add.bitmapText(width * 0.5, 64, 'press_start', '', 24 )
                 .setTint(0xff0000)
@@ -88,7 +96,7 @@ export default class Tournament extends Phaser.Scene {
          
         this.updateAll();    
  
-        this.input.on('pointerdown', this.handlePointerDown, this );
+        //this.input.on('pointerdown', this.handlePointerDown, this );
         this.input.on("wheel", this.handleWheel, this);
         this.input.keyboard?.on("keydown", this.handleKeyDown, this);
 
@@ -147,9 +155,10 @@ export default class Tournament extends Phaser.Scene {
         }
 
         if( this.input.activePointer.isDown && this.input.activePointer.wasTouch ) {
-            let dir = ( this.input.activePointer.position.y > 0 ? 1 : -1 );
-            
-            this.nextNumber( dir );
+            if(this.input.activePointer.y > this.actionButton?.y) {
+                let dir = ( this.input.activePointer.position.y > 0 ? 1 : -1 );
+                this.nextNumber( dir );
+            }
         }
             
         if( this.previousAmount == this.inputAmount && time > this.idleTimer && this.idleTimer > 0) {
@@ -184,7 +193,8 @@ export default class Tournament extends Phaser.Scene {
         else {
             this.leaveArena();
         }
-
+        
+        this.actionButton?.setTint(0xff7300);
         this.removeCountdown();
     }
 
@@ -521,6 +531,7 @@ export default class Tournament extends Phaser.Scene {
         }
         
         this.valueButton?.setText( this.getUnit(this.inputAmount) + " $MSHOT");
+        this.actionButton?.setTint(0xffffff);
 
         if(direction != 0 )
             this.removeCountdown(); 
@@ -542,7 +553,7 @@ export default class Tournament extends Phaser.Scene {
     private removeCountdown() {
         this.countdownTimer?.remove();
         this.countdownText?.setVisible(false);
-        this.countdown = 0;
+        this.countdown = 8;
     }
 
     private showCountdown() {
