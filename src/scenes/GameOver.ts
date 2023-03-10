@@ -2,13 +2,18 @@ import Phaser from "phaser";
 import * as SceneFactory from '../scripts/SceneFactory';
 import { PlayerStats } from "./PlayerStats";
 import * as WalletHelper from '../scripts/WalletHelper';
+import TextDemo from '../scripts/TextDemo';
+
 export default class GameOver extends Phaser.Scene {
     constructor() {
         super('game-over')
     }
 
     private introMusic?: Phaser.Sound.BaseSound;
-    private text!: Phaser.GameObjects.BitmapText;
+    //private text!: Phaser.GameObjects.BitmapText;
+    private textDemo!: TextDemo;
+    private anyKey?: Phaser.GameObjects.BitmapText;
+    
     private info?: PlayerStats;
     private offset: number = 0;
     private amplitude = 100;
@@ -31,9 +36,11 @@ export default class GameOver extends Phaser.Scene {
 
         this.introMusic = SceneFactory.addSound(this, 'gameover', false);
 
-        this.text = this.add.bitmapText(width * 0.5, height * 0.5, 'press_start', 'GAME OVER', 64)
+       /* this.text = this.add.bitmapText(width * 0.5, height * 0.5, 'press_start', 'GAME OVER', 64)
             .setTint(0xff7300)
-            .setOrigin(0.5);
+            .setOrigin(0.5);*/
+        this.textDemo = new TextDemo(this,'press_start','GAME OVER', 48, width * 0.5, height * 0.5, 0xff7300, 0.5);
+        this.textDemo.letterBounce(500,800,true,32,-1);
 
         this.input.on('pointerdown', () => { this.continueGame(); });
         this.input.on('keydown', () => { this.continueGame(); });
@@ -41,7 +48,7 @@ export default class GameOver extends Phaser.Scene {
         this.cameras.main.shake(500);
 
         this.time.delayedCall( 5000, () => {
-            this.add.bitmapText(width * 0.5, height * 0.5 + 96, 'press_start', 'PRESS ANY KEY', 24 )
+            this.anyKey = this.add.bitmapText(width * 0.5, height * 0.5 + 96, 'press_start', 'PRESS ANY KEY', 24 )
                 .setTint(0xffffff)
                 .setOrigin(0.5);
         });
@@ -58,16 +65,17 @@ export default class GameOver extends Phaser.Scene {
             this.continueGame();
         }
 
-        const waveOffset = Math.sin(this.offset);
+      /*  const waveOffset = Math.sin(this.offset);
         const x = this.text.width  + waveOffset * this.amplitude;
         const y = 256 + Math.abs(waveOffset) * 100;
         this.text.setPosition(x, y);
-        this.offset += this.frequency;
+        this.offset += this.frequency; */
     }
 
     destroy() {
-        this.text.destroy();
+       // this.text.destroy();
         this.introMusic?.destroy();
+        this.anyKey?.destroy();
     }
 
     private hasNewHighscore() {
