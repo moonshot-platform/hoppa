@@ -7,7 +7,7 @@ export default class Help extends Phaser.Scene {
     private line3!: Phaser.GameObjects.BitmapText;
     private line4!: Phaser.GameObjects.BitmapText;
     private line5?: Phaser.GameObjects.BitmapText;
-    private cursors!: Phaser.Types.Input.Keyboard.CursorKeys;
+    private cursors?: Phaser.Types.Input.Keyboard.CursorKeys;
     constructor() {
         super('help')
     }
@@ -46,7 +46,7 @@ export default class Help extends Phaser.Scene {
     }
 
     update() {
-        if( SceneFactory.gamePadAnyButton(this) || this.cursors.space.isDown ) {
+        if( SceneFactory.gamePadAnyButton(this) || this.cursors?.space.isDown ) {
             this.continueGame();
         }
     }

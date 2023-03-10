@@ -143,7 +143,7 @@ export default class HoppaSelect extends Phaser.Scene {
                 this.disconnectLabel?.setTint(0xff7300);
                 break;
         }
-        this.activeItem = active;
+                this.activeItem = active;
     }
 
     update(time: number, deltaTime: number) {

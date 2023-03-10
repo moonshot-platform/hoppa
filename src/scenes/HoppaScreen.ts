@@ -100,7 +100,7 @@ export default class HoppaScreen extends Phaser.Scene {
                 .on('pointerup', () => {
                     this.hideInstaller();
                     this.scene.stop();
-                    this.scene.start('tournament');
+                    this.scene.start('help');
                 }).on('pointerdown', () => {
                     this.highlightActive(2);
                  });
