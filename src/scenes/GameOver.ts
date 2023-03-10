@@ -76,6 +76,7 @@ export default class GameOver extends Phaser.Scene {
        // this.text.destroy();
         this.introMusic?.destroy();
         this.anyKey?.destroy();
+        this.textDemo.destroy();
     }
 
     private hasNewHighscore() {
