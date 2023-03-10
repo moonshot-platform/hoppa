@@ -52,11 +52,18 @@ export default class HoppaScreen extends Phaser.Scene {
 
         this.text = this.add.bitmapText(width * 0.5, height / 2, 'press_start', 'A Ra8bits Production', 48)
             .setTint(0xc0c0c0)
-            .setOrigin(0.5);
+            .setOrigin(0.5)
+            .setAlpha(0);
+        this.tweens.add( {
+          targets: this.text,
+          alpha: 1,
+          duration: 1000,
+          ease: 'Power2'  
+        });
 
         let delay = 3000;
         if( globalThis.dramaticIntro ) {
-            delay = 500;
+            delay = 1000;
         }
 
         this.time.delayedCall(delay, () => {
@@ -68,15 +75,36 @@ export default class HoppaScreen extends Phaser.Scene {
 
             this.continueLabel = this.add.bitmapText(width * 0.5, height / 2 + 108, 'press_start', 'Connect', 48)
                 .setTint(0xffffff)
-                .setOrigin(0.5);
+                .setOrigin(0.5)
+                .setAlpha(0);
+            this.tweens.add( {
+                targets: this.continueLabel,
+                alpha: 1,
+                duration: 500,
+                ease: 'Power2'  
+            });
 
             this.optionsLabel = this.add.bitmapText(width * 0.5, height / 2 + 176, 'press_start', 'Options', 48)
                 .setTint(0xffffff)
-                .setOrigin(0.5);
+                .setOrigin(0.5)
+                .setAlpha(0);
+            this.tweens.add( {
+                    targets: this.optionsLabel,
+                    alpha: 1,
+                    duration: 500,
+                    ease: 'Power2'  
+                });
 
             this.helpLabel = this.add.bitmapText(width * 0.5, height / 2 + 244, 'press_start', 'Help', 48)
                 .setTint(0xffffff)
-                .setOrigin(0.5);
+                .setOrigin(0.5)
+                .setAlpha(0);
+            this.tweens.add( {
+                    targets: this.helpLabel,
+                    alpha: 1,
+                    duration: 500,
+                    ease: 'Power2'  
+                });
 
             this.continueLabel.setInteractive({ cursor: 'pointer' })
                 .on('pointerup', () => {
