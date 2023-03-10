@@ -165,7 +165,7 @@ export default class Wallet extends Phaser.Scene {
         this.input.on('keydown', () => { if(!this.txLock) this.startGame(); });
         this.input.keyboard?.once('keydown-ESC', () => {
             this.scene.stop();
-            this.scene.start('hoppa');
+            this.scene.start('hoppa-select');
         });
 
         this.delayedRun = this.time.delayedCall( this.countdown * 1000, () => {
