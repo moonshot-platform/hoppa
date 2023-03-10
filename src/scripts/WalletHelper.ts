@@ -1,4 +1,6 @@
-import { ethers, BigNumber, utils } from "ethers";
+import { ethers, BigNumber } from "ethers";
+
+const ERR_NO_WALLET = "No wallet found or permission denied";
 
 declare global {
     var moonshotBalance: number;
@@ -31,7 +33,7 @@ export function init() {
 
     if( window.ethereum === undefined) {
         globalThis.noWallet = true;
-        console.log("No wallet found");
+        console.log("No wallet installed");
         return;
     }
 
@@ -70,6 +72,23 @@ export function init() {
     isArenaPlayer();
 }
 
+export async function requestAccounts() {
+  try { 
+    await globalThis.provider.send("eth_requestAccounts", []);
+  
+    globalThis.signer = globalThis.provider.getSigner();
+    
+    globalThis.selectedAddress = await globalThis.signer.getAddress();
+    
+    globalThis.noWallet = false;
+  }
+  catch(e) {
+    globalThis.noWallet = true;
+    console.log(e);
+  }
+  
+}
+
 export async function disconnectAccount() {
   if( globalThis.noWallet ) {
     return;
@@ -81,7 +100,6 @@ export async function disconnectAccount() {
 
 export async function getCurrentAccount() {
     if( globalThis.noWallet ) {
-       console.log("No wallet found");
        return;
     }
 
@@ -114,10 +132,8 @@ export async function getCurrentAccount() {
 }
 
 export async function findCards() {
-  await globalThis.provider.send("eth_requestAccounts", []);
-  globalThis.signer = globalThis.provider.getSigner();
-  // save the currently connected address
-  globalThis.selectedAddress = await globalThis.signer.getAddress();
+  
+  await requestAccounts();
   
   const abi = [
       "function balanceOf(address _owner, uint256 _id) external view returns (uint256)",
@@ -139,13 +155,11 @@ export async function findCards() {
 }
 
 export async function getSomeRa8bitTokens() {
-  if( globalThis.noWallet )
-    return "No wallet found";
 
-  await globalThis.provider.send("eth_requestAccounts", []);
-  globalThis.signer = globalThis.provider.getSigner();
-  // save the currently connected address
-  globalThis.selectedAddress = await globalThis.signer.getAddress();
+  await requestAccounts();
+
+  if( globalThis.noWallet )
+    return ERR_NO_WALLET;
   
   const abi = [
       "function canWithdraw(address addr) public view returns (bool)",
@@ -173,15 +187,13 @@ export async function getSomeRa8bitTokens() {
 }
 
 export async function getSomeMoonshotTokens(): Promise<string> {
+ 
+  await requestAccounts();
+
   if( globalThis.noWallet ) {
     return "No wallet found";
   }
-
-  await globalThis.provider.send("eth_requestAccounts", []);
-  globalThis.signer = globalThis.provider.getSigner();
-  // save the currently connected address
-  globalThis.selectedAddress = await globalThis.signer.getAddress();
-  
+ 
   const abi = [
       "function canWithdraw(address addr) public view returns (bool)",
       "function getFreeMoonshot() external"
@@ -209,14 +221,11 @@ export async function getSomeMoonshotTokens(): Promise<string> {
 }
 
 export async function updateHighscore( name, score ): Promise<string> {
-  if( globalThis.noWallet ) {
-    return "No wallet found";
-  }
+  
+  await requestAccounts();
 
-  await globalThis.provider.send("eth_requestAccounts", []);
-  globalThis.signer = globalThis.provider.getSigner();
-  // save the currently connected address
-  globalThis.selectedAddress = await globalThis.signer.getAddress();
+  if( globalThis.noWallet )
+    return ERR_NO_WALLET;
   
   const abi = [
       "function updateScore(string memory initials, uint256 score) public",
@@ -239,14 +248,11 @@ const hallOfFameABI = [{"inputs":[],"stateMutability":"nonpayable","type":"const
 
 
 export async function getHighscores(): Promise<string> {
-  if( globalThis.noWallet ) {
-    return "No wallet found";
-  }
 
-  await globalThis.provider.send("eth_requestAccounts", []);
-  globalThis.signer = globalThis.provider.getSigner();
-  // save the currently connected address
-  globalThis.selectedAddress = await globalThis.signer.getAddress();
+  await requestAccounts();
+
+  if( globalThis.noWallet )
+    return ERR_NO_WALLET;
   
  
   const hallOfFame = new ethers.Contract(hallOfFameContract, hallOfFameABI , globalThis.signer );
@@ -265,9 +271,10 @@ export async function getHighscores(): Promise<string> {
 }
 
 export async function hasNewHighScore(score): Promise<boolean> {
-  if( globalThis.noWallet ) {
+  await requestAccounts();
+
+  if( globalThis.noWallet )
     return false;
-  }
 
   await globalThis.provider.send("eth_requestAccounts", []);
   globalThis.signer = globalThis.provider.getSigner();
@@ -330,14 +337,10 @@ const hoppaTournamentABI =
      [{"inputs":[{"internalType":"address","name":"_tokenContract","type":"address"}],"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"address","name":"player","type":"address"},{"indexed":false,"internalType":"uint256","name":"amount","type":"uint256"}],"name":"ApprovedTransfer","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint256","name":"newPenaltyPercentage","type":"uint256"}],"name":"DeserterPenaltyChanged","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"buyer","type":"address"}],"name":"EnterArena","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"address","name":"gamemaker","type":"address"}],"name":"GameMakerAdded","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"address","name":"gamemaker","type":"address"}],"name":"GameMakerRemoved","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"address","name":"player","type":"address"}],"name":"LeaveArena","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"address","name":"player","type":"address"}],"name":"PlayerRemoved","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"winner","type":"address"},{"indexed":false,"internalType":"uint256","name":"amount","type":"uint256"}],"name":"SelectWinner","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"address","name":"newTokenContract","type":"address"}],"name":"SetTokenAddress","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint256","name":"endAt","type":"uint256"}],"name":"TournamentOpenUntil","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint256","name":"newWinnerPercentage","type":"uint256"}],"name":"WinnerPercentageChanged","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint256","name":"amount","type":"uint256"}],"name":"WithdrawBNB","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"address","name":"tokenContractAddress","type":"address"},{"indexed":false,"internalType":"uint256","name":"amount","type":"uint256"}],"name":"WithdrawTokens","type":"event"},{"inputs":[{"internalType":"address","name":"_gameMaker","type":"address"}],"name":"addGameMaker","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"closeArena","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"enterArena","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"estimateReward","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"estimateUnstakeAmount","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"gameEndTime","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"gameMakers","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"getClosingDate","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"getCurrentStake","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"getPenaltyPercentage","outputs":[{"internalType":"uint8","name":"","type":"uint8"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"getTotalAmountStaked","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"getTotalPlayers","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"getWinningsPercentage","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"hasJoined","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"isGameMaker","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"isUnderPenalty","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"leaveArena","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"daysDuration","type":"uint256"}],"name":"openArena","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"owner","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"penaltyPercentage","outputs":[{"internalType":"uint8","name":"","type":"uint8"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"playerHasJoined","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"_gameMaker","type":"address"}],"name":"removeGameMaker","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"player","type":"address"}],"name":"removePlayer","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"_winner","type":"address"}],"name":"selectWinner","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address[]","name":"winners","type":"address[]"}],"name":"selectWinners","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint8","name":"penalty","type":"uint8"}],"name":"setPenaltyPercentage","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"newTokenContract","type":"address"}],"name":"setTokenAddress","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"winnings","type":"uint256"}],"name":"setWinnerPercentage","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"stakedTokens","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"tokenContract","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"totalPlayers","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"totalTokensStaked","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"winnerPercentage","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"withdrawBNB","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"tokenContractAddress","type":"address"}],"name":"withdrawTokens","outputs":[],"stateMutability":"nonpayable","type":"function"}];
 
 export async function isArenaPlayer(): Promise<boolean> {
-  if( globalThis.noWallet ) {
-    return false;
-  }
+  await requestAccounts();
 
-  await globalThis.provider.send("eth_requestAccounts", []);
-  globalThis.signer = globalThis.provider.getSigner();
-  // save the currently connected address
-  globalThis.selectedAddress = await globalThis.signer.getAddress();
+  if( globalThis.noWallet )
+    return false;
     
   const hoppaTournament = new ethers.Contract(hoppaTournamentContract, hoppaTournamentABI , globalThis.signer );
 
@@ -355,14 +358,10 @@ export async function isArenaPlayer(): Promise<boolean> {
 }
 
 export async function isArenaUnderPenalty(): Promise<boolean> {
-  if( globalThis.noWallet ) {
-    return false;
-  }
+  await requestAccounts();
 
-  await globalThis.provider.send("eth_requestAccounts", []);
-  globalThis.signer = globalThis.provider.getSigner();
-  // save the currently connected address
-  globalThis.selectedAddress = await globalThis.signer.getAddress();
+  if( globalThis.noWallet )
+    return false;
     
   const hoppaTournament = new ethers.Contract(hoppaTournamentContract, hoppaTournamentABI , globalThis.signer );
 
@@ -376,14 +375,11 @@ export async function isArenaUnderPenalty(): Promise<boolean> {
 }
 
 export async function getGameEndTime(): Promise<string> {
-  if( globalThis.noWallet ) {
-    return "";
-  }
 
-  await globalThis.provider.send("eth_requestAccounts", []);
-  globalThis.signer = globalThis.provider.getSigner();
-  // save the currently connected address
-  globalThis.selectedAddress = await globalThis.signer.getAddress();
+  await requestAccounts();
+
+  if( globalThis.noWallet )
+    return "";
     
   const hoppaTournament = new ethers.Contract(hoppaTournamentContract, hoppaTournamentABI , globalThis.signer );
 
@@ -399,14 +395,10 @@ export async function getGameEndTime(): Promise<string> {
 }
 
 export async function getTotalAmountStaked(): Promise<string> {
-  if( globalThis.noWallet ) {
-    return "";
-  }
+  await requestAccounts();
 
-  await globalThis.provider.send("eth_requestAccounts", []);
-  globalThis.signer = globalThis.provider.getSigner();
-  // save the currently connected address
-  globalThis.selectedAddress = await globalThis.signer.getAddress();
+  if( globalThis.noWallet )
+    return "";
     
   const hoppaTournament = new ethers.Contract(hoppaTournamentContract, hoppaTournamentABI , globalThis.signer );
 
@@ -423,14 +415,10 @@ export async function getTotalAmountStaked(): Promise<string> {
 }
 
 export async function getMyStake(): Promise<string> {
-  if( globalThis.noWallet ) {
-    return "";
-  }
+  await requestAccounts();
 
-  await globalThis.provider.send("eth_requestAccounts", []);
-  globalThis.signer = globalThis.provider.getSigner();
-  // save the currently connected address
-  globalThis.selectedAddress = await globalThis.signer.getAddress();
+  if( globalThis.noWallet )
+    return "";
     
   const hoppaTournament = new ethers.Contract(hoppaTournamentContract, hoppaTournamentABI , globalThis.signer );
 
@@ -447,14 +435,10 @@ export async function getMyStake(): Promise<string> {
 
 
 export async function getPenaltyPercentage(): Promise<string> {
-  if( globalThis.noWallet ) {
-    return "";
-  }
+  await requestAccounts();
 
-  await globalThis.provider.send("eth_requestAccounts", []);
-  globalThis.signer = globalThis.provider.getSigner();
-  // save the currently connected address
-  globalThis.selectedAddress = await globalThis.signer.getAddress();
+  if( globalThis.noWallet )
+    return "";
     
   const hoppaTournament = new ethers.Contract(hoppaTournamentContract, hoppaTournamentABI , globalThis.signer );
 
@@ -472,14 +456,10 @@ export async function getPenaltyPercentage(): Promise<string> {
 
 
 export async function getEstimatedReward(): Promise<string> {
-  if( globalThis.noWallet ) {
-    return "";
-  }
+  await requestAccounts();
 
-  await globalThis.provider.send("eth_requestAccounts", []);
-  globalThis.signer = globalThis.provider.getSigner();
-  // save the currently connected address
-  globalThis.selectedAddress = await globalThis.signer.getAddress();
+  if( globalThis.noWallet )
+    return "";
     
   const hoppaTournament = new ethers.Contract(hoppaTournamentContract, hoppaTournamentABI , globalThis.signer );
 
@@ -499,14 +479,10 @@ export async function getEstimatedReward(): Promise<string> {
 }
 
 export async function getEstimatedUnstakedAmount(): Promise<string> {
-  if( globalThis.noWallet ) {
-    return "";
-  }
+  await requestAccounts();
 
-  await globalThis.provider.send("eth_requestAccounts", []);
-  globalThis.signer = globalThis.provider.getSigner();
-  // save the currently connected address
-  globalThis.selectedAddress = await globalThis.signer.getAddress();
+  if( globalThis.noWallet )
+    return "";
     
   const hoppaTournament = new ethers.Contract(hoppaTournamentContract, hoppaTournamentABI , globalThis.signer );
 
@@ -522,14 +498,10 @@ export async function getEstimatedUnstakedAmount(): Promise<string> {
 }
 
 export async function getTotalPlayers(): Promise<string> {
-  if( globalThis.noWallet ) {
-    return "";
-  }
+  await requestAccounts();
 
-  await globalThis.provider.send("eth_requestAccounts", []);
-  globalThis.signer = globalThis.provider.getSigner();
-  // save the currently connected address
-  globalThis.selectedAddress = await globalThis.signer.getAddress();
+  if( globalThis.noWallet )
+    return "";
     
   const hoppaTournament = new ethers.Contract(hoppaTournamentContract, hoppaTournamentABI , globalThis.signer );
 
@@ -544,19 +516,14 @@ export async function getTotalPlayers(): Promise<string> {
 }
 
 export async function enterArena( amount ): Promise<string> {
-  if( globalThis.noWallet ) {
-    return "No wallet found";
-  }
+  await requestAccounts();
 
-  await globalThis.provider.send("eth_requestAccounts", []);
-  globalThis.signer = globalThis.provider.getSigner();
-  // save the currently connected address
-  globalThis.selectedAddress = await globalThis.signer.getAddress();
+  if( globalThis.noWallet )
+    return "";
 
   const hoppaTournament = new ethers.Contract(hoppaTournamentContract, hoppaTournamentABI , globalThis.signer );
 
   try {
-
     const bigAmount = numberToUint256( amount );   
     const tx = await hoppaTournament.enterArena( bigAmount );
     await tx.wait();
@@ -569,14 +536,10 @@ export async function enterArena( amount ): Promise<string> {
 }
 
 export async function leaveArena(): Promise<string> {
-  if( globalThis.noWallet ) {
-    return "No wallet found";
-  }
+  await requestAccounts();
 
-  await globalThis.provider.send("eth_requestAccounts", []);
-  globalThis.signer = globalThis.provider.getSigner();
-  // save the currently connected address
-  globalThis.selectedAddress = await globalThis.signer.getAddress();
+  if( globalThis.noWallet )
+    return "";
 
   const hoppaTournament = new ethers.Contract(hoppaTournamentContract, hoppaTournamentABI , globalThis.signer );
 
@@ -592,14 +555,10 @@ export async function leaveArena(): Promise<string> {
 }
 
 export async function isArenaApproved(amount): Promise<boolean> {
-  if( globalThis.noWallet ) {
-    return false;
-  }
+  await requestAccounts();
 
-  await globalThis.provider.send("eth_requestAccounts", []);
-  globalThis.signer = globalThis.provider.getSigner();
-  // save the currently connected address
-  globalThis.selectedAddress = await globalThis.signer.getAddress();
+  if( globalThis.noWallet )
+    return false;
 
   const abi = [
     "function balanceOf(address account) external view returns (uint256)",
@@ -623,14 +582,10 @@ export async function isArenaApproved(amount): Promise<boolean> {
 }
 
 export async function approveForArena(amount): Promise<string> {
-  if( globalThis.noWallet ) {
-    return "";
-  }
+  await requestAccounts();
 
-  await globalThis.provider.send("eth_requestAccounts", []);
-  globalThis.signer = globalThis.provider.getSigner();
-  // save the currently connected address
-  globalThis.selectedAddress = await globalThis.signer.getAddress();
+  if( globalThis.noWallet )
+    return "";
 
   const abi = [
     "function balanceOf(address account) external view returns (uint256)",
