@@ -119,7 +119,7 @@ export default class Inventory extends Phaser.Scene {
 
         let cell = this.grid[ this.gridIndex ];
         
-        if(this.player.isShift() || this.player.isSpace()) {
+        if(this.player.isSpace()) {
 
             const iid = cell.getData("id");
             if( this.balances[iid] > 0 ) {
@@ -142,6 +142,11 @@ export default class Inventory extends Phaser.Scene {
                 this.openItem(iid);
             }
         }
+
+        if( this.player.isShift() ) {
+            this.scene.stop();
+        }
+
 
         if( changed ) {
             const cz = 128 + (this.innerBorder/2);
@@ -192,7 +197,7 @@ export default class Inventory extends Phaser.Scene {
             this.scene.stop();
         });
 
-        let statusText = "Press I or R2 [exit]\nPress X or Space [select]\nArrows [navigate]\nA+B on virtual [exit]";
+        let statusText = "Press I or R2 [exit]\nPress A or Space [select]\nArrows [navigate]\nB on virtual [exit]";
         this.statusText = this.add.bitmapText(1000, 96, 'press_start', statusText, 16)
                 .setTint(0x16ffff)
                 .setOrigin(0.5);
