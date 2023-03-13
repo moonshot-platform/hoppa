@@ -46,7 +46,7 @@ export default class Help extends Phaser.Scene {
     }
 
     update() {
-        if( SceneFactory.gamePadAnyButton(this) || this.cursors?.space.isDown ) {
+        if( SceneFactory.gamePadIsButton(this,-1) || this.cursors?.space.isDown ) {
             this.continueGame();
         }
     }

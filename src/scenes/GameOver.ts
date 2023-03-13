@@ -61,7 +61,7 @@ export default class GameOver extends Phaser.Scene {
     }
 
     update() {
-        if(SceneFactory.gamePadAnyButton(this)) {
+        if(SceneFactory.gamePadIsButton(this,-1)) {
             this.continueGame();
         }
 

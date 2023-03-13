@@ -331,7 +331,7 @@ export default class Start extends BaseScene {
 
         SceneFactory.cullSprites(this);
 
-        if(SceneFactory.gamePadAnyButton(this) || this.cursors?.space.isDown ) {
+        if(SceneFactory.gamePadIsButton(this,-1) || this.cursors?.space.isDown ) {
             this.continueGame();
         }
 

@@ -134,8 +134,6 @@ export default class TournamentIntro extends Phaser.Scene {
     private music!:Phaser.Sound.BaseSound;
     private countdownText!: Phaser.GameObjects.BitmapText;
     private countdown = 0;
-    private buttonRepeat1 = 0;
-    private buttonRepeat2 = 0;
     private lastUpdate = 0;
 
     constructor() {
@@ -183,28 +181,15 @@ export default class TournamentIntro extends Phaser.Scene {
 
         this.lastUpdate = time + 120;
 
+        if( this.countdown > 45 )
+            return;
+
         if(SceneFactory.gamePadIsButton(this,0)) {
-            this.buttonRepeat1 ++;
-        }
-        else {
-            this.buttonRepeat1 = 0;
-        }
-
-        if(SceneFactory.gamePadIsButton(this,8)) {
-            this.buttonRepeat2 ++;
-        }
-        else {
-            this.buttonRepeat2 = 0;
-        }
-
-        if(this.buttonRepeat1 >= 15) {
             this.endScene();
-            this.buttonRepeat1 = 0;
         }
-
-        if(this.buttonRepeat2 >= 15) {
+       
+        if(SceneFactory.gamePadIsButton(this,8) || SceneFactory.gamePadIsButton(this,1)) {
             this.previousScene();
-            this.buttonRepeat2 = 0;
         }
          
     }
@@ -215,6 +200,8 @@ export default class TournamentIntro extends Phaser.Scene {
     
         SceneFactory.stopSound(this);
         SceneFactory.removeAllSounds(this);
+
+        this.countdown = 48;
     }
 
     private handleKeyDown(event) {

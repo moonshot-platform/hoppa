@@ -60,7 +60,7 @@ export default class PlayerController {
     private LEANWAY = 8;
     private isDead = false;
     private wasd;
-    private buttonRepeat = 0;
+    private buttonRepeat : number[] = [];
     private inventoryOpen = false;
 
     private gameStopping = false;
@@ -113,7 +113,7 @@ export default class PlayerController {
             }
         )
 
-        
+        this.buttonRepeat = Array(32).fill(0);
 
         this.scene.input.keyboard?.once('keydown', () => {
             events.emit('level-start');
@@ -1833,18 +1833,18 @@ export default class PlayerController {
     private isGamePadButton(index): boolean {
         const pad = this.scene.input.gamepad?.getPad(0);
         if(pad?.axes.length) {
-            if(this.buttonRepeat == 0) { 
-                this.buttonRepeat = 15;
+            if(this.buttonRepeat[index] == 0) { 
+                this.buttonRepeat[index] = 8;
                 const v = pad.buttons[index].pressed;
                 if( v ) {
                     return true;
                 }
                 else {
-                    this.buttonRepeat = 0;
+                    this.buttonRepeat[index] = 0;
                 }
             }
             else {
-                this.buttonRepeat --;
+                this.buttonRepeat[index] --;
             }
         }
         return false;
@@ -1854,16 +1854,4 @@ export default class PlayerController {
         const f = (this.joystick === undefined ? 1 : this.joystick.force);
         return f;
     }
-
-  /*  private getSpeed(num: number) {
-        if (this.joystick !== undefined) {
-            const vx = this.jp.dampenVelocityX(num);
-            return vx;
-        }
-        return num;
-    }
-*/
-
-// FIXME: virtual pad not working in inventory mode
-
 }

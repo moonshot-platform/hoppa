@@ -1047,25 +1047,58 @@ export function isGamePadUp(ctx: Phaser.Scene) : boolean {
     return false;
 }
 
-export function gamePadAnyButton(ctx: Phaser.Scene) : boolean {
-    const pad = ctx.input.gamepad?.getPad(0);
-    if(pad === undefined)
-        return false;
-
-    for ( let i = 0; i < pad.buttons.length; i ++ ) {
-        if(pad?.buttons[i].pressed)
-           return true;
-    }
-    return false;
-}
+const __buttonRepeatCount: number = 8;
+let __buttonRepeat:  number[] = new Array(32).fill(0);
+let __anyButtonRepeat: number = 0;
 
 export function gamePadIsButton(ctx: Phaser.Scene, index) : boolean {
     const pad = ctx.input.gamepad?.getPad(0);
     if(pad === undefined)
         return false;
 
-    if(pad?.buttons[index].pressed)
-           return true;
-     
+    if(pad?.axes.length) {
+
+        if(index == -1) {
+            let isButtonDown = false;
+            for ( let i = 0; i < pad.buttons.length; i ++ ) {
+                    const v = pad.buttons[i].pressed;
+                    if(v) {
+                        isButtonDown = true;
+                        break;
+                    }
+            }
+
+            if( __anyButtonRepeat == 0 ) {
+                __anyButtonRepeat = __buttonRepeatCount;
+                if( isButtonDown ) {
+                    console.log("any button down");
+                    return true;
+                }
+                else
+                    __anyButtonRepeat = 0;
+            }
+            else {
+                __anyButtonRepeat --;
+            }
+            
+            return false;
+        }
+
+        if(__buttonRepeat[index] == 0) { 
+            __buttonRepeat[index] = __buttonRepeatCount;
+            const v = pad.buttons[index].pressed;
+            if( v ) {
+                console.log(index + " button down");
+                return true;
+            }
+            else {
+                __buttonRepeat[index] = 0;
+            }
+        }
+        else {
+            __buttonRepeat[index] --;
+        }
+    }
     return false;
 }
+

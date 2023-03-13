@@ -165,7 +165,7 @@ export default class HoppaSelect extends Phaser.Scene {
         else if(this.cursors?.up.isDown || SceneFactory.isGamePadDown(this)) {
             this.activeItem ++;
         }
-        else if(this.cursors?.shift.isDown || this.cursors?.space.isDown || SceneFactory.gamePadAnyButton(this) ) { 
+        else if(this.cursors?.shift.isDown || this.cursors?.space.isDown || SceneFactory.gamePadIsButton(this,-1) ) { 
             switch(this.activeItem) {
                 case 0:
                     this.continueGame();
@@ -173,7 +173,7 @@ export default class HoppaSelect extends Phaser.Scene {
                 case 1:
                     if(!globalThis.noWallet) {
                         this.scene.stop();
-                        this.scene.start('tournament');
+                        this.scene.start('tournament-intro');
                     }
                     break;
                 case 2:

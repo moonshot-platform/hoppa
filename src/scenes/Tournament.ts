@@ -1,4 +1,4 @@
-import Phaser from "phaser";
+import Phaser, { Scene } from "phaser";
 import { sharedInstance as events } from '../scripts/EventManager';
 import * as SceneFactory from '../scripts/SceneFactory';
 import * as WalletHelper from '../scripts/WalletHelper';
@@ -26,7 +26,6 @@ export default class Tournament extends Phaser.Scene {
     private hasApproved: boolean = false;
     private lastUpdate = 0;
     private countdownTimer?: Phaser.Time.TimerEvent;
-
     private penaltyPercentage = 20;
 
     constructor() {
@@ -118,7 +117,6 @@ export default class Tournament extends Phaser.Scene {
         this.closingInLabel?.destroy();
         this.totalPlayersLabel?.destroy();
         this.penaltyLabel?.destroy();
-
     }
 
     update(time: number, deltaTime: number) {

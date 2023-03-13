@@ -207,7 +207,7 @@ export default class GameSettingsMenu extends Phaser.Scene {
         else if(this.cursors?.up.isDown || SceneFactory.isGamePadDown(this)) {
             this.activeItem ++;
         }
-        else if(this.cursors?.shift.isDown || this.cursors?.space.isDown || SceneFactory.gamePadAnyButton(this) ) { 
+        else if(this.cursors?.shift.isDown || this.cursors?.space.isDown || SceneFactory.gamePadIsButton(this,-1) ) { 
             switch(this.activeItem) {
                 case 2:
                     this.continueGame();

@@ -176,7 +176,7 @@ export default class EnterHallOfFame extends Phaser.Scene {
             this.unconfirmed();
         }
 
-        if (SceneFactory.gamePadAnyButton(this)) {
+        if (SceneFactory.gamePadIsButton(this,-1)) {
             this.confirmed();
             this.incLetter();
         }

@@ -102,7 +102,7 @@ export default class Story extends CreditScene {
                 this.startGame();
             }
         }
-        if(SceneFactory.gamePadAnyButton(this) || this.cursors.space.isDown ) {
+        if(SceneFactory.gamePadIsButton(this,-1) || this.cursors.space.isDown ) {
             this.startGame();
         }
     }

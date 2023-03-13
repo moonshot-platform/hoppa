@@ -41,7 +41,7 @@ export default class AdScene extends Phaser.Scene {
 
     update(time,delta) {
 
-        if(SceneFactory.gamePadAnyButton(this)) {
+        if(SceneFactory.gamePadIsButton(this,-1)) {
             this.startGame();
         }
 

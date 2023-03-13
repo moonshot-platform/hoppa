@@ -1047,25 +1047,25 @@
   <object id="1641" name="exit" x="20736" y="3136" width="64" height="64">
    <properties>
     <property name="event" value="next-level"/>
-    <property name="room" value="level3"/>
+    <property name="room" value="win"/>
    </properties>
   </object>
   <object id="1642" name="exit" x="20800" y="3136" width="64" height="64">
    <properties>
     <property name="event" value="next-level"/>
-    <property name="room" value="level3"/>
+    <property name="room" value="win"/>
    </properties>
   </object>
   <object id="1643" name="exit" x="20864" y="3136" width="64" height="64">
    <properties>
     <property name="event" value="next-level"/>
-    <property name="room" value="level3"/>
+    <property name="room" value="win"/>
    </properties>
   </object>
   <object id="1644" name="exit" x="20928" y="3136" width="64" height="64">
    <properties>
     <property name="event" value="next-level"/>
-    <property name="room" value="level3"/>
+    <property name="room" value="win"/>
    </properties>
   </object>
   <object id="1669" name="flower" x="128" y="2688" width="64" height="64"/>

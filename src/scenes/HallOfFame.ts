@@ -85,7 +85,7 @@ export default class HallOfFame extends Phaser.Scene {
 
         this.title.setTint(top, bottom, top, bottom);
 
-        if(SceneFactory.gamePadAnyButton(this) || this.cursors?.space.isDown ) {
+        if(SceneFactory.gamePadIsButton(this,-1)|| this.cursors?.space.isDown ) {
             this.endScene();
         }
     }
