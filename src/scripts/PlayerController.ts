@@ -675,6 +675,7 @@ export default class PlayerController {
         else {
             this.jpI = undefined;
         }
+
     }
 
     unpokeVirtualStick(scene:Phaser.Scene) {
@@ -795,7 +796,7 @@ export default class PlayerController {
 
     update(deltaTime: number) {
 
-        if(this.jpI !== undefined )
+        if( this.inventoryOpen )
             return;
 
         this.stateMachine.update(deltaTime);

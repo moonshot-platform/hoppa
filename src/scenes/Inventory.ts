@@ -22,6 +22,7 @@ export default class Inventory extends Phaser.Scene {
     private balances: Number[] = [];
     private innerBorder = 8;
     private outerBorder = 4;
+    private buttonPressed = false;
     
     private cardInfo : string[] = [
         "",
@@ -57,10 +58,15 @@ export default class Inventory extends Phaser.Scene {
        this.graphics.destroy();
        this.bgGraphics.destroy();
        this.bgImage.destroy();
+       this.statusText?.destroy();
        this.grid.forEach( (cell) => {
         cell.destroy();
        });
        this.input.setDefaultCursor('none');
+       this.grid = [];
+       this.gridIndex = 0;
+       this.buttonPressed = false;
+
     }
 
     preload() {
@@ -115,10 +121,11 @@ export default class Inventory extends Phaser.Scene {
           i = 0;
         this.gridIndex = i;
 
-        let cell = this.grid[ this.gridIndex ];
+        console.log( this.gridIndex + " -> " + this.grid[ this.gridIndex] );
+        const cell = this.grid[ this.gridIndex ];
         
         if(this.player.isSpace()) {
-
+            this.buttonPressed = true;
             const iid = cell.getData("id");
             if( this.balances[iid] > 0 ) {
                 SceneFactory.addSound(this, cell.name, false, true );
@@ -132,11 +139,14 @@ export default class Inventory extends Phaser.Scene {
                     repeat      : 0,
                     callbackScope: this,
                     onComplete: () => {
+                        this.buttonPressed = false;
                         events.emit(cell.name);
+
                     }
                   });
             }
             else {
+                this.buttonPressed = false;
                 this.openItem(iid);
             }
         }
