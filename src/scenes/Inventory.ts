@@ -52,8 +52,6 @@ export default class Inventory extends Phaser.Scene {
 
     destroy() {
 
-       this.player.unpokeVirtualStick(this);
-
        this.text?.destroy();
        this.statusText?.destroy();
        this.graphics.destroy();
@@ -191,10 +189,10 @@ export default class Inventory extends Phaser.Scene {
         this.bgGraphics.strokeRect(40, 60, 1200, 600);
         
         this.input.keyboard?.on("keydown-I", (event) => {
-            this.scene.stop();
+            this.endScene();
         });
         this.input.keyboard?.on("keydown-ESC", (event) => {
-            this.scene.stop();
+            this.endScene();
         });
 
         let statusText = "Press I or R2 [exit]\nPress A or Space [select]\nArrows [navigate]\nB on virtual [exit]";
@@ -321,6 +319,11 @@ export default class Inventory extends Phaser.Scene {
     openItem(id) {
         let url = "https://moonsea.io/details/0xb8eb97a1d6393b087eeacb33c3399505a3219d3d/" + id + "/1";
         window.open(url, '_blank')?.focus();
+    }
+
+    endScene() {
+        this.player.unpokeVirtualStick(this);
+        this.scene.stop();
     }
  
 }

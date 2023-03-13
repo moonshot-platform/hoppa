@@ -666,16 +666,24 @@ export default class PlayerController {
     }
 
     pokeVirtualStick(scene: Phaser.Scene, width: number ) {
-        this.jpI = this.jp;
-        
-        this.jp = new JoypadController(scene, width );
-        this.createVirtualJoystick();
+        if( !scene.game.device.os.desktop && scene.input.gamepad.total <= 0 )
+        {
+            this.jpI = this.jp;
+            this.jp = new JoypadController(scene, width );
+            this.createVirtualJoystick();
+        }
+        else {
+            this.jpI = undefined;
+        }
     }
 
     unpokeVirtualStick(scene:Phaser.Scene) {
         this.jp?.destroy();
         this.jp = this.jpI;
-        this.createVirtualJoystick();
+
+        if( !scene.game.device.os.desktop && scene.input.gamepad.total <= 0 )
+         this.createVirtualJoystick();
+
         this.jpI = undefined;
     }
 
