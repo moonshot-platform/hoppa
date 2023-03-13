@@ -639,11 +639,11 @@ export default class PlayerController {
     }
     
     setJoystick(scene: Phaser.Scene, width: number) {
-       // if (scene.game.device.os.desktop)
-        //    return;
+        if (scene.game.device.os.desktop)
+            return;
 
-       // if( scene.input.gamepad.total > 0 )
-       //     return;
+        if( scene.input.gamepad.total > 0 )
+            return;
 /*
         if(this.jp !== undefined) {
             this.jp.destroy();
