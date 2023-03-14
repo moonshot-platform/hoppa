@@ -410,8 +410,8 @@ export default class Tournament extends Phaser.Scene {
         let result = false;
         const f = async () => {
             result = await WalletHelper.isArenaApproved(this.toContractAmount());
+            this.hasApproved = result;
             if(this.scene.isActive(this.scene.key)) {
-                this.hasApproved = result;
                 this.updateActionButtons(this.hasApproved);
             }
         }
@@ -551,7 +551,7 @@ export default class Tournament extends Phaser.Scene {
             this.updateActionButtons(this.hasApproved);
         }
         else {
-            this.hasApproved = (globalThis.allowance > this.toContractAmount() ? true: false);
+            this.hasApproved = (globalThis.allowance >= this.toContractAmount() ? true: false);
             this.updateActionButtons(this.hasApproved);
         }
         
