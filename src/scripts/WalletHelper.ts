@@ -131,6 +131,25 @@ export async function getCurrentAccount() {
     
 }
 
+export async function getMSHOTBalanceOfTournamentContract(): Promise<string> {
+  if( globalThis.noWallet ) {
+     return ERR_NO_WALLET;
+  }
+
+  await requestAccounts();
+
+  
+  const abi = [
+      "function balanceOf(address account) external view returns (uint256)",
+  ];
+  
+  // save the current balances of Moonshot and Ra8bit tokens
+  const moonshotContract = new ethers.Contract(moonshotTokenContract, abi , globalThis.signer );     
+  let val = await moonshotContract.balanceOf( hoppaTournamentContract );
+  val = uint256Tonumber(val);
+  return val;
+}
+
 export async function findCards() {
   
   await requestAccounts();
@@ -374,23 +393,23 @@ export async function isArenaUnderPenalty(): Promise<boolean> {
   }
 }
 
-export async function getGameEndTime(): Promise<string> {
+export async function getGameEndTime(): Promise<number> {
 
   await requestAccounts();
 
   if( globalThis.noWallet )
-    return "";
+    return 0;
     
   const hoppaTournament = new ethers.Contract(hoppaTournamentContract, hoppaTournamentABI , globalThis.signer );
 
   try {
     let val = await hoppaTournament.gameEndTime();
-    globalThis.totalTokensStaked = uint256Tonumber(val);
+    val = parseInt( val.toString() );
     return val;
   }
   catch( error: any ) {
     console.log( "error " + error.reason );
-    return "";
+    return 0;
   }
 }
 
@@ -465,6 +484,7 @@ export async function getEstimatedReward(): Promise<string> {
 
   try {
     let staked = await hoppaTournament.getTotalAmountStaked();
+    staked = uint256Tonumber(staked);
     if( staked > 0 ) {
         let val = await hoppaTournament.estimateReward();
         val = uint256Tonumber(val);

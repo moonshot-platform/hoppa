@@ -11,6 +11,7 @@ export default class Tournament extends Phaser.Scene {
     private ifYouWinLabel!: Phaser.GameObjects.BitmapText;
     private closingInLabel!: Phaser.GameObjects.BitmapText;
     private totalStakedLabel!: Phaser.GameObjects.BitmapText;
+    private totalBalanceLabel!: Phaser.GameObjects.BitmapText;
     private totalPlayersLabel!: Phaser.GameObjects.BitmapText;
     private penaltyLabel?: Phaser.GameObjects.BitmapText;
     private countdownText?: Phaser.GameObjects.BitmapText;
@@ -83,6 +84,9 @@ export default class Tournament extends Phaser.Scene {
         this.totalStakedLabel = this.add.bitmapText(x,y + 192, 'press_start', '', fontSize)
             .setTint(0xffffff);
 
+        this.totalBalanceLabel = this.add.bitmapText(x,y + 256, 'press_start', '', fontSize )
+            .setTint(0xffffff);
+
         this.penaltyLabel = this.add.bitmapText(width * 0.5, 164, 'press_start','', 24 )
             .setTint(0xff0000)
             .setOrigin(0.5);
@@ -116,6 +120,8 @@ export default class Tournament extends Phaser.Scene {
         this.yourStakeLabel?.destroy();
         this.closingInLabel?.destroy();
         this.totalPlayersLabel?.destroy();
+        this.totalStakedLabel?.destroy();
+        this.totalBalanceLabel?.destroy();
         this.penaltyLabel?.destroy();
     }
 
@@ -279,38 +285,59 @@ export default class Tournament extends Phaser.Scene {
         f();
     }
 
+    private formatContractBalance() {
+        const f = async() => {
+            let v = await WalletHelper.getMSHOTBalanceOfTournamentContract();
+            if(this.scene.isActive(this.scene.key)) {
+                let dts = this.fromContractAmount(v);
+                if( dts > 0 ) {
+                    this.totalBalanceLabel.setText( "Tournament Balance: " + this.getUnit(dts) + " $MSHOT" );
+                }
+                else {
+                    this.totalBalanceLabel.setText("");
+                }
+            }
+        }
+        f();
+    }
+
     
     private updateAll() {
         this.checkMyStake();
         this.formatPlayerStake();
         this.calculateIfYouWin();
         this.formatTotalStaked();
-        this.formatClosingTime; 
+        this.formatContractBalance();
+        this.formatClosingTime();
     }
 
     private formatClosingTime() {
-        
-       
         const f = async () => {
             let gameEndTime = await WalletHelper.getGameEndTime();
+
             if(this.scene.isActive(this.scene.key)) {
-                let end = new Date(gameEndTime);
-                let now = new Date();
+                if( gameEndTime > 0) {
+                    let end = new Date(gameEndTime);
+                    let now = new Date();
 
-                const timeDiff = end.getTime() - now.getTime();
+                    const timeDiff = end.getTime() - now.getTime();
 
-                const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+                    const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+                    const hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
 
-                const dayStr = days.toString().padStart(2, '0');
-                const hourStr = hours.toString().padStart(2, '0');
-                const minuteStr = minutes.toString().padStart(2, '0');
+                    const dayStr = days.toString().padStart(2, '0');
+                    const hourStr = hours.toString().padStart(2, '0');
+                    const minuteStr = minutes.toString().padStart(2, '0');
 
-                
-                const str = "Closing ceremony in " + dayStr + ":" + hourStr + ":" + minuteStr;
-                
-                this.closingInLabel?.setText(str);
+                    
+                    const str = "Closing ceremony in " + dayStr + ":" + hourStr + ":" + minuteStr;
+                    
+                    this.closingInLabel?.setText(str);
+                }
+                else {
+                    this.closingInLabel?.setText("");
+                }
             }
         }
         f();
@@ -572,8 +599,12 @@ export default class Tournament extends Phaser.Scene {
           s += "B";
         } else {
           s = v;
+          s = Math.round( s * 100 ) / 100;
           s += "M";
         }
+
+        
+
         return s;
       }
 }
