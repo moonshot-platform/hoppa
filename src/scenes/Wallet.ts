@@ -197,7 +197,7 @@ export default class Wallet extends Phaser.Scene {
             this.scene.restart();
             this.changeEvents = globalThis.changeEvent;
         }
-        else if(SceneFactory.gamePadAnyButton(this)) {
+        else if(SceneFactory.gamePadIsButton(this,-1)) {
             this.startGame();
         }
     }
