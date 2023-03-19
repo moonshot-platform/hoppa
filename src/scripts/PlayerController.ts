@@ -171,7 +171,7 @@ export default class PlayerController {
             else if (player.label !== 'player')
                 player = body;
 
-            if (body.label === 'platform' || body.label === 'billboard' || body.label === 'bar') {
+            if (body.label === 'platform' || body.label === 'billboard' || body.label === 'bar' || body.label == 'mushroom-platform') {
                 this.standingOnPlatform = false;
             }
         });
@@ -185,7 +185,7 @@ export default class PlayerController {
             else if (player.label !== 'player')
                 player = body;
 
-            if (body.label === 'platform') {
+            if (body.label === 'platform' || body.label == 'mushroom-platform') {
                 this.handlePlatform(body);
 
                 if (player.position.x < body.position.x || (player.position.x >= (body.position.x + 127))) {
@@ -407,22 +407,7 @@ export default class PlayerController {
             }
 
             if (this.obstacles.isType('brick', body) && this.powerUps.isPower()) {
-                if (player.position.y > (body.position.y + 32)) {
-                    const v = this.obstacles.getValues('brick', body);
-
-                    if (v.use > 0) {
-                        v.use = v.use - 1;
-                        v.emitter.emitParticle(this.tilemap, body);
-                        SceneFactory.playSound(this.sounds, 'explosion1');
-
-                    }
-                    else if (v.use == 0) {
-                        v.emitter.removeBrick(this.tilemap, body);
-                        this.obstacles.remove('brick', body);
-                        SceneFactory.playRandomSound(this.sounds, 'explosion', 2, 6);
-                        v.use = -1;
-                    }
-                }
+                this.handleBrick(body);
                 return;
             }
 
@@ -567,7 +552,8 @@ export default class PlayerController {
                     this.bounceSpriteAndDestroy(sprite);
                     break;
                 }
-                case 'platform': {
+                case 'platform':
+                case 'mushroom-platform': {
                     this.handlePlatform(body);
                     break;
                 }
@@ -686,6 +672,7 @@ export default class PlayerController {
          this.createVirtualJoystick();
 
         this.jpI = undefined;
+        this.inventoryOpen = false;
     }
 
 
@@ -728,9 +715,6 @@ export default class PlayerController {
         this.inventoryOpen = !this.inventoryOpen;
         if(this.inventoryOpen) {
             this.scene.scene.launch('inventory', {"player": this });
-        }
-        else {
-            this.scene.scene.stop('inventory');
         }
     }
 
@@ -816,8 +800,23 @@ export default class PlayerController {
             this.tilemap.heightInPixels - 32)) {
             this.stateMachine.setState('world-hit');
         }
+    }
 
+    private handleBrick(body: MatterJS.BodyType) {
+        const v = this.obstacles.getValues('brick', body);
 
+        if (v.use > 0) {
+            v.use = v.use - 1;
+            v.emitter.emitParticle(this.tilemap, body);
+            SceneFactory.playSound(this.sounds, 'explosion1');
+
+        }
+        else if (v.use == 0) {
+            v.emitter.removeBrick(this.tilemap, body);
+            this.obstacles.remove('brick', body);
+            SceneFactory.playRandomSound(this.sounds, 'explosion', 2, 6);
+            v.use = -1;
+        }
     }
 
     private setHealth(value: number) {
@@ -1013,6 +1012,12 @@ export default class PlayerController {
         dropping.setOnCollide((data: MatterJS.ICollisionPair) => {
             const a = data.bodyB as MatterJS.BodyType;
             const b = data.bodyA as MatterJS.BodyType;
+
+            if( this.obstacles.isType('brick', b) ) {
+                this.handleBrick(b);
+                this.collectPoop(a.gameObject);
+                return;
+            }
 
             if (b.gameObject?.name === undefined) {
                 const tile = this.tilemap.getTileAtWorldXY(b.position.x, b.position.y, undefined, this.scene.cameras.main, 'ground');
