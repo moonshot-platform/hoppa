@@ -52,14 +52,14 @@ export default class JoypadController {
 
         this.throwButton = new Button(this.B, {
             enable: true,
-            mode: 1,
-            clickInterval: 15,
+            mode: 0,
+            clickInterval: 8,
             threshold: undefined
         });
         this.jumpButton = new Button(this.A, {
             enable: true,
-            mode: 1,
-            clickInterval: 15,
+            mode: 0,
+            clickInterval: 8,
             threshold: undefined
         });
 
