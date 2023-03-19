@@ -243,7 +243,7 @@ export default class EnterHallOfFame extends Phaser.Scene {
     private updateCountdown() {
         this.countdown--;
         if (this.countdown <= 0) {
-            this.scene.stop();
+            this.endScene();
         }
         else {
             if(this.countdownActive) {
@@ -281,6 +281,7 @@ export default class EnterHallOfFame extends Phaser.Scene {
                     else {
                         this.statusText.setText(msg);
                     }
+                    
                 }
             };
 
