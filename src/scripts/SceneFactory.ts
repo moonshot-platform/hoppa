@@ -2,6 +2,7 @@
 import * as CreatureHelper from '../scripts/CreatureHelper';
 import * as ObjectHelper from '../scripts/ObjectHelper';
 import MovingPlatform from '../scripts/MovingPlatform';
+import MovingMushroom from '../scripts/MovingMushroom';
 import Rabbitmitter from './Rabbitmitter';
 import BillBoard from './BillBoard';
 import ChangeSkin from './ChangeSkin';
@@ -349,6 +350,7 @@ export function preload(ctx) {
     ctx.load.image('groundTiles', 'assets/terrainv3.webp');
     ctx.load.image('propTiles', 'assets/spritesheet_props_extruded.webp');
     ctx.load.image('grasTiles', 'assets/gras.webp');
+    ctx.load.image('grasPurpleTiles', 'assets/gras-purple.webp');
     ctx.load.image('cocoonTiles', 'assets/cocoons.webp');
     ctx.load.image('stonesTiles', 'assets/stones.webp');
 
@@ -414,6 +416,7 @@ export function preload(ctx) {
     ctx.load.image('zeppelin1', 'assets/zeppelin1.webp');
     ctx.load.image('zeppelin2', 'assets/zeppelin2.webp');
     ctx.load.image('platform', 'assets/platform.webp');
+    ctx.load.image('mushroom', 'assets/mushroom.webp');
     ctx.load.image('brick1-2', 'assets/brick1-2.webp');
     ctx.load.image('brick2-2', 'assets/brick2-2.webp');
     ctx.load.image('changeskin', 'assets/changeskin.webp');
@@ -849,6 +852,22 @@ export function basicCreate(ctx, name, x, y, width, height, rotation, enemyCat, 
             controller.add('platform', platform, platform.body as MatterJS.BodyType);
             break;
         }
+        case 'mushroom-platform': {
+            const to = objData.properties.find((p) => p.name === 'to').value;
+            const duration = objData.properties.find((p) => p.name === 'duration').value;
+            const vert = objData.properties.find((p) => p.name === 'vert').value;
+            const noautostart = objData.properties.find((p)=> p.name === 'noautostart')?.value || false;
+
+            const platform = ctx.matter.add.sprite(x + (width * 0.5), y + (height * 0.5), 'mushroom', undefined, {
+                isStatic: true,
+                label: 'mushroom-platform',
+                vertices: [{ x: 0, y: 0 }, { x: 64, y: 0 }, { x: 64, y: 64 }, { x: 0, y: 64 }]
+            });
+
+            const m = new MovingMushroom(ctx, x, y, to, duration, vert, platform, noautostart, platform.body.id);
+            controller.add('mushroom-platform', platform, platform.body as MatterJS.BodyType);
+            break;
+        }
         case 'bar': {
             const bar = ctx.matter.add.sprite(x + (width * 0.5), y+ (height * 0.5), 'bar', undefined, {
                 vertices: [{ x: 0, y: 0 }, { x: 937, y: 0 }, { x: 937, y: 28 }, { x: 0, y: 28 }],
@@ -1071,7 +1090,6 @@ export function gamePadIsButton(ctx: Phaser.Scene, index) : boolean {
             if( __anyButtonRepeat == 0 ) {
                 __anyButtonRepeat = __buttonRepeatCount;
                 if( isButtonDown ) {
-                    console.log("any button down");
                     return true;
                 }
                 else
@@ -1088,7 +1106,6 @@ export function gamePadIsButton(ctx: Phaser.Scene, index) : boolean {
             __buttonRepeat[index] = __buttonRepeatCount;
             const v = pad.buttons[index].pressed;
             if( v ) {
-                console.log(index + " button down");
                 return true;
             }
             else {
