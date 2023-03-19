@@ -22,7 +22,7 @@ export default class Inventory extends Phaser.Scene {
     private balances: Number[] = [];
     private innerBorder = 8;
     private outerBorder = 4;
-    private buttonPressed = false;
+    private sceneEnding = false;
     
     private cardInfo : string[] = [
         "",
@@ -65,7 +65,7 @@ export default class Inventory extends Phaser.Scene {
        this.input.setDefaultCursor('none');
        this.grid = [];
        this.gridIndex = 0;
-       this.buttonPressed = false;
+       this.sceneEnding = false;
 
     }
 
@@ -125,7 +125,6 @@ export default class Inventory extends Phaser.Scene {
         const cell = this.grid[ this.gridIndex ];
         
         if(this.player.isSpace()) {
-            this.buttonPressed = true;
             const iid = cell.getData("id");
             if( this.balances[iid] > 0 ) {
                 SceneFactory.addSound(this, cell.name, false, true );
@@ -139,22 +138,15 @@ export default class Inventory extends Phaser.Scene {
                     repeat      : 0,
                     callbackScope: this,
                     onComplete: () => {
-                        this.buttonPressed = false;
                         events.emit(cell.name);
 
                     }
                   });
             }
             else {
-                this.buttonPressed = false;
                 this.openItem(iid);
             }
         }
-
-        if( this.player.isShift() ) {
-            this.scene.stop();
-        }
-
 
         if( changed ) {
             const cz = 128 + (this.innerBorder/2);
@@ -177,6 +169,10 @@ export default class Inventory extends Phaser.Scene {
             });    
         }
 
+        if( this.player.isShift() || this.player.isR2() ) {
+            this.endScene();
+        }
+        
         if( time < this.lastUpdate ) 
             return;
 
@@ -332,8 +328,11 @@ export default class Inventory extends Phaser.Scene {
     }
 
     endScene() {
-        this.player.unpokeVirtualStick(this);
-        this.scene.stop();
+        if(!this.sceneEnding) {
+            this.player.unpokeVirtualStick(this);
+            this.scene.stop();
+        }
+        this.sceneEnding = true;
     }
  
 }

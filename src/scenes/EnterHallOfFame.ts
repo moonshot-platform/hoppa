@@ -26,7 +26,7 @@ export default class EnterHallOfFame extends Phaser.Scene {
     private spacing = 72;
     private startPosition = 0;
 
-    private isTouching = false;
+    private sceneEnding = false;
 
     private isReady: number[] = [0,0,0];
     private touchInputTimer?: Phaser.Time.TimerEvent;
@@ -217,6 +217,7 @@ export default class EnterHallOfFame extends Phaser.Scene {
 
         this.touchInputTimer?.remove(false);
         this.touchInputTimer?.destroy();
+        this.sceneEnding = false;
     }
 
     private touchInputNotDone() {
@@ -296,9 +297,12 @@ export default class EnterHallOfFame extends Phaser.Scene {
     }
 
     private endScene() {
-        globalThis.adReturn = "hoppa";
-        this.scene.stop();
-        this.scene.start('halloffame');
+        if(!this.sceneEnding) {
+            globalThis.adReturn = "hoppa";
+            this.scene.stop();
+            this.scene.start('halloffame');
+            this.sceneEnding = true;
+        }
     }
 
     private nearestLeter(pointer): number {
