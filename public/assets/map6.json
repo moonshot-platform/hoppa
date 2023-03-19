@@ -125,7 +125,7 @@
                  "rotation":0,
                  "visible":true,
                  "width":64,
-                 "x":159.700000000001,
+                 "x":159.7,
                  "y":73.272
                 }, 
                 {
@@ -5367,7 +5367,7 @@
                  "visible":true,
                  "width":64,
                  "x":158,
-                 "y":225.333333333333
+                 "y":225.333
                 }, 
                 {
                  "class":"",
@@ -5389,7 +5389,7 @@
                  "visible":true,
                  "width":64,
                  "x":158,
-                 "y":482.666666666667
+                 "y":482.667
                 }],
          "opacity":0.9,
          "type":"objectgroup",
@@ -5512,7 +5512,7 @@
          "height":50,
          "id":9,
          "name":"ground",
-         "opacity":0.9,
+         "opacity":1,
          "type":"tilelayer",
          "visible":true,
          "width":336,
@@ -5573,7 +5573,7 @@
          "height":50,
          "id":15,
          "name":"layer1",
-         "opacity":0.97,
+         "opacity":1,
          "type":"tilelayer",
          "visible":true,
          "width":336,
