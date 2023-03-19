@@ -12,6 +12,7 @@ import BatController from '../scripts/BatController';
 import DragonController from '../scripts/DragonController';
 import BombController from '../scripts/BombController';
 import * as SceneFactory from '../scripts/SceneFactory';
+import * as AlignmentHelper from '../scripts/AlignmentHelper';
 import ZeppelinController from '~/scripts/ZeppelinController';
 import TNTController from '~/scripts/TNTController';
 import BearController from '~/scripts/BearController';
@@ -20,11 +21,8 @@ import FlyController from '~/scripts/FlyController';
 import SawController from '~/scripts/SawController';
 import { sharedInstance as events } from '../scripts/EventManager';
 import BaseScene from './BaseScene';
-import BossController from '~/scripts/BossController';
-import LightSwitchController from '~/scripts/LightSwitchController';
-import DoorController from '~/scripts/DoorController';
+import LavaController from '~/scripts/LavaController';
 import NeonController from '~/scripts/NeonController';
-import BarController from '~/scripts/BarController';
 import { PlayerStats } from './PlayerStats';
 
 export default class Level6 extends BaseScene {
@@ -51,14 +49,10 @@ export default class Level6 extends BaseScene {
     private flies: FlyController[] = [];
     private crows: CrowController[] = [];
     private saws: SawController[] = [];
-    private boss: BossController[] = [];
-    private doors: DoorController[] = [];
-    private lightswitches: LightSwitchController[] = [];
+    private lava: LavaController[] = [];
     private neon: NeonController[] = [];
-    private bars: BarController[] = [];
     private playerX = -1;
     private playerY = -1;
-    private spotlight!: Phaser.GameObjects.Light;
     private objects: Phaser.Physics.Matter.Sprite[] = [];
     private sounds!: Map<string, Phaser.Sound.BaseSound>;
     
@@ -92,18 +86,17 @@ export default class Level6 extends BaseScene {
         this.flies = [];
         this.crows = [];
         this.saws = [];
-        this.boss = [];
-        this.doors = [];
         this.neon = [];
-        this.bars = [];
+        this.lava = [];
         this.objects = [];
         this.sounds = new Map<string, Phaser.Sound.BaseSound>();
 
         this.info = {
             'lastHealth': 100,
+            'highScorePoints': 0,
             'coinsCollected': 0,
             'carrotsCollected': 0,
-            'currLevel': 1,
+            'currLevel': 6,
             'scorePoints': 0,
             'livesRemaining': 3,
             'invincibility': false,
@@ -127,33 +120,14 @@ export default class Level6 extends BaseScene {
     }
 
     preload() {
-        this.load.tilemapTiledJSON('tilemap4', 'assets/map4.json');
         
-        this.load.atlas('boss', 'assets/boss.webp', 'assets/boss.json');
-        this.load.atlas('money', 'assets/money.webp', 'assets/money.json');
-        this.load.json( 'money-emitter', 'assets/money-emitter.json' );
-        this.load.atlas( 'plof', 'assets/plof.webp', 'assets/plof.json');
-
-        this.load.image('backboss', 'assets/backboss.webp');
-        this.load.image('bar', 'assets/bar.webp');
-        this.load.image('key', 'assets/key.webp');
-        this.load.atlas('stoplight', 'assets/stoplight.webp', 'assets/stoplight.json');
-        this.load.atlas('doors', 'assets/doors.webp', 'assets/doors.json');
-
-        this.load.spritesheet('family', 'assets/ra8bittiles128-bg.webp', { frameWidth: 128, frameHeight: 128, startFrame: 0, endFrame: 299 });
+        SceneFactory.preload(this);
         
+        this.load.image('clouds', 'assets/clouds.webp');
         this.load.atlas('neon', 'assets/neon.webp', 'assets/neon.json');
         this.load.atlas('neon2', 'assets/neon2.webp', 'assets/neon2.json');
 
-        this.load.audio('demon1', [ 'assets/demon_1.mp3', 'assets/demon_1.m4a']);
-        this.load.audio('demon2', [ 'assets/demon_2.mp3', 'assets/demon_2.m4a']);
-        this.load.audio('demon3', [ 'assets/demon_3.mp3', 'assets/demon_3.m4a']);
-        this.load.audio('demon4', [ 'assets/demon_4.mp3', 'assets/demon_4.m4a']);
-        
-        this.load.image('trashcan', 'assets/trashcan.webp');
-        this.load.image('ra8bits-64-tiles', 'assets/ra8bittiles64.webp');
-
-        SceneFactory.preload(this);
+        this.load.tilemapTiledJSON('tilemap7', 'assets/map7.json');
     }
 
     create() {
@@ -162,27 +136,27 @@ export default class Level6 extends BaseScene {
 
         this.sounds = SceneFactory.setupSounds(this);
 
-        this.scene.launch('ui');
+        SceneFactory.playRandomMusic(this);
 
-        SceneFactory.playRepeatMusic(this, "boss6");
+        this.scene.launch('ui');
 
         this.events.on('player-jumped', this.playerJumped, this);
 
         const { width, height } = this.scale;
+        const tint = 0xde1ed0;// 0x9800ff;
+        const totalWidth = 336 * 64;
+        const hei = 20 * 64;
+        const s = 2;
 
-        this.scene.scene.add
-            .image(0, 128, 'backboss')
-            .setOrigin(0, 0)
-            .setScrollFactor(1.0)
-      
-        this.map = this.make.tilemap({ key: 'tilemap4', tileWidth: 64, tileHeight: 64 });
+        AlignmentHelper.createAligned2(this, totalWidth, hei,"clouds", 0.5 / s,s); //mountain
+
+        this.map = this.make.tilemap({ key: 'tilemap7', tileWidth: 64, tileHeight: 64 });
         const groundTiles = this.map.addTilesetImage('ground', 'groundTiles', 64, 64, 0, 2);
-        const stonesTiles = this.map.addTilesetImage( 'stones', 'stonesTiles', 64,64,0 ,0);
         const propTiles = this.map.addTilesetImage('props', 'propTiles', 64, 64, 0, 2);
-        const ra8bitTiles = this.map.addTilesetImage('ra8bits-64', 'ra8bits-64-tiles', 64, 64, 0, 0);
+        const grasTiles = this.map.addTilesetImage('gras-purple', 'grasPurpleTiles', 64, 64, 0, 2);
         
-        this.ground1 = this.map.createLayer('ground', [groundTiles, ra8bitTiles,stonesTiles]);
-        this.layer1 = this.map.createLayer('layer1', [groundTiles, ra8bitTiles,stonesTiles]);
+        this.ground1 = this.map.createLayer('ground', [groundTiles,grasTiles]);
+        this.layer1 = this.map.createLayer('layer1', [groundTiles,grasTiles]);
      
         this.ground1.setCollisionByProperty({ collides: true, recalculateFaces: false });
        
@@ -247,43 +221,26 @@ export default class Level6 extends BaseScene {
         this.matter.world.convertTilemapLayer(this.ground1, { label: 'ground', friction: 0, frictionStatic: 0 });
         this.matter.world.setBounds(0,0,this.map.widthInPixels, this.map.heightInPixels, 1, true, true,false, false);
 
-    /*    this.matter.world.drawDebug = false;
-        this.input.keyboard.on("keydown-I", () => {
-            this.matter.world.drawDebug = !this.matter.world.drawDebug;
-            this.matter.world.debugGraphic.clear();
-        }); */
-
         this.matter.world.on("collisionstart", (e: { pairs: any; }, o1: any, o2: any) => {
             const pairs = e.pairs;
             for (let i = 0; i < pairs.length; i++) {
                 const bodyA = pairs[i].bodyA;
                 const bodyB = pairs[i].bodyB;
 
-                if (bodyA.gameObject === undefined)
-                    continue;
+                const dx = ~~ (bodyA.position.x - bodyB.position.x);
+                const dy = ~~ (bodyA.position.y - bodyB.position.y);
 
-                const dx = ~~(bodyA.position.x - bodyB.position.x);
-                const dy = ~~(bodyA.position.y - bodyB.position.y);
-                const { min, max } = bodyA.bounds;
+                const { min,max } = bodyA.bounds;
+              
                 const bw = max.x - min.x;
-                const bh = (max.y - min.y) * 0.5;
-
-                if (Math.abs(dx) <= bw && Math.abs(dy) <= bh) {
-                    events.emit(bodyA.gameObject?.name + '-blocked', bodyA.gameObject);
+                const bh = (max.y - min.y ) * 0.5;
+                if( Math.abs(dx) <= bw && Math.abs(dy) <= bh ) {
+                    events.emit( bodyA.gameObject?.name + '-blocked', bodyA.gameObject);        
                 }
             }
         });
 
         this.playerController?.setJoystick(this, width);
-
-        this.spotlight = this.scene.scene.lights
-            .addLight(0, 0, 200)
-            .setColor(0xFFC0CB)
-            .setIntensity(1.5)
-            .setVisible(true);
-
-        this.spotlight.x = this.playerController?.getX() || 0;
-        this.spotlight.y = this.playerController?.getY() || 0;
     }
 
     preDestroy() {
@@ -314,11 +271,9 @@ export default class Level6 extends BaseScene {
         this.flies.forEach(fly => fly.destroy());
         this.crows.forEach(crow => crow.destroy());
         this.saws.forEach(saw => saw.destroy());
-        this.boss.forEach(boss=>boss.destroy());
-
-        this.boss.forEach(boss=>boss.destroy());
+        this.lava.forEach(lava=>lava.destroy());
         this.neon.forEach(n=>n.destroy());
-        this.bars.forEach(b=>b.destroy());
+
         
         this.ground1.destroy();
         this.layer1.destroy();
@@ -344,7 +299,6 @@ export default class Level6 extends BaseScene {
         this.bats = this.bats.filter(e => e.keepObject());
         this.dragons = this.dragons.filter(e => e.keepObject());
         this.bears = this.bears.filter(e => e.keepObject());
-        this.boss = this.boss.filter(e=>e.keepObject());
       
         this.monsters.forEach(monster => {
             monster.update(deltaTime);
@@ -390,18 +344,13 @@ export default class Level6 extends BaseScene {
             saw.update(deltaTime);
             saw.lookahead(this.map);
         });
-        this.doors.forEach( door => door.update(deltaTime));
 
-        this.boss.forEach(boss => boss.update(deltaTime));
         this.neon.forEach(n=>n.update(deltaTime));
         
         this.playerController?.update(deltaTime);
 
 
         SceneFactory.cullSprites(this);
-
-        this.spotlight.x = this.playerController?.getX() || 0;
-        this.spotlight.y = this.playerController?.getY() || 0;
         
     }
 
