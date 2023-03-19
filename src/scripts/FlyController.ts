@@ -9,6 +9,7 @@ export default class FlyController {
     private garbage = false;
     private direction = 0;
     private moveTime = 0;
+    private moveTargetTime = 0;
     private name;
     private wingPower = 3;
 
@@ -44,6 +45,7 @@ export default class FlyController {
         events.on(this.name + '-blocked', this.handleBlocked, this);
 
         this.wingPower = Phaser.Math.FloatBetween(2.0, 4.0);
+        this.moveTargetTime = Phaser.Math.Between(2000, 5000);
 
     }
 
@@ -69,10 +71,11 @@ export default class FlyController {
 
     private moveDownOnUpdate(deltaTime: number) { // this is up actually
         this.moveTime += deltaTime;
-        this.sprite.setVelocityY(-1 * this.wingPower);
+        this.sprite?.setVelocityY(-1 * this.wingPower);
 
-        if (this.moveTime > 4000) {
+        if (this.moveTime > this.moveTargetTime) {
             this.stateMachine.setState('move-up');
+            this.moveTargetTime = Phaser.Math.Between(2000,5000);
         }
     }
 
@@ -83,15 +86,15 @@ export default class FlyController {
 
     private moveUpOnUPdate(deltaTime: number) {
         this.moveTime += deltaTime;
-        this.sprite.setVelocityY(4 * this.wingPower);
+        this.sprite?.setVelocityY(4 * this.wingPower);
 
-        if (this.moveTime > 1000) {
+        if (this.moveTime > this.moveTargetTime) {
             this.stateMachine.setState('move-down');
-
+            this.moveTargetTime = Phaser.Math.Between(2000,5000);
         }
     }
     public lookahead(map: Phaser.Tilemaps.Tilemap): boolean {
-        if (this.sprite.active == false)
+        if (this.sprite === undefined || this.sprite.active == false)
             return false;
 
         const direction = (this.sprite.body.velocity.y > 0) ? 1 : -1;
@@ -112,7 +115,7 @@ export default class FlyController {
     }
 
     private idleOnEnter() {
-        this.sprite.play('idle');
+        this.sprite?.play('idle');
         this.stateMachine.setState('move-down');
         this.direction = 0;
     }
@@ -124,8 +127,8 @@ export default class FlyController {
         this.garbage = true;
         events.off(this.name + '-stomped', this.handleStomped, this);
 
-        this.sprite.play('dead');
-        this.sprite.on('animationcomplete', () => {
+        this.sprite?.play('dead');
+        this.sprite?.on('animationcomplete', () => {
             this.cleanup();
         });
         this.stateMachine.setState('dead');
