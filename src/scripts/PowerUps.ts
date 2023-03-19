@@ -115,9 +115,9 @@ export default class PowerUps {
     }
 
     public activateWarp() {
-        let v = Phaser.Math.Between(1,6);
+        let v = Phaser.Math.Between(1,7);
         while( v == this.currLevel )
-           v = Phaser.Math.Between(1,6);
+           v = Phaser.Math.Between(1,7);
         SceneFactory.stopSound(this.scene);
 
         events.emit( "warp-level", v );
