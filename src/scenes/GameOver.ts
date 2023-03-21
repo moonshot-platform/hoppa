@@ -33,6 +33,7 @@ export default class GameOver extends Phaser.Scene {
         const { width, height } = this.scale;
         
         globalThis.musicTune = false;
+        globalThis.spawnLocation = 30 * 10;
 
         this.introMusic = SceneFactory.addSound(this, 'gameover', false);
 
@@ -64,16 +65,9 @@ export default class GameOver extends Phaser.Scene {
         if(SceneFactory.gamePadIsButton(this,-1)) {
             this.continueGame();
         }
-
-      /*  const waveOffset = Math.sin(this.offset);
-        const x = this.text.width  + waveOffset * this.amplitude;
-        const y = 256 + Math.abs(waveOffset) * 100;
-        this.text.setPosition(x, y);
-        this.offset += this.frequency; */
     }
 
     destroy() {
-       // this.text.destroy();
         this.introMusic?.destroy();
         this.anyKey?.destroy();
         this.textDemo.destroy();
