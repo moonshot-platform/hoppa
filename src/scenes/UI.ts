@@ -36,6 +36,10 @@ export default class UI extends Phaser.Scene {
         if( data != null ) {
             const obj = JSON.parse(data);
             this.info = obj as PlayerStats;
+
+            if(this.info.currLevel === undefined) {
+                this.info.currLevel = 0;
+            }
         }
         else {
             this.info = {
@@ -192,6 +196,7 @@ export default class UI extends Phaser.Scene {
 
     private startGame() {
         this.time_start = (this.time_start == 0 ? this.time.now: this.time_start);
+        this.lasttick = 0;
     }
 
     private setHealthBar(value: number) {
@@ -261,6 +266,7 @@ export default class UI extends Phaser.Scene {
         this.save();
 
         this.time_start = 0;
+        this.lasttick = 0;
         
         this.resetSpawnPoint();
         this.scene.stop(); // stop UI
@@ -271,10 +277,21 @@ export default class UI extends Phaser.Scene {
     }
 
     private handleWarpLevel(value: number) {
+       
+        
+        this.time_start = 0;
+        this.lasttick = 0;
+
+        this.resetSpawnPoint();
+
+        this.scene.stop();
         this.info.currLevel = value;
+        
         this.save();
 
-        this.time_start = 0;
+        this.levelLabel.setText('Level '+ this.info.currLevel);
+
+        this.scene.start( 'level' + this.info.currLevel );
     }
 
     private handleNextLevel() {
@@ -333,6 +350,8 @@ export default class UI extends Phaser.Scene {
 
         this.resetSpawnPoint();
         this.scene.stop();
+
+        this.lasttick = 0;
         this.time_start = 0;
     }
 
@@ -354,8 +373,7 @@ export default class UI extends Phaser.Scene {
     }
 
     private resetSpawnPoint() {
-        this.scene.scene.game.registry.set( 'playerX' , -1 );
-        this.scene.scene.game.registry.set( 'playerY' , -1 );
+        globalThis.spawnLocation = 30 * 10;
     }
 
     private updateScore(value: number) {
