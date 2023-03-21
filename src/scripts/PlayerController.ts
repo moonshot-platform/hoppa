@@ -41,7 +41,7 @@ export default class PlayerController {
     private ACCEL_FRAMES = 6;
     private DEACCEL_FRAMES = 3;
 
-    private bonusObjects = ['berry', 'pow', 'star', 'rubber1'];
+    private bonusObjects = ['berry', 'pow', 'star', 'rubber1', 'rubber2', 'rubber3'];
     private standingOnFloor = false;
     private standingOnPlatform = false;
     private wasStandingOnFloor = false;
@@ -89,7 +89,7 @@ export default class PlayerController {
         this.sounds = sounds;
         this.tilemap = tilemap;
         this.stats = stats;
-        this.throwDelay = 30;
+        this.throwDelay = 8;
         this.lastThrow = 0;
         this.name = globalThis.rabbit || 'player1';
         this.powerUps = new PowerUps(this, scene, false);
@@ -288,31 +288,13 @@ export default class PlayerController {
 
                     this.scene.matter.world.pause();
                     const v = this.obstacles.getValues('pipe', body);
-                    const vrh = v.room_hei;
-                    const ry = this.sprite.y;
-                    const rx = body.position.x;
 
-                    this.sprite.scene.tweens.add({
-                        targets: this.sprite,
-                        y: this.sprite.y + this.sprite.height,
-                        ease: 'Cubic.easeOut',
-                        duration: v.duration,
-                        delay: v.delay,
-                        onStart: () => {
-                            this.sprite.setPosition(rx, ry);
-                            this.stateMachine.setState('idle');
-                        },
-                        onComplete: () => {
-                            this.sprite.setPosition(v.dstx * 64, v.dsty * 64);
-                            if( vrh > 0) {
-                                this.scene.cameras.main.startFollow(this.sprite, true, undefined, undefined, undefined, 208);
-                            }
-                            else {
-                                this.scene.cameras.main.startFollow(this.sprite, true);
-                            }
-                            this.scene.matter.world.resume();
-                        }
-                    });
+                    if(v.level === undefined) {
+                        this.downThePipe(v.duration, v.delay, body.position.x, this.sprite.y, v.room_hei, v.dstx, v.dsty );
+                    } else {
+                        this.downTheWarpPipe(v.duration, v.delay, body.position.x, this.sprite?.y, v.level );
+                    }
+
                 }
             }
 
@@ -320,7 +302,7 @@ export default class PlayerController {
                 const v = this.obstacles.getValues('bonus', body);
                 if (v.use > 0 && (player.position.y > body.position.y)) {
                     SceneFactory.playSound(this.sounds, 'bonustile');
-                    let idx = (v.use == 3 ? 1 :  ~~(Math.random() * this.bonusObjects.length)); // first bonus is always POWER , followed by random bonus drop
+                    let idx = (v.use == 5 ? 1 :  ~~(Math.random() * this.bonusObjects.length)); // first bonus is always POWER , followed by random bonus drop
                     while (v.last == idx) {
                         idx = ~~(Math.random() * this.bonusObjects.length);
                     }
@@ -387,7 +369,7 @@ export default class PlayerController {
                 this.obstacles.isType('fire', body)) {
                 this.lastHitBy = body.gameObject;
 
-                if( (player.position.y + 31) < body.position.y ) {
+                if( ((player.position.y + 31) < body.position.y ) || this.powerUps.isBezerker()) {
                    this.stateMachine.setState('stomped');
                 }
                 else {
@@ -1511,14 +1493,23 @@ export default class PlayerController {
         return false;
     }
 
+
+
     public updateSpawnlocation() {
         if(this.sprite === undefined || this.sprite.body === undefined)
             return;
      
+        if(globalThis.spawnLocation > 0) {
+            this.scene.game.registry.remove( 'playerX' );
+            this.scene.game.registry.remove( 'playerY' );
+            globalThis.spawnLocation --;
+            return;
+        }
+
         if(!this.standingOnFloor)
            return;
 
-        if( this.sprite.body?.velocity.y != 0 || this.sprite.body?.velocity.x == 0 )
+        if( this.sprite.body?.velocity.y != 0 || this.sprite.body?.velocity.x != 0 )
             return;
 
         const nx =  ~~( this.sprite.body.position.x / 64) * 64;
@@ -1532,8 +1523,6 @@ export default class PlayerController {
             )) {
             this.scene.game.registry.set('playerX', nx);
             this.scene.game.registry.set('playerY', nny);
-            this.spawn_x = nx;
-            this.spawn_y = ny;
         }
     }
 
@@ -1780,6 +1769,48 @@ export default class PlayerController {
     }
     public isStart(): boolean {
         return this.isGamePadButton(9);
+    }
+
+    private downThePipe(duration: number, delay: number, startX: number, startY: number, room_hei: number = 0, dstX: number, dstY: number ) {
+        this.sprite?.scene.tweens.add({
+            targets: this.sprite,
+            y: this.sprite.y + this.sprite.height,
+            ease: 'Cubic.easeOut',
+            duration: duration,
+            delay: delay,
+            onStart: () => {
+                this.sprite.setPosition(startX, startY);
+                this.stateMachine.setState('idle');
+            },
+            onComplete: () => {
+                this.sprite?.setPosition(dstX * 64, dstY * 64);
+                if( room_hei > 0) {
+                    this.scene.cameras.main.startFollow(this.sprite, true, undefined, undefined, undefined, 208);
+                }
+                else {
+                    this.scene.cameras.main.startFollow(this.sprite, true);
+                }
+                this.scene.matter.world.resume();
+            }
+        });
+    }
+
+    private downTheWarpPipe(duration: number, delay: number, startX: number, startY: number, level: number ) {
+        this.sprite?.scene.tweens.add({
+            targets: this.sprite,
+            y: this.sprite.y + this.sprite.height,
+            ease: 'Cubic.easeOut',
+            duration: duration,
+            delay: delay,
+            onStart: () => {
+                this.sprite.setPosition(startX, startY);
+                this.stateMachine.setState('idle');
+            },
+            onComplete: () => {
+                this.scene.scene.stop('warp'); //@ this is only possible from warp level
+                events.emit('warp-level', level );
+            }
+        });
     }
 
     private isGamePadRight(): boolean {
