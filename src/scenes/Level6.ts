@@ -112,6 +112,7 @@ export default class Level6 extends BaseScene {
             const obj = JSON.parse(data);
             this.info = obj as PlayerStats;
         }
+        this.info.currLevel = 6;
 
         this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
             this.destroy();
@@ -168,8 +169,8 @@ export default class Level6 extends BaseScene {
 
         const collideWith = [1, playerCat];
 
-        this.playerX = this.scene.scene.game.registry.get('playerX') || -1;
-        this.playerY = this.scene.scene.game.registry.get('playerY') || -1;
+        this.playerX = this.game.registry.get('playerX') || -1;
+        this.playerY = this.game.registry.get('playerY') || -1;
 
         const objectsLayer = this.map.getObjectLayer('objects');
         objectsLayer?.objects.forEach(objData => {

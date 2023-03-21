@@ -99,7 +99,7 @@ export default class Level4 extends BaseScene {
             'lastHealth': 100,
             'coinsCollected': 0,
             'carrotsCollected': 0,
-            'currLevel': 1,
+            'currLevel': 4,
             'scorePoints': 0,
             'highScorePoints': 0,
             'livesRemaining': 3,
@@ -116,6 +116,7 @@ export default class Level4 extends BaseScene {
             const obj = JSON.parse(data);
             this.info = obj as PlayerStats;
         }
+        this.info.currLevel = 4;
 
         this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
             this.destroy();
