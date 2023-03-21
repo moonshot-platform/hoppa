@@ -106,7 +106,6 @@ export default class HoppaSelect extends Phaser.Scene {
             this.disconnectLabel.setText("Quit");
         }
 
-
         this.time.delayedCall( 10000, () => {
             this.scene.stop();
             const n = Phaser.Math.Between(0,5);
@@ -117,6 +116,7 @@ export default class HoppaSelect extends Phaser.Scene {
             this.scene.start(scene);
         });
 
+        globalThis.spawnLocation = 30 * 10;
     }
 
     createArrow() {
