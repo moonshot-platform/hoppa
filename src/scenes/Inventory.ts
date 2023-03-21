@@ -33,7 +33,7 @@ export default class Inventory extends Phaser.Scene {
         "Power Up! Smash those bricks!",
         "Power Up! Need more speed!",
         "Surprise!",
-        "Unknown destination",
+        "Warp to any level!",
         "Another voice!"
     ];
 
@@ -121,7 +121,6 @@ export default class Inventory extends Phaser.Scene {
           i = 0;
         this.gridIndex = i;
 
-        console.log( this.gridIndex + " -> " + this.grid[ this.gridIndex] );
         const cell = this.grid[ this.gridIndex ];
         
         if(this.player.isSpace()) {
