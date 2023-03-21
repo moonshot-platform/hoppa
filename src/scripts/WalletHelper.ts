@@ -16,6 +16,7 @@ declare global {
     var totalTokensStaked: number;
     var allowance: number;
     var leavePenalty: number;
+    var spawnLocation: number;
     interface Window {
         ethereum: import('ethers').providers.ExternalProvider;
     }
