@@ -409,6 +409,9 @@ export function preload(ctx) {
     ctx.load.image('star', 'assets/star.webp');
     ctx.load.image('toad', 'assets/toad.webp');
     ctx.load.image('rubber1', 'assets/rubber_1.webp');
+    ctx.load.image('rubber2', 'assets/rubber_2.webp');
+    ctx.load.image('rubber3', 'assets/rubber_3.webp');
+    
     ctx.load.image('dropping', 'assets/dropping.webp');
     ctx.load.image('pokeball', 'assets/pokeball.webp');
     ctx.load.image('moonshot-ball', 'assets/moonshot-ball.webp');
@@ -616,6 +619,8 @@ export function preload(ctx) {
     ctx.load.audio( 'offtoday-vd', ['assets/offtoday-vd.mp3', 'assets/offtoday-vd.m4a' ]);
 
     setupHandlers(ctx);
+
+    globalThis.spawnLocation = 30 * 10;
 }
 
 export function cullSprites(ctx: Phaser.Scene) {
@@ -645,6 +650,7 @@ export function cullSprites(ctx: Phaser.Scene) {
 }
 
 export function createPlayer(ctx, x: number, y: number, width: number, height: number, playerCat: number): Phaser.Physics.Matter.Sprite {
+
     const player = ctx.matter.add.sprite(
         x + (width * 0.5),
         y,
@@ -828,12 +834,13 @@ export function basicCreate(ctx, name, x, y, width, height, rotation, enemyCat, 
             const duration = objData.properties.find((p) => p.name === 'duration')?.value || 0;
             const room_wid = objData.properties.find((p) => p.name === 'room_width')?.value || 0;
             const room_hei = objData.properties.find((p) => p.name === 'room_height')?.value || 0;
+            const level = objData.properties.find((p) => p.name === 'level')?.value;
 
             const pipe = ctx.matter.add.rectangle(x + (width * 0.5), y + (height * 0.5), width, height, {
                 isStatic: true,
                 label: 'pipe'
             });
-            controller.addWithValues('pipe', undefined, pipe,{ "dstx": dstx, "dsty": dsty, "delay": delay, "duration": duration, "room_width": room_wid, "room_height": room_hei });
+            controller.addWithValues('pipe', undefined, pipe,{ "dstx": dstx, "dsty": dsty, "delay": delay, "duration": duration, "room_width": room_wid, "room_height": room_hei, "level": level });
             break;
         }
         case 'platform': {
@@ -926,7 +933,7 @@ export function basicCreate(ctx, name, x, y, width, height, rotation, enemyCat, 
                 isStatic: true,
                 label: 'bonus',
             });
-            controller.addWithValues('bonus', undefined, bonus, { "use": 3, "last": -1 });
+            controller.addWithValues('bonus', undefined, bonus, { "use": 5, "last": -1 });
             break;
         }
         case 'exit': {
