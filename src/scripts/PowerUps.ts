@@ -10,12 +10,17 @@ export default class PowerUps {
     private hasPoop = false;
     private hasPokeBall = false;
     private hasVoice = false;
+    private hasBeserker = false;
 
     private currLevel = 1;
     private scene!: Phaser.Scene;
     private player: PlayerController;
     private hasEvents = false;
     private oldSpeed: number = 5;
+
+    private blinkingTween?: Phaser.Tweens.Tween;
+    private timerEvent?:Phaser.Time.TimerEvent;
+
     
     constructor(player: PlayerController, scene: Phaser.Scene, inventoryTrigger: boolean = false) {
         this.player = player;
@@ -115,21 +120,15 @@ export default class PowerUps {
     }
 
     public activateWarp() {
-        let v = Phaser.Math.Between(1,7);
-        while( v == this.currLevel )
-           v = Phaser.Math.Between(1,7);
+      
         SceneFactory.stopSound(this.scene);
 
-        events.emit( "warp-level", v );
+        events.emit( "warp-level" );
 
         this.scene.scene.stop( 'inventory' );
         this.scene.scene.stop( 'level' + this.currLevel );
 
-        this.scene.game.registry.set( 'playerX' , -1 );
-        this.scene.game.registry.set( 'playerY' , -1 );
-
-        this.scene.scene.start( 'level' + v);
-        this.currLevel = v;
+        this.scene.scene.start( 'warp' );
     }
 
     public activateDeadEnd() {
@@ -145,6 +144,7 @@ export default class PowerUps {
         this.hasPoop = false;
         this.hasPokeBall = false;
         this.hasVoice = false;
+        this.hasBeserker = false;
     }
 
     public isInvincible(): boolean {
@@ -185,6 +185,56 @@ export default class PowerUps {
 
         this.player.getSprite()?.setCollidesWith([1]);
         events.emit('power-invincible', this.hasInvincibility);
+    
+        this.blink(0xf5ee31, 10);
+    }
+
+    public setCrazySpeed(scene: Phaser.Scene) {
+        this.hasSpeedUp = true;
+        this.hasPower = true;
+        this.player.setSpeed(8);
+
+        if(this.hasBeserker) {
+            this.player.setSpeed(9);
+        }
+
+        events.emit('power-power', this.hasPower);
+        events.emit('power-speed', this.hasSpeedUp);
+
+        this.blink(0xa5135d, 10);
+        scene.time.delayedCall(10 * 1000,  this.restoreCrazySpeed, undefined, this );
+    }
+
+    public restoreCrazySpeed() {
+        this.player.setSpeed(this.oldSpeed);
+        events.emit('power-speed', false);
+    }
+
+    public setBezerker(scene: Phaser.Scene) {
+        
+        this.hasBeserker = true;
+        this.hasInvincibility = true;
+        this.hasPower = true;
+        
+        scene.time.delayedCall(10 * 1000,  this.restoreBezerker, undefined, this );
+
+        const startColor = Phaser.Display.Color.ValueToColor(0x3d022e);
+        const endColor = Phaser.Display.Color.ValueToColor(0xe956c4);
+        events.emit('power-invincible', this.hasInvincibility);
+        events.emit('power-power', this.hasPower);
+
+        this.blink(0xe672ad, 10);
+    }
+
+    public restoreBezerker() {
+        this.hasBeserker = false;
+        this.hasInvincibility = false;
+        
+        events.emit('power-invincible', this.hasInvincibility);
+    }
+
+    public isBezerker() {
+        return this.hasBeserker;
     }
 
     public restoreInvincibility() {
@@ -238,7 +288,59 @@ export default class PowerUps {
                 this.setInvincibility(scene);
                 break;
             }
+            case 'rubber2': {
+                this.setBezerker(scene);
+                break;
+            }
+            case 'rubber3': {
+                this.setCrazySpeed(scene);
+                break;
+            }
         }
+    }
+
+    private blink(color: number, duration: number) {
+        this.blinkingTween?.stop();
+        this.timerEvent?.remove();
+        this.player.getSprite()?.setTint(0xffffff);
+  
+        const startColor = Phaser.Display.Color.ValueToColor(0xffffff);
+        const endColor = Phaser.Display.Color.ValueToColor(color);
+
+        this.blinkingTween = this.scene.tweens.addCounter({
+            from: 0,
+            to: 100,
+            duration: 100,
+            repeat: -1,
+            yoyo: true,
+            ease: Phaser.Math.Easing.Sine.InOut,
+            onUpdate: tween => {
+                const value = tween.getValue();
+                const colorObject = Phaser.Display.Color.Interpolate.ColorWithColor(
+                    startColor,
+                    endColor,
+                    100,
+                    value
+                );
+
+                const color = Phaser.Display.Color.GetColor(
+                    colorObject.r,
+                    colorObject.g,
+                    colorObject.b
+                );
+
+                this.player.getSprite()?.setTint(color);
+            }
+        });
+
+        this.timerEvent = this.scene.time.addEvent({
+            delay: duration * 1000,
+            callback: () => {
+                this.blinkingTween?.stop();
+                this.player.getSprite()?.setTint(0xffffff);
+                this.timerEvent = undefined;
+            }
+        });
     }
 
 }
