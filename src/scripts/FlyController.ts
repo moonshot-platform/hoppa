@@ -144,13 +144,13 @@ export default class FlyController {
     }
 
     private handleBlocked(fly: Phaser.Physics.Matter.Sprite) {
-        if (this.sprite !== fly) {
+        if (this.sprite !== fly || this.sprite === undefined) {
             return;
         }
 
         this.moveTime = 0;
 
-        if (Math.random() < 0.5) {
+        if (this.sprite?.body?.velocity.y > 0) {
             this.stateMachine.setState('move-down');
         }
         else {
