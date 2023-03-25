@@ -237,6 +237,7 @@ var filesToCache = [
 '/hoppa/assets/press_start_2p.fnt',
 '/hoppa/assets/press_start_2p.webp',
 '/hoppa/assets/ra8bit1-map.json',
+'/hoppa/assets/ra8bit2-map.json',
 '/hoppa/assets/ra8bittiles128-bg.webp',
 '/hoppa/assets/ra8bittiles2.json',
 '/hoppa/assets/ra8bittiles2.webp',
