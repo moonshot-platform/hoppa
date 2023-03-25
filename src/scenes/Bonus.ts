@@ -111,6 +111,10 @@ export default class Bonus extends Phaser.Scene {
 
         this.info.currLevel = 1;
 
+        this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
+            this.destroy();
+        });
+
     }
 
     preload() {
