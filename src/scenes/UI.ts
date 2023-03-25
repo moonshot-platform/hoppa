@@ -278,20 +278,20 @@ export default class UI extends Phaser.Scene {
 
     private handleWarpLevel(value: number) {
        
-        
+        this.levelLabel.setText('Level '+ this.info.currLevel);
+
         this.time_start = 0;
         this.lasttick = 0;
 
         this.resetSpawnPoint();
 
         this.scene.stop();
-        this.info.currLevel = value;
-        
-        this.save();
 
-        this.levelLabel.setText('Level '+ this.info.currLevel);
-
-        this.scene.start( 'level' + this.info.currLevel );
+        if( value > 0 ) {
+            this.info.currLevel = value;
+            this.save();
+            this.scene.start( 'level' + this.info.currLevel );
+        }
     }
 
     private handleNextLevel() {
@@ -299,7 +299,8 @@ export default class UI extends Phaser.Scene {
             this.info.currLevel = 1;
         }
         else {
-           this.info.currLevel ++;
+           if(this.info.currLevel < 7)
+             this.info.currLevel ++;
         }
 
         this.handleSceneSwitch();
