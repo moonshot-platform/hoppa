@@ -33,8 +33,7 @@ export default class GameOver extends Phaser.Scene {
         const { width, height } = this.scale;
         
         globalThis.musicTune = false;
-        globalThis.spawnLocation = 30 * 10;
-
+        
         this.introMusic = SceneFactory.addSound(this, 'gameover', false);
 
        /* this.text = this.add.bitmapText(width * 0.5, height * 0.5, 'press_start', 'GAME OVER', 64)
@@ -57,7 +56,7 @@ export default class GameOver extends Phaser.Scene {
 
     continueGame() {
         this.introMusic?.stop();
-
+        SceneFactory.resetSpawnPoint(this);
         this.hasNewHighscore();
     }
 

@@ -1166,8 +1166,6 @@ export default class PlayerController {
             this.scene.scene.stop('ui');
             this.scene.scene.stop();
             this.scene.scene.start('hoppa');
-            this.scene.game.registry.remove( 'playerX' );
-            this.scene.game.registry.remove( 'playerY' );
         }
     }
 
@@ -1498,8 +1496,7 @@ export default class PlayerController {
             return;
      
         if(globalThis.spawnLocation > 0) {
-            this.scene.game.registry.remove( 'playerX' );
-            this.scene.game.registry.remove( 'playerY' );
+            SceneFactory.resetSpawnPoint(this.scene);
             globalThis.spawnLocation --;
             return;
         }

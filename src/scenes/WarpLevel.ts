@@ -350,8 +350,7 @@ export default class WarpLevel extends BaseScene {
 
 
         SceneFactory.cullSprites(this);
-        
-        globalThis.spawnLocation = 30 * 10;
+        SceneFactory.resetSpawnPoint(this);
     }
 
     playerJumped() {

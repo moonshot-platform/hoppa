@@ -1058,6 +1058,12 @@ export function isGamePadDown(ctx: Phaser.Scene) : boolean {
     return false;
 }
 
+export function resetSpawnPoint(scene: Phaser.Scene) {
+    scene.game.registry.remove( 'playerX' );
+    scene.game.registry.remove( 'playerY' );
+    globalThis.spawnLocation = 30 * 10;
+}
+
 export function isGamePadUp(ctx: Phaser.Scene) : boolean {
     const pad = ctx.input.gamepad?.getPad(0);
     if(pad?.axes.length) {

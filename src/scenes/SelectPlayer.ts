@@ -72,6 +72,7 @@ export default class GameSettingsMenu extends Phaser.Scene {
         globalThis.rabbit = 'player1';
         globalThis.voice = '';
         SceneFactory.playSound(this.sounds, 'blip');
+        SceneFactory.resetSpawnPoint(this);
     }
 
     selectPlayer2() {
@@ -82,6 +83,7 @@ export default class GameSettingsMenu extends Phaser.Scene {
         globalThis.rabbit = 'player2';
         globalThis.voice = '-cs';
         SceneFactory.playSound(this.sounds, 'blip');
+        SceneFactory.resetSpawnPoint(this);
     }
 
     create() {

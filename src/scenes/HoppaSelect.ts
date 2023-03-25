@@ -116,7 +116,6 @@ export default class HoppaSelect extends Phaser.Scene {
             this.scene.start(scene);
         });
 
-        globalThis.spawnLocation = 30 * 10;
     }
 
     createArrow() {
