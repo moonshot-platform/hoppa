@@ -50,6 +50,7 @@ export default class PowerUps {
             this.hasVoice = info.voice;
             this.hasPoop = info.throw;
             this.currLevel = info.currLevel;
+            
             if(this.hasPokeBall) {
                 this.player.setProjectile("moonshot-ball", "moonshot-splash");
             }
@@ -88,7 +89,7 @@ export default class PowerUps {
 
     public activateAnotherPlayer() {
         this.player.toggle();
-        this.scene.scene.stop('inventory');
+        this.closeInventory();
     }
 
     public activateSpeedUp() {
@@ -106,7 +107,7 @@ export default class PowerUps {
 
     public activateMystery() {
         this.player.toggle();
-        this.scene.scene.stop('inventory');
+        this.closeInventory();
     }
 
     public activateDroppings() {
@@ -123,7 +124,7 @@ export default class PowerUps {
       
         SceneFactory.stopSound(this.scene);
 
-        events.emit( "warp-level" );
+        events.emit( "warp-level", 0 );
 
         this.scene.scene.stop( 'inventory' );
         this.scene.scene.stop( 'level' + this.currLevel );
@@ -132,7 +133,8 @@ export default class PowerUps {
     }
 
     public activateDeadEnd() {
-        this.scene.scene.stop('inventory');
+        this.closeInventory();
+
         this.scene.scene.restart();
         events.emit('restart');
     }
@@ -297,6 +299,11 @@ export default class PowerUps {
                 break;
             }
         }
+    }
+
+    private closeInventory() {
+        this.player.unpokeVirtualStick(this.scene);
+        this.scene.scene.stop('inventory');
     }
 
     private blink(color: number, duration: number) {
