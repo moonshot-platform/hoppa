@@ -1,0 +1,2822 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="100" height="12" tilewidth="64" tileheight="64" infinite="0" nextlayerid="18" nextobjectid="758">
+ <editorsettings>
+  <export target="ra8bit2-map.json" format="json"/>
+ </editorsettings>
+ <tileset firstgid="1" name="ground" tilewidth="64" tileheight="64" spacing="2" tilecount="71" columns="7">
+  <image source="terrainv3.webp" width="512" height="658"/>
+  <tile id="0">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="1">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="2">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="false"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="3">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="false"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="4">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="false"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="5">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="6">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="7">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="8">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="9">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="10">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="11">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="12">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="13">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="14">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="false"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="hits" type="int" value="3"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+    <property name="particle" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="15">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="16">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="17">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="18">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="19">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="20">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="true"/>
+    <property name="breakdelay" type="float" value="500"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="21">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="true"/>
+    <property name="breakdelay" type="float" value="500"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="22">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="true"/>
+    <property name="breakdelay" type="float" value="500"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="23">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="true"/>
+    <property name="breakdelay" type="float" value="500"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="24">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="25">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="26">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="27">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="28">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="29">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="30">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="31">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="32">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="33">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="34">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="35">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="36">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="37">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="false"/>
+    <property name="damage" type="float" value="25"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="38">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="100"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+    <property name="sound" value="lava"/>
+   </properties>
+  </tile>
+  <tile id="39">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="100"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+    <property name="sound" value="lava"/>
+   </properties>
+  </tile>
+  <tile id="40">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="41">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="42">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="43">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="44">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="45">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="46">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="47">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="48">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="49">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="50">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="51">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="52">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="53">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+    <property name="pipe" type="bool" value="false"/>
+   </properties>
+  </tile>
+  <tile id="54">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+    <property name="pipe" type="bool" value="false"/>
+   </properties>
+  </tile>
+  <tile id="55">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="56">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="57">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="58">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="59">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="60">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="61">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="62">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="63">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="64">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="65">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="66">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="false"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="67">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="100"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+    <property name="sound" value="splash"/>
+   </properties>
+  </tile>
+  <tile id="68">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="100"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+    <property name="sound" value="splash"/>
+   </properties>
+  </tile>
+  <tile id="69">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="25"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="70">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="false"/>
+    <property name="damage" type="float" value="25"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="72" name="props" tilewidth="64" tileheight="64" tilecount="16" columns="4">
+  <image source="spritesheet_props.webp" width="256" height="256"/>
+ </tileset>
+ <tileset firstgid="88" name="sky" tilewidth="800" tileheight="600" tilecount="1" columns="1">
+  <image source="sky.webp" width="800" height="600"/>
+ </tileset>
+ <tileset firstgid="89" name="ra8bits-64" tilewidth="64" tileheight="64" tilecount="105" columns="15">
+  <image source="ra8bittiles64.webp" width="960" height="448"/>
+  <tile id="0">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="1">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="2">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="3">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="4">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="5">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="6">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="7">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="8">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="9">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="10">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="11">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="12">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="13">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="14">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="15">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="16">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="17">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="18">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="19">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="20">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="21">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="22">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="23">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="24">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="25">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="26">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="27">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="28">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="29">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="30">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="31">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="32">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="33">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="34">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="35">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="36">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="37">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="38">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="39">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="40">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="41">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="42">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="43">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="44">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="45">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="46">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="47">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="48">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="49">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="50">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="51">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="52">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="53">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="54">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="55">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="56">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="57">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="58">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="59">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="60">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="61">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="62">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="63">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="64">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="65">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="66">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="67">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="68">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="69">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="70">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="71">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="72">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="73">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="74">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="75">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="76">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="77">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="78">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="79">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="80">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="81">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="82">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="83">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="84">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="85">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="86">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="87">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="88">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="89">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="90">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="91">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="92">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="93">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="94">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="95">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="96">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="97">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="98">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="99">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="100">
+   <properties>
+    <property name="anim" value=""/>
+    <property name="bonus" type="bool" value="false"/>
+    <property name="breakable" type="bool" value="false"/>
+    <property name="breakdelay" type="float" value="0"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="damage" type="float" value="0"/>
+    <property name="dec_vx" type="float" value="0"/>
+    <property name="dec_vy" type="float" value="0"/>
+    <property name="inc_vx" type="float" value="0"/>
+    <property name="inc_vy" type="float" value="0"/>
+   </properties>
+  </tile>
+ </tileset>
+ <objectgroup id="3" name="objects">
+  <object id="108" name="heart" x="4449.33" y="290.667" width="64" height="64"/>
+  <object id="148" name="exit" x="21312" y="2752" width="62" height="58">
+   <properties>
+    <property name="event" value="next-level"/>
+   </properties>
+  </object>
+  <object id="162" name="monster" x="16512" y="2944" width="64" height="128"/>
+  <object id="169" name="fire" x="14521.2" y="3069.21" width="64" height="64"/>
+  <object id="173" name="dragon" x="15134" y="2972.67" width="64" height="96"/>
+  <object id="188" name="flower" x="15454.2" y="2941.62" width="64" height="64"/>
+  <object id="277" name="coin" x="14912" y="2496" width="64" height="64"/>
+  <object id="278" name="coin" x="14729.1" y="2294.91" width="64" height="64"/>
+  <object id="279" name="coin" x="14400" y="2880" width="64" height="64"/>
+  <object id="282" name="coin" x="14464" y="2880" width="64" height="64"/>
+  <object id="283" name="coin" x="18048" y="2560" width="64" height="64"/>
+  <object id="284" name="coin" x="18048" y="2624" width="64" height="64"/>
+  <object id="285" name="coin" x="18048" y="2688" width="64" height="64"/>
+  <object id="286" name="coin" x="18048" y="2816" width="64" height="64"/>
+  <object id="287" name="coin" x="18048" y="2944" width="64" height="64"/>
+  <object id="288" name="coin" x="18048" y="2880" width="64" height="64"/>
+  <object id="289" name="coin" x="17152" y="2496" width="64" height="64"/>
+  <object id="290" name="coin" x="18048" y="2752" width="64" height="64"/>
+  <object id="291" name="monster" x="17024" y="2752" width="64" height="64"/>
+  <object id="313" name="bird" x="18304" y="2496" width="64" height="64"/>
+  <object id="314" name="bird" x="18112" y="2204" width="64" height="64"/>
+  <object id="403" name="crab" x="14272" y="2688" width="64" height="64"/>
+  <object id="404" name="crab" x="13952" y="2944" width="64" height="64"/>
+  <object id="413" name="firewalker" x="13376" y="3008" width="64" height="64"/>
+  <object id="414" name="firewalker" x="12992" y="3008" width="64" height="64"/>
+  <object id="415" name="firewalker" x="15040" y="2816" width="64" height="64"/>
+  <object id="416" name="firewalker" x="14720" y="2816" width="64" height="64"/>
+  <object id="417" name="firewalker" x="16832" y="2496" width="64" height="64"/>
+  <object id="418" name="firewalker" x="16832" y="2752" width="64" height="64"/>
+  <object id="419" name="firewalker" x="17024" y="3008" width="64" height="64"/>
+  <object id="420" name="firewalker" x="17216" y="3008" width="64" height="64"/>
+  <object id="421" name="firewalker" x="15872" y="3008" width="64" height="64"/>
+  <object id="446" name="pipe" x="1456.12" y="575.789" width="32" height="64">
+   <properties>
+    <property name="delay" type="int" value="200"/>
+    <property name="dstx" type="int" value="95"/>
+    <property name="dsty" type="int" value="0"/>
+    <property name="duration" type="int" value="1500"/>
+    <property name="room_height" type="int" value="0"/>
+    <property name="room_width" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="448" name="coin" x="640" y="64" width="64" height="64"/>
+  <object id="449" name="coin" x="704" y="128" width="64" height="64"/>
+  <object id="450" name="coin" x="320" y="320" width="64" height="64"/>
+  <object id="451" name="coin" x="1440" y="432" width="64" height="64"/>
+  <object id="452" name="coin" x="1389.33" y="326.667" width="64" height="64"/>
+  <object id="453" name="coin" x="1453.33" y="326.667" width="64" height="64"/>
+  <object id="454" name="coin" x="1517.33" y="326.667" width="64" height="64"/>
+  <object id="455" name="coin" x="1024" y="320" width="64" height="64"/>
+  <object id="456" name="coin" x="1088" y="320" width="64" height="64"/>
+  <object id="457" name="coin" x="1152" y="320" width="64" height="64"/>
+  <object id="458" name="coin" x="1216" y="320" width="64" height="64"/>
+  <object id="483" name="coin" x="768" y="64" width="64" height="64"/>
+  <object id="491" name="coin" x="3712" y="256" width="64" height="64"/>
+  <object id="492" name="coin" x="3840" y="256" width="64" height="64"/>
+  <object id="496" name="coin" x="3776" y="64" width="64" height="64"/>
+  <object id="508" name="coin" x="2976" y="156" width="64" height="64"/>
+  <object id="509" name="coin" x="2976" y="284.003" width="64" height="64"/>
+  <object id="510" name="coin" x="3104" y="156" width="64" height="64"/>
+  <object id="511" name="coin" x="3104" y="284.003" width="64" height="64"/>
+  <object id="512" name="coin" x="3232" y="156" width="64" height="64"/>
+  <object id="513" name="coin" x="3232" y="284.003" width="64" height="64"/>
+  <object id="514" name="coin" x="5406" y="276.002" width="64" height="64"/>
+  <object id="515" name="coin" x="5406" y="147.999" width="64" height="64"/>
+  <object id="516" name="coin" x="5534" y="147.999" width="64" height="64"/>
+  <object id="517" name="coin" x="5534" y="276.002" width="64" height="64"/>
+  <object id="518" name="coin" x="5662" y="147.999" width="64" height="64"/>
+  <object id="519" name="coin" x="5662" y="276.002" width="64" height="64"/>
+  <object id="520" name="coin" x="5790" y="147.999" width="64" height="64"/>
+  <object id="521" name="coin" x="5790" y="276.002" width="64" height="64"/>
+  <object id="522" name="player-spawn" x="319.151" y="20.4847" width="64" height="96"/>
+  <object id="523" name="exit" x="6208" y="192" width="64" height="64">
+   <properties>
+    <property name="event" value="next-level"/>
+    <property name="room" value="level7"/>
+   </properties>
+  </object>
+  <object id="524" name="billboard" x="1889.33" y="191" width="192" height="220"/>
+  <object id="525" name="billboard" x="3262.83" y="405.667" width="192" height="220"/>
+  <object id="526" name="lightswitch" x="512" y="256" width="64" height="64"/>
+  <object id="527" name="changeskin" x="4224" y="64" width="64" height="64">
+   <properties>
+    <property name="use" type="int" value="3"/>
+   </properties>
+  </object>
+  <object id="528" name="coinbrick" x="2240" y="256" width="64" height="64">
+   <properties>
+    <property name="hits" type="int" value="3"/>
+   </properties>
+  </object>
+  <object id="529" name="coinbrick" x="2496" y="192" width="64" height="64">
+   <properties>
+    <property name="hits" type="int" value="3"/>
+   </properties>
+  </object>
+  <object id="530" name="coinbrick" x="5953.33" y="192" width="64" height="64">
+   <properties>
+    <property name="hits" type="int" value="3"/>
+   </properties>
+  </object>
+  <object id="531" name="coinbrick" x="1024" y="448" width="64" height="64">
+   <properties>
+    <property name="hits" type="int" value="3"/>
+   </properties>
+  </object>
+  <object id="532" name="coinbrick" x="1216" y="448" width="64" height="64">
+   <properties>
+    <property name="hits" type="int" value="3"/>
+   </properties>
+  </object>
+  <object id="533" name="neon" x="218.667" y="160" width="256" height="52">
+   <properties>
+    <property name="taste" value="neon"/>
+   </properties>
+  </object>
+  <object id="534" name="neon" x="3680" y="165.667" width="256" height="52">
+   <properties>
+    <property name="taste" value="neon2"/>
+   </properties>
+  </object>
+  <object id="537" name="lava-top" x="0" y="640" width="64" height="64"/>
+  <object id="538" name="lava-center" x="0" y="704" width="64" height="64"/>
+  <object id="539" name="lava-top" x="64" y="640" width="64" height="64"/>
+  <object id="540" name="lava-center" x="64" y="704" width="64" height="64"/>
+  <object id="541" name="lava-top" x="128" y="640" width="64" height="64"/>
+  <object id="542" name="lava-top" x="192" y="640" width="64" height="64"/>
+  <object id="543" name="lava-center" x="128" y="704" width="64" height="64"/>
+  <object id="544" name="lava-center" x="192" y="704" width="64" height="64"/>
+  <object id="545" name="lava-top" x="256" y="640" width="64" height="64"/>
+  <object id="546" name="lava-center" x="256" y="704" width="64" height="64"/>
+  <object id="547" name="lava-top" x="320" y="640" width="64" height="64"/>
+  <object id="548" name="lava-center" x="320" y="704" width="64" height="64"/>
+  <object id="549" name="lava-top" x="384" y="640" width="64" height="64"/>
+  <object id="550" name="lava-center" x="384" y="704" width="64" height="64"/>
+  <object id="551" name="lava-top" x="448" y="640" width="64" height="64"/>
+  <object id="552" name="lava-top" x="512" y="640" width="64" height="64"/>
+  <object id="553" name="lava-center" x="448" y="704" width="64" height="64"/>
+  <object id="554" name="lava-center" x="512" y="704" width="64" height="64"/>
+  <object id="555" name="lava-top" x="576" y="640" width="64" height="64"/>
+  <object id="556" name="lava-center" x="576" y="704" width="64" height="64"/>
+  <object id="557" name="lava-top" x="640" y="640" width="64" height="64"/>
+  <object id="558" name="lava-center" x="640" y="704" width="64" height="64"/>
+  <object id="559" name="lava-top" x="704" y="640" width="64" height="64"/>
+  <object id="560" name="lava-center" x="704" y="704" width="64" height="64"/>
+  <object id="561" name="lava-top" x="768" y="640" width="64" height="64"/>
+  <object id="562" name="lava-top" x="832" y="640" width="64" height="64"/>
+  <object id="563" name="lava-center" x="768" y="704" width="64" height="64"/>
+  <object id="564" name="lava-center" x="832" y="704" width="64" height="64"/>
+  <object id="565" name="lava-top" x="896" y="640" width="64" height="64"/>
+  <object id="566" name="lava-center" x="896" y="704" width="64" height="64"/>
+  <object id="567" name="lava-top" x="960" y="640" width="64" height="64"/>
+  <object id="568" name="lava-center" x="960" y="704" width="64" height="64"/>
+  <object id="569" name="lava-top" x="1024" y="640" width="64" height="64"/>
+  <object id="570" name="lava-center" x="1024" y="704" width="64" height="64"/>
+  <object id="571" name="lava-top" x="1088" y="640" width="64" height="64"/>
+  <object id="572" name="lava-top" x="1152" y="640" width="64" height="64"/>
+  <object id="573" name="lava-center" x="1088" y="704" width="64" height="64"/>
+  <object id="574" name="lava-center" x="1152" y="704" width="64" height="64"/>
+  <object id="575" name="lava-top" x="1216" y="640" width="64" height="64"/>
+  <object id="576" name="lava-center" x="1216" y="704" width="64" height="64"/>
+  <object id="577" name="lava-top" x="1280" y="640" width="64" height="64"/>
+  <object id="578" name="lava-center" x="1280" y="704" width="64" height="64"/>
+  <object id="579" name="lava-top" x="1344" y="640" width="64" height="64"/>
+  <object id="580" name="lava-center" x="1344" y="704" width="64" height="64"/>
+  <object id="581" name="lava-top" x="1408" y="640" width="64" height="64"/>
+  <object id="582" name="lava-top" x="1472" y="640" width="64" height="64"/>
+  <object id="583" name="lava-center" x="1408" y="704" width="64" height="64"/>
+  <object id="584" name="lava-center" x="1472" y="704" width="64" height="64"/>
+  <object id="585" name="lava-top" x="1536" y="640" width="64" height="64"/>
+  <object id="586" name="lava-center" x="1536" y="704" width="64" height="64"/>
+  <object id="587" name="lava-top" x="1600" y="640" width="64" height="64"/>
+  <object id="588" name="lava-center" x="1600" y="704" width="64" height="64"/>
+  <object id="589" name="lava-top" x="1664" y="640" width="64" height="64"/>
+  <object id="590" name="lava-center" x="1664" y="704" width="64" height="64"/>
+  <object id="591" name="lava-top" x="1728" y="640" width="64" height="64"/>
+  <object id="592" name="lava-center" x="1728" y="704" width="64" height="64"/>
+  <object id="593" name="lava-top" x="1792" y="640" width="64" height="64"/>
+  <object id="594" name="lava-top" x="1856" y="640" width="64" height="64"/>
+  <object id="595" name="lava-center" x="1792" y="704" width="64" height="64"/>
+  <object id="596" name="lava-center" x="1856" y="704" width="64" height="64"/>
+  <object id="597" name="lava-top" x="1920" y="640" width="64" height="64"/>
+  <object id="598" name="lava-center" x="1920" y="704" width="64" height="64"/>
+  <object id="599" name="lava-top" x="1984" y="640" width="64" height="64"/>
+  <object id="600" name="lava-center" x="1984" y="704" width="64" height="64"/>
+  <object id="601" name="lava-top" x="2048" y="640" width="64" height="64"/>
+  <object id="602" name="lava-center" x="2048" y="704" width="64" height="64"/>
+  <object id="603" name="lava-top" x="2112" y="640" width="64" height="64"/>
+  <object id="604" name="lava-top" x="2176" y="640" width="64" height="64"/>
+  <object id="605" name="lava-center" x="2112" y="704" width="64" height="64"/>
+  <object id="606" name="lava-center" x="2176" y="704" width="64" height="64"/>
+  <object id="607" name="lava-top" x="2240" y="640" width="64" height="64"/>
+  <object id="608" name="lava-center" x="2240" y="704" width="64" height="64"/>
+  <object id="609" name="lava-top" x="2304" y="640" width="64" height="64"/>
+  <object id="610" name="lava-center" x="2304" y="704" width="64" height="64"/>
+  <object id="611" name="lava-top" x="2368" y="640" width="64" height="64"/>
+  <object id="612" name="lava-center" x="2368" y="704" width="64" height="64"/>
+  <object id="613" name="lava-top" x="2432" y="640" width="64" height="64"/>
+  <object id="614" name="lava-top" x="2496" y="640" width="64" height="64"/>
+  <object id="615" name="lava-center" x="2432" y="704" width="64" height="64"/>
+  <object id="616" name="lava-center" x="2496" y="704" width="64" height="64"/>
+  <object id="617" name="lava-top" x="2560" y="640" width="64" height="64"/>
+  <object id="618" name="lava-center" x="2560" y="704" width="64" height="64"/>
+  <object id="619" name="lava-top" x="2624" y="640" width="64" height="64"/>
+  <object id="620" name="lava-center" x="2624" y="704" width="64" height="64"/>
+  <object id="621" name="lava-top" x="2688" y="640" width="64" height="64"/>
+  <object id="622" name="lava-center" x="2688" y="704" width="64" height="64"/>
+  <object id="623" name="lava-top" x="2752" y="640" width="64" height="64"/>
+  <object id="624" name="lava-top" x="2816" y="640" width="64" height="64"/>
+  <object id="625" name="lava-center" x="2752" y="704" width="64" height="64"/>
+  <object id="626" name="lava-center" x="2816" y="704" width="64" height="64"/>
+  <object id="627" name="lava-top" x="2880" y="640" width="64" height="64"/>
+  <object id="628" name="lava-center" x="2880" y="704" width="64" height="64"/>
+  <object id="629" name="lava-top" x="2944" y="640" width="64" height="64"/>
+  <object id="630" name="lava-center" x="2944" y="704" width="64" height="64"/>
+  <object id="631" name="lava-top" x="3008" y="640" width="64" height="64"/>
+  <object id="632" name="lava-center" x="3008" y="704" width="64" height="64"/>
+  <object id="633" name="lava-top" x="3072" y="640" width="64" height="64"/>
+  <object id="634" name="lava-top" x="3136" y="640" width="64" height="64"/>
+  <object id="635" name="lava-center" x="3072" y="704" width="64" height="64"/>
+  <object id="636" name="lava-center" x="3136" y="704" width="64" height="64"/>
+  <object id="637" name="lava-top" x="3200" y="640" width="64" height="64"/>
+  <object id="638" name="lava-center" x="3200" y="704" width="64" height="64"/>
+  <object id="639" name="lava-top" x="3264" y="640" width="64" height="64"/>
+  <object id="640" name="lava-center" x="3264" y="704" width="64" height="64"/>
+  <object id="641" name="lava-top" x="3328" y="640" width="64" height="64"/>
+  <object id="642" name="lava-center" x="3328" y="704" width="64" height="64"/>
+  <object id="643" name="lava-top" x="3392" y="640" width="64" height="64"/>
+  <object id="644" name="lava-center" x="3392" y="704" width="64" height="64"/>
+  <object id="645" name="lava-top" x="3456" y="640" width="64" height="64"/>
+  <object id="646" name="lava-top" x="3520" y="640" width="64" height="64"/>
+  <object id="647" name="lava-center" x="3456" y="704" width="64" height="64"/>
+  <object id="648" name="lava-center" x="3520" y="704" width="64" height="64"/>
+  <object id="649" name="lava-top" x="3584" y="640" width="64" height="64"/>
+  <object id="650" name="lava-center" x="3584" y="704" width="64" height="64"/>
+  <object id="651" name="lava-top" x="3648" y="640" width="64" height="64"/>
+  <object id="652" name="lava-center" x="3648" y="704" width="64" height="64"/>
+  <object id="653" name="lava-top" x="3712" y="640" width="64" height="64"/>
+  <object id="654" name="lava-center" x="3712" y="704" width="64" height="64"/>
+  <object id="655" name="lava-top" x="3776" y="640" width="64" height="64"/>
+  <object id="656" name="lava-top" x="3840" y="640" width="64" height="64"/>
+  <object id="657" name="lava-center" x="3776" y="704" width="64" height="64"/>
+  <object id="658" name="lava-center" x="3840" y="704" width="64" height="64"/>
+  <object id="659" name="lava-top" x="3904" y="640" width="64" height="64"/>
+  <object id="660" name="lava-center" x="3904" y="704" width="64" height="64"/>
+  <object id="661" name="lava-top" x="3968" y="640" width="64" height="64"/>
+  <object id="662" name="lava-center" x="3968" y="704" width="64" height="64"/>
+  <object id="663" name="lava-top" x="4032" y="640" width="64" height="64"/>
+  <object id="664" name="lava-center" x="4032" y="704" width="64" height="64"/>
+  <object id="665" name="lava-top" x="4096" y="640" width="64" height="64"/>
+  <object id="666" name="lava-top" x="4160" y="640" width="64" height="64"/>
+  <object id="667" name="lava-center" x="4096" y="704" width="64" height="64"/>
+  <object id="668" name="lava-center" x="4160" y="704" width="64" height="64"/>
+  <object id="669" name="lava-top" x="4224" y="640" width="64" height="64"/>
+  <object id="670" name="lava-center" x="4224" y="704" width="64" height="64"/>
+  <object id="671" name="lava-top" x="4288" y="640" width="64" height="64"/>
+  <object id="672" name="lava-center" x="4288" y="704" width="64" height="64"/>
+  <object id="673" name="lava-top" x="4352" y="640" width="64" height="64"/>
+  <object id="674" name="lava-center" x="4352" y="704" width="64" height="64"/>
+  <object id="675" name="lava-top" x="4416" y="640" width="64" height="64"/>
+  <object id="676" name="lava-top" x="4480" y="640" width="64" height="64"/>
+  <object id="677" name="lava-center" x="4416" y="704" width="64" height="64"/>
+  <object id="678" name="lava-center" x="4480" y="704" width="64" height="64"/>
+  <object id="679" name="lava-top" x="4544" y="640" width="64" height="64"/>
+  <object id="680" name="lava-center" x="4544" y="704" width="64" height="64"/>
+  <object id="681" name="lava-top" x="4608" y="640" width="64" height="64"/>
+  <object id="682" name="lava-center" x="4608" y="704" width="64" height="64"/>
+  <object id="683" name="lava-top" x="4672" y="640" width="64" height="64"/>
+  <object id="684" name="lava-center" x="4672" y="704" width="64" height="64"/>
+  <object id="685" name="lava-top" x="4736" y="640" width="64" height="64"/>
+  <object id="686" name="lava-top" x="4800" y="640" width="64" height="64"/>
+  <object id="687" name="lava-center" x="4736" y="704" width="64" height="64"/>
+  <object id="688" name="lava-center" x="4800" y="704" width="64" height="64"/>
+  <object id="689" name="lava-top" x="4864" y="640" width="64" height="64"/>
+  <object id="690" name="lava-center" x="4864" y="704" width="64" height="64"/>
+  <object id="691" name="lava-top" x="4928" y="640" width="64" height="64"/>
+  <object id="692" name="lava-center" x="4928" y="704" width="64" height="64"/>
+  <object id="693" name="lava-top" x="4992" y="640" width="64" height="64"/>
+  <object id="694" name="lava-center" x="4992" y="704" width="64" height="64"/>
+  <object id="695" name="lava-top" x="5056" y="640" width="64" height="64"/>
+  <object id="696" name="lava-center" x="5056" y="704" width="64" height="64"/>
+  <object id="697" name="lava-top" x="5120" y="640" width="64" height="64"/>
+  <object id="698" name="lava-top" x="5184" y="640" width="64" height="64"/>
+  <object id="699" name="lava-center" x="5120" y="704" width="64" height="64"/>
+  <object id="700" name="lava-center" x="5184" y="704" width="64" height="64"/>
+  <object id="701" name="lava-top" x="5248" y="640" width="64" height="64"/>
+  <object id="702" name="lava-center" x="5248" y="704" width="64" height="64"/>
+  <object id="703" name="lava-top" x="5312" y="640" width="64" height="64"/>
+  <object id="704" name="lava-center" x="5312" y="704" width="64" height="64"/>
+  <object id="705" name="lava-top" x="5376" y="640" width="64" height="64"/>
+  <object id="706" name="lava-center" x="5376" y="704" width="64" height="64"/>
+  <object id="707" name="lava-top" x="5440" y="640" width="64" height="64"/>
+  <object id="708" name="lava-top" x="5504" y="640" width="64" height="64"/>
+  <object id="709" name="lava-center" x="5440" y="704" width="64" height="64"/>
+  <object id="710" name="lava-center" x="5504" y="704" width="64" height="64"/>
+  <object id="711" name="lava-top" x="5568" y="640" width="64" height="64"/>
+  <object id="712" name="lava-center" x="5568" y="704" width="64" height="64"/>
+  <object id="713" name="lava-top" x="5632" y="640" width="64" height="64"/>
+  <object id="714" name="lava-center" x="5632" y="704" width="64" height="64"/>
+  <object id="715" name="lava-top" x="5696" y="640" width="64" height="64"/>
+  <object id="716" name="lava-center" x="5696" y="704" width="64" height="64"/>
+  <object id="717" name="lava-top" x="5760" y="640" width="64" height="64"/>
+  <object id="718" name="lava-top" x="5824" y="640" width="64" height="64"/>
+  <object id="719" name="lava-center" x="5760" y="704" width="64" height="64"/>
+  <object id="720" name="lava-center" x="5824" y="704" width="64" height="64"/>
+  <object id="721" name="lava-top" x="5888" y="640" width="64" height="64"/>
+  <object id="722" name="lava-center" x="5888" y="704" width="64" height="64"/>
+  <object id="723" name="lava-top" x="5952" y="640" width="64" height="64"/>
+  <object id="724" name="lava-center" x="5952" y="704" width="64" height="64"/>
+  <object id="725" name="lava-top" x="6016" y="640" width="64" height="64"/>
+  <object id="726" name="lava-center" x="6016" y="704" width="64" height="64"/>
+  <object id="727" name="lava-top" x="6080" y="640" width="64" height="64"/>
+  <object id="728" name="lava-top" x="6144" y="640" width="64" height="64"/>
+  <object id="729" name="lava-center" x="6080" y="704" width="64" height="64"/>
+  <object id="730" name="lava-center" x="6144" y="704" width="64" height="64"/>
+  <object id="731" name="lava-top" x="6208" y="640" width="64" height="64"/>
+  <object id="732" name="lava-center" x="6208" y="704" width="64" height="64"/>
+  <object id="733" name="lava-top" x="6272" y="640" width="64" height="64"/>
+  <object id="734" name="lava-center" x="6272" y="704" width="64" height="64"/>
+  <object id="735" name="lava-top" x="6336" y="640" width="64" height="64"/>
+  <object id="736" name="lava-center" x="6336" y="704" width="64" height="64"/>
+  <object id="745" name="coin" x="4885.33" y="276.002" width="64" height="64"/>
+  <object id="746" name="coin" x="4885.33" y="147.999" width="64" height="64"/>
+  <object id="747" name="coin" x="5013.33" y="147.999" width="64" height="64"/>
+  <object id="748" name="coin" x="5013.33" y="276.002" width="64" height="64"/>
+  <object id="749" name="coin" x="5141.33" y="147.999" width="64" height="64"/>
+  <object id="750" name="coin" x="5141.33" y="276.002" width="64" height="64"/>
+  <object id="751" name="coin" x="5269.33" y="147.999" width="64" height="64"/>
+  <object id="752" name="coin" x="5269.33" y="276.002" width="64" height="64"/>
+  <object id="753" name="coin" x="4634.67" y="276.668" width="64" height="64"/>
+  <object id="754" name="coin" x="4634.67" y="148.665" width="64" height="64"/>
+  <object id="755" name="coin" x="4762.67" y="148.665" width="64" height="64"/>
+  <object id="756" name="coin" x="4762.67" y="276.668" width="64" height="64"/>
+  <object id="757" name="bonus" x="2816" y="256" width="60.7942" height="59.3333"/>
+ </objectgroup>
+ <layer id="10" name="obstacles" width="100" height="12">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <layer id="9" name="ground" width="100" height="12">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3221225527,3221225526,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,172,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,42,0,0,
+0,0,0,0,0,0,0,0,0,0,159,159,159,0,154,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,172,0,0,0,0,0,0,0,0,172,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,109,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,174,174,0,0,0,0,0,0,0,169,169,169,169,169,0,0,0,0,0,0,0,0,0,150,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,79,83,
+0,0,0,0,123,123,123,166,166,166,0,0,0,0,0,0,163,163,163,163,0,0,0,0,0,0,131,131,131,0,124,124,0,0,0,0,0,0,0,96,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,95,0,0,0,0,0,106,0,0,0,140,0,0,0,154,0,0,187,0,0,175,0,0,100,0,0,173,119,153,160,153,164,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,125,0,0,0,0,0,0,0,0,129,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,182,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,97,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,54,55,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3221225527,3221225526,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <layer id="15" name="layer1" width="100" height="12">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,54,55,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3221225527,3221225526,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+</map>
