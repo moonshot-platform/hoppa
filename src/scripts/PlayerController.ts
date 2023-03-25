@@ -12,7 +12,7 @@ import { PlayerStats } from "~/scenes/PlayerStats";
 
 export default class PlayerController {
     private scene: Phaser.Scene;
-    private sprite?: Phaser.Physics.Matter.Sprite;
+    private sprite!: Phaser.Physics.Matter.Sprite;
     private cursors: Phaser.Types.Input.Keyboard.CursorKeys;
     private stateMachine: StateMachine;
     private obstacles: ObstaclesController;
@@ -75,7 +75,7 @@ export default class PlayerController {
 
     constructor(
         scene: Phaser.Scene,
-        sprite: Phaser.Physics.Matter.Sprite | undefined,
+        sprite: Phaser.Physics.Matter.Sprite,
         cursors: Phaser.Types.Input.Keyboard.CursorKeys,
         obstacles: ObstaclesController,
         sounds: Map<string, Phaser.Sound.BaseSound>,
@@ -93,8 +93,8 @@ export default class PlayerController {
         this.lastThrow = 0;
         this.name = globalThis.rabbit || 'player1';
         this.powerUps = new PowerUps(this, scene, false);
-        this.spawn_x = this.sprite?.body.position.x || 640;
-        this.spawn_y = this.sprite?.body.position.y || -100;
+        this.spawn_x = this.sprite.body?.position.x || 640;
+        this.spawn_y = this.sprite.body?.position.y || -100;
         if(this.sprite !== undefined) {
             this.createAnims();
         }
@@ -112,7 +112,7 @@ export default class PlayerController {
                 'right': Phaser.Input.Keyboard.KeyCodes.D
             }
         )
-
+        
         this.buttonRepeat = Array(32).fill(0);
 
         this.scene.input.keyboard?.once('keydown', () => {
@@ -241,7 +241,7 @@ export default class PlayerController {
                 this.scene.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, () => {
                     events.emit(ev);
                     this.scene.scene.stop();
-                    if( (globalThis.noWallet || (globalThis.moonshotBalance == 0 && globalThis.ra8bitBalance == 0 && !globalThis.hasNFT)) && room !== 'bonus' ) {
+                    if( (globalThis.noWallet || (globalThis.moonshotBalance == 0 && globalThis.ra8bitBalance == 0 && !globalThis.hasNFT)) && room !== 'bonus'  ) {
                         SceneFactory.stopSound(this.scene);
                         this.scene.scene.start( 'hoppa');
                     }
@@ -1166,6 +1166,8 @@ export default class PlayerController {
             this.scene.scene.stop('ui');
             this.scene.scene.stop();
             this.scene.scene.start('hoppa');
+            this.scene.game.registry.remove( 'playerX' );
+            this.scene.game.registry.remove( 'playerY' );
         }
     }
 
@@ -1392,15 +1394,12 @@ export default class PlayerController {
             else {
                 globalThis.voice = '';
             }
-
         }   
         else {
             globalThis.voice = '-vd';
-        }
-        
+        } 
         this.stats.voice = val;
     }
-
 
     public setProjectile(name: string, splash: string) {
         this.projectileName = name;
@@ -1412,14 +1411,13 @@ export default class PlayerController {
         else {
             this.stats.pokeBall = false;
         }
-
     }
 
     private updateVelocities(state: string) {
         const d = (this.scene.game.loop.frame - this.lastAction);
         this.deltaS = (d > this.ACCEL_FRAMES ? this.playerSpeed : (d / this.ACCEL_FRAMES) * this.playerSpeed);
 
-        let speed = this.getSpeed(this.deltaS); // FIXME
+        let speed = this.getSpeed();
 
         let keepWalking = false;
 
@@ -1610,7 +1608,6 @@ export default class PlayerController {
             }),
             repeat: -1
         });
-
 
         this.sprite.anims.create({
             key: 'player1-walk',
