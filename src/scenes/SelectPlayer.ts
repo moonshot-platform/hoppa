@@ -53,7 +53,7 @@ export default class GameSettingsMenu extends Phaser.Scene {
             this.info = obj as PlayerPreferences;
         }
    
-        globalThis.rabbit = this.info.rabbit;
+        globalThis.rabbit = this.info.rabbit || 'player1';
      }
 
     saveSettings() {
