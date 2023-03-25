@@ -302,7 +302,7 @@
                         {
                          "name":"room",
                          "type":"string",
-                         "value":"win"
+                         "value":"bonus2"
                         }],
                  "rotation":0,
                  "visible":true,
@@ -324,7 +324,7 @@
                         {
                          "name":"room",
                          "type":"string",
-                         "value":"win"
+                         "value":"bonus2"
                         }],
                  "rotation":0,
                  "visible":true,
@@ -346,7 +346,7 @@
                         {
                          "name":"room",
                          "type":"string",
-                         "value":"win"
+                         "value":"bonus2"
                         }],
                  "rotation":0,
                  "visible":true,
@@ -368,7 +368,7 @@
                         {
                          "name":"room",
                          "type":"string",
-                         "value":"win"
+                         "value":"bonus2"
                         }],
                  "rotation":0,
                  "visible":true,
