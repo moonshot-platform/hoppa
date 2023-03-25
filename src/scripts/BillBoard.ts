@@ -14,7 +14,9 @@ export default class BillBoard {
 
         this.sprite.setFrame(this.frame);
 
-        scene.time.addEvent({ delay: 30 * 1000, callback: this.rotateBillBoard, callbackScope: this, loop: true });
+        const delay = 27 + Phaser.Math.Between(3,7);
+
+        scene.time.addEvent({ delay: delay * 1000, callback: this.rotateBillBoard, callbackScope: this, loop: true });
     }
 
     public rotateBillBoard() {
