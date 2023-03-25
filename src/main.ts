@@ -15,6 +15,7 @@ import GameOver from './scenes/GameOver'
 import Win from './scenes/Win'
 import Loader from './scenes/Loader'
 import Bonus from './scenes/Bonus'
+import Bonus2 from './scenes/Bonus2'
 import Pause from './scenes/Pause'
 import GameSettingsMenu from './scenes/GameSettingsMenu'
 import Help from './scenes/Help'
@@ -61,7 +62,7 @@ const config: Phaser.Types.Core.GameConfig = {
 		activePointers: 4,
 		gamepad: true,
 	},
-	scene: [Loader,LogoScreen,AdScene, HoppaScreen,HoppaSelect, Wallet,TournamentIntro,Tournament,HallOfFame,EnterHallOfFame, Inventory,Story,GameSettingsMenu,Help,Start,SelectPlayer,WarpLevel,Level1,Level2,Level3,Level4,Level5,Level6,Level7,Bonus,Win,UI,Pause,GameOver],	
+	scene: [Loader,LogoScreen,AdScene, HoppaScreen,HoppaSelect, Wallet,TournamentIntro,Tournament,HallOfFame,EnterHallOfFame, Inventory,Story,GameSettingsMenu,Help,Start,SelectPlayer,WarpLevel,Level1,Level2,Level3,Level4,Level5,Level6,Level7,Bonus,Bonus2,Win,UI,Pause,GameOver],	
 }
 
 window.addEventListener('load', () => {
