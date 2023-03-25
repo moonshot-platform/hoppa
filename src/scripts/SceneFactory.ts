@@ -33,7 +33,9 @@ export function playSound(sounds: Map<string, Phaser.Sound.BaseSound>, sound: st
 export function playKrasota(sounds: Map<string, Phaser.Sound.BaseSound>, sound: string, kps = false) {
     if(globalThis.krasota == false ) {
         krasotaLock();
-        const sample = sound + globalThis.voice;
+        let sample = sound;
+        if(globalThis.voice !== undefined)
+          sample += globalThis.voice;
         const s = sounds.get(sample);
         if(s === undefined ) { 
             console.log("No such sound '" + sample + "'");
@@ -224,6 +226,8 @@ export function setupSounds(ctx: Phaser.Scene): Map<string, Phaser.Sound.BaseSou
         'hit',
         'bonustile',
         'rubber1',
+        'rubber2',
+        'rubber3',
         'star',
         'pow',
         'berry',
@@ -299,8 +303,7 @@ export function krasotaSays(selector: number, text: string ): string {
 
 
 export function setupHandlers(ctx: Phaser.Scene) {
-/*
-  */
+
 }
 
 export function handleLoseFocus(ctx: Phaser.Scene) {
@@ -309,7 +312,6 @@ export function handleLoseFocus(ctx: Phaser.Scene) {
 
 export function stopSound(ctx: Phaser.Scene) {
     ctx.game.sound.stopAll();
-   // ctx.sound.destroy();
     globalThis.musicTune = false;
 }
 
@@ -353,17 +355,10 @@ export function preload(ctx) {
     ctx.load.image('grasPurpleTiles', 'assets/gras-purple.webp');
     ctx.load.image('cocoonTiles', 'assets/cocoons.webp');
     ctx.load.image('stonesTiles', 'assets/stones.webp');
-
-
     ctx.load.image('logo', 'assets/logo.webp');
-
-
-    
     ctx.load.image('bg_cocoons', 'assets/bg_cocoons.webp');
     ctx.load.image('ra8bitTiles', 'assets/minira8bits.webp');
     
-
-
     //ui
     ctx.load.bitmapFont('press_start', 'assets/press_start_2p.webp', 'assets/press_start_2p.fnt');
     ctx.load.spritesheet('health', 'assets/health.webp', { frameWidth: 64, frameHeight: 64, startFrame: 0, endFrame: 4 });
@@ -436,6 +431,8 @@ export function preload(ctx) {
     ctx.load.audio('hit', ['assets/hit.mp3', 'assets/hit.m4a']);
     ctx.load.audio('bonustile', ['assets/bonustile.mp3', 'assets/bonustile.m4a']);
     ctx.load.audio('rubber1', ['assets/rubber1.mp3', 'assets/rubber1.m4a']);
+    ctx.load.audio('rubber2', ['assets/rubber1.mp3', 'assets/rubber1.m4a']);
+    ctx.load.audio('rubber3', ['assets/rubber1.mp3', 'assets/rubber1.m4a']);
     ctx.load.audio('star', ['assets/star.mp3', 'assets/star.m4a']);
     ctx.load.audio('pow', ['assets/pow.mp3', 'assets/pow.m4a']);
     ctx.load.audio('berry', ['assets/berry.mp3', 'assets/berry.m4a']);
@@ -698,6 +695,7 @@ export function createPlayer(ctx, x: number, y: number, width: number, height: n
 }
 
 export function basicCreate(ctx, name, x, y, width, height, rotation, enemyCat, collideWith, controller: ObstaclesController, objData, player) {
+
     switch (name) {
         case 'neon': {
             const variation = objData.properties.find((p)=>p.name === 'taste')?.value || 'neon';
