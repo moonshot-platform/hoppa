@@ -186,9 +186,7 @@ export default class Level2 extends BaseScene {
         
         const objectsLayer = this.map.getObjectLayer('objects');
         objectsLayer?.objects.forEach(objData => {
-            
-            const { x = 0, y = 0, name, width = 0, height = 0, rotation = 0 } = objData;
-          
+            const { x = 0, y = 0, name, width = 0, height = 0 } = objData;
             switch (name) {
                 case 'player1-spawn':
                 case 'player2-spawn':
@@ -236,12 +234,6 @@ export default class Level2 extends BaseScene {
         this.matter.world.convertTilemapLayer(this.ground1, {label: 'ground', friction: 0, frictionStatic: 0 });
         this.matter.world.setBounds(0,0,this.map.widthInPixels, this.map.heightInPixels, 1, true, true,false, false);
 
-/*        this.matter.world.drawDebug = false;
-        this.input.keyboard.on("keydown-I", (event) => {
-          this.matter.world.drawDebug = !this.matter.world.drawDebug;
-          this.matter.world.debugGraphic.clear();
-        });
-        */
 
         this.matter.world.on( "collisionstart", (e: { pairs: any; }, o1: any, o2: any) => {
             const pairs = e.pairs;
@@ -249,6 +241,9 @@ export default class Level2 extends BaseScene {
                 const bodyA = pairs[i].bodyA;
                 const bodyB = pairs[i].bodyB;
 
+                if (bodyA.gameObject === undefined)
+                continue;
+                
                 const dx = ~~ (bodyA.position.x - bodyB.position.x);
                 const dy = ~~ (bodyA.position.y - bodyB.position.y);
 

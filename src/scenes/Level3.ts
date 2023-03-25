@@ -166,8 +166,8 @@ export default class Level3 extends BaseScene {
         const propTiles = this.map.addTilesetImage('props', 'propTiles', 64, 64, 0, 2);
         const grasTiles = this.map.addTilesetImage('gras', 'grasTiles', 64, 64, 0, 2);
 
-        this.ground1 = this.map.createLayer('ground', [groundTiles, grasTiles]);
-        this.layer1 = this.map.createLayer('layer1', [groundTiles, grasTiles]);
+        this.ground1 = this.map.createLayer('ground', [groundTiles, grasTiles, propTiles]);
+        this.layer1 = this.map.createLayer('layer1', [groundTiles, grasTiles, propTiles]);
 
         this.ground1.setCollisionByProperty({ collides: true, recalculateFaces: false });
 
@@ -187,8 +187,7 @@ export default class Level3 extends BaseScene {
         const objectsLayer = this.map.getObjectLayer('objects');
         objectsLayer?.objects.forEach(objData => {
 
-            const { x = 0, y = 0, name, width = 0, height = 0, rotation = 0 } = objData;
-           
+            const { x = 0, y = 0, name, width = 0, height = 0 } = objData;
             switch (name) {
                 case 'player1-spawn':
                 case 'player2-spawn':
@@ -237,18 +236,13 @@ export default class Level3 extends BaseScene {
         this.matter.world.convertTilemapLayer(this.ground1, { label: 'ground', friction: 0, frictionStatic: 0 });
         this.matter.world.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels, 1,true, true, false, false);
 
-   /*     this.matter.world.drawDebug = false;
-        this.input.keyboard.on("keydown-I", (event) => {
-            this.matter.world.drawDebug = !this.matter.world.drawDebug;
-            this.matter.world.debugGraphic.clear();
-        });*/
-
         this.matter.world.on("collisionstart", (e: { pairs: any; }, o1: any, o2: any) => {
             const pairs = e.pairs;
             for (let i = 0; i < pairs.length; i++) {
                 const bodyA = pairs[i].bodyA;
                 const bodyB = pairs[i].bodyB;
-
+                if (bodyA.gameObject === undefined)
+                    continue;
                 const dx = ~~(bodyA.position.x - bodyB.position.x);
                 const dy = ~~(bodyA.position.y - bodyB.position.y);
 
@@ -263,10 +257,6 @@ export default class Level3 extends BaseScene {
         });
 
         this.playerController?.setJoystick(this, width);
-    }
-
-    preDestroy() {
-        this.obstaclesController.destroy(this);
     }
 
     destroy() {
@@ -296,14 +286,16 @@ export default class Level3 extends BaseScene {
         this.lava.forEach(lava=>lava.destroy());
 
         this.objects.forEach(obj => obj.destroy());
-
-        this.ground1.destroy();
         this.layer1.destroy();
+        this.ground1.destroy();
         this.map.destroy();
     
         this.sounds.clear();
     }
 
+    preDestroy() {
+        this.obstaclesController.destroy(this);
+    }
     update(time: number, deltaTime: number) {
         super.update(time,deltaTime);
 

@@ -199,14 +199,11 @@ export default class Level7 extends BaseScene {
 
         const objectsLayer = this.map.getObjectLayer('objects');
         objectsLayer?.objects.forEach(objData => {
-
             const { x = 0, y = 0, name, width = 0, height = 0 } = objData;
-        
             switch (name) {
                 case 'player1-spawn':
                 case 'player2-spawn':
                 case 'player-spawn': {
-
                     this.player = SceneFactory.createPlayer(this,
                         (this.playerX == -1 ? x : this.playerX),
                         (this.playerY == -1 ? y : this.playerY),

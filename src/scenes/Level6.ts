@@ -176,7 +176,6 @@ export default class Level6 extends BaseScene {
         objectsLayer?.objects.forEach(objData => {
 
             const { x = 0, y = 0, name, width = 0, height = 0 } = objData;
-        
             switch (name) {
                 case 'player1-spawn':
                 case 'player2-spawn':
@@ -227,6 +226,9 @@ export default class Level6 extends BaseScene {
             for (let i = 0; i < pairs.length; i++) {
                 const bodyA = pairs[i].bodyA;
                 const bodyB = pairs[i].bodyB;
+
+                if (bodyA.gameObject === undefined)
+                    continue;
 
                 const dx = ~~ (bodyA.position.x - bodyB.position.x);
                 const dy = ~~ (bodyA.position.y - bodyB.position.y);
@@ -300,7 +302,8 @@ export default class Level6 extends BaseScene {
         this.bats = this.bats.filter(e => e.keepObject());
         this.dragons = this.dragons.filter(e => e.keepObject());
         this.bears = this.bears.filter(e => e.keepObject());
-      
+        this.crows = this.crows.filter(e => e.keepObject());
+        this.flies = this.flies.filter(e => e.keepObject());      
         this.monsters.forEach(monster => {
             monster.update(deltaTime);
             monster.lookahead(this.map);
@@ -341,7 +344,8 @@ export default class Level6 extends BaseScene {
         this.bombs.forEach(bomb => bomb.update(deltaTime));
         this.bears.forEach(bear => bear.update(deltaTime));
         this.tnts.forEach(tnt => tnt.update(deltaTime));
-        this.saws.forEach(saw => {
+        this.crows.forEach(crow => crow.update(deltaTime));
+                this.saws.forEach(saw => {
             saw.update(deltaTime);
             saw.lookahead(this.map);
         });

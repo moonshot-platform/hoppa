@@ -194,8 +194,7 @@ export default class Level4 extends BaseScene {
         const objectsLayer = this.map.getObjectLayer('objects');
         objectsLayer?.objects.forEach(objData => {
             
-            const { x = 0, y = 0, name, width = 0, height = 0, rotation = 0 } = objData;
-          
+            const { x = 0, y = 0, name, width = 0, height = 0 } = objData;
             switch (name) {
                 case 'player1-spawn':
                 case 'player2-spawn':
@@ -256,6 +255,10 @@ export default class Level4 extends BaseScene {
                 const bodyA = pairs[i].bodyA;
                 const bodyB = pairs[i].bodyB;
 
+                
+                if (bodyA.gameObject === undefined)
+                    continue;
+                    
                 const dx = ~~ (bodyA.position.x - bodyB.position.x);
                 const dy = ~~ (bodyA.position.y - bodyB.position.y);
 
