@@ -106,7 +106,7 @@ export default class PowerUps {
     }
 
     public activateMystery() {
-        this.player.toggle();
+        this.player.changeSkin();
         this.closeInventory();
     }
 
