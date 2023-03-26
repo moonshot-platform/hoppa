@@ -1,4 +1,5 @@
 import Phaser from 'phaser'
+import TestRoom from './scenes/TestRoom'
 import Start from './scenes/Start'
 import Level1 from './scenes/Level1'
 import Level2 from './scenes/Level2'
