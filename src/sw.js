@@ -244,6 +244,8 @@ var filesToCache = [
 '/hoppa/assets/ra8bittiles64.webp',
 '/hoppa/assets/rabbit.json',
 '/hoppa/assets/rabbit.webp',
+'/hoppa/assets/choclate.json',
+'/hoppa/assets/choclate.webp',
 '/hoppa/assets/redheels.m4a',
 '/hoppa/assets/redheels.mp3',
 '/hoppa/assets/rubber1.m4a',
