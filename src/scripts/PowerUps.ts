@@ -88,7 +88,7 @@ export default class PowerUps {
     }
 
     public activateAnotherPlayer() {
-        this.player.toggle();
+        this.player.changeSkin();
         this.closeInventory();
     }
 
@@ -106,7 +106,7 @@ export default class PowerUps {
     }
 
     public activateMystery() {
-        this.player.changeSkin();
+        this.player.toggle();
         this.closeInventory();
     }
 
