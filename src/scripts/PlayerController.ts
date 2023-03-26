@@ -96,7 +96,7 @@ export default class PlayerController {
         this.spawn_x = this.sprite.body?.position.x || 640;
         this.spawn_y = this.sprite.body?.position.y || -100;
         if(this.sprite !== undefined) {
-            this.createAnims();
+            this.createAnims(globalThis.rabbitSpriteSheet);
         }
         this.stateMachine = new StateMachine(this, this.name);
 
@@ -1384,6 +1384,21 @@ export default class PlayerController {
         globalThis.voice = voice;
     }
 
+    public changeSkin() {
+        if(globalThis.rabbitSpriteSheet === undefined) {
+            globalThis.rabbitSpriteSheet = 'rabbit';
+        }
+        else if (globalThis.rabbitSpriteSheet === 'rabbit' ) {
+            globalThis.rabbitSpriteSheet = 'choclate';   
+        }
+        else if (globalThis.rabbitSpriteSheet === 'choclate' ) {
+            globalThis.rabbitSpriteSheet = 'rabbit';
+        }
+
+        this.clearAnims();
+        this.createAnims(globalThis.rabbitSpriteSheet);
+    }
+
     public setVoice(val: boolean) {
         if( val == false ) {
             if(this.name === 'player1') {
@@ -1593,11 +1608,27 @@ export default class PlayerController {
         }
     }
 
-    private createAnims() {
+    private clearAnims() {
+        this.sprite.anims.remove('player1-idle');
+        this.sprite.anims.remove('player1-walk');
+        this.sprite.anims.remove('player1-facing');
+        this.sprite.anims.remove('player1-jump');
+        this.sprite.anims.remove('player1-dead');
+        this.sprite.anims.remove('player1-throw');
+        
+        this.sprite.anims.remove('player2-idle');
+        this.sprite.anims.remove('player2-walk');
+        this.sprite.anims.remove('player2-facing');
+        this.sprite.anims.remove('player2-jump');
+        this.sprite.anims.remove('player2-dead');
+        this.sprite.anims.remove('player2-throw');
+    }
+
+    private createAnims(spriteName: string) {
         this.sprite.anims.create({
             key: 'player1-idle',
             frameRate: 5,
-            frames: this.sprite.anims.generateFrameNames('rabbit', {
+            frames: this.sprite.anims.generateFrameNames(spriteName, {
                 start: 1,
                 end: 2,
                 prefix: '5_Turn',
@@ -1609,7 +1640,7 @@ export default class PlayerController {
         this.sprite.anims.create({
             key: 'player1-walk',
             frameRate: 5,
-            frames: this.sprite.anims.generateFrameNames('rabbit', {
+            frames: this.sprite.anims.generateFrameNames(spriteName, {
                 start: 0,
                 end: 3,
                 prefix: '3_Walk', 
@@ -1621,7 +1652,7 @@ export default class PlayerController {
         this.sprite.anims.create({
             key: 'player1-facing',
             frameRate: 5,
-            frames: this.sprite.anims.generateFrameNames('rabbit', {
+            frames: this.sprite.anims.generateFrameNames(spriteName, {
                 start: 0,
                 end: 1,
                 prefix: '5_Turn',
@@ -1633,7 +1664,7 @@ export default class PlayerController {
         this.sprite.anims.create({
             key: 'player1-jump',
             frameRate: 8,
-            frames: this.sprite.anims.generateFrameNames('rabbit', {
+            frames: this.sprite.anims.generateFrameNames(spriteName, {
                 start: 0,
                 end: 4,
                 prefix: '1_Jump',
@@ -1644,7 +1675,7 @@ export default class PlayerController {
         this.sprite.anims.create({
             key: 'player1-dead',
             frameRate: 10,
-            frames: this.sprite.anims.generateFrameNames('rabbit',
+            frames: this.sprite.anims.generateFrameNames(spriteName,
                 {
                     start: 0,
                     end: 3,
@@ -1656,7 +1687,7 @@ export default class PlayerController {
         this.sprite.anims.create({
             key: 'player1-throw',
             frameRate: 20,
-            frames: this.sprite.anims.generateFrameNames('rabbit',
+            frames: this.sprite.anims.generateFrameNames(spriteName,
                 {
                     start: 0,
                     end: 4,
@@ -1669,7 +1700,7 @@ export default class PlayerController {
         this.sprite.anims.create({
             key: 'player2-idle',
             frameRate: 5,
-            frames: this.sprite.anims.generateFrameNames('rabbit', {
+            frames: this.sprite.anims.generateFrameNames(spriteName, {
                 start: 1,
                 end: 2,
                 prefix: '5_FemTurn',
@@ -1682,7 +1713,7 @@ export default class PlayerController {
         this.sprite.anims.create({
             key: 'player2-walk',
             frameRate: 5,
-            frames: this.sprite.anims.generateFrameNames('rabbit', {
+            frames: this.sprite.anims.generateFrameNames(spriteName, {
                 start: 0,
                 end: 3,
                 prefix: '3_FemWalk',
@@ -1694,7 +1725,7 @@ export default class PlayerController {
         this.sprite.anims.create({
             key: 'player2-facing',
             frameRate: 5,
-            frames: this.sprite.anims.generateFrameNames('rabbit', {
+            frames: this.sprite.anims.generateFrameNames(spriteName, {
                 start: 0,
                 end: 1,
                 prefix: '5_FemTurn',
@@ -1706,7 +1737,7 @@ export default class PlayerController {
         this.sprite.anims.create({
             key: 'player2-jump',
             frameRate: 8,
-            frames: this.sprite.anims.generateFrameNames('rabbit', {
+            frames: this.sprite.anims.generateFrameNames(spriteName, {
                 start: 0,
                 end: 3,
                 prefix: '1_FemJump',
@@ -1717,7 +1748,7 @@ export default class PlayerController {
         this.sprite.anims.create({
             key: 'player2-dead',
             frameRate: 10,
-            frames: this.sprite.anims.generateFrameNames('rabbit',
+            frames: this.sprite.anims.generateFrameNames(spriteName,
                 {
                     start: 0,
                     end: 3,
@@ -1729,7 +1760,7 @@ export default class PlayerController {
         this.sprite.anims.create({
             key: 'player2-throw',
             frameRate: 20,
-            frames: this.sprite.anims.generateFrameNames('rabbit',
+            frames: this.sprite.anims.generateFrameNames(spriteName,
                 {
                     start: 0,
                     end: 4,
