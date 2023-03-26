@@ -184,7 +184,14 @@ export default class Level1 extends BaseScene {
         objectsLayer?.objects.forEach(objData => {
 
             const { x = 0, y = 0, name, width = 0, height = 0 } = objData;
-           
+            let playerName: string = name;
+            if (playerName === 'player-spawn') {
+                playerName = 'player1'; // default to player1
+            } else if (playerName === 'player1-spawn') {
+                playerName = 'player1';
+            } else {
+                playerName = 'player2';
+            }
             switch (name) {
                 case 'player1-spawn':
                 case 'player2-spawn':
@@ -258,11 +265,6 @@ export default class Level1 extends BaseScene {
 
     }
 
-
-    preDestroy() {
-        this.obstaclesController.destroy(this);
-    }
-
     destroy() {
 
         super.destroy();
@@ -297,6 +299,10 @@ export default class Level1 extends BaseScene {
         this.map.destroy();
         
         this.sounds.clear(); 
+    }
+
+    preDestroy() {
+        this.obstaclesController.destroy(this);
     }
 
     update(time: number, deltaTime: number) {
