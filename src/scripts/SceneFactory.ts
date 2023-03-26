@@ -21,6 +21,7 @@ declare global {
     var krasotaPlayStarted: boolean;
     var rabbit: string;
     var voice: string;
+    var rabbitSpriteSheet: string;
 }
 
 export function playSound(sounds: Map<string, Phaser.Sound.BaseSound>, sound: string) {
@@ -370,6 +371,7 @@ export function preload(ctx) {
 
     // sprite atlases
     ctx.load.atlas('rabbit', 'assets/rabbit.webp', 'assets/rabbit.json');
+    ctx.load.atlas('choclate', 'assets/choclate.webp', 'assets/choclate.json');
     ctx.load.atlas('bird', 'assets/bird.webp', 'assets/bird.json');
     ctx.load.atlas('crab', 'assets/crab.webp', 'assets/crab.json');
     ctx.load.atlas('firewalker', 'assets/firewalk.webp', 'assets/firewalk.json');
