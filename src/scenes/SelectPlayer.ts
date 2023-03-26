@@ -54,6 +54,7 @@ export default class GameSettingsMenu extends Phaser.Scene {
         }
    
         globalThis.rabbit = this.info.rabbit || 'player1';
+        globalThis.rabbitSpriteSheet = this.info.rabbitSpriteSheet || 'rabbit';
      }
 
     saveSettings() {
