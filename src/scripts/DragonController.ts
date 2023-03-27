@@ -17,6 +17,7 @@ export default class DragonController {
     private collideWith: number[] = [];
     private collisionCat: number = 0;
     private castFireAt: number;
+    private fireballActiveTime : number = 3;
 
     constructor(
         scene: Phaser.Scene,
@@ -187,6 +188,9 @@ export default class DragonController {
         fireball.setCollidesWith(this.collideWith);
         fireball.setCollisionCategory(this.collisionCat);
         fireball.setVelocityX(dir * 11);
+
+        this.fireballActiveTime = Phaser.Math.Between(1500, 2500 );
+
         fireball.setDepth(10);
         fireball.setIgnoreGravity(true);
         fireball.setFriction(0.0);
@@ -207,8 +211,12 @@ export default class DragonController {
             }
 
         });
+        this.scene.time.delayedCall( this.fireballActiveTime, () => {
+            fireball.destroy();
+        });
 
-        this.castFireAt = this.scene.game.loop.frame + (60 * 3);
+        const castDelay = Phaser.Math.Between(60,200);
+        this.castFireAt = this.scene.game.loop.frame + castDelay;
 
         this.sprite.play('fire');
         this.sprite.once(Phaser.Animations.Events.ANIMATION_COMPLETE, () => {
