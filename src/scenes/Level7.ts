@@ -314,7 +314,6 @@ export default class Level7 extends BaseScene {
         this.saws.forEach(saw => saw.destroy());
         this.boss.forEach(boss=>boss.destroy());
 
-        this.boss.forEach(boss=>boss.destroy());
         this.neon.forEach(n=>n.destroy());
         this.bars.forEach(b=>b.destroy());
         
