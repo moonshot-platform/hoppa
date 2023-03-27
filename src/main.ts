@@ -8,6 +8,7 @@ import Level4 from './scenes/Level4'
 import Level5 from './scenes/Level5'
 import Level6 from './scenes/Level6'
 import Level7 from './scenes/Level7'
+import Level8 from './scenes/Level8'
 import SelectPlayer from './scenes/SelectPlayer'
 import LogoScreen from './scenes/LogoScreen'
 import HoppaScreen from './scenes/HoppaScreen'
@@ -63,7 +64,7 @@ const config: Phaser.Types.Core.GameConfig = {
 		activePointers: 4,
 		gamepad: true,
 	},
-	scene: [Loader,LogoScreen,AdScene, HoppaScreen,HoppaSelect, Wallet,TournamentIntro,Tournament,HallOfFame,EnterHallOfFame, Inventory,Story,GameSettingsMenu,Help,Start,SelectPlayer,WarpLevel,Level1,Level2,Level3,Level4,Level5,Level6,Level7,Bonus,Bonus2,Win,UI,Pause,GameOver],	
+	scene: [Loader,LogoScreen,AdScene, HoppaScreen,HoppaSelect, Wallet,TournamentIntro,Tournament,HallOfFame,EnterHallOfFame, Inventory,Story,GameSettingsMenu,Help,Start,SelectPlayer,WarpLevel,Level1,Level2,Level3,Level4,Level5,Level6,Level7,Level8,Bonus,Bonus2,Win,UI,Pause,GameOver],	
 }
 
 window.addEventListener('load', () => {
