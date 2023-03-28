@@ -1,5 +1,5 @@
-var cacheName = 'hoppa-moonshot-v1.8';
-var cacheWhiteList = [ "hoppa-moonshot-v1.8" ];
+var cacheName = 'hoppa-moonshot-v1.9';
+var cacheWhiteList = [ "hoppa-moonshot-v1.8", "hoppa-moonshot-v1.9" ];
 
 var filesToCache = [
 '/hoppa/assets/01_main_screen_trailer.m4a',
@@ -202,6 +202,12 @@ var filesToCache = [
 '/hoppa/assets/map5.json',
 '/hoppa/assets/map6.json',
 '/hoppa/assets/map7.json',
+'/hoppa/assets/map8.json',
+'/hoppa/assets/chart.webp',
+'/hoppa/assets/rocks.webp',
+'/hoppa/assets/mushrooms.webp',
+'/hoppa/assets/rocks.json',
+'/hoppa/assets/mushrooms.json',
 '/hoppa/assets/minira8bits.json',
 '/hoppa/assets/minira8bits.webp',
 '/hoppa/assets/monster.json',
