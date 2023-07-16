@@ -241,7 +241,7 @@ export function createCreatureFlower(ctx, x, y, width, height, enemyCat, collide
 
 export function createCreaturePlant(ctx, x, y, width, height, enemyCat, collideWith, controller) {
     const plant = ctx.matter.add.sprite(x + (width * 0.5), y + (height * 0.5), 'plant', undefined, {
-        vertices: [{ x: 0, y: 0 }, { x: 64, y: 0 }, { x: 64, y: 128 }, { x: 0, y: 128 }],
+        vertices: [{ x: 0, y: 0 }, { x: 64, y: 0 }, { x: 64, y: 16 }, { x: 0, y: 16 }],
         label: 'plant'
     })
         .setFixedRotation();
@@ -315,7 +315,7 @@ export function createCreatureBoss(ctx, x, y, width, height, enemyCat, collideWi
 }
 
 
-export function createCreatureTNT(ctx, x, y, width, height, enemyCat, collideWith, controller) {
+export function createCreatureTNT(ctx, x, y, width, height, enemyCat, collideWith, controller, player) {
     const tnt = ctx.matter.add.sprite(x + (width * 0.5), y + (height * 0.5), 'tnt', undefined, {
         vertices: [{ x: 0, y: 0 }, { x: 64, y: 0 }, { x: 64, y: 68 }, { x: 0, y: 68 }],
         label: 'tnt'
@@ -328,7 +328,7 @@ export function createCreatureTNT(ctx, x, y, width, height, enemyCat, collideWit
 
     controller.add('tnt', tnt,tnt.body as MatterJS.BodyType);
 
-    return new TNTController(ctx, tnt, tnt.name);
+    return new TNTController(ctx, tnt, tnt.name, player);
 }
 
 export function createCreatureZeppelin1(ctx, x, y, width, height, enemyCat, collideWith, controller) {
@@ -340,8 +340,8 @@ export function createCreatureZeppelin1(ctx, x, y, width, height, enemyCat, coll
     zep.setDepth(1);
     zep.setMass(5);
     zep.setIgnoreGravity(true);
-    zep.setCollisionCategory(enemyCat);
-    zep.setCollidesWith(collideWith);
+    zep.setCollisionCategory(8);
+    zep.setCollidesWith([]);
     zep.setName('zeppelin1');
     zep.setData('type', 'zeppelin');
 
@@ -359,8 +359,8 @@ export function createCreatureZeppelin2(ctx, x, y, width, height, enemyCat, coll
     zep.setDepth(1);
     zep.setMass(5);
     zep.setIgnoreGravity(true);
-    zep.setCollisionCategory(enemyCat);
-    zep.setCollidesWith(collideWith);
+    zep.setCollisionCategory(8);
+    zep.setCollidesWith([]);
     zep.setName('zeppelin1');
     zep.setData('type', 'zeppelin');
     zep.setName('zeppelin2');

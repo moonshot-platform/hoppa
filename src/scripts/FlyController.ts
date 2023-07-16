@@ -126,7 +126,7 @@ export default class FlyController {
         }
         this.garbage = true;
         events.off(this.name + '-stomped', this.handleStomped, this);
-
+        this.sprite?.setStatic(true);
         this.sprite?.play('dead');
         this.sprite?.on('animationcomplete', () => {
             this.cleanup();

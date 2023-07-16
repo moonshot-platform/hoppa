@@ -53,6 +53,8 @@ export default class FlowerController {
         events.off(this.name + '-stomped', this.handleStomped, this);
 
         this.sprite.play('dead');
+        this.sprite.setStatic(true);
+        this.sprite.setCollisionCategory(0);
         this.sprite.on('animationcomplete', () => {
             this.cleanup();
         });

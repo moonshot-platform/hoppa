@@ -90,6 +90,8 @@ export default class BearController {
         events.off(this.name + '-stomped', this.handleStomped, this);
         this.garbage = true;
         this.sprite.play('dead');
+        this.sprite.setStatic(true);
+        this.sprite.setCollisionCategory(0);
         this.sprite.on('animationcomplete', () => {
             this.cleanup();
         });

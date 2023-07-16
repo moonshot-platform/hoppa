@@ -1,5 +1,6 @@
 import Phaser from 'phaser'
 import { sharedInstance as events } from './EventManager';
+import PlayerController from './PlayerController';
 
 export default class MovingMushroom {
 
@@ -10,6 +11,7 @@ export default class MovingMushroom {
     private vertical = false;
     private sprite: Phaser.Physics.Matter.Sprite;
     private scene: Phaser.Scene;
+    private player: PlayerController;
 
     private vx = 0;
     private vy = 0;
@@ -18,7 +20,7 @@ export default class MovingMushroom {
     private lastY = 0;
     private noautostart = false;
     
-    constructor(scene, x, y, to, duration, vertical, sprite: Phaser.Physics.Matter.Sprite, nas: false, id) {
+    constructor(scene, x, y, to, duration, vertical, sprite: Phaser.Physics.Matter.Sprite, nas: false, id, player: PlayerController) {
         this.startX = x;
         this.startY = y;
         this.to = (to * 64);
@@ -32,7 +34,7 @@ export default class MovingMushroom {
         this.lastY = y;
         this.id = id;
         this.noautostart = nas;
-
+        this.player = player;
         if(this.noautostart) {
             this.disable();
             events.on('wakeup-object', this.enable, this);
@@ -72,6 +74,34 @@ export default class MovingMushroom {
         this.sprite.destroy();
     }
 
+    moveVertically() {
+
+        this.scene.tweens.addCounter({
+            from: 0,
+            to: this.to,
+            duration: this.duration,
+            ease: Phaser.Math.Easing.Sine.InOut,
+            repeat: -1,
+            yoyo: true,
+            onUpdate: (tween, target) => {
+                const y = Phaser.Math.RoundTo(this.startY + target.value,0);
+                const dy = y - this.lastY; 
+
+                this.sprite.setVelocityY(dy);
+                this.sprite.setPosition(this.lastX, y);
+               
+                this.vy = dy;
+                this.vx = 0;
+               
+                this.player?.changePosition( this.vx, this.vy, this.sprite );
+
+                this.lastX = this.sprite.body.position.x;
+                this.lastY = this.sprite.body.position.y;
+
+            }
+        });
+    }
+
     moveHorizontally() {
         this.scene.tweens.addCounter({
             from: 0,
@@ -90,7 +120,7 @@ export default class MovingMushroom {
                 this.vy = this.sprite.body.velocity.y;
                 this.vx = dx;//this.sprite.body.velocity.x;
 
-                if(this.vx != 0 ) this.sprite.setData('relpos' + this.id, { x: this.vx, y: this.vy, vert: false, direction: (this.vx < 0 ? -1 : 1) });
+                this.player?.changePosition( this.vx, this.vy, this.sprite );
         
                 this.lastX = this.sprite.body.position.x;
                 this.lastY = this.sprite.body.position.y;

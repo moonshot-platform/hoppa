@@ -231,24 +231,19 @@ export default class Level5 extends BaseScene {
           this.matter.world.debugGraphic.clear();
         });
         */
-
-        this.matter.world.on( "collisionstart", (e: { pairs: any; }, o1: any, o2: any) => {
+        this.matter.world.on("collisionstart", (e: { pairs: any; }, o1: any, o2: any) => {
             const pairs = e.pairs;
-            for( let i = 0; i < pairs.length; i ++ ) {
+            for (let i = 0; i < pairs.length; i++) {
                 const bodyA = pairs[i].bodyA;
                 const bodyB = pairs[i].bodyB;
+
                 if (bodyA.gameObject === undefined)
                     continue;
 
-                const dx = ~~ (bodyA.position.x - bodyB.position.x);
-                const dy = ~~ (bodyA.position.y - bodyB.position.y);
+                const dy = ~~(bodyB.position.y - bodyA.position.y);
 
-                const { min,max } = bodyA.bounds;
-              
-                const bw = max.x - min.x;
-                const bh = (max.y - min.y ) * 0.5;
-                if( Math.abs(dx) <= bw && Math.abs(dy) <= bh ) {
-                    events.emit( bodyA.gameObject?.name + '-blocked', bodyA.gameObject);        
+                if (dy <= 32) {
+                    events.emit(bodyA.gameObject?.name + '-blocked', bodyA.gameObject);
                 }
             }
         });
@@ -354,11 +349,15 @@ export default class Level5 extends BaseScene {
 
         this.flowers.forEach(flower => flower.update(deltaTime));
         this.plants.forEach(plant => plant.update(deltaTime));
-        this.birds.forEach(bird => bird.update(deltaTime));
+        this.birds.forEach(bird => {
+            bird.update(deltaTime); 
+            bird.lookahead(this.map);
+        });
         this.bats.forEach(bat => bat.update(deltaTime));
         this.bombs.forEach(bomb => bomb.update(deltaTime)); 
         this.bears.forEach(bear => bear.update(deltaTime));
         this.tnts.forEach(tnt => tnt.update(deltaTime));
+        this.crows.forEach(crow => crow.update(deltaTime));
         this.saws.forEach(saw => {
             saw.update(deltaTime);
             saw.lookahead(this.map);

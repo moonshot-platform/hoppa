@@ -10,6 +10,7 @@ export default class ZeppelinController {
     private moveTime = 0;
     private name: string;
     private velocityX = 2;
+    private turnAfter = 0;
 
     constructor(
         scene: Phaser.Scene,
@@ -23,6 +24,7 @@ export default class ZeppelinController {
         this.stateMachine = new StateMachine(this);
 
         this.velocityX = 0.5 + (Math.random() * this.velocityX);
+        this.turnAfter = Phaser.Math.Between(4000,8000);
 
         this.stateMachine.addState('idle', {
             onEnter: this.idleOnEnter
@@ -65,7 +67,7 @@ export default class ZeppelinController {
         this.sprite.flipX = false;
         this.sprite.setVelocityX(-1 * this.velocityX);
 
-        if (this.moveTime > 15000) {
+        if (this.moveTime > this.turnAfter) {
             this.stateMachine.setState('move-right');
         }
     }
@@ -79,7 +81,7 @@ export default class ZeppelinController {
         this.sprite.flipX = true;
         this.sprite.setVelocityX(this.velocityX);
 
-        if (this.moveTime > 15000) {
+        if (this.moveTime > this.turnAfter) {
             this.stateMachine.setState('move-left');
         }
     }
@@ -88,14 +90,17 @@ export default class ZeppelinController {
         if (this.sprite.active == false)
             return false;
 
-      /*  if (!CreatureLogic.hasTileAhead(map, this.scene.cameras.main, this.sprite, true, 0)) {
-            if (this.sprite.flipX)
+        const x = this.sprite.x;
+        const y = this.sprite.y;
+        const sw = map.widthInPixels;
+        if( x >= sw - this.sprite.width/2 ) {
                 this.stateMachine.setState("move-left");
-            else
-                this.stateMachine.setState("move-right");
-            return true;
         }
-        */
+        if( x <= this.sprite.width/2 ) {
+                this.stateMachine.setState("move-right");
+        }
+ 
+      
         return false;
     }
 

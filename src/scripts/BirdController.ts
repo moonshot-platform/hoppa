@@ -1,6 +1,6 @@
 import StateMachine from "./StateMachine";
 import { sharedInstance as events } from './EventManager';
-
+import * as CreatureLogic from './CreatureLogic';
 export default class BirdController {
     private scene: Phaser.Scene;
     private sprite: Phaser.Physics.Matter.Sprite;
@@ -101,6 +101,8 @@ export default class BirdController {
         events.off(this.name + '-stomped', this.handleStomped, this);
 
         this.sprite.play('dead');
+        this.sprite.setStatic(true);
+        this.sprite.setCollisionCategory(0);
         this.sprite.on('animationcomplete', () => {
             this.cleanup();
         });
@@ -120,6 +122,33 @@ export default class BirdController {
         else {
             this.stateMachine.setState('move-left');
         }
+    }
+ 
+    public lookahead(map: Phaser.Tilemaps.Tilemap): boolean {
+        if (this.sprite.active == false)
+            return false;
+        const x = this.sprite.x;
+        const y = this.sprite.y;
+        const sw = map.widthInPixels;
+
+        if( x >= sw - this.sprite.width ) {
+            this.stateMachine.setState("move-right");
+            return true;
+        }
+        if( x <= this.sprite.width/2 ) {
+            this.stateMachine.setState("move-left");
+            return true;
+        }
+            
+        if (CreatureLogic.hasTileAhead(map, this.scene.cameras.main, this.sprite, true, 0) && this.sprite.body?.velocity.y == 0) {
+            if (!this.sprite.flipX)
+                this.stateMachine.setState("move-left");
+            else
+                this.stateMachine.setState("move-right");
+            return true;
+        }
+
+        return false;
     }
 
     private cleanup() {

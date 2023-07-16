@@ -235,24 +235,19 @@ export default class Level2 extends BaseScene {
         this.matter.world.setBounds(0,0,this.map.widthInPixels, this.map.heightInPixels, 1, true, true,false, false);
 
 
-        this.matter.world.on( "collisionstart", (e: { pairs: any; }, o1: any, o2: any) => {
+        this.matter.world.on("collisionstart", (e: { pairs: any; }, o1: any, o2: any) => {
             const pairs = e.pairs;
-            for( let i = 0; i < pairs.length; i ++ ) {
+            for (let i = 0; i < pairs.length; i++) {
                 const bodyA = pairs[i].bodyA;
                 const bodyB = pairs[i].bodyB;
 
                 if (bodyA.gameObject === undefined)
                 continue;
-                
-                const dx = ~~ (bodyA.position.x - bodyB.position.x);
-                const dy = ~~ (bodyA.position.y - bodyB.position.y);
 
-                const { min,max } = bodyA.bounds;
-              
-                const bw = max.x - min.x;
-                const bh = (max.y - min.y ) * 0.5;
-                if( Math.abs(dx) <= bw && Math.abs(dy) <= bh ) {
-                    events.emit( bodyA.gameObject?.name + '-blocked', bodyA.gameObject);        
+                const dy = ~~(bodyB.position.y - bodyA.position.y);
+
+                if (dy <= 32) {
+                    events.emit(bodyA.gameObject?.name + '-blocked', bodyA.gameObject);
                 }
             }
         });

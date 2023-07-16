@@ -76,6 +76,16 @@ export default class CrowController {
         if (this.sprite.active == false)
             return false;
 
+            const x = this.sprite.x;
+            const y = this.sprite.y;
+            const sw = map.widthInPixels;
+            if( x >= sw - this.sprite.width ) {
+                this.stateMachine.setState("move-left");
+            }
+            if( x <= this.sprite.width/2 ) {
+                this.stateMachine.setState("move-right");
+            }
+
         return false;
     }
     private moveRightOnEnter() {
@@ -105,6 +115,8 @@ export default class CrowController {
         events.off(this.name + '-stomped', this.handleStomped, this);
         this.garbage = true;
         this.sprite.play('dead');
+        this.sprite.setStatic(true);
+        this.sprite.setCollisionCategory(0);
         this.sprite.on('animationcomplete', () => {
             this.cleanup();
         });

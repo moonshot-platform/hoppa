@@ -11,6 +11,7 @@ export function createCarrot(ctx, x, y, width, height): Phaser.Physics.Matter.Sp
         isSensor: true, label: 'carrot'
     }).play({key: 'carrot', startFrame: Phaser.Math.Between(0,5) }, true);
     carrot.setData('type', 'carrot');
+    carrot.setCollidesWith([1,2]);
     return carrot;
 }
 
@@ -29,6 +30,7 @@ export function createCoin(ctx, x, y, width, height): Phaser.Physics.Matter.Spri
     }).play({key: 'coin', startFrame: Phaser.Math.Between(0,4) }, true);
     
     coin.setData('type', 'coin');
+    coin.setCollidesWith([1,2]);
     return coin;
 }
 

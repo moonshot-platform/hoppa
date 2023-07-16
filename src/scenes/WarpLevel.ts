@@ -167,8 +167,8 @@ export default class WarpLevel extends BaseScene {
 
         const collideWith = [1, playerCat];
 
-        this.playerX = this.game.registry.get('playerX') || -1;
-        this.playerY = this.game.registry.get('playerY') || -1;
+        this.playerX = -1;
+        this.playerY = -1;
 
         const objectsLayer = this.map.getObjectLayer('objects');
         objectsLayer?.objects.forEach(objData => {
@@ -240,6 +240,7 @@ export default class WarpLevel extends BaseScene {
         });
 
         this.playerController?.setJoystick(this, width);
+
     }
 
     preDestroy() {
@@ -334,7 +335,10 @@ export default class WarpLevel extends BaseScene {
 
         this.flowers.forEach(flower => flower.update(deltaTime));
         this.plants.forEach(plant => plant.update(deltaTime));
-        this.birds.forEach(bird => bird.update(deltaTime));
+        this.birds.forEach(bird => {
+            bird.update(deltaTime); 
+            bird.lookahead(this.map);
+        });
         this.bats.forEach(bat => bat.update(deltaTime));
         this.bombs.forEach(bomb => bomb.update(deltaTime));
         this.bears.forEach(bear => bear.update(deltaTime));
@@ -350,7 +354,6 @@ export default class WarpLevel extends BaseScene {
 
 
         SceneFactory.cullSprites(this);
-        SceneFactory.resetSpawnPoint(this);
     }
 
     playerJumped() {

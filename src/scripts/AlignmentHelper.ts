@@ -7,8 +7,9 @@ export function createAligned(scene, totalWidth, hei, texture, scrollFactor, sca
         const m = scene.add
             .image(x, hei, texture)
             .setOrigin(0, 1)
-            .setScrollFactor(scrollFactor)
-            .setScale(scale);
+            .setScale(scale)
+            .setScrollFactor(scrollFactor);
+
 
         x += m.width;
     }

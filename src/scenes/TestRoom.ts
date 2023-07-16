@@ -131,7 +131,7 @@ export default class TestRoom extends Phaser.Scene {
 
     create() {
 
-        this.introMusic = SceneFactory.playRepeatMusic(this, 'angel-eyes');
+        this.introMusic = SceneFactory.playRandomMusic(this);
 
         this.lights.enable().setAmbientColor(0x333333);
 

@@ -267,7 +267,7 @@ export default class UI extends Phaser.Scene {
 
         this.time_start = 0;
         this.lasttick = 0;
-        
+        SceneFactory.resetSpawnPoint(this);
         this.resetSpawnPoint();
         this.scene.stop(); // stop UI
     }
@@ -327,6 +327,35 @@ export default class UI extends Phaser.Scene {
         }
         
         this.coinsLabel.text = `x ${this.info.coinsCollected}`;
+
+        const startColor = Phaser.Display.Color.ValueToColor(0xffffff);
+        const endColor = Phaser.Display.Color.ValueToColor(0xff0000);
+
+        this.tweens.addCounter({
+            from: 0,
+            to: 100,
+            duration: 100,
+            repeat: 2,
+            yoyo: true,
+            ease: Phaser.Math.Easing.Sine.InOut,
+            onUpdate: tween => {
+                const value = tween.getValue();
+                const colorObject = Phaser.Display.Color.Interpolate.ColorWithColor(
+                    startColor,
+                    endColor,
+                    100,
+                    value
+                );
+
+                const color = Phaser.Display.Color.GetColor (
+                    colorObject.r,
+                    colorObject.g,
+                    colorObject.b
+                );
+
+                this.coinsLabel.setTint(color);
+            }
+        });
     }
 
     private handleReset() {

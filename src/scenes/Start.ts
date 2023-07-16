@@ -153,10 +153,10 @@ export default class Start extends BaseScene {
                 const bodyA = pairs[i].bodyA;
                 const bodyB = pairs[i].bodyB;
 
-                const dx = ~~(bodyA.position.x - bodyB.position.x);
-                const dy = ~~(bodyA.position.y - bodyB.position.y);
+                const dx = ~~(bodyB.position.x - bodyA.position.x);
+                const dy = ~~(bodyB.position.y - bodyA.position.y);
 
-                if (Math.abs(dx) <= 64 && dy == 0) {
+                if (dy <= 32) {
                     events.emit(bodyA.gameObject?.name + '-blocked', bodyA.gameObject);
                 }
             }
@@ -309,7 +309,10 @@ export default class Start extends BaseScene {
 
         this.flowers.forEach(flower => flower.update(deltaTime));
         this.plants.forEach(plant => plant.update(deltaTime));
-        this.birds.forEach(bird => bird.update(deltaTime));
+        this.birds.forEach(bird => {
+            bird.update(deltaTime); 
+            bird.lookahead(this.map);
+        });
         this.bats.forEach(bat => bat.update(deltaTime));
         this.bombs.forEach(bomb => bomb.update(deltaTime));
         this.bears.forEach(bear => bear.update(deltaTime));

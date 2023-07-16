@@ -37,6 +37,8 @@ export default class StateMachine {
     }
 
     setState(name: string) {
+
+     
         if (!this.states.has(name)) {
             console.log("No such state",name);
             return;

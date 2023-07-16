@@ -74,14 +74,12 @@ export default class PlantController {
 
         if(!this.touched) {
             this.touched = true;
-            this.sprite.play('grow');
-            this.sprite.on(Phaser.Animations.Events.ANIMATION_COMPLETE, () => {
-                this.stateMachine.setState('dead');    
-            });
+            this.grow(true);
         }
         else {
             events.off(this.name + '-stomped', this.handleStomped, this);
-            this.stateMachine.setState('dead');
+             this.sprite.setStatic(true);
+             this.sprite.setCollisionCategory(0);
         }
 
         this.dead = true;
@@ -96,8 +94,20 @@ export default class PlantController {
 
         this.touched = true;
         events.off(this.name + '-touched', this.handleTouched, this);
+      
+    }
+
+    private grow(dies: boolean) {
+        const fh = [ 0,0, 16, 64, 96, 128,0,0 ];
         this.sprite.play('grow').on(Phaser.Animations.Events.ANIMATION_COMPLETE, () => {
-            this.stateMachine.setState('idle');
+            this.stateMachine.setState( dies ? 'dead': 'idle');
+        })
+        .on( 'animationupdate', (anim,frame) => {
+            if(anim.key === 'grow' ) {
+                const frameIndex = frame.index;
+                const newHeight = fh[ frameIndex ];
+                this.sprite.setBody({ height: newHeight });
+            }
         });
     }
 

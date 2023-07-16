@@ -11,6 +11,7 @@ import BarController from './BarController';
 import ObstaclesController from './ObstaclesController';
 import { GameSettings } from '~/scenes/GameSettings';
 import { randomBytes } from 'crypto';
+import PlayerController from './PlayerController';
 
 declare global {
     var musicTune: boolean;
@@ -324,22 +325,31 @@ export function removeAllSounds(ctx: Phaser.Scene) {
 export function loadSettings() {
     let info: GameSettings;
     const data = window.localStorage.getItem('ra8bit.audio');
-
+    
+    if(globalThis.musicVolume === undefined) {
     globalThis.musicVolume = 0.5;
+    }
+    if(globalThis.soundVolume === undefined) {
     globalThis.soundVolume = 1.0;
+    }
     globalThis.krasota = false;
 
     if (data != null) {
         const obj = JSON.parse(data);
         info = obj as GameSettings;
 
-        globalThis.musicVolume = info.musicVolume || 0.5;
-        globalThis.soundVolume = info.soundVolume || 1.0;
+        globalThis.musicVolume = info.musicVolume;
+        globalThis.soundVolume = info.soundVolume;
 
-        if (globalThis.musicVolume < 0 || globalThis.musicVolume > 1) {
-            globalThis.musicVolume = 0.5;
+        if( globalThis.musicVolume < 0 ) { 
+            globalThis.musicVolume = 0;
+        } else if ( globalThis.musicVolume > 1 ) {
+            globalThis.musicVolume = 1;
         }
-        if (globalThis.soundVolume < 0 || globalThis.soundVolume > 1) {
+
+        if( globalThis.soundVolume < 0 ) {
+            globalThis.soundVolume = 0;
+        } else if ( globalThis.soundVolume > 1 ) {
             globalThis.soundVolume = 1;
         }
     }  
@@ -618,8 +628,6 @@ export function preload(ctx) {
     ctx.load.audio( 'offtoday-vd', ['assets/offtoday-vd.mp3', 'assets/offtoday-vd.m4a' ]);
 
     setupHandlers(ctx);
-
-    globalThis.spawnLocation = 30 * 10;
 }
 
 export function cullSprites(ctx: Phaser.Scene) {
@@ -782,7 +790,7 @@ export function basicCreate(ctx, name, x, y, width, height, rotation, enemyCat, 
             break;
         }
         case 'tnt': {
-            ctx.tnts.push(CreatureHelper.createCreatureTNT(ctx, x, y, width, height, enemyCat, collideWith, controller));
+            ctx.tnts.push(CreatureHelper.createCreatureTNT(ctx, x, y, width, height, enemyCat, collideWith, controller, player));
             break;
         }
         case 'saw': {
@@ -855,7 +863,7 @@ export function basicCreate(ctx, name, x, y, width, height, rotation, enemyCat, 
                 vertices: [{ x: 0, y: 0 }, { x: 192, y: 0 }, { x: 192, y: 32 }, { x: 0, y: 32 }]
             });
 
-            const m = new MovingPlatform(ctx, x, y, to, duration, vert, platform, noautostart, platform.body.id);
+            const m = new MovingPlatform(ctx, x, y, to, duration, vert, platform, noautostart, platform.body.id, player);
             controller.add('platform', platform, platform.body as MatterJS.BodyType);
             break;
         }
@@ -871,7 +879,7 @@ export function basicCreate(ctx, name, x, y, width, height, rotation, enemyCat, 
                 vertices: [{ x: 0, y: 0 }, { x: 64, y: 0 }, { x: 64, y: 64 }, { x: 0, y: 64 }]
             });
 
-            const m = new MovingMushroom(ctx, x, y, to, duration, vert, platform, noautostart, platform.body.id);
+            const m = new MovingMushroom(ctx, x, y, to, duration, vert, platform, noautostart, platform.body.id, player);
             controller.add('mushroom-platform', platform, platform.body as MatterJS.BodyType);
             break;
         }

@@ -44,6 +44,7 @@ export default class PlayerController {
     private bonusObjects = ['berry', 'pow', 'star', 'rubber1', 'rubber2', 'rubber3'];
     private standingOnFloor = false;
     private standingOnPlatform = false;
+    private platformId = -1;
     private wasStandingOnFloor = false;
 
     private cannotThrow = false;
@@ -1278,6 +1279,8 @@ export default class PlayerController {
 
         this.isDead = true;
 
+        SceneFactory.resetSpawnPoint(this.scene);
+
         console.log("Player died! ");
 
         this.sprite.setInteractive(false);
@@ -1509,9 +1512,8 @@ export default class PlayerController {
     public updateSpawnlocation() {
         if(this.sprite === undefined || this.sprite.body === undefined)
             return;
-     
+
         if(globalThis.spawnLocation > 0) {
-            SceneFactory.resetSpawnPoint(this.scene);
             globalThis.spawnLocation --;
             return;
         }
@@ -1536,16 +1538,34 @@ export default class PlayerController {
         }
     }
 
+    public changePosition(x, y, platform: Phaser.Physics.Matter.Sprite) {
+        
+        const solid = platform.body as MatterJS.BodyType;
+        const id = solid.id;
+        if( id != this.platformId || !this.standingOnPlatform) {
+            return;
+        }
+        this.sprite.setPosition(
+            Phaser.Math.RoundTo(this.sprite.body.position.x + x),
+            Phaser.Math.RoundTo(this.sprite.body.position.y + y)
+        );
+    }
+
+    public changeVelocity() {
+        this.sprite.setVelocityY( -1 * this.playerJump * 2.55 );
+    }
+
     private handlePlatform(body: MatterJS.BodyType) {
+        this.standingOnPlatform = true;      
+        this.platformId = body.id;
+
         const vec = body.gameObject?.getData('relpos' + body.id);
         if( vec !== undefined) {
             this.sprite.setPosition(
                 Phaser.Math.RoundTo(this.sprite.body.position.x + vec.x),
                 Phaser.Math.RoundTo(this.sprite.body.position.y + vec.y)
             );
-        }
- 
-        this.standingOnPlatform = true;      
+        } 
     }
 
     private bounceTile(body: MatterJS.BodyType) {
@@ -1832,6 +1852,7 @@ export default class PlayerController {
                 this.stateMachine.setState('idle');
             },
             onComplete: () => {
+                SceneFactory.resetSpawnPoint(this.scene);
                 this.scene.scene.stop('warp'); //@ this is only possible from warp level
                 events.emit('warp-level', level );
             }

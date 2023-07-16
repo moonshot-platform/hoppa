@@ -92,6 +92,7 @@ export default class Level7 extends BaseScene {
         this.saws = [];
         this.boss = [];
         this.doors = [];
+
         this.neon = [];
         this.bars = [];
         this.objects = [];
@@ -260,13 +261,9 @@ export default class Level7 extends BaseScene {
                 if (bodyA.gameObject === undefined)
                     continue;
 
-                const dx = ~~(bodyA.position.x - bodyB.position.x);
-                const dy = ~~(bodyA.position.y - bodyB.position.y);
-                const { min, max } = bodyA.bounds;
-                const bw = max.x - min.x;
-                const bh = (max.y - min.y) * 0.5;
+                const dy = ~~(bodyB.position.y - bodyA.position.y);
 
-                if (Math.abs(dx) <= bw && Math.abs(dy) <= bh) {
+                if (dy <= 32) {
                     events.emit(bodyA.gameObject?.name + '-blocked', bodyA.gameObject);
                 }
             }
@@ -313,8 +310,8 @@ export default class Level7 extends BaseScene {
         this.crows.forEach(crow => crow.destroy());
         this.saws.forEach(saw => saw.destroy());
         this.boss.forEach(boss=>boss.destroy());
-
         this.neon.forEach(n=>n.destroy());
+
         this.bars.forEach(b=>b.destroy());
         
         this.ground1.destroy();
@@ -341,8 +338,11 @@ export default class Level7 extends BaseScene {
         this.bats = this.bats.filter(e => e.keepObject());
         this.dragons = this.dragons.filter(e => e.keepObject());
         this.bears = this.bears.filter(e => e.keepObject());
+        
+        this.crows = this.crows.filter(e => e.keepObject());
         this.boss = this.boss.filter(e=>e.keepObject());
-      
+        this.flies = this.flies.filter(e=>e.keepObject());
+
         this.monsters.forEach(monster => {
             monster.update(deltaTime);
             monster.lookahead(this.map);
@@ -378,11 +378,15 @@ export default class Level7 extends BaseScene {
 
         this.flowers.forEach(flower => flower.update(deltaTime));
         this.plants.forEach(plant => plant.update(deltaTime));
-        this.birds.forEach(bird => bird.update(deltaTime));
+        this.birds.forEach(bird => {
+            bird.update(deltaTime); 
+            bird.lookahead(this.map);
+        });
         this.bats.forEach(bat => bat.update(deltaTime));
         this.bombs.forEach(bomb => bomb.update(deltaTime));
         this.bears.forEach(bear => bear.update(deltaTime));
         this.tnts.forEach(tnt => tnt.update(deltaTime));
+        this.crows.forEach(crow => crow.update(deltaTime));
         this.saws.forEach(saw => {
             saw.update(deltaTime);
             saw.lookahead(this.map);
